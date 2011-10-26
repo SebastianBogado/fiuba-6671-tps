@@ -1,4 +1,4 @@
-#include "../include/Esfera.h"
+#include "Esfera.h"
 
 Esfera::Esfera(){
     this->radio = 1;

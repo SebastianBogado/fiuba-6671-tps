@@ -3,6 +3,7 @@
 
 #include "Curva.h"
 #include "Punto.h"
+#include <cmath>
 
 class Superficie{
     public:

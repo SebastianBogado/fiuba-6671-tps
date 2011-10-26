@@ -1,9 +1,11 @@
 #ifndef __CIRCUNFERENCIA_H__
 #define __CIRCUNFERENCIA_H__
 
-#include <math.h>
 #include "Curva.h"
 #include "Punto.h"
+#include <cmath>
+
+#define M_PI 3.14159265358979323846
 
 class Circunferencia : public Curva{
     public:
