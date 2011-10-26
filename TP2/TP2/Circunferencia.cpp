@@ -1,4 +1,4 @@
-#include "../include/Circunferencia.h"
+#include "Circunferencia.h"
 
 Circunferencia::Circunferencia(){
     this->paso = 32;

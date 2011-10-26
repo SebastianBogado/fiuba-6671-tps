@@ -1,4 +1,4 @@
-#include "../include/Curva.h"
+#include "Curva.h"
 
 Curva::~Curva(){
             for(int i = 0; i < cantidadDePuntos; i++){

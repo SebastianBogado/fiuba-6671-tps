@@ -1,4 +1,4 @@
-#include "../include/Cuadrado.h"
+#include "Cuadrado.h"
 
 Cuadrado::Cuadrado(){
     this->paso = 1;

@@ -1,4 +1,4 @@
-#include "../include/Superficie.h"
+#include "Superficie.h"
 
 Superficie::~Superficie(){ delete this->curvaBorde; }
 

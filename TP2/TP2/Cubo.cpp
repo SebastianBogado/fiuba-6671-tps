@@ -1,4 +1,4 @@
-#include "../include/Cubo.h"
+#include "Cubo.h"
 
 Cubo::Cubo(){
     this->lado = 1;
