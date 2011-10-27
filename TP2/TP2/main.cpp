@@ -9,9 +9,9 @@
 //#pragma comment(linker,"/subsystem:\"windows\" /entry:\"mainCRTStartup\"") //evitar consola
 
 #ifdef __APPLE__
-#include <GLUT/glut.h>
+#include <GLUT/glew.h>
 #else
-#include <GL/glut.h>
+#include <GL/glew.h>
 #endif
 
 #include <math.h>
@@ -34,7 +34,7 @@ HUD* hud;
 
 
 // Variables que controlan la ubicación de la cámara en la Escena 3D
-float eye[3] = {5.0, 5.0, 3.0};
+float eye[3] = {3.0, 3.0, 2.0};
 float at[3]  = { 0.0,  0.0, 0.0};
 float up[3]  = { 0.0,  0.0, 1.0};
 
@@ -77,9 +77,9 @@ GLuint dl_handle;
 #define TOP_VIEW_W		((int)((float)W_WIDTH*0.40f))
 #define TOP_VIEW_POSY	((int)((float)W_HEIGHT*0.60f))
 #define TOP_VIEW_H		((int)((float)W_HEIGHT*0.40f))
+*/
 
-
-
+/*
 void DrawAxis()
 {
 	glDisable(GL_LIGHTING);
@@ -145,7 +145,7 @@ void DrawXYGrid()
 */
 void Set3DEnv()
 {
-	glViewport (0, 0, (GLsizei) W_WIDTH, (GLsizei) W_HEIGHT); 
+	glViewport (10, -80, (GLsizei) W_WIDTH, (GLsizei) W_HEIGHT); 
     glMatrixMode (GL_PROJECTION);
     glLoadIdentity ();
     gluPerspective(60.0, (GLfloat) W_WIDTH/(GLfloat) W_HEIGHT, 0.10, 100.0);
@@ -225,7 +225,7 @@ void escena(void)
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Set3DEnv();
 	gluLookAt (eye[0], eye[1], eye[2], at[0], at[1], at[2], up[0], up[1], up[2]);
-  
+
 	/*///////////////////////////////////////////////////
 	// Escena 3D
 	
