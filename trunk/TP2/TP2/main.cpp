@@ -61,12 +61,8 @@ extern bool verEsferizar;
 float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
 float light_position[3] = {10.0f, 10.0f, 8.0f};
 float light_ambient[4] = {0.05f, 0.05f, 0.05f, 1.0f};
-
-// Variables de control
-bool view_grid = true;
-bool view_axis = true;
-bool edit_panel = false;
 */
+
 
 // Handle para el control de las Display Lists
 GLuint dl_handle;
@@ -75,77 +71,7 @@ GLuint dl_handle;
 #define DL_TOROIDE (dl_handle+2)
 #define DL_CILINDRO (dl_handle+3)
 
-/*
-#define TOP_VIEW_POSX	((int)((float)W_WIDTH*0.60f))
-#define TOP_VIEW_W		((int)((float)W_WIDTH*0.40f))
-#define TOP_VIEW_POSY	((int)((float)W_HEIGHT*0.60f))
-#define TOP_VIEW_H		((int)((float)W_HEIGHT*0.40f))
-*/
 
-/*
-void DrawAxis()
-{
-	glDisable(GL_LIGHTING);
-	glBegin(GL_LINES);
-		// X
-		glColor3f(1.0, 0.0, 0.0);
-		glVertex3f(0.0, 0.0, 0.0);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex3f(15.0, 0.0, 0.0);
-		// Y
-		glColor3f(0.0, 1.0, 0.0);
-		glVertex3f(0.0, 0.0, 0.0);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex3f(0.0, 15.0, 0.0);
-		// Z
-		glColor3f(0.0, 0.0, 1.0);
-		glVertex3f(0.0, 0.0, 0.0);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex3f(0.0, 0.0, 15.0);
-	glEnd();
-	glEnable(GL_LIGHTING);
-}
-
-void DrawAxis2DTopView()
-{
-	glDisable(GL_LIGHTING);
-	glBegin(GL_LINE_LOOP);
-		// X
-		glColor3f(0.0f, 0.5f, 1.0f);
-		glVertex3f(0.0f, 0.0f, 0.0f);
-		glVertex3f(1.0f, 0.0f, 0.0f);
-		glVertex3f(1.0f, 1.0f, 0.0f);
-		glVertex3f(0.0f, 1.0f, 0.0f);
-	glEnd();
-	glBegin(GL_QUADS);
-		glColor3f(0.1f, 0.1f, 0.1f);
-		glVertex3f(0.0f, 0.0f, 0.0f);
-		glVertex3f(1.0f, 0.0f, 0.0f);
-		glVertex3f(1.0f, 1.0f, 0.0f);
-		glVertex3f(0.0f, 1.0f, 0.0f);
-	glEnd();
-
-	glEnable(GL_LIGHTING);
-}
-
-
-void DrawXYGrid()
-{
-	int i;
-	glDisable(GL_LIGHTING);
-	glColor3f(0.25f, 0.2f, 0.2f);
-	glBegin(GL_LINES);
-	for(i=-20; i<21; i++)
-	{
-		glVertex3f((float)i, -20.0f, 0.0f);
-		glVertex3f((float)i,  20.0f, 0.0f);
-		glVertex3f(-20.0f, (float)i, 0.0f);
-		glVertex3f( 20.0f, (float)i, 0.0f);
-	}
-	glEnd();
-	glEnable(GL_LIGHTING);
-}
-*/
 void Set3DEnv()
 {
 	glViewport (10, -80, (GLsizei) W_WIDTH, (GLsizei) W_HEIGHT); 
@@ -153,16 +79,6 @@ void Set3DEnv()
     glLoadIdentity ();
     gluPerspective(60.0, (GLfloat) W_WIDTH/(GLfloat) W_HEIGHT, 0.10, 100.0);
 }
-/*
-void SetPanelTopEnv()
-{
-	glViewport (TOP_VIEW_POSX, TOP_VIEW_POSY, (GLsizei) TOP_VIEW_W, (GLsizei) TOP_VIEW_H); 
-    glMatrixMode (GL_PROJECTION);
-    glLoadIdentity ();
-	gluOrtho2D(-0.10, 1.05, -0.10, 1.05);
-}
-*/
-
 
 void init(void) 
 {
@@ -229,28 +145,13 @@ void escena(void)
 	Set3DEnv();
 	gluLookAt (eye[0], eye[1], eye[2], at[0], at[1], at[2], up[0], up[1], up[2]);
 
-	/*///////////////////////////////////////////////////
-	// Escena 3D
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	
-	if (view_axis)
-		 glCallList(DL_AXIS);
-	
-	if (view_grid)
-		 glCallList(DL_GRID);
 
-	//
-	///////////////////////////////////////////////////
-
-    ///////////////////////////////////////////////////
-	//
-	// Draw here
-	//
-	*/
 	glDisable(GL_LIGHTING);
 	glColor3f(0.0, 0.25, 0.75);
+
 	//selección de primitiva
 	if (verEsfera)
 		glCallList(DL_ESFERA);
@@ -284,23 +185,6 @@ void escena(void)
 
 	//aplicar shaders
 	shaderManager->usarPrograma();
-
-	//
-	///////////////////////////////////////////////////
-
-
-	///////////////////////////////////////////////////
-	// Panel 2D para la vista superior
-/*	if (edit_panel)
-	{
-		SetPanelTopEnv();
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		gluLookAt (0, 0, 0.5, 0, 0, 0, 0, 1, 0);
-		glCallList(DL_AXIS2D_TOP);
-	}
-	*///
-	///////////////////////////////////////////////////
 	
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -400,6 +284,7 @@ int main(int argc, char** argv){
 
 	hud = new HUD(ventanaPrincipal, ancho, alto);
 	glewInit();
+
 	shaderManager = new ShaderManager();
 	
 		

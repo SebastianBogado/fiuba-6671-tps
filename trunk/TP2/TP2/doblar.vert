@@ -1,5 +1,6 @@
 //Vertex shader mínimo
 
-void main(){
+void main()
+{
 	gl_Position = ftransform();
 }

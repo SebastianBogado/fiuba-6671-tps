@@ -126,30 +126,32 @@ void ShaderManager::usarFragmentShaderMaterialSombreadoSemimate(){
 
 void ShaderManager::inicializarVertexShaders(){	
 	GLSLangShader shaderAux;
-	if ( shaderAux.compileShaderFromString( NOMBRE_ARCHIVO_VERTEX_SHADER_RETORCER, VERTEX ) )
+
+	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO, VERTEX ) )
 		vertexShaders[RETORCER] = shaderAux.getShaderHandle();
-	
-	if ( shaderAux.compileShaderFromString( NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO, VERTEX ) )
+
+	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO, VERTEX ) )
 		vertexShaders[RUIDO] = shaderAux.getShaderHandle();
 	
-	if ( shaderAux.compileShaderFromString( NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR, VERTEX ) )
+	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR, VERTEX ) )
 		vertexShaders[DOBLAR] = shaderAux.getShaderHandle();
 	
-	if ( shaderAux.compileShaderFromString( NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR, VERTEX ) )
+	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR, VERTEX ) )
 		vertexShaders[ESFERIZAR] = shaderAux.getShaderHandle();
 }
 
 void ShaderManager::inicializarFragmentShaders(){	
 	GLSLangShader shaderAux;
-	if ( shaderAux.compileShaderFromString( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE, FRAGMENT ) )
+
+	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE, FRAGMENT ) )
 		fragmentShaders[MATERIAL_SOMBREADO_BRILLANTE] = shaderAux.getShaderHandle();
 	
-	if ( shaderAux.compileShaderFromString( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO, FRAGMENT ) )
+	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO, FRAGMENT ) )
 		fragmentShaders[MATERIAL_SOMBREADO_TEXTURADO] = shaderAux.getShaderHandle();
 	
-	if ( shaderAux.compileShaderFromString( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO, FRAGMENT ) )
+	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO, FRAGMENT ) )
 		fragmentShaders[MATERIAL_REFLECTIVO] = shaderAux.getShaderHandle();
 	
-	if ( shaderAux.compileShaderFromString( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE, FRAGMENT ) )
+	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE, FRAGMENT ) )
 		fragmentShaders[MATERIAL_SOMBREADO_SEMIMATE] = shaderAux.getShaderHandle();
 }

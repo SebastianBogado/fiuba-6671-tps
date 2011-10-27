@@ -25,10 +25,12 @@ protected:
 	string logString;
 
 	bool fileExists( const string & fileName );
+	//Devuelve una cadena con todo el contenido del archivo
+	const char* cargarArchivo(string fileName);
 public:
 	GLSLangShader();
 	virtual bool compileShaderFromFile( const char * fileName, GLSLShaderType type );
-	virtual bool compileShaderFromString( const string & source, GLSLShaderType type );
+	virtual bool compileShaderFromFile( const string & source, GLSLShaderType type );
 
 	string log();
 	int getShaderHandle();
