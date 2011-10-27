@@ -14,7 +14,7 @@ bool GLSLangShader::compileShaderFromFile( const string & fileName, GLSLShaderTy
 	bool todoEnOrden = true;
 	if (!fileExists(fileName))
 		return !todoEnOrden;
-	else
+	else{
 		switch (type){
 			case VERTEX:
 				shaderHandle = glCreateShader(GL_VERTEX_SHADER);
@@ -34,10 +34,11 @@ bool GLSLangShader::compileShaderFromFile( const string & fileName, GLSLShaderTy
 			default:
 				shaderHandle = 0;
 				break;
-
+		}
 		if (shaderHandle == 0) return !todoEnOrden;
 		
-		const GLchar* codeArray[] = {cargarArchivo(fileName)};
+		const char* aux = cargarArchivo(fileName);
+		const GLchar* codeArray[] = {aux};
 		glShaderSource(shaderHandle, 1, codeArray, NULL);
 		glCompileShader(shaderHandle);
 		
@@ -57,10 +58,12 @@ bool GLSLangShader::compileShaderFromFile( const string & fileName, GLSLShaderTy
 				return !todoEnOrden;
 			}
 		}
+		return todoEnOrden;	
 	}
-
-	return todoEnOrden;
 }
+
+	
+
 
 string GLSLangShader::log(){ return logString; }
 
@@ -72,12 +75,22 @@ bool GLSLangShader::fileExists( const string & fileName ){
 }
 
 const char* GLSLangShader::cargarArchivo(string fileName){
-	ifstream file (fileName, ios::in|ios::binary|ios::ate);
+	std::fstream archivo;
+	archivo.open(fileName.c_str(), std::fstream::in);
+	if (!archivo.is_open()) 
+		cout << "Problemas abriendo el archivo." << endl;
+	else
+		cout << "Se abrió el archivo" << endl;
+	
+	string archivoEntero;
+	do{
+		char linea[256];
+		archivo.getline( (char*)&linea , 256 , '\n');
+		string aux = linea;
+		archivoEntero += aux;
+	} while ( !archivo.eof() );
 
-	int size = file.tellg();
-	char *contents = new char [size];
-	file.seekg (0, ios::beg);
-	file.read (contents, size);
-	file.close();
-	return contents;	
+ 	archivo.close();
+	cout << archivoEntero.c_str() << endl;
+	return archivoEntero.c_str();
 }
