@@ -26,7 +26,7 @@ private:
 public:
 	GLSLProgram();
 	bool compileShaderFromFile( const char * fileName, GLSLShaderType type );
-	bool compileShaderFromString( const string & source, GLSLShaderType type );
+	bool compileShaderFromFile( const string & fileName, GLSLShaderType type );
 
 	//Recibe los handles de un vertex shader y frag shader y los linkea. 
 	//Desprecia todo shader que podría tener linkeado anteriormente, porque lo hace con un programa nuevo

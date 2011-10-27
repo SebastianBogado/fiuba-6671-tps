@@ -5,65 +5,15 @@ GLSLProgram::GLSLProgram(){
 }
 
 bool GLSLProgram::compileShaderFromFile( const char * fileName, GLSLShaderType type ){
-	GLuint shader;
-	switch (type){
-		case VERTEX:
-			shader = glCreateShader(GL_VERTEX_SHADER);
-			break;
-		case FRAGMENT:
-			shader = glCreateShader(GL_FRAGMENT_SHADER);
-			break;
-		case GEOMETRY:
-			shader = glCreateShader(GL_GEOMETRY_SHADER);
-			break;
-		case TESS_CONTROL:
-			shader = glCreateShader(GL_TESS_CONTROL_SHADER);
-			break;
-		case TESS_EVALUATION:
-			shader = glCreateShader(GL_TESS_EVALUATION_SHADER);
-			break;
-		default:
-			shader = 0;
-			break;
-	}
-	if (shader == 0) return false;
-
-	const GLchar* codeArray[] = {fileName};
-	glShaderSource(shader, 1, codeArray, NULL);
-	glCompileShader(shader);
-	
-	GLint result;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &result );
-	if( GL_FALSE == result ){
-		cout << "Falló la compilación" << endl;
-		return false;
-		GLint logLen;
-		glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &logLen );
-		if( logLen > 0 ){
-			char * log = (char *)malloc(logLen);
-			GLsizei written;
-			glGetShaderInfoLog(shader, logLen, &written, log);
-			cout << "Shader log: " << log << endl;
-			logString = log;
-			free(log);
-		}
-	}
-
-	//si es el primer shader que se compila:
-	if (programHandle == 0) programHandle = glCreateProgram();
-
-	//si no se pudo crear el programa por alguna razón:
-	if (programHandle == 0){
-		cout << "Error creando el programa del shader" << endl;
-		return false;
-	}
-	glAttachShader(programHandle, shader);
-	return true;
+	return compileShaderFromFile(string(fileName), type);
 }
 
-bool GLSLProgram::compileShaderFromString( const string & source, GLSLShaderType type ){
+bool GLSLProgram::compileShaderFromFile( const string & fileName, GLSLShaderType type ){
 	GLuint handle;
-	if (fileExists(source)){
+	bool todoEnOrden = true;
+	if (!fileExists(fileName))
+		return !todoEnOrden;
+	else
 		switch (type){
 			case VERTEX:
 				handle = glCreateShader(GL_VERTEX_SHADER);
@@ -83,23 +33,17 @@ bool GLSLProgram::compileShaderFromString( const string & source, GLSLShaderType
 			default:
 				handle = 0;
 				break;
-		}
 
-		if (handle == 0) return false;
-
-		GLchar* aux = new GLchar[source.length()];
-		for (int i = 0; i < source.length(); i++){
-			aux[i] = source[i];
-		}
-		const GLchar* codeArray[] = {aux};
+		if (handle == 0) return !todoEnOrden;
+		
+		const GLchar* codeArray[] = {cargarArchivo(fileName)};
 		glShaderSource(handle, 1, codeArray, NULL);
 		glCompileShader(handle);
-	
+		
 		GLint result;
 		glGetShaderiv(handle, GL_COMPILE_STATUS, &result );
 		if( GL_FALSE == result ){
 			cout << "Falló la compilación" << endl;
-			return false;
 			GLint logLen;
 			glGetShaderiv( handle, GL_INFO_LOG_LENGTH, &logLen );
 			if( logLen > 0 ){
@@ -109,6 +53,7 @@ bool GLSLProgram::compileShaderFromString( const string & source, GLSLShaderType
 				cout << "Shader log: " << log << endl;
 				logString = log;
 				free(log);
+				return !todoEnOrden;
 			}
 		}
 	}
@@ -119,10 +64,10 @@ bool GLSLProgram::compileShaderFromString( const string & source, GLSLShaderType
 	//si no se pudo crear el programa por alguna razón:
 	if (programHandle == 0){
 		cout << "Error creando el programa del shader" << endl;
-		return false;
+		return !todoEnOrden;
 	}
 	glAttachShader(programHandle, handle);
-	return true;
+	return todoEnOrden;
 }
 
 

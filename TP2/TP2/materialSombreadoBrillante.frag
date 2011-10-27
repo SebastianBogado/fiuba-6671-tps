@@ -1,5 +1,7 @@
-//Fragment shader básico
-
-void main(){
-	gl_FragColor = vec4(gl_Color, 1.0);
+#version 120
+in vec3 Color;
+out vec4 FragColor;
+void main() 
+{
+	FragColor = vec4(Color, 1.0);
 }

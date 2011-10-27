@@ -46,25 +46,18 @@ void Emparchador::emparchar(Superficie* superficie){
     float* puntoSuperior;
     float* ultimoPuntoInferior;
     float* ultimoPuntoSuperior;
+	glEnable(GL_DEPTH_TEST);
+
     for (int i = 0; i < superficie->cantidadDePuntosEnAlto(); i++){
-
- glBindTexture (GL_TEXTURE_2D, LoadTextureRAW( "earth.raw" ));
-
         glBegin(GL_TRIANGLE_STRIP);
             for (int j = 0; j < superficie->cantidadDePuntosBorde(); j++){
                 puntoInferior = superficie->getPunto(j, j, i);
                 puntoSuperior = superficie->getPunto(j, j, i+1);
-                float random1=float(rand())/float(RAND_MAX);
-                float random2=float(rand())/float(RAND_MAX);
-                glTexCoord2f(puntoInferior[0]/1000,puntoInferior[0]/1000);
+
                 glVertex3fv(puntoInferior);
-
-
-                random1=float(rand())/float(RAND_MAX);
-                random2=float(rand())/float(RAND_MAX);
-                glTexCoord2f(puntoSuperior[0]/1000,puntoSuperior[0]/1000);
-                glVertex3fv(puntoSuperior);
-                delete []puntoInferior;
+				glVertex3fv(puntoSuperior);
+                
+				delete []puntoInferior;
                 delete []puntoSuperior;
             }
             ultimoPuntoInferior = superficie->getPunto(0, 0, i);
