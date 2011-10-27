@@ -5,6 +5,7 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
+#include "GLSLangShader.h"
 using glm::vec3;
 using glm::vec4;
 using glm::mat3;
@@ -15,31 +16,27 @@ using std::string;
 using std::cout;
 using std::endl;
 
-namespace GLSLShader {
-	enum GLSLShaderType {
-		VERTEX, 
-		FRAGMENT, 
-		GEOMETRY,
-		TESS_CONTROL,
-		TESS_EVALUATION};
-};
-
-class GLSLProgram{
+class GLSLProgram: public GLSLangShader{
 private:
-	int handle;
+	int programHandle;
 	bool linked;
 	string logString;
 	int getUniformLocation(const char * name );
-	bool fileExists( const string & fileName );
+
 public:
 	GLSLProgram();
-	bool compileShaderFromFile( const char * fileName, GLSLShader::GLSLShaderType type );
-	bool compileShaderFromString( const string & source, GLSLShader::GLSLShaderType type );
+	bool compileShaderFromFile( const char * fileName, GLSLShaderType type );
+	bool compileShaderFromString( const string & source, GLSLShaderType type );
+
+	//Recibe los handles de un vertex shader y frag shader y los linkea. 
+	//Desprecia todo shader que podría tener linkeado anteriormente, porque lo hace con un programa nuevo
+	bool link(GLuint vertexShader, GLuint fragmentShader);
 	bool link();
 	void use();
 	string log();
-	int getHandle();
+	int getProgramHandle();
 	bool isLinked();
+	
 	void bindAttribLocation( GLuint location, const char * name);
 	void bindFragDataLocation( GLuint location, const char * name );
 	void setUniform(const char *name,float x,float y, float z);
