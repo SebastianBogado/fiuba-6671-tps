@@ -69,6 +69,7 @@
     <ClCompile Include="Curva.cpp" />
     <ClCompile Include="Emparchador.cpp" />
     <ClCompile Include="Esfera.cpp" />
+    <ClCompile Include="GLSLangShader.cpp" />
     <ClCompile Include="GLSLProgram.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="main.cpp" />
@@ -86,6 +87,7 @@
     <ClInclude Include="Curva.h" />
     <ClInclude Include="Emparchador.h" />
     <ClInclude Include="Esfera.h" />
+    <ClInclude Include="GLSLangShader.h" />
     <ClInclude Include="GLSLProgram.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="MenuDeCuatroBotones.h" />

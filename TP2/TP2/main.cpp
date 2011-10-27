@@ -195,7 +195,7 @@ void init(void)
 	*/
 
 	glNewList(DL_CILINDRO, GL_COMPILE);
-        superficie = new Cilindro;
+        superficie = new Cilindro(.7,1.5,32);
         emparchador.emparchar(superficie);
         delete superficie;
 	glEndList();
