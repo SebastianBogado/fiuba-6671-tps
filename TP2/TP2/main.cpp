@@ -8,10 +8,11 @@
 
 //#pragma comment(linker,"/subsystem:\"windows\" /entry:\"mainCRTStartup\"") //evitar consola
 
-#ifdef __APPLE__
-#include <GLUT/glew.h>
-#else
 #include <GL/glew.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
 #endif
 
 #include <math.h>
@@ -353,26 +354,6 @@ void keyboard (unsigned char key, int x, int y)
    }
 }
 
-void mouseBotonPrueba1(int button, int state, int x, int y){
-	glutCreateMenu(NULL);
-	glutAddMenuEntry("boton 1", 1);
-	glutAttachMenu(GLUT_RIGHT_BUTTON);
-}
-void mouseBotonPrueba2(int button, int state, int x, int y){
-	glutCreateMenu(NULL);
-	glutAddMenuEntry("boton 2", 1);
-	glutAttachMenu(GLUT_RIGHT_BUTTON);
-}
-void mouseBotonPrueba3(int button, int state, int x, int y){
-	glutCreateMenu(NULL);
-	glutAddMenuEntry("boton 3", 1);
-	glutAttachMenu(GLUT_RIGHT_BUTTON);
-}
-void mouseBotonPrueba4(int button, int state, int x, int y){
-	glutCreateMenu(NULL);
-	glutAddMenuEntry("boton 4", 1);
-	glutAttachMenu(GLUT_RIGHT_BUTTON);
-}
 int main(int argc, char** argv){	
 	int ancho = 800;
 	int alto = 600;
@@ -393,16 +374,8 @@ int main(int argc, char** argv){
 	init ();
 
 	hud = new HUD(ventanaPrincipal, ancho, alto);
-	/*
-	Boton pruebaBoton1("", mouseBotonPrueba1);
-	Boton pruebaBoton2("", mouseBotonPrueba2);
-	Boton pruebaBoton3("", mouseBotonPrueba3);
-	Boton pruebaBoton4("", mouseBotonPrueba4);
-	Boton botones[4] = {pruebaBoton1, pruebaBoton2, pruebaBoton3, pruebaBoton4};
-	MenuDeCuatroBotones pruebaMenu(ventanaPrincipal, 50, 50, 400, 100, botones);
-	
-	MenuDeCuatroBotones pruebaMenu(ventanaPrincipal, 50, 50, 100, 400, botones);
-	*/
+	glewInit();
+		
 	//loop principal
 	glutMainLoop();
     return 0;

@@ -69,10 +69,12 @@
     <ClCompile Include="Curva.cpp" />
     <ClCompile Include="Emparchador.cpp" />
     <ClCompile Include="Esfera.cpp" />
+    <ClCompile Include="GLSLProgram.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuDeCuatroBotones.cpp" />
     <ClCompile Include="MouseCallbacks.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="Superficie.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -84,11 +86,20 @@
     <ClInclude Include="Curva.h" />
     <ClInclude Include="Emparchador.h" />
     <ClInclude Include="Esfera.h" />
+    <ClInclude Include="GLSLProgram.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="MenuDeCuatroBotones.h" />
     <ClInclude Include="MouseCallbacks.h" />
     <ClInclude Include="Punto.h" />
+    <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="Superficie.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\freeglut.lib" />
+    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32.lib" />
+    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32mx.lib" />
+    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32mxs.lib" />
+    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32s.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
