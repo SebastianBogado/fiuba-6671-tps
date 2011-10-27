@@ -95,7 +95,10 @@ bool GLSLProgram::link(){
 }
 
 void GLSLProgram::use(){
-	if (linked) glUseProgram(programHandle);
+	if (linked)
+		glUseProgram(programHandle);
+	else
+		cout << "El programa no ha sido linkeado" << endl;
 }
 
 string GLSLProgram::log(){ return logString; }
