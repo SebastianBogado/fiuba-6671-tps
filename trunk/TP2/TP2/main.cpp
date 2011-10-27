@@ -6,7 +6,9 @@
 /// info@sg6671.com.ar
 ///
 
-//#pragma comment(linker,"/subsystem:\"windows\" /entry:\"mainCRTStartup\"") //evitar consola
+#ifndef _DEBUG
+#pragma comment(linker,"/subsystem:\"windows\" /entry:\"mainCRTStartup\"") //evitar consola en modo Release
+#endif
 
 #include <GL/glew.h>
 #ifdef __APPLE__
