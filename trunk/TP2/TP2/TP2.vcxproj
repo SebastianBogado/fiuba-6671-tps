@@ -103,6 +103,16 @@
     <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32mxs.lib" />
     <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32s.lib" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="doblar.vert" />
+    <None Include="esferizar.vert" />
+    <None Include="materialReflectivo.frag" />
+    <None Include="materialSombreadoBrillante.frag" />
+    <None Include="materialSombreadoSemimate.frag" />
+    <None Include="materialSombreadoTexturado.frag" />
+    <None Include="retorcer.vert" />
+    <None Include="ruido.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{a1fade30-44da-47ad-adf6-74c1b452aed1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -123,5 +126,31 @@
     <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32mx.lib" />
     <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32mxs.lib" />
     <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32s.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="retorcer.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="ruido.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="doblar.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="esferizar.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="materialSombreadoBrillante.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="materialSombreadoTexturado.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="materialReflectivo.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="materialSombreadoSemimate.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

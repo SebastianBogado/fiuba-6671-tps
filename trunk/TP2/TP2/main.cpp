@@ -19,6 +19,7 @@
 #include <iostream>
 using namespace std;
 #include "HUD.h"
+#include "ShaderManager.h"
 #include "Emparchador.h"
 #include "Esfera.h"
 #include "Cubo.h"
@@ -32,6 +33,7 @@ GLfloat window_size[2];
 #define W_HEIGHT window_size[1]
 
 HUD* hud;
+ShaderManager* shaderManager;
 
 
 // Variables que controlan la ubicación de la cámara en la Escena 3D
@@ -249,6 +251,7 @@ void escena(void)
 	*/
 	glDisable(GL_LIGHTING);
 	glColor3f(0.0, 0.25, 0.75);
+	//selección de primitiva
 	if (verEsfera)
 		glCallList(DL_ESFERA);
 	if (verCubo)
@@ -259,6 +262,28 @@ void escena(void)
 		glCallList(DL_CILINDRO);
 	glEnable(GL_LIGHTING);
 
+	//selección del material
+	if (verMaterialSombreadoBrillante)
+		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_BRILLANTE);
+	if (verMaterialSombreadoTexturado)
+		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_TEXTURADO);
+    if (verMaterialReflectivo)
+		shaderManager->setFragmenShader(MATERIAL_REFLECTIVO);
+   	if (verMaterialSombreadoSemimate)
+		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_SEMIMATE);
+	
+	//selección de la deformación
+	if (verRetorcer)
+		shaderManager->setVertexShader(RETORCER);
+	if (verRuido)
+		shaderManager->setVertexShader(RUIDO);
+    if (verDoblar)
+		shaderManager->setVertexShader(DOBLAR);
+   	if (verEsferizar)
+		shaderManager->setVertexShader(ESFERIZAR);
+
+	//aplicar shaders
+	shaderManager->usarPrograma();
 
 	//
 	///////////////////////////////////////////////////
@@ -375,6 +400,8 @@ int main(int argc, char** argv){
 
 	hud = new HUD(ventanaPrincipal, ancho, alto);
 	glewInit();
+	shaderManager = new ShaderManager();
+	
 		
 	//loop principal
 	glutMainLoop();
