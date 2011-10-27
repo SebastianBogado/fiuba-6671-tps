@@ -5,14 +5,14 @@ const string ShaderManager::NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO = "ruido.vert";
 const string ShaderManager::NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR = "doblar.vert";
 const string ShaderManager::NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR = "esferizar.vert";
 
-const string ShaderManager::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE = "materialSombreadoBrillante.frag";
+const string ShaderManager::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE = "materisalSombreadoBrillante.frag";
 const string ShaderManager::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO = "materialSombreadoTexturado.frag";
 const string ShaderManager::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO = "materialReflectivo.frag";
 const string ShaderManager::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE = "materialSombreadoSemimate.frag";
 
 ShaderManager::ShaderManager(void){
-	vertexShaderSeleccionado = 0;
-	fragmentShaderSeleccionado = 0;
+	vertexShaderSeleccionado = -1;
+	fragmentShaderSeleccionado = -1;
 	programa;
 	vertexShaders = new GLuint[4];
 	fragmentShaders = new GLuint[4];
@@ -68,57 +68,61 @@ void ShaderManager::setFragmenShader(FragmentShader tipo){
 }
 
 void ShaderManager::usarPrograma(){
-	if ( (vertexShaderSeleccionado != 0) && (fragmentShaderSeleccionado != 0) )
+	//Si ya han sido seleccionados los shaders...
+	if ( (vertexShaderSeleccionado != -1) && (fragmentShaderSeleccionado != -1) )
+		//...y si cambió alguno respecto del anterior...
 		if (cambioElVertexShader || cambioElFragmentShader )
+			//...y si lo puede linkear, entonces...
 			if (programa.link(vertexShaderSeleccionado, fragmentShaderSeleccionado))
+				//usa el programa
 				programa.use();
 }
 
 void ShaderManager::usarVertexShaderRetorcer(){
-	cambioElVertexShader = vertexShaderSeleccionado == vertexShaders[RETORCER];
+	cambioElVertexShader = vertexShaderSeleccionado != vertexShaders[RETORCER];
 	if (cambioElVertexShader)
 		vertexShaderSeleccionado = vertexShaders[RETORCER];
 }
 
 void ShaderManager::usarVertexShaderRuido(){
-	cambioElVertexShader = vertexShaderSeleccionado == vertexShaders[RUIDO];
+	cambioElVertexShader = vertexShaderSeleccionado != vertexShaders[RUIDO];
 	if (cambioElVertexShader)
 		vertexShaderSeleccionado = vertexShaders[RUIDO];
 }
 
 void ShaderManager::usarVertexShaderDoblar(){
-	cambioElVertexShader = vertexShaderSeleccionado == vertexShaders[DOBLAR];
+	cambioElVertexShader = vertexShaderSeleccionado != vertexShaders[DOBLAR];
 	if (cambioElVertexShader)
 		vertexShaderSeleccionado = vertexShaders[DOBLAR];
 }
 
 void ShaderManager::usarVertexShaderEsferizar(){
-	cambioElVertexShader = vertexShaderSeleccionado == vertexShaders[ESFERIZAR];
+	cambioElVertexShader = vertexShaderSeleccionado != vertexShaders[ESFERIZAR];
 	if (cambioElVertexShader)
 		vertexShaderSeleccionado = vertexShaders[ESFERIZAR];
 }
 
 
 void ShaderManager::usarFragmentShaderMaterialSombreadoBrillante(){
-	cambioElFragmentShader = fragmentShaderSeleccionado == fragmentShaders[MATERIAL_SOMBREADO_BRILLANTE];
+	cambioElFragmentShader = fragmentShaderSeleccionado != fragmentShaders[MATERIAL_SOMBREADO_BRILLANTE];
 	if (cambioElFragmentShader)
 		fragmentShaderSeleccionado = fragmentShaders[MATERIAL_SOMBREADO_BRILLANTE];
 }
 
 void ShaderManager::usarFragmentShaderMaterialSombreadoTexturado(){
-	cambioElFragmentShader = fragmentShaderSeleccionado == fragmentShaders[MATERIAL_SOMBREADO_TEXTURADO];
+	cambioElFragmentShader = fragmentShaderSeleccionado != fragmentShaders[MATERIAL_SOMBREADO_TEXTURADO];
 	if (cambioElFragmentShader)
 		fragmentShaderSeleccionado = fragmentShaders[MATERIAL_SOMBREADO_TEXTURADO];
 }
 
 void ShaderManager::usarFragmentShaderMaterialReflectivo(){
-	cambioElFragmentShader = fragmentShaderSeleccionado == fragmentShaders[MATERIAL_REFLECTIVO];
+	cambioElFragmentShader = fragmentShaderSeleccionado != fragmentShaders[MATERIAL_REFLECTIVO];
 	if (cambioElFragmentShader)
 		fragmentShaderSeleccionado = fragmentShaders[MATERIAL_REFLECTIVO];
 }
 
 void ShaderManager::usarFragmentShaderMaterialSombreadoSemimate(){
-	cambioElFragmentShader = fragmentShaderSeleccionado == fragmentShaders[MATERIAL_SOMBREADO_SEMIMATE];
+	cambioElFragmentShader = fragmentShaderSeleccionado != fragmentShaders[MATERIAL_SOMBREADO_SEMIMATE];
 	if (cambioElFragmentShader)
 		fragmentShaderSeleccionado = fragmentShaders[MATERIAL_SOMBREADO_SEMIMATE];
 }
@@ -127,7 +131,7 @@ void ShaderManager::usarFragmentShaderMaterialSombreadoSemimate(){
 void ShaderManager::inicializarVertexShaders(){	
 	GLSLangShader shaderAux;
 
-	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO, VERTEX ) )
+	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_RETORCER, VERTEX ) )
 		vertexShaders[RETORCER] = shaderAux.getShaderHandle();
 
 	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO, VERTEX ) )

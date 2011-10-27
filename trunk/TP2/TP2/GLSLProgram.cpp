@@ -13,7 +13,7 @@ bool GLSLProgram::compileShaderFromFile( const string & fileName, GLSLShaderType
 	bool todoEnOrden = true;
 	if (!fileExists(fileName))
 		return !todoEnOrden;
-	else
+	else{
 		switch (type){
 			case VERTEX:
 				handle = glCreateShader(GL_VERTEX_SHADER);
@@ -33,7 +33,7 @@ bool GLSLProgram::compileShaderFromFile( const string & fileName, GLSLShaderType
 			default:
 				handle = 0;
 				break;
-
+		}
 		if (handle == 0) return !todoEnOrden;
 		
 		const GLchar* codeArray[] = {cargarArchivo(fileName)};
@@ -56,18 +56,18 @@ bool GLSLProgram::compileShaderFromFile( const string & fileName, GLSLShaderType
 				return !todoEnOrden;
 			}
 		}
-	}
+	
+		//si es el primer shader que se compila:
+		if (programHandle == 0) programHandle = glCreateProgram();
 
-	//si es el primer shader que se compila:
-	if (programHandle == 0) programHandle = glCreateProgram();
-
-	//si no se pudo crear el programa por alguna razón:
-	if (programHandle == 0){
-		cout << "Error creando el programa del shader" << endl;
-		return !todoEnOrden;
+		//si no se pudo crear el programa por alguna razón:
+		if (programHandle == 0){
+			cout << "Error creando el programa del shader" << endl;
+			return !todoEnOrden;
+		}
+		glAttachShader(programHandle, handle);
+		return todoEnOrden;
 	}
-	glAttachShader(programHandle, handle);
-	return todoEnOrden;
 }
 
 
