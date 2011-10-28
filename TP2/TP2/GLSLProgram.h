@@ -1,36 +1,57 @@
-//Clase extraida de "OpenGl 4.0 Shading Language Cookbook"
+//Clase inspirada en la homónima de "OpenGl 4.0 Shading Language Cookbook"
 //Autor: David Wolff
 
 #pragma once
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-#include "GLSLangShader.h"
 using glm::vec3;
 using glm::vec4;
 using glm::mat3;
 using glm::mat4;
 
+#include <fstream>
 #include <iostream>
-using std::string;
-using std::cout;
-using std::endl;
+using namespace std;
 
-class GLSLProgram: public GLSLangShader{
+enum GLSLShaderType {
+	VERTEX, 
+	FRAGMENT, 
+	GEOMETRY,
+	TESS_CONTROL,
+	TESS_EVALUATION
+};
+
+
+class GLSLProgram{
 private:
 	int programHandle;
 	bool linked;
 	string logString;
+	
+	bool fileExists( const string & fileName );
+	//Devuelve una cadena con todo el contenido del archivo
+	char* cargarArchivo(string fileName);
+
 	int getUniformLocation(const char * name );
 
+	//ubicación de los archivos
+	static const string ARCHIVOS_VERTEX_SHADERS[];
+	static const string NOMBRE_ARCHIVO_VERTEX_SHADER_RETORCER;
+	static const string NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO;
+	static const string NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR;
+	static const string NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR;
+
+	static const string ARCHIVOS_FRAGMENT_SHADERS[];
+	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE;
+	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO;
+	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO;
+	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE;
 public:
 	GLSLProgram();
-	bool compileShaderFromFile( const char * fileName, GLSLShaderType type );
-	bool compileShaderFromFile( const string & fileName, GLSLShaderType type );
 
-	//Recibe los handles de un vertex shader y frag shader y los linkea. 
-	//Desprecia todo shader que podría tener linkeado anteriormente, porque lo hace con un programa nuevo
-	bool link(GLSLangShader* vertexShader, GLSLangShader* fragmentShader);
+	bool compileShaderFromFile(int tShader, GLSLShaderType type );
+	void renovar();
 	bool link();
 	void use();
 	string log();
