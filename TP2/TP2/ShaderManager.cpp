@@ -5,17 +5,17 @@ const string ShaderManager::NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO = "ruido.vert";
 const string ShaderManager::NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR = "doblar.vert";
 const string ShaderManager::NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR = "esferizar.vert";
 
-const string ShaderManager::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE = "materisalSombreadoBrillante.frag";
+const string ShaderManager::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE = "materialSombreadoBrillante.frag";
 const string ShaderManager::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO = "materialSombreadoTexturado.frag";
 const string ShaderManager::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO = "materialReflectivo.frag";
 const string ShaderManager::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE = "materialSombreadoSemimate.frag";
 
 ShaderManager::ShaderManager(void){
-	vertexShaderSeleccionado = -1;
-	fragmentShaderSeleccionado = -1;
+	vertexShaderSeleccionado;
+	fragmentShaderSeleccionado;
 	programa;
-	vertexShaders = new GLuint[4];
-	fragmentShaders = new GLuint[4];
+	vertexShaders = new GLSLangShader[4];
+	fragmentShaders = new GLSLangShader[4];
 	cambioElVertexShader = false;
 	cambioElFragmentShader = false;
 
@@ -69,93 +69,122 @@ void ShaderManager::setFragmenShader(FragmentShader tipo){
 
 void ShaderManager::usarPrograma(){
 	//Si ya han sido seleccionados los shaders...
-	if ( (vertexShaderSeleccionado != -1) && (fragmentShaderSeleccionado != -1) )
+	if ( (vertexShaderSeleccionado.getShaderHandle() != 0) && (fragmentShaderSeleccionado.getShaderHandle() != 0) )
 		//...y si cambió alguno respecto del anterior...
 		if (cambioElVertexShader || cambioElFragmentShader )
 			//...y si lo puede linkear, entonces...
-			if (programa.link(vertexShaderSeleccionado, fragmentShaderSeleccionado))
+			if (programa.link(&vertexShaderSeleccionado, &fragmentShaderSeleccionado))
 				//usa el programa
 				programa.use();
 }
 
 void ShaderManager::usarVertexShaderRetorcer(){
-	cambioElVertexShader = vertexShaderSeleccionado != vertexShaders[RETORCER];
+	cambioElVertexShader = vertexShaderSeleccionado.getShaderHandle() != vertexShaders[RETORCER].getShaderHandle();
 	if (cambioElVertexShader)
 		vertexShaderSeleccionado = vertexShaders[RETORCER];
+	if ( (!glIsShader(vertexShaderSeleccionado.getShaderHandle())))
+		cout << "Se pierde la info del vertex shader en usarVertexShader" << endl;
 }
 
 void ShaderManager::usarVertexShaderRuido(){
-	cambioElVertexShader = vertexShaderSeleccionado != vertexShaders[RUIDO];
+	cambioElVertexShader = vertexShaderSeleccionado.getShaderHandle() != vertexShaders[RUIDO].getShaderHandle();
 	if (cambioElVertexShader)
 		vertexShaderSeleccionado = vertexShaders[RUIDO];
+	if ( (!glIsShader(vertexShaderSeleccionado.getShaderHandle())))
+		cout << "Se pierde la info del vertex shader en usarVertexShader" << endl;
 }
 
 void ShaderManager::usarVertexShaderDoblar(){
-	cambioElVertexShader = vertexShaderSeleccionado != vertexShaders[DOBLAR];
+	cambioElVertexShader = vertexShaderSeleccionado.getShaderHandle() != vertexShaders[DOBLAR].getShaderHandle();
 	if (cambioElVertexShader)
 		vertexShaderSeleccionado = vertexShaders[DOBLAR];
+	if ( (!glIsShader(vertexShaderSeleccionado.getShaderHandle())))
+		cout << "Se pierde la info del vertex shader en usarVertexShader" << endl;
 }
 
 void ShaderManager::usarVertexShaderEsferizar(){
-	cambioElVertexShader = vertexShaderSeleccionado != vertexShaders[ESFERIZAR];
+	cambioElVertexShader = vertexShaderSeleccionado.getShaderHandle() != vertexShaders[ESFERIZAR].getShaderHandle();
 	if (cambioElVertexShader)
 		vertexShaderSeleccionado = vertexShaders[ESFERIZAR];
+	if ( (!glIsShader(vertexShaderSeleccionado.getShaderHandle())))
+		cout << "Se pierde la info del vertex shader en usarVertexShader" << endl;
 }
 
 
 void ShaderManager::usarFragmentShaderMaterialSombreadoBrillante(){
-	cambioElFragmentShader = fragmentShaderSeleccionado != fragmentShaders[MATERIAL_SOMBREADO_BRILLANTE];
+	cambioElFragmentShader = fragmentShaderSeleccionado.getShaderHandle() != fragmentShaders[MATERIAL_SOMBREADO_BRILLANTE].getShaderHandle();
 	if (cambioElFragmentShader)
 		fragmentShaderSeleccionado = fragmentShaders[MATERIAL_SOMBREADO_BRILLANTE];
+	if ( (!glIsShader(fragmentShaderSeleccionado.getShaderHandle())))
+		cout << "Se pierde la info del vertex shader en usarFragmentShader" << endl;
 }
 
 void ShaderManager::usarFragmentShaderMaterialSombreadoTexturado(){
-	cambioElFragmentShader = fragmentShaderSeleccionado != fragmentShaders[MATERIAL_SOMBREADO_TEXTURADO];
+	cambioElFragmentShader = fragmentShaderSeleccionado.getShaderHandle() != fragmentShaders[MATERIAL_SOMBREADO_TEXTURADO].getShaderHandle();
 	if (cambioElFragmentShader)
 		fragmentShaderSeleccionado = fragmentShaders[MATERIAL_SOMBREADO_TEXTURADO];
+	if ( (!glIsShader(fragmentShaderSeleccionado.getShaderHandle())))
+		cout << "Se pierde la info del vertex shader en usarFragmentShader" << endl;
 }
 
 void ShaderManager::usarFragmentShaderMaterialReflectivo(){
-	cambioElFragmentShader = fragmentShaderSeleccionado != fragmentShaders[MATERIAL_REFLECTIVO];
+	cambioElFragmentShader = fragmentShaderSeleccionado.getShaderHandle() != fragmentShaders[MATERIAL_REFLECTIVO].getShaderHandle();
 	if (cambioElFragmentShader)
 		fragmentShaderSeleccionado = fragmentShaders[MATERIAL_REFLECTIVO];
+	if ( (!glIsShader(fragmentShaderSeleccionado.getShaderHandle())))
+		cout << "Se pierde la info del vertex shader en usarFragmentShader" << endl;
 }
 
 void ShaderManager::usarFragmentShaderMaterialSombreadoSemimate(){
-	cambioElFragmentShader = fragmentShaderSeleccionado != fragmentShaders[MATERIAL_SOMBREADO_SEMIMATE];
+	cambioElFragmentShader = fragmentShaderSeleccionado.getShaderHandle() != fragmentShaders[MATERIAL_SOMBREADO_SEMIMATE].getShaderHandle();
 	if (cambioElFragmentShader)
 		fragmentShaderSeleccionado = fragmentShaders[MATERIAL_SOMBREADO_SEMIMATE];
+	if ( (!glIsShader(fragmentShaderSeleccionado.getShaderHandle())))
+		cout << "Se pierde la info del vertex shader en usarFragmentShader" << endl;
 }
 
 
 void ShaderManager::inicializarVertexShaders(){	
-	GLSLangShader shaderAux;
 
-	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_RETORCER, VERTEX ) )
-		vertexShaders[RETORCER] = shaderAux.getShaderHandle();
+	if ( vertexShaders[RETORCER].compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_RETORCER, VERTEX ) )
+		cout << "Se compiló bien el de retorcer" << endl;
 
-	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO, VERTEX ) )
-		vertexShaders[RUIDO] = shaderAux.getShaderHandle();
+	if ( vertexShaders[RUIDO].compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO, VERTEX ) )
+		cout << "Se compiló bien el de ruido" << endl;
+		
+	if ( vertexShaders[DOBLAR] .compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR, VERTEX ) )
+		cout << "Se compiló bien el de doblar" << endl;
+		
+	if ( vertexShaders[ESFERIZAR].compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR, VERTEX ) )
+		cout << "Se compiló bien el de esferizar" << endl;
+	if ( fragmentShaders[MATERIAL_SOMBREADO_BRILLANTE].compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE, FRAGMENT ) )
+		cout << "Se compiló bien el de material sombreado brillante" << endl;
 	
-	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR, VERTEX ) )
-		vertexShaders[DOBLAR] = shaderAux.getShaderHandle();
+	if ( fragmentShaders[MATERIAL_SOMBREADO_TEXTURADO].compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO, FRAGMENT ) )
+		cout << "Se compiló bien el de material sombreado texturado" << endl;
 	
-	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR, VERTEX ) )
-		vertexShaders[ESFERIZAR] = shaderAux.getShaderHandle();
+	if ( fragmentShaders[MATERIAL_REFLECTIVO].compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO, FRAGMENT ) )
+		 cout << "Se compiló bien el de material reflectivo" << endl;
+	
+	if ( fragmentShaders[MATERIAL_SOMBREADO_SEMIMATE].compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE, FRAGMENT ) )
+		 cout << "Se compiló bien el de material sombreado semimate" << endl;
+	if (programa.link(&vertexShaders[RETORCER], &fragmentShaders[MATERIAL_SOMBREADO_BRILLANTE]))
+				//usa el programa
+				programa.use();
 }
 
-void ShaderManager::inicializarFragmentShaders(){	
-	GLSLangShader shaderAux;
+void ShaderManager::inicializarFragmentShaders(){	/*
 
-	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE, FRAGMENT ) )
-		fragmentShaders[MATERIAL_SOMBREADO_BRILLANTE] = shaderAux.getShaderHandle();
+	if ( fragmentShaders[MATERIAL_SOMBREADO_BRILLANTE].compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE, FRAGMENT ) )
+		cout << "Se compiló bien el de material sombreado brillante" << endl;
 	
-	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO, FRAGMENT ) )
-		fragmentShaders[MATERIAL_SOMBREADO_TEXTURADO] = shaderAux.getShaderHandle();
+	if ( fragmentShaders[MATERIAL_SOMBREADO_TEXTURADO].compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO, FRAGMENT ) )
+		cout << "Se compiló bien el de material sombreado texturado" << endl;
 	
-	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO, FRAGMENT ) )
-		fragmentShaders[MATERIAL_REFLECTIVO] = shaderAux.getShaderHandle();
+	if ( fragmentShaders[MATERIAL_REFLECTIVO].compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO, FRAGMENT ) )
+		 cout << "Se compiló bien el de material reflectivo" << endl;
 	
-	if ( shaderAux.compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE, FRAGMENT ) )
-		fragmentShaders[MATERIAL_SOMBREADO_SEMIMATE] = shaderAux.getShaderHandle();
+	if ( fragmentShaders[MATERIAL_SOMBREADO_SEMIMATE].compileShaderFromFile( NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE, FRAGMENT ) )
+		 cout << "Se compiló bien el de material sombreado semimate" << endl;
+*/
 }

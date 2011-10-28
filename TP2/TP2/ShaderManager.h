@@ -27,11 +27,11 @@ public:
 	void usarPrograma();
 
 private:
-	GLuint vertexShaderSeleccionado;
-	GLuint fragmentShaderSeleccionado;
+	GLSLangShader vertexShaderSeleccionado;
+	GLSLangShader fragmentShaderSeleccionado;
 
-	GLuint* vertexShaders;
-	GLuint* fragmentShaders;
+	GLSLangShader* vertexShaders;
+	GLSLangShader* fragmentShaders;
 	
 	//estas variables controlan si hubo algún cambio entre el shader anterior y el actual, para ahorra procesamiento
 	bool cambioElFragmentShader;

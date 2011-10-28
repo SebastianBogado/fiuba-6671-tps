@@ -30,7 +30,7 @@ public:
 
 	//Recibe los handles de un vertex shader y frag shader y los linkea. 
 	//Desprecia todo shader que podría tener linkeado anteriormente, porque lo hace con un programa nuevo
-	bool link(GLuint vertexShader, GLuint fragmentShader);
+	bool link(GLSLangShader* vertexShader, GLSLangShader* fragmentShader);
 	bool link();
 	void use();
 	string log();
