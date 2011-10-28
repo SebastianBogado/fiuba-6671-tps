@@ -27,7 +27,7 @@ vec4 calcular(vec4 posicionOriginal){
 
 
 void main(){
-	gl_Position = calcular(gl_Vertex);
+	vec4 aux = calcular(gl_Vertex);
 
-	gl_Position = ftransform();
+	gl_Position = gl_ModelViewProjectionMatrix * aux;
 }
