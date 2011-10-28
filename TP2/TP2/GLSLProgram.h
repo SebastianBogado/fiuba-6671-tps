@@ -3,13 +3,7 @@
 
 #pragma once
 
-#include <GL/glew.h>
-#include <glm/glm.hpp>
-using glm::vec3;
-using glm::vec4;
-using glm::mat3;
-using glm::mat4;
-
+#include "InterfazGLSLProgram.h"
 #include <fstream>
 #include <iostream>
 using namespace std;
@@ -23,7 +17,7 @@ enum GLSLShaderType {
 };
 
 
-class GLSLProgram{
+class GLSLProgram : public InterfazGLSLProgram{
 private:
 	int programHandle;
 	GLuint vertexShaderActual;
@@ -55,7 +49,7 @@ public:
 	bool compileShaderFromFile(int tShader, GLSLShaderType type );
 	void renovar();
 	bool link();
-	void use();
+	void usar();
 	string log();
 	int getProgramHandle();
 	bool isLinked();

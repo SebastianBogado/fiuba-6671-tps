@@ -154,6 +154,45 @@ void escena(void)
 	glDisable(GL_LIGHTING);
 	glColor3f(0.0, 0.25, 0.75);
 
+	//selección del material
+	if (verMaterialSombreadoBrillante){
+		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_BRILLANTE);
+		//setear uniforms y esas cosas
+	}
+	if (verMaterialSombreadoTexturado){
+		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_TEXTURADO);
+		//setear uniforms y esas cosas
+	}
+	if (verMaterialReflectivo){
+		shaderManager->setFragmenShader(MATERIAL_REFLECTIVO);
+		//setear uniforms y esas cosas
+	}
+   	if (verMaterialSombreadoSemimate){
+		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_SEMIMATE);
+		//setear uniforms y esas cosas
+	}
+	
+	//selección de la deformación
+	if (verRetorcer){
+		shaderManager->setVertexShader(RETORCER);
+		//setear uniforms y esas cosas
+	}
+	if (verRuido){
+		shaderManager->setVertexShader(RUIDO);
+		//setear uniforms y esas cosas
+	}
+    if (verDoblar){
+		shaderManager->setVertexShader(DOBLAR);
+		//setear uniforms y esas cosas
+	}
+   	if (verEsferizar){
+		shaderManager->setVertexShader(ESFERIZAR);
+		//setear uniforms y esas cosas
+	}
+
+	//aplicar shaders
+	shaderManager->usar();
+	
 	//selección de primitiva
 	if (verEsfera)
 		glCallList(DL_ESFERA);
@@ -165,29 +204,6 @@ void escena(void)
 		glCallList(DL_CILINDRO);
 	glEnable(GL_LIGHTING);
 
-	//selección del material
-	if (verMaterialSombreadoBrillante)
-		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_BRILLANTE);
-	if (verMaterialSombreadoTexturado)
-		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_TEXTURADO);
-    if (verMaterialReflectivo)
-		shaderManager->setFragmenShader(MATERIAL_REFLECTIVO);
-   	if (verMaterialSombreadoSemimate)
-		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_SEMIMATE);
-	
-	//selección de la deformación
-	if (verRetorcer)
-		shaderManager->setVertexShader(RETORCER);
-	if (verRuido)
-		shaderManager->setVertexShader(RUIDO);
-    if (verDoblar)
-		shaderManager->setVertexShader(DOBLAR);
-   	if (verEsferizar)
-		shaderManager->setVertexShader(ESFERIZAR);
-
-	//aplicar shaders
-	shaderManager->usarPrograma();
-	
 	glutSwapBuffers();
 	glutPostRedisplay();
 }

@@ -113,6 +113,9 @@
     <ClInclude Include="ShaderManager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="InterfazGLSLProgram.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\freeglut.lib" />

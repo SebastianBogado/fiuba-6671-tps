@@ -16,7 +16,7 @@ enum FragmentShader{
 };
 
 
-class ShaderManager{
+class ShaderManager: public InterfazGLSLProgram{
 public:
 	//crea todos los shaders de la aplicación
 	ShaderManager(void);
@@ -27,7 +27,19 @@ public:
 
 	void setVertexShader(VertexShader tipo);
 	void setFragmenShader(FragmentShader tipo);
-	void usarPrograma();
+	void usar();
+	void bindAttribLocation( GLuint location, const char * name);
+	void bindFragDataLocation( GLuint location, const char * name );
+	void setUniform(const char *name,float x,float y, float z);
+	void setUniform(const char *name, const vec3 & v);
+	void setUniform(const char *name, const vec4 & v);
+	void setUniform(const char *name, const mat4 & m);
+	void setUniform(const char *name, const mat3 & m);
+	void setUniform(const char *name, float val );
+	void setUniform(const char *name, int val );
+	void setUniform(const char *name, bool val );
+	void printActiveUniforms();
+	void printActiveAttribs();
 
 private:
 	int vertexShaderSeleccionado;
