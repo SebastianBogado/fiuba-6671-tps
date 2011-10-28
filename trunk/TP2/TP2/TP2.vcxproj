@@ -88,6 +88,7 @@
     <ClInclude Include="Esfera.h" />
     <ClInclude Include="GLSLProgram.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="InterfazGLSLProgram.h" />
     <ClInclude Include="MenuDeCuatroBotones.h" />
     <ClInclude Include="MouseCallbacks.h" />
     <ClInclude Include="Punto.h" />

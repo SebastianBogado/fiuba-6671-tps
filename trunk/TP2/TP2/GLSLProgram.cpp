@@ -29,7 +29,7 @@ GLSLProgram::GLSLProgram(){
 	this->fragmentShaderActual = 0;
 }
 
-void GLSLProgram::use(){
+void GLSLProgram::usar(){
 	if (linked)
 		glUseProgram(programHandle);
 	else

@@ -51,7 +51,7 @@ void ShaderManager::setFragmenShader(FragmentShader tipo){
 	}	
 }
 
-void ShaderManager::usarPrograma(){
+void ShaderManager::usar(){
 	//Si ya han sido seleccionados los shaders...
 	if ( (vertexShaderSeleccionado != -1) && (fragmentShaderSeleccionado != -1) )
 		//...y si cambió alguno respecto del anterior, renueva el programa...
@@ -63,7 +63,7 @@ void ShaderManager::usarPrograma(){
 				//...y si lo puede linkear, entonces...
 				if (programa.link())
 					//usa el programa
-					programa.use();
+					programa.usar();
 		}
 }
 
@@ -116,3 +116,50 @@ void ShaderManager::usarFragmentShaderMaterialSombreadoSemimate(){
 		fragmentShaderSeleccionado = MATERIAL_SOMBREADO_SEMIMATE;
 }
 
+void ShaderManager::bindAttribLocation( GLuint location, const char * name){
+	programa.bindAttribLocation(location, name);
+}
+
+void ShaderManager::bindFragDataLocation( GLuint location, const char * name ){
+	programa.bindFragDataLocation(location, name);
+}
+
+void ShaderManager::setUniform(const char *name,float x,float y, float z){
+	programa.setUniform(name, x, y, z);
+}
+
+void ShaderManager::setUniform(const char *name, const vec3 & v){
+	programa.setUniform(name, v);
+}
+
+void ShaderManager::setUniform(const char *name, const vec4 & v){
+	programa.setUniform(name, v);
+}
+
+void ShaderManager::setUniform(const char *name, const mat4 & m){
+	programa.setUniform(name, m);
+}
+
+void ShaderManager::setUniform(const char *name, const mat3 & m){
+	programa.setUniform(name, m);
+}
+
+void ShaderManager::setUniform(const char *name, float val ){
+	programa.setUniform(name, val);
+}
+
+void ShaderManager::setUniform(const char *name, int val ){
+	programa.setUniform(name, val);
+}
+
+void ShaderManager::setUniform(const char *name, bool val ){
+	programa.setUniform(name, val);
+}
+
+void ShaderManager::printActiveUniforms(){
+	programa.printActiveUniforms();
+}
+
+void ShaderManager::printActiveAttribs(){
+	programa.printActiveAttribs();
+}
