@@ -186,7 +186,7 @@ void escena(void)
 		shaderManager->setVertexShader(ESFERIZAR);
 
 	//aplicar shaders
-	//shaderManager->usarPrograma();
+	shaderManager->usarPrograma();
 	
 	glutSwapBuffers();
 	glutPostRedisplay();

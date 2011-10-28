@@ -1,27 +1,33 @@
 //Vertex shader retorcer
 
-void calcular(float &x, float &y, float &z){
-	float angulo = 30;
-	angulo = angulo * (z/2);
-	float xAux = x;
-	float yAux = y;
+float gradosARadianes(float angulo){
+	const float DPI=6.283185307;
+	angulo = angulo / 360.0;
+	angulo = angulo * DPI;
+	return angulo;
+}
 
-	float alfa = atan(y/x);
+vec4 calcular(vec4 posicionOriginal){
+	
+	float angulo = gradosARadianes(30.0);
+	angulo = angulo * posicionOriginal.z;
+	angulo = angulo/2.0;
+	float xAux = posicionOriginal.y;
+	float yAux = posicionOriginal.x;
+	float aux = posicionOriginal.y/posicionOriginal.x;
+	float alfa = atan(aux);
 	alfa = alfa + angulo;
-	xAux = y/tan(alfa);
-	yAux = x*tan(alfa);
+	xAux = xAux / tan(alfa);
+	yAux = yAux * tan(alfa);
 
-	x = xAux;
-	y = yAux;
+	vec4 posicionFinal = vec4(xAux, yAux, posicionOriginal.z, posicionOriginal.w);
+
+	return posicionFinal;
 }
 
 
 void main(){
-	float x = gl_Vertex.x;
-	float y = gl_Vertex.y;
-	float z = gl_Vertex.z;
-	calcular(x, y, z);
+	gl_Position = calcular(gl_Vertex);
 
-	gl_Position = vec4(x, y, z, 1);
 	gl_Position = ftransform();
 }

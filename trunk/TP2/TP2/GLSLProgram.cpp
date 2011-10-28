@@ -1,97 +1,30 @@
 #include "GLSLProgram.h"
 
+const string GLSLProgram::NOMBRE_ARCHIVO_VERTEX_SHADER_RETORCER = "retorcer.vert";
+const string GLSLProgram::NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO = "ruido.vert";
+const string GLSLProgram::NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR = "doblar.vert";
+const string GLSLProgram::NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR = "esferizar.vert";
+
+const string GLSLProgram::ARCHIVOS_VERTEX_SHADERS[4] = {
+		NOMBRE_ARCHIVO_VERTEX_SHADER_RETORCER,
+		NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO,
+		NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR,
+		NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR};
+
+const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE = "materialSombreadoBrillante.frag";
+const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO = "materialSombreadoTexturado.frag";
+const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO = "materialReflectivo.frag";
+const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE = "materialSombreadoSemimate.frag";
+const string GLSLProgram::ARCHIVOS_FRAGMENT_SHADERS[4] = {
+	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE,
+	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO,
+	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO,
+	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE};
+
 GLSLProgram::GLSLProgram(){
 	this->linked = false;
-}
-
-bool GLSLProgram::compileShaderFromFile( const char * fileName, GLSLShaderType type ){
-	return compileShaderFromFile(string(fileName), type);
-}
-
-bool GLSLProgram::compileShaderFromFile( const string & fileName, GLSLShaderType type ){
-	GLuint handle;
-	bool todoEnOrden = true;
-	if (!fileExists(fileName))
-		return !todoEnOrden;
-	else{
-		switch (type){
-			case VERTEX:
-				handle = glCreateShader(GL_VERTEX_SHADER);
-				break;
-			case FRAGMENT:
-				handle = glCreateShader(GL_FRAGMENT_SHADER);
-				break;
-			case GEOMETRY:
-				handle = glCreateShader(GL_GEOMETRY_SHADER);
-				break;
-			case TESS_CONTROL:
-				handle = glCreateShader(GL_TESS_CONTROL_SHADER);
-				break;
-			case TESS_EVALUATION:
-				handle = glCreateShader(GL_TESS_EVALUATION_SHADER);
-				break;
-			default:
-				handle = 0;
-				break;
-		}
-		if (handle == 0) return !todoEnOrden;
-		
-		const GLchar* codeArray[] = {cargarArchivo(fileName)};
-		glShaderSource(handle, 1, codeArray, NULL);
-		glCompileShader(handle);
-		
-		GLint result;
-		glGetShaderiv(handle, GL_COMPILE_STATUS, &result );
-		if( GL_FALSE == result ){
-			cout << "Falló la compilación" << endl;
-			GLint logLen;
-			glGetShaderiv( handle, GL_INFO_LOG_LENGTH, &logLen );
-			if( logLen > 0 ){
-				char * log = (char *)malloc(logLen);
-				GLsizei written;
-				glGetShaderInfoLog(handle, logLen, &written, log);
-				cout << "Shader log: " << log << endl;
-				logString = log;
-				free(log);
-				return !todoEnOrden;
-			}
-		}
-	
-		//si es el primer shader que se compila:
-		if (programHandle == 0) programHandle = glCreateProgram();
-
-		//si no se pudo crear el programa por alguna razón:
-		if (programHandle == 0){
-			cout << "Error creando el programa del shader" << endl;
-			return !todoEnOrden;
-		}
-		glAttachShader(programHandle, handle);
-		return todoEnOrden;
-	}
-}
-
-
-bool GLSLProgram::link(){
-	glLinkProgram(programHandle);
-	GLint status;
-	linked = true;
-	glGetProgramiv( programHandle, GL_LINK_STATUS, &status );
-	if( GL_FALSE == status ) {
-		cout << "Falló el linkeo al programa" << endl;
-		linked = false;
-		GLint logLen;
-		glGetProgramiv(programHandle, GL_INFO_LOG_LENGTH, &logLen);
-		if( logLen > 0 ){
-			char * log = (char *)malloc(logLen);
-			GLsizei written;
-			glGetProgramInfoLog(programHandle, logLen, &written, log);
-			cout << "Program log: " << log << endl;
-			logString = log;
-			free(log);
-		}
-	}
-	
-	return linked;
+	this->logString = "";
+	this->programHandle = 0;
 }
 
 void GLSLProgram::use(){
@@ -107,27 +40,72 @@ int GLSLProgram::getProgramHandle(){ return programHandle; }
 
 bool GLSLProgram::isLinked(){ return linked; }
 
-bool GLSLProgram::link(GLSLangShader* vertexShader, GLSLangShader* fragmentShader){
-	if (programHandle != 0)
-		glDeleteProgram(programHandle);
+bool GLSLProgram::compileShaderFromFile(int tShader, GLSLShaderType type ){
+	bool todoEnOrden = true;
+	GLuint shaderHandle;
+	const char* aux;
 
-	programHandle = glCreateProgram();
-	if (programHandle == 0){
-		cout << "Error creando el programa del shader" << endl;
-		linked = false;
-		return linked;
+	switch (type){
+		case VERTEX:
+			if (!fileExists(ARCHIVOS_VERTEX_SHADERS[tShader]))
+				return !todoEnOrden;
+			shaderHandle = glCreateShader(GL_VERTEX_SHADER);
+			aux = cargarArchivo(ARCHIVOS_VERTEX_SHADERS[tShader]);
+			break;
+		case FRAGMENT:
+			if (!fileExists(ARCHIVOS_FRAGMENT_SHADERS[tShader]))
+				return !todoEnOrden;
+			shaderHandle = glCreateShader(GL_FRAGMENT_SHADER);
+			aux = cargarArchivo(ARCHIVOS_FRAGMENT_SHADERS[tShader]);
+			break;
+		case GEOMETRY:
+			shaderHandle = glCreateShader(GL_GEOMETRY_SHADER);
+			break;
+		case TESS_CONTROL:
+			shaderHandle = glCreateShader(GL_TESS_CONTROL_SHADER);
+			break;
+		case TESS_EVALUATION:
+			shaderHandle = glCreateShader(GL_TESS_EVALUATION_SHADER);
+			break;
+		default:
+			shaderHandle = 0;
+			break;
 	}
-	if ( (!glIsShader(vertexShader->getShaderHandle())))
-		cout << "Se pierde la info del vertex shader" << endl;
-	if ( (!glIsShader(fragmentShader->getShaderHandle()))) 
-		cout << "Se pierde la info del fragment shader" << endl;
+	if (shaderHandle == 0) return !todoEnOrden;
 
-	glAttachShader(programHandle, vertexShader->getShaderHandle());
-	glAttachShader(programHandle, fragmentShader->getShaderHandle());
-	glLinkProgram(programHandle);
+	const GLchar* codeArray[] = {aux};
+	glShaderSource(shaderHandle, 1, codeArray, NULL);
+	glCompileShader(shaderHandle);
+		
+	GLint result;
+	glGetShaderiv(shaderHandle, GL_COMPILE_STATUS, &result );
+	if( GL_FALSE == result ){
+		cout << "Falló la compilación" << endl;
+		GLint logLen;
+		glGetShaderiv( shaderHandle, GL_INFO_LOG_LENGTH, &logLen );
+		if( logLen > 0 ){
+			char * log = (char *)malloc(logLen);
+			GLsizei written;
+			glGetShaderInfoLog(shaderHandle, logLen, &written, log);
+			cout << "Shader log: " << log << endl;
+			logString = log;
+			free(log);
+			return !todoEnOrden;
+		}
+	}
+	if (programHandle == 0)
+		programHandle = glCreateProgram();
 
-	GLint status;
+	glAttachShader(programHandle, shaderHandle);
+	return todoEnOrden;	
+}
+
+
+bool GLSLProgram::link(){
 	linked = true;
+	glLinkProgram(programHandle);
+		
+	GLint status;
 	glGetProgramiv( programHandle, GL_LINK_STATUS, &status );
 	if( GL_FALSE == status ) {
 		cout << "Falló el linkeo al programa" << endl;
@@ -147,6 +125,11 @@ bool GLSLProgram::link(GLSLangShader* vertexShader, GLSLangShader* fragmentShade
 	return linked;
 }
 
+void GLSLProgram::renovar(){
+	if (programHandle == 0)
+		return;
+	glDeleteProgram(programHandle);
+}
 
 void GLSLProgram::bindAttribLocation( GLuint location, const char * name){
 	glBindAttribLocation(programHandle, location, name);
@@ -222,4 +205,42 @@ void GLSLProgram::printActiveUniforms(){
 
 void GLSLProgram::printActiveAttribs(){
 	//implementar si se necesita debuggear
+}
+
+bool GLSLProgram::fileExists( const string & fileName ){
+	ifstream ifile(fileName);
+	return ifile;
+}
+
+char* GLSLProgram::cargarArchivo(string fileName){
+	//De http://stackoverflow.com/questions/1938466/unable-to-link-compiled-shaders-glsl
+	
+	char* fn = new char[fileName.size() + 1];
+	for (int i = 0; i < fileName.size(); i++)
+		fn[i] = fileName[i];
+	fn[fileName.size()] = NULL;
+
+	FILE *fp;
+	char *content = NULL;
+
+	int count=0;
+
+	if (fn != NULL) {
+		fp = fopen(fn,"rt");
+
+		if (fp != NULL) {
+
+			fseek(fp, 0, SEEK_END);
+			count = ftell(fp);
+			rewind(fp);
+
+			if (count > 0) {
+				content = (char *)malloc(sizeof(char) * (count+1));
+				count = fread(content,sizeof(char),count,fp);
+				content[count] = '\0';
+			}
+			fclose(fp);
+		}
+	}
+	return content;
 }
