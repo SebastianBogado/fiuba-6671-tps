@@ -26,6 +26,8 @@ enum GLSLShaderType {
 class GLSLProgram{
 private:
 	int programHandle;
+	GLuint vertexShaderActual;
+	GLuint fragmentShaderActual;
 	bool linked;
 	string logString;
 	

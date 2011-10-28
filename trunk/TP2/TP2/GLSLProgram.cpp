@@ -25,6 +25,8 @@ GLSLProgram::GLSLProgram(){
 	this->linked = false;
 	this->logString = "";
 	this->programHandle = 0;
+	this->vertexShaderActual = 0;
+	this->fragmentShaderActual = 0;
 }
 
 void GLSLProgram::use(){
@@ -50,12 +52,14 @@ bool GLSLProgram::compileShaderFromFile(int tShader, GLSLShaderType type ){
 			if (!fileExists(ARCHIVOS_VERTEX_SHADERS[tShader]))
 				return !todoEnOrden;
 			shaderHandle = glCreateShader(GL_VERTEX_SHADER);
+			vertexShaderActual = shaderHandle;
 			aux = cargarArchivo(ARCHIVOS_VERTEX_SHADERS[tShader]);
 			break;
 		case FRAGMENT:
 			if (!fileExists(ARCHIVOS_FRAGMENT_SHADERS[tShader]))
 				return !todoEnOrden;
 			shaderHandle = glCreateShader(GL_FRAGMENT_SHADER);
+			fragmentShaderActual = shaderHandle;
 			aux = cargarArchivo(ARCHIVOS_FRAGMENT_SHADERS[tShader]);
 			break;
 		case GEOMETRY:
@@ -128,6 +132,8 @@ bool GLSLProgram::link(){
 void GLSLProgram::renovar(){
 	if (programHandle == 0)
 		return;
+	glDetachShader(programHandle, vertexShaderActual);
+	glDetachShader(programHandle, fragmentShaderActual);
 	glDeleteProgram(programHandle);
 }
 

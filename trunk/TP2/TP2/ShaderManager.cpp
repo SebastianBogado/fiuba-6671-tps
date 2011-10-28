@@ -7,8 +7,8 @@ ShaderManager::ShaderManager(void){
 	vertexShaderSeleccionado = -1;
 	fragmentShaderSeleccionado = -1;
 	programa;
-	cambioElVertexShader = false;
-	cambioElFragmentShader = false;
+	cambioElVertexShader = true;
+	cambioElFragmentShader = true;
 }
 
 
@@ -55,7 +55,7 @@ void ShaderManager::usarPrograma(){
 	//Si ya han sido seleccionados los shaders...
 	if ( (vertexShaderSeleccionado != -1) && (fragmentShaderSeleccionado != -1) )
 		//...y si cambió alguno respecto del anterior, renueva el programa...
-		if (cambioElVertexShader || cambioElFragmentShader )
+		if (cambioElVertexShader || cambioElFragmentShader ){
 			programa.renovar();
 			//...y si puede compilar los nuevos shaders...
 			if ( (programa.compileShaderFromFile(vertexShaderSeleccionado, VERTEX)) &&
@@ -63,7 +63,8 @@ void ShaderManager::usarPrograma(){
 				//...y si lo puede linkear, entonces...
 				if (programa.link())
 					//usa el programa
-					programa.use();		
+					programa.use();
+		}
 }
 
 void ShaderManager::usarVertexShaderRetorcer(){
