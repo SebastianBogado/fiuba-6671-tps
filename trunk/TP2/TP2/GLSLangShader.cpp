@@ -58,6 +58,7 @@ bool GLSLangShader::compileShaderFromFile( const string & fileName, GLSLShaderTy
 				return !todoEnOrden;
 			}
 		}
+
 		return todoEnOrden;	
 	}
 }
@@ -76,21 +77,32 @@ bool GLSLangShader::fileExists( const string & fileName ){
 
 const char* GLSLangShader::cargarArchivo(string fileName){
 	std::fstream archivo;
+	char* archivoEnCharr = new char[fileName.size() + 1];
+	for (int i = 0; i < fileName.size(); i++)
+		archivoEnCharr[i] = fileName[i];
+	archivoEnCharr[fileName.size()] = NULL;
+	
 	archivo.open(fileName.c_str(), std::fstream::in);
 	if (!archivo.is_open()) 
-		cout << "Problemas abriendo el archivo." << endl;
+		cout << "Problemas abriendo el archivo: " << archivoEnCharr << endl;
 	else
-		cout << "Se abrió el archivo" << endl;
+		cout << "Se abrió el archivo: " <<  archivoEnCharr << endl;
 	
 	string archivoEntero;
+	char linea[256];
 	do{
-		char linea[256];
 		archivo.getline( (char*)&linea , 256 , '\n');
 		string aux = linea;
 		archivoEntero += aux;
 	} while ( !archivo.eof() );
 
  	archivo.close();
-	cout << archivoEntero.c_str() << endl;
-	return archivoEntero.c_str();
+	
+	//acá me anda mal el string::c_str() :S
+	char* archivoEnChar = new char[archivoEntero.size() + 1];
+	for (int i = 0; i < archivoEntero.size(); i++)
+		archivoEnChar[i] = archivoEntero[i];
+	archivoEnChar[archivoEntero.size()] = NULL;
+	
+	return archivoEnChar;
 }

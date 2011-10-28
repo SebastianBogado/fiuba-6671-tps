@@ -1,4 +1,3 @@
-#version 120
 //Fragment shader básico
 
 void main()

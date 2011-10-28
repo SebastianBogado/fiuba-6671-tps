@@ -107,7 +107,7 @@ int GLSLProgram::getProgramHandle(){ return programHandle; }
 
 bool GLSLProgram::isLinked(){ return linked; }
 
-bool GLSLProgram::link(GLuint vertexShader, GLuint fragmentShader){
+bool GLSLProgram::link(GLSLangShader* vertexShader, GLSLangShader* fragmentShader){
 	if (programHandle != 0)
 		glDeleteProgram(programHandle);
 
@@ -117,8 +117,13 @@ bool GLSLProgram::link(GLuint vertexShader, GLuint fragmentShader){
 		linked = false;
 		return linked;
 	}
-	glAttachShader(programHandle, vertexShader);
-	glAttachShader(programHandle, fragmentShader);
+	if ( (!glIsShader(vertexShader->getShaderHandle())))
+		cout << "Se pierde la info del vertex shader" << endl;
+	if ( (!glIsShader(fragmentShader->getShaderHandle()))) 
+		cout << "Se pierde la info del fragment shader" << endl;
+
+	glAttachShader(programHandle, vertexShader->getShaderHandle());
+	glAttachShader(programHandle, fragmentShader->getShaderHandle());
 	glLinkProgram(programHandle);
 
 	GLint status;
