@@ -25,8 +25,9 @@ using namespace std;
 #include "Emparchador.h"
 #include "Esfera.h"
 #include "Cubo.h"
-//#include "Toroide.h"
+#include "Toroide.h"
 #include "Cilindro.h"
+
 
 
 // Tamaño de la ventana
@@ -113,13 +114,13 @@ void init(void)
         delete superficie;
     glEndList();
 
-	/* implementar toroide
+	// implementar toroide
 	glNewList(DL_TOROIDE, GL_COMPILE);
         superficie = new Toroide;
-		emparchador.emparchar(Superficie);
+		emparchador.emparchar(superficie);
 		delete superficie;
 	glEndList();
-	*/
+	
 
 	glNewList(DL_CILINDRO, GL_COMPILE);
         superficie = new Cilindro(.7,1.5,32);
@@ -265,12 +266,12 @@ void keyboard (unsigned char key, int x, int y)
 	  case 'e':
 		  edit_panel = !edit_panel;
 		  glutPostRedisplay();
-		  break;
+		  break;*/
 
 	  case '2':
 		  eye[0] = 0.0;
 		  eye[1] = 0.0;
-		  eye[2] = 15.0;
+		  eye[2] = 3.0;
 
 		  at[0] = 0.0;
 		  at[1] = 0.0;
@@ -283,9 +284,9 @@ void keyboard (unsigned char key, int x, int y)
 		  break;
 
 	  case '3':
-		  eye[0] = 15.0;
-		  eye[1] = 15.0;
-		  eye[2] = 5.0;
+		  eye[0] = 3.0;
+		  eye[1] = 3.0;
+		  eye[2] = 2.0;
 
 		  at[0] = 0.0;
 		  at[1] = 0.0;
@@ -296,7 +297,7 @@ void keyboard (unsigned char key, int x, int y)
 		  up[2] = 1.0;
 		  glutPostRedisplay();
 		  break;
-		  */
+		  
      default:
          break;
    }
