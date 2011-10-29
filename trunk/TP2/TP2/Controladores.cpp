@@ -20,3 +20,7 @@ bool luzSecundaria = false;
 
 //Efecto retorcer
 float anguloDeRetorsion = 90.0;
+
+//Efecto de doblar
+
+float distanciaDeDoblado = 5.0;
