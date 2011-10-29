@@ -1,10 +1,14 @@
 //Vertex shader escala en x e y
+varying vec3 N;
+varying vec3 v;
 
 void main()
 {	
 	//Luego esto tiene que ser un Uniform
-	vec3 centro = (0.0,0.0,1.0);
+	vec3 centro = (0.0,0.0,0.0);
 	
+	v = vec3(gl_ModelViewMatrix * gl_Vertex);       
+   N = normalize(gl_NormalMatrix * gl_Normal);
 	
 	vec3  vertice = gl_Vertex.xyz;
 	
@@ -19,7 +23,7 @@ void main()
 	
 	//if (distancia > 1)
 	if(distancia != 0.0)
-	vertice = vertice * 1.0/distancia;	
+	vertice +=  0.1/pow(distancia,2.0)* gl_Normal;	
 	
 	gl_Position = gl_ModelViewProjectionMatrix *vec4(vertice,1.0);
 }
