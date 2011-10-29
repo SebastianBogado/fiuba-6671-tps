@@ -2,6 +2,8 @@
 varying vec3 N;
 varying vec3 v;
 
+uniform float anguloDeRetorsion;
+
 float gradosARadianes(float angulo){
 	const float DPI=6.283185307;
 	angulo = angulo / 360.0;
@@ -11,7 +13,7 @@ float gradosARadianes(float angulo){
 
 vec4 calcular(vec4 posicionOriginal){
 	
-	float angulo = gradosARadianes(90.0);
+	float angulo = gradosARadianes(anguloDeRetorsion);
 	angulo = angulo * posicionOriginal.z;
 	angulo = angulo/2.0;
 	float xAux;// = posicionOriginal.y;
@@ -58,8 +60,8 @@ void main(void)
 
    v = vec3(gl_ModelViewMatrix * gl_Vertex);       
    N = normalize(gl_NormalMatrix * calcularNormal(gl_Normal));
-   //N = normalize(gl_NormalMatrix * gl_Normal);
-	//vec4 aux = calcular(gl_Vertex);
+  // N = normalize(gl_NormalMatrix * gl_Normal);
+	vec4 aux = calcular(gl_Vertex);
 
 	gl_Position = gl_ModelViewProjectionMatrix * aux;
 }

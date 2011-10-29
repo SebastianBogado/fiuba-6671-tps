@@ -61,6 +61,10 @@ extern bool verEsferizar;
 
 extern bool luzPrincipal;
 extern bool luzSecundaria;
+
+//Efector "retorcer"
+extern float anguloDeRetorsion;
+
 /*
 // Variables asociadas a única fuente de luz de la escena
 float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -144,6 +148,7 @@ void OnIdle (void)
 	//hacer algo
     glutPostRedisplay();
 }
+
 void escena(void)
 {
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -159,6 +164,7 @@ void escena(void)
 	//selección de la deformación
 	if (verRetorcer){
 		shaderManager->setVertexShader(RETORCER);
+		shaderManager->setUniform("anguloDeRetorsion", anguloDeRetorsion);
 		//setear uniforms y esas cosas
 	}
 	if (verRuido){
@@ -236,9 +242,15 @@ void mouse(int button, int state, int x, int y){
 void keyboard (unsigned char key, int x, int y)
 {
    switch (key) {
-      case 'q':
-         exit(0);
-         break;
+		
+		case 'q':
+			exit(0);
+			break;
+		case 'v':
+			cout << anguloDeRetorsion << endl;
+			anguloDeRetorsion -= 1;
+			break;
+
 /*
 	  case 'g':
 		  view_grid = !view_grid;
