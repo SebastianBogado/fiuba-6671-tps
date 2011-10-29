@@ -114,7 +114,6 @@ void init(void)
         delete superficie;
     glEndList();
 
-	// implementar toroide
 	glNewList(DL_TOROIDE, GL_COMPILE);
         superficie = new Toroide;
 		emparchador.emparchar(superficie);
@@ -178,7 +177,7 @@ void escena(void)
 	}
    	if (verEsferizar){
 		shaderManager->setVertexShader(ESFERIZAR);
-		//setear uniforms y esas cosas
+		//setear uniforms y esas cosas 
 	}
 	/*
 	//selección de las luces
