@@ -59,7 +59,7 @@ void main(void)
    v = vec3(gl_ModelViewMatrix * gl_Vertex);       
    N = normalize(gl_NormalMatrix * calcularNormal(gl_Normal));
    //N = normalize(gl_NormalMatrix * gl_Normal);
-	vec4 aux = calcular(gl_Vertex);
+	//vec4 aux = calcular(gl_Vertex);
 
 	gl_Position = gl_ModelViewProjectionMatrix * aux;
 }

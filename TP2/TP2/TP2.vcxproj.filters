@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{a1fade30-44da-47ad-adf6-74c1b452aed1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{7ab17549-fcf6-4c5b-a572-140058bb7934}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -118,11 +121,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\freeglut.lib" />
-    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32.lib" />
-    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32mx.lib" />
-    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32mxs.lib" />
-    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32s.lib" />
+    <Library Include="lib\freeglut.lib">
+      <Filter>lib</Filter>
+    </Library>
+    <Library Include="lib\glew32.lib">
+      <Filter>lib</Filter>
+    </Library>
   </ItemGroup>
   <ItemGroup>
     <None Include="retorcer.vert">
@@ -147,6 +151,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="materialSombreadoSemimate.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="luzPrincipal.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="luzSecundaria.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
