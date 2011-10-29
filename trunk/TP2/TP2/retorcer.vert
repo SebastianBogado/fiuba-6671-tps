@@ -9,7 +9,7 @@ float gradosARadianes(float angulo){
 
 vec4 calcular(vec4 posicionOriginal){
 	
-	float angulo = gradosARadianes(30.0);
+	float angulo = gradosARadianes(50.0);
 	angulo = angulo * posicionOriginal.z;
 	angulo = angulo/2.0;
 	float xAux;// = posicionOriginal.y;
