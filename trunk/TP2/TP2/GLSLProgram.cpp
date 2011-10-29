@@ -21,12 +21,19 @@ const string GLSLProgram::ARCHIVOS_FRAGMENT_SHADERS[4] = {
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO,
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE};
 
+const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_PRINCIPAL = "luzPrincipal.frag";
+const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_SECUNDARIA = "luzSecundaria.frag";
+const string GLSLProgram::ARCHIVOS_FRAGMENT_SHADERS_LUZ[2] = {
+	NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_PRINCIPAL,
+	NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_SECUNDARIA};
+
 GLSLProgram::GLSLProgram(){
 	this->linked = false;
 	this->logString = "";
 	this->programHandle = 0;
 	this->vertexShaderActual = 0;
 	this->fragmentShaderActual = 0;
+	this->luzShaderActual = 0;
 }
 
 void GLSLProgram::usar(){
@@ -42,7 +49,7 @@ int GLSLProgram::getProgramHandle(){ return programHandle; }
 
 bool GLSLProgram::isLinked(){ return linked; }
 
-bool GLSLProgram::compileShaderFromFile(int tShader, GLSLShaderType type ){
+bool GLSLProgram::compileShaderFromFile(int tShader, GLSLShaderType type, bool esLuz ){
 	bool todoEnOrden = true;
 	GLuint shaderHandle;
 	const char* aux;
@@ -52,6 +59,8 @@ bool GLSLProgram::compileShaderFromFile(int tShader, GLSLShaderType type ){
 			if (!fileExists(ARCHIVOS_VERTEX_SHADERS[tShader]))
 				return !todoEnOrden;
 			shaderHandle = glCreateShader(GL_VERTEX_SHADER);
+			if (vertexShaderActual != 0)
+				renovarVertexShader();
 			vertexShaderActual = shaderHandle;
 			aux = cargarArchivo(ARCHIVOS_VERTEX_SHADERS[tShader]);
 			break;
@@ -59,8 +68,18 @@ bool GLSLProgram::compileShaderFromFile(int tShader, GLSLShaderType type ){
 			if (!fileExists(ARCHIVOS_FRAGMENT_SHADERS[tShader]))
 				return !todoEnOrden;
 			shaderHandle = glCreateShader(GL_FRAGMENT_SHADER);
-			fragmentShaderActual = shaderHandle;
-			aux = cargarArchivo(ARCHIVOS_FRAGMENT_SHADERS[tShader]);
+			if (esLuz){
+				if (luzShaderActual != 0)
+					renovarLuz();
+				luzShaderActual = shaderHandle;
+				aux = cargarArchivo(ARCHIVOS_FRAGMENT_SHADERS_LUZ[tShader]);
+			}
+			else{
+				if (fragmentShaderActual != 0)
+					renovarFragmentShader();
+				fragmentShaderActual = shaderHandle;
+				aux = cargarArchivo(ARCHIVOS_FRAGMENT_SHADERS[tShader]);
+			}
 			break;
 		case GEOMETRY:
 			shaderHandle = glCreateShader(GL_GEOMETRY_SHADER);
@@ -132,9 +151,38 @@ bool GLSLProgram::link(){
 void GLSLProgram::renovar(){
 	if (programHandle == 0)
 		return;
-	glDetachShader(programHandle, vertexShaderActual);
-	glDetachShader(programHandle, fragmentShaderActual);
+	if (vertexShaderActual != 0)
+		glDetachShader(programHandle, vertexShaderActual);
+	if (fragmentShaderActual != 0)
+		glDetachShader(programHandle, fragmentShaderActual);
+	if (luzShaderActual != 0)
+		glDetachShader(programHandle, luzShaderActual);
+	linked = false;
 	glDeleteProgram(programHandle);
+}
+
+void GLSLProgram::renovarVertexShader(){
+	if (programHandle == 0)
+		return;
+	if (vertexShaderActual != 0)
+		glDetachShader(programHandle, vertexShaderActual);
+	linked = false;
+}
+
+void GLSLProgram::renovarFragmentShader(){
+	if (programHandle == 0)
+		return;
+	if (fragmentShaderActual != 0)
+		glDetachShader(programHandle, fragmentShaderActual);
+	linked = false;
+}
+
+void GLSLProgram::renovarLuz(){
+	if (programHandle == 0)
+		return;
+	if (luzShaderActual != 0)
+		glDetachShader(programHandle, luzShaderActual);
+	linked = false;
 }
 
 void GLSLProgram::bindAttribLocation( GLuint location, const char * name){
@@ -149,12 +197,6 @@ int GLSLProgram::getUniformLocation(const char * name ){
 	return glGetUniformLocation(programHandle, name);
 }
 
-void GLSLProgram::setUniform(const char *name,float x,float y, float z){
-	GLuint location = getUniformLocation(name);
-	if( location >= 0 ){
-		glUniform3f(location, x, y, z);
-	}
-}
 
 void GLSLProgram::setUniform(const char *name, const vec3 & v){
 	GLuint location = getUniformLocation(name);

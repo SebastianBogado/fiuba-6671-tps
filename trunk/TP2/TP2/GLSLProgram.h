@@ -22,6 +22,7 @@ private:
 	int programHandle;
 	GLuint vertexShaderActual;
 	GLuint fragmentShaderActual;
+	GLuint luzShaderActual;
 	bool linked;
 	string logString;
 	
@@ -43,11 +44,21 @@ private:
 	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO;
 	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO;
 	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE;
+
+	static const string ARCHIVOS_FRAGMENT_SHADERS_LUZ[];
+	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_PRINCIPAL;
+	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_SECUNDARIA;
+
 public:
 	GLSLProgram();
 
-	bool compileShaderFromFile(int tShader, GLSLShaderType type );
+	bool compileShaderFromFile(int tShader, GLSLShaderType type, bool esLuz = false );
+	//TODO : considerar hacer los métodos de renovar privados
 	void renovar();
+	void renovarVertexShader();
+	void renovarFragmentShader();
+	void renovarLuz();
+
 	bool link();
 	void usar();
 	string log();
@@ -55,7 +66,7 @@ public:
 	bool isLinked();
 	
 	void bindAttribLocation( GLuint location, const char * name);
-	void bindFragDataLocation( GLuint location, const char * name );
+	void bindFragDataLocation( GLuint location, const char * name);
 	void setUniform(const char *name,float x,float y, float z);
 	void setUniform(const char *name, const vec3 & v);
 	void setUniform(const char *name, const vec4 & v);

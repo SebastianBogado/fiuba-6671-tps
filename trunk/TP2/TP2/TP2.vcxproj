@@ -96,15 +96,14 @@
     <ClInclude Include="Superficie.h" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\freeglut.lib" />
-    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32.lib" />
-    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32mx.lib" />
-    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32mxs.lib" />
-    <Library Include="..\..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\VC\lib\glew32s.lib" />
+    <Library Include="lib\freeglut.lib" />
+    <Library Include="lib\glew32.lib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="doblar.vert" />
     <None Include="esferizar.vert" />
+    <None Include="luzPrincipal.frag" />
+    <None Include="luzSecundaria.frag" />
     <None Include="materialReflectivo.frag" />
     <None Include="materialSombreadoBrillante.frag" />
     <None Include="materialSombreadoSemimate.frag" />

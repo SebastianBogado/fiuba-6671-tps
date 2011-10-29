@@ -58,6 +58,9 @@ extern bool verRetorcer;
 extern bool verRuido;
 extern bool verDoblar;
 extern bool verEsferizar;
+
+extern bool luzPrincipal;
+extern bool luzSecundaria;
 /*
 // Variables asociadas a única fuente de luz de la escena
 float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -151,26 +154,7 @@ void escena(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glDisable(GL_LIGHTING);
 	glColor3f(0.0, 0.25, 0.75);
-
-	//selección del material
-	if (verMaterialSombreadoBrillante){
-		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_BRILLANTE);
-		//setear uniforms y esas cosas
-	}
-	if (verMaterialSombreadoTexturado){
-		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_TEXTURADO);
-		//setear uniforms y esas cosas
-	}
-	if (verMaterialReflectivo){
-		shaderManager->setFragmenShader(MATERIAL_REFLECTIVO);
-		//setear uniforms y esas cosas
-	}
-   	if (verMaterialSombreadoSemimate){
-		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_SEMIMATE);
-		//setear uniforms y esas cosas
-	}
 	
 	//selección de la deformación
 	if (verRetorcer){
@@ -189,7 +173,32 @@ void escena(void)
 		shaderManager->setVertexShader(ESFERIZAR);
 		//setear uniforms y esas cosas
 	}
-
+	/*
+	//selección de las luces
+	if (luzPrincipal)
+		shaderManager->setShaderLuz(LUZ_PRINCIPAL);
+	if (luzSecundaria)
+		shaderManager->setShaderLuz(LUZ_SECUNDARIA);
+	*/
+	//selección del material
+	if (verMaterialSombreadoBrillante){
+		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_BRILLANTE);
+		//setear uniforms y esas cosas
+	}
+	if (verMaterialSombreadoTexturado){
+		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_TEXTURADO);
+		//setear uniforms y esas cosas
+	}
+	if (verMaterialReflectivo){
+		shaderManager->setFragmenShader(MATERIAL_REFLECTIVO);
+		//setear uniforms y esas cosas
+	}
+   	if (verMaterialSombreadoSemimate){
+		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_SEMIMATE);
+		//setear uniforms y esas cosas
+	}
+	
+	
 	//aplicar shaders
 	shaderManager->usar();
 	

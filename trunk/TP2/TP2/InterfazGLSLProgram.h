@@ -10,7 +10,7 @@ class InterfazGLSLProgram{
 public:
 	virtual void bindAttribLocation( GLuint location, const char * name) = 0;
 	virtual void bindFragDataLocation( GLuint location, const char * name ) = 0;
-	virtual void setUniform(const char *name,float x,float y, float z) = 0;
+
 	virtual void setUniform(const char *name, const vec3 & v) = 0;
 	virtual void setUniform(const char *name, const vec4 & v) = 0;
 	virtual void setUniform(const char *name, const mat4 & m) = 0;

@@ -1,6 +1,7 @@
 #pragma once
 #include "GLSLProgram.h"
 
+
 enum VertexShader {
 	RETORCER=0,
 	RUIDO,
@@ -15,6 +16,11 @@ enum FragmentShader{
 	MATERIAL_SOMBREADO_SEMIMATE
 };
 
+enum ShaderLuz{
+	LUZ_PRINCIPAL = 0,
+	LUZ_SECUNDARIA
+};
+
 
 class ShaderManager: public InterfazGLSLProgram{
 public:
@@ -24,9 +30,11 @@ public:
 
 	static const int numeroDeVertexShaders;
 	static const int numeroDeFragmentShaders;
+	static const int numeroDeLuces;
 
 	void setVertexShader(VertexShader tipo);
 	void setFragmenShader(FragmentShader tipo);
+	void setShaderLuz(ShaderLuz tipo);
 	void usar();
 	void bindAttribLocation( GLuint location, const char * name);
 	void bindFragDataLocation( GLuint location, const char * name );
@@ -44,10 +52,12 @@ public:
 private:
 	int vertexShaderSeleccionado;
 	int fragmentShaderSeleccionado;
+	int fragmentShaderLuzSeleccionado;
 	
 	//estas variables controlan si hubo algún cambio entre el shader anterior y el actual, para ahorrar procesamiento
 	bool cambioElFragmentShader;
 	bool cambioElVertexShader;
+	bool cambioLaLuz;
 	
 	GLSLProgram programa;
 
@@ -60,5 +70,8 @@ private:
 	void usarFragmentShaderMaterialSombreadoTexturado();
 	void usarFragmentShaderMaterialReflectivo();
 	void usarFragmentShaderMaterialSombreadoSemimate();
+
+	void usarShaderLuzPrincipal();
+	void usarShaderLuzSecundaria();
 };
 

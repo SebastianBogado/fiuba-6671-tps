@@ -14,3 +14,6 @@ bool verRetorcer = true;
 bool verRuido = false;
 bool verDoblar = false;
 bool verEsferizar = false;
+
+bool luzPrincipal = true;
+bool luzSecundaria = false;
