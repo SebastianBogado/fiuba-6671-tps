@@ -18,8 +18,8 @@ void main()
 	distancia = sqrt(parcial);
 	
 	//if (distancia > 1)
-	if(distancia != 0)
+	if(distancia != 0.0)
 	vertice = vertice * 1.0/distancia;	
 	
-	gl_Position = gl_ModelViewProjectionMatrix * vertice;
+	gl_Position = gl_ModelViewProjectionMatrix *vec4(vertice,1.0);
 }
