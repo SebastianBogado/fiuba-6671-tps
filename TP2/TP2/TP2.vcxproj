@@ -76,6 +76,7 @@
     <ClCompile Include="MouseCallbacks.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="Superficie.cpp" />
+    <ClCompile Include="Toroide.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boton.h" />
@@ -94,6 +95,7 @@
     <ClInclude Include="Punto.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="Superficie.h" />
+    <ClInclude Include="Toroide.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\freeglut.lib" />

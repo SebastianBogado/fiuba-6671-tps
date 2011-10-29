@@ -19,6 +19,12 @@
     <Filter Include="lib">
       <UniqueIdentifier>{7ab17549-fcf6-4c5b-a572-140058bb7934}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\Primitivas">
+      <UniqueIdentifier>{5b72af11-74a6-4b77-8bb7-c4a5b4861ecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Primitivas">
+      <UniqueIdentifier>{c669a88d-43d9-4ce2-b51f-f05a9fcdd38a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,28 +45,7 @@
     <ClCompile Include="Controladores.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Cilindro.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Circunferencia.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Cuadrado.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Cubo.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Curva.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="Emparchador.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Esfera.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Superficie.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="GLSLProgram.cpp">
@@ -68,6 +53,30 @@
     </ClCompile>
     <ClCompile Include="ShaderManager.cpp">
       <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Cilindro.cpp">
+      <Filter>Archivos de código fuente\Primitivas</Filter>
+    </ClCompile>
+    <ClCompile Include="Circunferencia.cpp">
+      <Filter>Archivos de código fuente\Primitivas</Filter>
+    </ClCompile>
+    <ClCompile Include="Cuadrado.cpp">
+      <Filter>Archivos de código fuente\Primitivas</Filter>
+    </ClCompile>
+    <ClCompile Include="Cubo.cpp">
+      <Filter>Archivos de código fuente\Primitivas</Filter>
+    </ClCompile>
+    <ClCompile Include="Curva.cpp">
+      <Filter>Archivos de código fuente\Primitivas</Filter>
+    </ClCompile>
+    <ClCompile Include="Esfera.cpp">
+      <Filter>Archivos de código fuente\Primitivas</Filter>
+    </ClCompile>
+    <ClCompile Include="Superficie.cpp">
+      <Filter>Archivos de código fuente\Primitivas</Filter>
+    </ClCompile>
+    <ClCompile Include="Toroide.cpp">
+      <Filter>Archivos de código fuente\Primitivas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,31 +92,7 @@
     <ClInclude Include="MouseCallbacks.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Cilindro.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Circunferencia.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Cuadrado.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Cubo.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Curva.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Emparchador.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Esfera.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Punto.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Superficie.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="GLSLProgram.h">
@@ -118,6 +103,33 @@
     </ClInclude>
     <ClInclude Include="InterfazGLSLProgram.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Cilindro.h">
+      <Filter>Archivos de encabezado\Primitivas</Filter>
+    </ClInclude>
+    <ClInclude Include="Circunferencia.h">
+      <Filter>Archivos de encabezado\Primitivas</Filter>
+    </ClInclude>
+    <ClInclude Include="Cuadrado.h">
+      <Filter>Archivos de encabezado\Primitivas</Filter>
+    </ClInclude>
+    <ClInclude Include="Cubo.h">
+      <Filter>Archivos de encabezado\Primitivas</Filter>
+    </ClInclude>
+    <ClInclude Include="Curva.h">
+      <Filter>Archivos de encabezado\Primitivas</Filter>
+    </ClInclude>
+    <ClInclude Include="Esfera.h">
+      <Filter>Archivos de encabezado\Primitivas</Filter>
+    </ClInclude>
+    <ClInclude Include="Toroide.h">
+      <Filter>Archivos de encabezado\Primitivas</Filter>
+    </ClInclude>
+    <ClInclude Include="Superficie.h">
+      <Filter>Archivos de encabezado\Primitivas</Filter>
+    </ClInclude>
+    <ClInclude Include="Punto.h">
+      <Filter>Archivos de encabezado\Primitivas</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
