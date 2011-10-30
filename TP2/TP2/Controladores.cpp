@@ -23,4 +23,4 @@ float anguloDeRetorsion = 90.0;
 
 //Efecto de doblar
 
-float distanciaDeDoblado = 5.0;
+float distanciaDeDoblado = 3.0;
