@@ -80,7 +80,9 @@ void main()
 	float altura=1.0;
 	
 	vec4 vertice = gl_Vertex;
-	vertice.z+=0.5; 
+
+	//Solo sirve para Debuggear con el IDE
+	//vertice.z+=0.5; 
 	
 	
 	angulo = asin(vertice.z/abs(distancia));
