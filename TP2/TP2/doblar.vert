@@ -98,7 +98,7 @@ void main()
 	float distanciaObjetiva = calcularDistanciaObjetiva(vertice,puntoReferencia);
 	
 	resultado= puntoReferencia + dirAVertice*distanciaObjetiva;
-	
+	v = vec3(gl_ModelViewMatrix * gl_Vertex);
 	//No anda porque falta algo similar a "v = vec3(gl_ModelViewMatrix * gl_Vertex);"
 	//...
 	//La variable "resultado" es el vertice procesado....
