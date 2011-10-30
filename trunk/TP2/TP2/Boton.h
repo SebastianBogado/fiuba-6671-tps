@@ -2,6 +2,7 @@
 
 #include <GL/glut.h>
 #include <iostream>
+#include "AdministradorTexturas.h"
 using std::string;
 
 class Boton{
@@ -19,5 +20,7 @@ public:
 private:
 	void display();
 	mouse pMouse;
+
+	AdministradorTexturas *adminText;
 };
 
