@@ -6,10 +6,12 @@ HUD::HUD(int ventanaPrincipal, int ancho, int alto){
 	this->ancho = ancho;
 	this->alto = alto;
 	this->ventanaPrincipal = ventanaPrincipal;
+
+	this->admintText=AdministradorTexturas::getInstancia();
+
 	this->inicializarMenuFormas();
 	this->inicializarMenuMateriales();
 	this->inicializarMenuDeformaciones();
-
 }
 
 HUD::~HUD(){
@@ -19,9 +21,16 @@ HUD::~HUD(){
 }
 
 void HUD::inicializarMenuFormas(){
+	this->admintText->elegirTexturaBoton(objEsfera);
 	Boton botonEsfera("", mouseCallbacks.getCallback(BOTON_ESFERA));
+
+	this->admintText->elegirTexturaBoton(objCubo);
 	Boton botonCubo("", mouseCallbacks.getCallback(BOTON_CUBO));
+
+	this->admintText->elegirTexturaBoton(objToroide);
 	Boton botonToroide("", mouseCallbacks.getCallback(BOTON_TOROIDE));
+
+	this->admintText->elegirTexturaBoton(objCilindro);
 	Boton botonCilindro("", mouseCallbacks.getCallback(BOTON_CILINDRO));
 	Boton botones[4]={botonEsfera, botonCubo, botonToroide, botonCilindro};
 

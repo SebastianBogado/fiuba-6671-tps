@@ -2,6 +2,7 @@
 
 #include "MenuDeCuatroBotones.h"
 #include "MouseCallbacks.h"
+#include "AdministradorTexturas.h"
 
 //esta clase se encarga de armar los menúes y reposicionarlos
 class HUD{
@@ -10,6 +11,9 @@ public:
 	void resize(int nuevoAncho, int nuevoAlto);
 	~HUD(void);
 private:
+
+	AdministradorTexturas *admintText;
+
 	struct propiedades{
 		int x;
 		int y;
