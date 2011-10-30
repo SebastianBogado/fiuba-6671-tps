@@ -78,6 +78,12 @@
     <ClCompile Include="Toroide.cpp">
       <Filter>Archivos de código fuente\Primitivas</Filter>
     </ClCompile>
+    <ClCompile Include="AdministradorTexturas.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MenuDeCuatroBotones.h">
@@ -130,6 +136,12 @@
     </ClInclude>
     <ClInclude Include="Punto.h">
       <Filter>Archivos de encabezado\Primitivas</Filter>
+    </ClInclude>
+    <ClInclude Include="AdministradorTexturas.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

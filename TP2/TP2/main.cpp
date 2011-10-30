@@ -63,6 +63,8 @@ extern bool verEsferizar;
 extern bool luzPrincipal;
 extern bool luzSecundaria;
 
+extern float tiempo;
+
 //Efector "retorcer"
 extern float anguloDeRetorsion;
 
@@ -107,9 +109,30 @@ void init(void)
 
 	//DLs para las superficies
 	glNewList(DL_ESFERA, GL_COMPILE);
-	    superficie = new Esfera;
+	    /*superficie = new Esfera;
         emparchador.emparchar(superficie);
-        delete superficie;
+        delete superficie;*/
+		/*glBegin(GL_TRIANGLE_STRIP);
+			for (float i=-1.5; i <= 1.5; i+=0.1){
+				for (float j=-1.5; j <= 1.5; j+=0.1){
+					glVertex3f(j,i,0);
+					glVertex3f(j,i+0.1,0);
+				}
+				glVertex3f(1.5, i+0.1,0);
+			}*/
+		glBegin(GL_TRIANGLES);
+			for (float i=-1.5; i <= 1.5; i+=0.1){
+				for (float j=-1.5; j <= 1.5; j+=0.1){
+					glVertex3f(j,i,0);
+					glVertex3f(j+0.1,i,0);
+					glVertex3f(j,i+0.1,0);
+
+					glVertex3f(j+0.1,i,0);
+					glVertex3f(j+0.1,i+0.1,0);
+					glVertex3f(j,i+0.1,0);
+				}
+			}
+		glEnd();
 	glEndList();
 	
 	glNewList(DL_CUBO, GL_COMPILE);
@@ -148,7 +171,7 @@ void init(void)
 
 
 void OnIdle (void)
-{
+{	tiempo += 0.01;
 	//hacer algo
     glutPostRedisplay();
 }
@@ -173,6 +196,7 @@ void escena(void)
 	}
 	if (verRuido){
 		shaderManager->setVertexShader(RUIDO);
+		shaderManager->setUniform("tiempo", tiempo);
 		//setear uniforms y esas cosas
 	}
     if (verDoblar){
@@ -255,23 +279,6 @@ void keyboard (unsigned char key, int x, int y)
 			cout << anguloDeRetorsion << endl;
 			anguloDeRetorsion -= 1;
 			break;
-
-/*
-	  case 'g':
-		  view_grid = !view_grid;
-		  glutPostRedisplay();
-		  break;
-
-	  case 'a':
-		  view_axis = !view_axis;
-		  glutPostRedisplay();
-		  break;
-
-	  case 'e':
-		  edit_panel = !edit_panel;
-		  glutPostRedisplay();
-		  break;*/
-
 	  case '2':
 		  eye[0] = 0.0;
 		  eye[1] = 0.0;

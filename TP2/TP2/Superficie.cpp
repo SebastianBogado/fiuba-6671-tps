@@ -1,5 +1,7 @@
 #include "Superficie.h"
 
+Superficie::Superficie(){ 	this->paso=64; }
+
 Superficie::~Superficie(){ delete this->curvaBorde; }
 
 float* Superficie::getPunto(int Xn, int Yn, int Zn){

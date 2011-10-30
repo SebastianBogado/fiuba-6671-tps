@@ -2,6 +2,8 @@
 varying vec3 N;
 varying vec3 v;
 
+uniform float anguloDeRetorsion;
+
 float gradosARadianes(float angulo){
 	const float DPI=6.283185307;
 	angulo = angulo / 360.0;
@@ -11,7 +13,7 @@ float gradosARadianes(float angulo){
 
 vec4 calcular(vec4 posicionOriginal){
 	
-	float angulo = gradosARadianes(90.0);
+	float angulo = gradosARadianes(anguloDeRetorsion);
 	angulo = angulo * posicionOriginal.z;
 	angulo = angulo/2.0;
 	float xAux;// = posicionOriginal.y;
@@ -35,7 +37,7 @@ vec4 calcular(vec4 posicionOriginal){
 
 vec3 calcularNormal(vec3 normal){
 	
-	float angulo = gradosARadianes(90.0);
+	float angulo = gradosARadianes(anguloDeRetorsion);
 	angulo = angulo * normal[2];
 	angulo = angulo/2.0;
 	float xAux;// = posicionOriginal.y;

@@ -2,7 +2,6 @@
 
 Esfera::Esfera(){
     this->radio = 1;
-    this->paso = 32;
     this->construir();
 }
 

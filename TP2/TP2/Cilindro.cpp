@@ -3,7 +3,6 @@
  Cilindro::Cilindro(){
     this->radio = 1;
     this->altura = 1;
-    this->paso = 32;
     this->construir();
 }
 Cilindro::Cilindro(float radio, float altura, int paso){

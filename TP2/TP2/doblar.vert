@@ -20,7 +20,7 @@ vec3 direccionAVertice(vec4 vertice,vec3 puntoRef){
 	vec3 resultado; 
 		
 	float radianes = angulo;//gradosARadianes(angulo * vertice.z / altura);	
-	if(distancia>=0){
+	if(distancia>=0.0){
 		resultado.x=-cos(radianes);
 	}
 	else{
@@ -60,7 +60,7 @@ float calcularDistanciaObjetiva(vec4 vertice,vec3 puntoRef){
 vec3 transformarNormal(vec3 normal){
 
 	vec3 normalTransformada=normal;
-	if(distancia>0){
+	if(distancia>0.0){
 		normalTransformada.x=cos(angulo);
 		}
 	else {
@@ -99,6 +99,8 @@ void main()
 	
 	resultado= puntoReferencia + dirAVertice*distanciaObjetiva;
 	
+	//No anda porque falta algo similar a "v = vec3(gl_ModelViewMatrix * gl_Vertex);"
+	    
 	N = normalize (gl_NormalMatrix * transformarNormal(gl_Normal));	
 	gl_Position = gl_ModelViewProjectionMatrix * vec4(resultado,gl_Vertex.w);
 }
