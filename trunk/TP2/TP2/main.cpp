@@ -66,6 +66,10 @@ extern bool luzSecundaria;
 //Efector "retorcer"
 extern float anguloDeRetorsion;
 
+
+//Efecto de "doblar"
+extern float distanciaDeDoblado; 
+
 /*
 // Variables asociadas a única fuente de luz de la escena
 float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -173,6 +177,7 @@ void escena(void)
 	}
     if (verDoblar){
 		shaderManager->setVertexShader(DOBLAR);
+		shaderManager->setUniform("distancia",distanciaDeDoblado);
 		//setear uniforms y esas cosas
 	}
    	if (verEsferizar){
