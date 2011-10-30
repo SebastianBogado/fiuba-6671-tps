@@ -5,7 +5,7 @@ varying vec3 v;
 void main()
 {	
 	//Luego esto tiene que ser un Uniform
-	vec3 centro = (0.0,0.0,0.0);
+	vec3 centro = vec3(0.0,0.0,0.0);
 	
 	v = vec3(gl_ModelViewMatrix * gl_Vertex);       
    N = normalize(gl_NormalMatrix * gl_Normal);

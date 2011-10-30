@@ -106,6 +106,19 @@
     <Library Include="lib\glew32.lib" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Archivos de recursos\Texturas de Botones\efecDoblar.JPG" />
+    <None Include="Archivos de recursos\Texturas de Botones\efecEsferizar.JPG" />
+    <None Include="Archivos de recursos\Texturas de Botones\efecRetorcer.JPG" />
+    <None Include="Archivos de recursos\Texturas de Botones\efecRuido.JPG" />
+    <None Include="Archivos de recursos\Texturas de Botones\matBrillante.JPG" />
+    <None Include="Archivos de recursos\Texturas de Botones\matReflectivo.JPG" />
+    <None Include="Archivos de recursos\Texturas de Botones\matSemimate.JPG" />
+    <None Include="Archivos de recursos\Texturas de Botones\matTexturado.JPG" />
+    <None Include="Archivos de recursos\Texturas de Botones\objCilindro.JPG" />
+    <None Include="Archivos de recursos\Texturas de Botones\objCubo.JPG" />
+    <None Include="Archivos de recursos\Texturas de Botones\objEsfera.JPG" />
+    <None Include="Archivos de recursos\Texturas de Botones\objToroide.JPG" />
+    <None Include="Archivos de recursos\Texturas de Objetos\LadrilloRustico.jpg" />
     <None Include="doblar.vert" />
     <None Include="esferizar.vert" />
     <None Include="luzPrincipal.frag" />

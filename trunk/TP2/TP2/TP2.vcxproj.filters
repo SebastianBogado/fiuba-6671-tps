@@ -25,6 +25,12 @@
     <Filter Include="Archivos de encabezado\Primitivas">
       <UniqueIdentifier>{c669a88d-43d9-4ce2-b51f-f05a9fcdd38a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de recursos\Texturas de objetos">
+      <UniqueIdentifier>{e70e4bf5-2196-4d60-92f4-7f8c877d87dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de recursos\Texturas de Botones">
+      <UniqueIdentifier>{19e15710-fa2f-441e-bf5c-6023e9f5de9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -182,6 +188,45 @@
     </None>
     <None Include="luzSecundaria.frag">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Objetos\LadrilloRustico.jpg">
+      <Filter>Archivos de recursos\Texturas de objetos</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\efecRetorcer.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\efecRuido.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\matBrillante.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\matReflectivo.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\matSemimate.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\matTexturado.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\objCilindro.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\objCubo.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\objEsfera.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\objToroide.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\efecDoblar.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Botones\efecEsferizar.JPG">
+      <Filter>Archivos de recursos\Texturas de Botones</Filter>
     </None>
   </ItemGroup>
 </Project>
