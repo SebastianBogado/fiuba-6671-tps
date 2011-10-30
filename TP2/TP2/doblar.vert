@@ -100,6 +100,8 @@ void main()
 	resultado= puntoReferencia + dirAVertice*distanciaObjetiva;
 	
 	//No anda porque falta algo similar a "v = vec3(gl_ModelViewMatrix * gl_Vertex);"
+	//...
+	//La variable "resultado" es el vertice procesado....
 	    
 	N = normalize (gl_NormalMatrix * transformarNormal(gl_Normal));	
 	gl_Position = gl_ModelViewProjectionMatrix * vec4(resultado,gl_Vertex.w);
