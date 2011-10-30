@@ -1,7 +1,7 @@
 #include "Circunferencia.h"
 
 Circunferencia::Circunferencia(){
-    this->paso = 32;
+    this->paso = 64;
     this->radio = 0.5;
     this->construir();
 }

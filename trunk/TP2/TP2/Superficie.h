@@ -7,6 +7,7 @@
 
 class Superficie{
     public:
+		Superficie();
         virtual ~Superficie();
 
         virtual float* getPunto(int Xn, int Yn, int Zn);

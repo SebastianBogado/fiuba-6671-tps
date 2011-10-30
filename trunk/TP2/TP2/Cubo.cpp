@@ -2,7 +2,6 @@
 
 Cubo::Cubo(){
     this->lado = 1;
-    this->paso = 32;
     this->construir();
 }
 Cubo::Cubo(float lado, int paso){
