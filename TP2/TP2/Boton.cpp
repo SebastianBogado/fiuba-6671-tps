@@ -21,6 +21,7 @@ Boton::~Boton(void){
 }
 
 void Boton::display(){
+	glClearColor( 1.0, 1.0, 1.0, 0.0); 
 	glEnable(GL_CULL_FACE);
 	glDisable(GL_DEPTH_TEST);
 

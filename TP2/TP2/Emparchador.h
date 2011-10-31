@@ -3,6 +3,9 @@
 
 #include "Superficie.h"
 #include <GL/glut.h>
+#include <glm/glm.hpp>
+#include <glm/gtx/normal.hpp>
+using glm::gtx::normal::triangleNormal;
 
 class Emparchador{
     public:

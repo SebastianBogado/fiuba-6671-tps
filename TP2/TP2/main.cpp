@@ -72,12 +72,12 @@ extern float anguloDeRetorsion;
 //Efecto de "doblar"
 extern float distanciaDeDoblado; 
 
-/*
+
 // Variables asociadas a única fuente de luz de la escena
 float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
 float light_position[3] = {10.0f, 10.0f, 8.0f};
 float light_ambient[4] = {0.05f, 0.05f, 0.05f, 1.0f};
-*/
+
 
 
 // Handle para el control de las Display Lists
@@ -109,18 +109,10 @@ void init(void)
 
 	//DLs para las superficies
 	glNewList(DL_ESFERA, GL_COMPILE);
-	    /*superficie = new Esfera;
+	    superficie = new Esfera;
         emparchador.emparchar(superficie);
-        delete superficie;*/
-		/*glBegin(GL_TRIANGLE_STRIP);
-			for (float i=-1.5; i <= 1.5; i+=0.1){
-				for (float j=-1.5; j <= 1.5; j+=0.1){
-					glVertex3f(j,i,0);
-					glVertex3f(j,i+0.1,0);
-				}
-				glVertex3f(1.5, i+0.1,0);
-			}*/
-		glBegin(GL_TRIANGLES);
+        delete superficie;
+		/*glBegin(GL_TRIANGLES);
 			for (float i=-1.5; i <= 1.5; i+=0.1){
 				for (float j=-1.5; j <= 1.5; j+=0.1){
 					glVertex3f(j,i,0);
@@ -132,7 +124,7 @@ void init(void)
 					glVertex3f(j,i+0.1,0);
 				}
 			}
-		glEnd();
+		glEnd();*/
 	glEndList();
 	
 	glNewList(DL_CUBO, GL_COMPILE);
@@ -155,8 +147,6 @@ void init(void)
 	glEndList();
 
 
-
-	/*
 	glClearColor (0.02f, 0.02f, 0.04f, 0.0f);
     glShadeModel (GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
@@ -165,14 +155,15 @@ void init(void)
     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
-	*/
+	
 
 }
 
 
 void OnIdle (void)
 {	tiempo += 0.01;
-	//hacer algo
+	if (tiempo > 1024.0) 
+		tiempo = 0;
     glutPostRedisplay();
 }
 
@@ -246,7 +237,6 @@ void escena(void)
 		glCallList(DL_TOROIDE);
    	if (verCilindro)
 		glCallList(DL_CILINDRO);
-	glEnable(GL_LIGHTING);
 
 	glutSwapBuffers();
 	glutPostRedisplay();

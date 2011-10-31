@@ -16,6 +16,8 @@ class Esfera : public Superficie{
         void construir();
         float calcularRadioSegunAltura(float altura);
         float radio;
+		float* getNormalArista(int Xn, int Yn, int Zn);
+		bool esArista(int Xn, int Yn, int Zn);
 };
 
 #endif // __ESFERA_H__
