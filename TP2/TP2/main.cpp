@@ -183,6 +183,7 @@ void escena(void)
 	if (verRetorcer){
 		shaderManager->setVertexShader(RETORCER);
 		shaderManager->setUniform("anguloDeRetorsion", anguloDeRetorsion);
+		shaderManager->setUniform("tiempo", tiempo);
 		//setear uniforms y esas cosas
 	}
 	if (verRuido){

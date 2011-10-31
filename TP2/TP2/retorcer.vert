@@ -3,6 +3,7 @@ varying vec3 N;
 varying vec3 v;
 
 uniform float anguloDeRetorsion;
+uniform float tiempo;
 
 float gradosARadianes(float angulo){
 	const float DPI=6.283185307;
@@ -11,9 +12,13 @@ float gradosARadianes(float angulo){
 	return angulo;
 }
 
+float animacion(float anguloDeRetorsion){
+	return anguloDeRetorsion*sin(20.0*tiempo);
+}
+
 vec4 calcular(vec4 posicionOriginal){
 	
-	float angulo = gradosARadianes(anguloDeRetorsion);
+	float angulo = gradosARadianes(animacion(anguloDeRetorsion));
 	angulo = angulo * posicionOriginal.z;
 	angulo = angulo/2.0;
 	float xAux;// = posicionOriginal.y;
