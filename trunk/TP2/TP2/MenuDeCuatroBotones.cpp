@@ -35,7 +35,7 @@ void MenuDeCuatroBotones::posicionarBotones(){
 				glutDisplayFunc(Boton::displayWrapper);
 				glutMouseFunc(botones[i].getMouseCallback());
 			}
-			else{//si ya fueron inicializados, entonces los reposicion
+			else{//si ya fueron inicializados, entonces los reposiciona
 				glutSetWindow(this->handle[i]);
 				glutPositionWindow(this->posicionX, this->posicionY + i*separacion);
 				glutReshapeWindow(anchoBoton, altoBoton);
@@ -55,7 +55,7 @@ void MenuDeCuatroBotones::posicionarBotones(){
 				glutDisplayFunc(Boton::displayWrapper);
 				glutMouseFunc(botones[i].getMouseCallback());
 			}
-			else{//menú horizontal; no hay menúes cuadrados en este programa
+			else{//si ya fueron inicializados, entonces los reposiciona
 				glutSetWindow(this->handle[i]);
 				glutPositionWindow(this->posicionX + i*separacion, this->posicionY);
 				glutReshapeWindow(anchoBoton, altoBoton);

@@ -32,3 +32,26 @@ float* Esfera::getPunto(int Xn, int Yn, int Zn){
     punto[2] = this->Zn(Zn) - this->radio;
     return punto;
 }
+
+float* Esfera::getNormalArista(int Xn, int Yn, int Zn){
+    float* normal = new float[3];
+
+    //Punto de arriba de todo
+    normal[0] = 0;
+    normal[1] = 0;
+
+    if (Zn == 0) //Punto de abajo
+        normal[2] = -1;
+    else // Punto de arriba
+        normal[2] = 1;
+
+    return normal;
+}
+
+bool Esfera::esArista(int Xn, int Yn, int Zn){
+    //Si es primer o último punto
+    if ((Zn == 0) || (Zn == cantidadDePuntosEnAlto()))
+         return true;
+
+    return false;
+}
