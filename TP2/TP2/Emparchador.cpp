@@ -16,7 +16,7 @@ void Emparchador::emparchar(Superficie* superficie){
 
     for (int i = 0; i < superficie->cantidadDePuntosEnAlto(); i++){
         glBegin(GL_TRIANGLE_STRIP);
-            for (int j = 0; j < superficie->cantidadDePuntosBorde(); j++){
+            for (int j = 0; j <= superficie->cantidadDePuntosBorde(); j++){
                 puntoInferior = superficie->getPunto(j, j, i);
                 puntoSuperior = superficie->getPunto(j, j, i+1);
 
@@ -32,21 +32,7 @@ void Emparchador::emparchar(Superficie* superficie){
                 delete []puntoSuperior;
                 delete []normal;
             }
-            ultimoPuntoInferior = superficie->getPunto(0, 0, i);
-            ultimoPuntoSuperior = superficie->getPunto(0, 0, i+1);
-
-            normal = superficie->getNormal(0, 0, i);
-            glNormal3fv(normal);
-            glVertex3fv(ultimoPuntoInferior);
-            delete [] normal;
-
-            normal = superficie->getNormal(0, 0, i+1);
-            glNormal3fv(normal);
-            glVertex3fv(ultimoPuntoSuperior);
-            delete []ultimoPuntoInferior;
-            delete []ultimoPuntoSuperior;
-            delete []normal;
-        glEnd();
+		glEnd();
     }
     if (superficie->tieneTapas())
         this->emparcharTapas(superficie);
