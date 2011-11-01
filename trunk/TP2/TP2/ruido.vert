@@ -11,8 +11,8 @@ struct Onda{
 };
 
 //uniform
-Onda ondaEnX = Onda(1.9, 0.5, 0.07);
-Onda ondaEnY = Onda(1.6, 0.8, 0.04);
+Onda ondaEnX = Onda(1.9, 2.5, 0.01);
+Onda ondaEnY = Onda(1.6, 2.8, 0.02);
 
 uniform float tiempo;
 
