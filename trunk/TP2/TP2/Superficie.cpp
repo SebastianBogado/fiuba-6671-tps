@@ -35,7 +35,7 @@ float* Superficie::getNormal(int Xn, int Yn, int Zn){
 
     //Dirección arriba y derecha
     float* puntoUno = getPunto(Xn, Yn, Zn+1);
-    float* puntoDos = getPunto(Xn+1, Yn+1, Zn+1);
+    float* puntoDos = getPunto(Xn+1, Yn+1, Zn);
     float* normal1 = calcularNormal(puntoCentral, puntoUno, puntoDos);
     delete [] puntoUno;
     delete [] puntoDos;
