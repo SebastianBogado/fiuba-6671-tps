@@ -1,4 +1,5 @@
 #include "Emparchador.h"
+#include "AdministradorTexturas.h"
 #include <iostream>
 
 #include <windows.h>
@@ -12,6 +13,8 @@ void Emparchador::emparchar(Superficie* superficie){
     float* ultimoPuntoSuperior;
     float* normal;
 
+	AdministradorTexturas *adminTex= AdministradorTexturas::getInstancia();
+	adminTex->elegirTextura(Ladrillos);
     glEnable(GL_DEPTH_TEST);
 
     for (int i = 0; i < superficie->cantidadDePuntosEnAlto(); i++){
@@ -22,11 +25,13 @@ void Emparchador::emparchar(Superficie* superficie){
 
                 normal = superficie->getNormal(j, j, i);
                 glNormal3fv(normal);
+				adminTex->generarCoordText();
                 glVertex3fv(puntoInferior);
                 delete [] normal;
 
                 normal = superficie->getNormal(j, j, i+1);
                 glNormal3fv(normal);
+				adminTex->generarCoordText();
                 glVertex3fv(puntoSuperior);
                 delete []puntoInferior;
                 delete []puntoSuperior;

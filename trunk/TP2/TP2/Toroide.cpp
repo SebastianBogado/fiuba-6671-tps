@@ -5,6 +5,7 @@ Toroide::Toroide()
 {
 	this->radioInt=0.3;
 	this->radioExt=1.0;
+	this->paso=32;
 	this->construir();
 }
 
