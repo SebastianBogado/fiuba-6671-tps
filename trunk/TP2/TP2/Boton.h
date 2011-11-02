@@ -11,7 +11,7 @@ class Boton{
 public:
 	Boton();
 	Boton(char* pathText, void (*mouseCallback)(int, int, int, int));
-	Boton::Boton(int tipo, void (*mouseCallback)(int, int, int, int));
+	Boton(int tipo, void (*mouseCallback)(int, int, int, int));
 	~Boton(void);
 
 	//un arreglo para poder hacer el callback correctamente
