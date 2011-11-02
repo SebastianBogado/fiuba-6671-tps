@@ -1,6 +1,10 @@
 //Vertex shader ruido
 //
 
+//TODO : revisar las normales de z negativo. Pueden ser el origen del problema de que se parta en dos las figuras
+// que tienen puntos de z<0
+//TODO 2 : encontrar una manera de pasarle al shader si un vértice es normal. Por ahora, temo que voy a tener
+// que pasarle un array con todos los vértices arista :S
 varying vec3 N;
 varying vec3 v;
 varying vec2 vTexCoord;
@@ -16,6 +20,8 @@ Onda ondaEnX = Onda(1.9, 2.5, 0.01);
 Onda ondaEnY = Onda(1.6, 2.8, 0.02);
 
 uniform float tiempo;
+
+uniform bool esArista;
 
 const float DPI = 6.283185307;
 
@@ -48,6 +54,40 @@ float calcularRuidoEnDireccionNormal(vec4 r){
 	return diferencia;
 }
 
+float calcularAngulo(float catetoAdyacente, float catetoOpuesto){
+	float angulo;
+	/*
+	if (catetoAdyacente == 0.0){
+		if (catetoOpuesto == 0.0)
+			angulo = 0.0;
+		if (catetoOpuesto > 0.0)
+			angulo = DPI/4.0;
+		if (catetoOpuesto < 0.0)
+			angulo = 3.0 * DPI / 4.0;
+	}
+	if (catetoAdyacente < 0.0){
+		if (catetoOpuesto <= 0.0)
+			angulo = DPI/2.0 + atan(catetoOpuesto/catetoAdyacente);
+		if (catetoOpuesto > 0.0)
+			angulo = DPI/4.0 + atan(-catetoOpuesto/catetoAdyacente);
+		if (catetoOpuesto == 0.0)
+			angulo = DPI/2.0;
+	}
+	if (catetoAdyacente > 0.0)
+		angulo = atan(catetoOpuesto/catetoAdyacente);
+		if (catetoOpuesto == 0.0)
+			angulo = DPI/4.0;
+		*/
+	angulo = atan(catetoOpuesto, catetoAdyacente);
+	if (catetoAdyacente == 0.0){
+		if (catetoOpuesto > 0.0)
+			angulo = DPI/4.0;
+		else
+			angulo = DPI/2.0;
+	}
+	return angulo;
+}
+
 vec3 rotarEnY(float angulo, vec3 posicion){
 	mat3 rotadoraEnY = mat3( cos(angulo),  0.0, sin(angulo),
 									 0.0,  1.0,			0.0,
@@ -67,18 +107,10 @@ vec4 calcularRuido(vec4 r, vec3 n){
 	float z = calcularRuidoEnDireccionNormal(r);
 
 	//Alinear a la dirección normal
-	float anguloDeRotacionEnY;
-	if (n.z == 0.0)
-		anguloDeRotacionEnY = DPI/4.0;
-	else
-		anguloDeRotacionEnY = atan(n.x/n.z);
+	float anguloDeRotacionEnY = calcularAngulo(n.z, n.x);
 	vec3 nuevaPosicion = rotarEnY(anguloDeRotacionEnY, vec3(0.0, 0.0, z));
 	
-	float anguloDeRotacionEnZ;
-	if	(n.x == 0.0)
-		anguloDeRotacionEnZ = DPI/4.0;
-	else
-		anguloDeRotacionEnZ = atan(n.y/n.x);
+	float anguloDeRotacionEnZ = calcularAngulo(n.x, n.y);
 	nuevaPosicion = rotarEnZ(anguloDeRotacionEnZ, nuevaPosicion);
 
 	//Trasladarlo al punto que pertenece
@@ -115,19 +147,11 @@ vec3 calcularNormal(vec4 r, vec3 n){
 /*
 	normalNueva = vec3(-kx*Ax*cos(kx*r.x-wx*t), 0.0, 1.0);
 */
-	//Alineación de normalNueva = (0, 0, 1) con n = (0, 0, 1)
-	float anguloDeRotacionEnY;
-	if (n.z == 0.0)
-		anguloDeRotacionEnY = DPI/4.0;
-	else
-		anguloDeRotacionEnY = atan(n.x/n.z);
+	//Alineación de normalNueva (calculada según (0,0,1)) con n
+	float anguloDeRotacionEnY =  calcularAngulo(n.z, n.x);
 	normalNueva = rotarEnY(anguloDeRotacionEnY, normalNueva);
 	
-	float anguloDeRotacionEnZ;
-	if	(n.x == 0.0)
-		anguloDeRotacionEnZ = DPI/4.0;
-	else
-		anguloDeRotacionEnZ = atan(n.y/n.x);
+	float anguloDeRotacionEnZ = calcularAngulo(n.x, n.y);
 	normalNueva = rotarEnZ(anguloDeRotacionEnZ, normalNueva);
 
 	//No olvidar normalizar
@@ -142,5 +166,8 @@ void main()
 	N = normalize(gl_NormalMatrix * calcularNormal(gl_Vertex, gl_Normal));
 	vec4 aux = calcularRuido(gl_Vertex, gl_Normal);
 	//v = vec3(aux.x, aux.y, aux.z);
+	if (esArista)
+		gl_Position = gl_ModelViewProjectionMatrix * vec4 (gl_Vertex);
+
 	gl_Position = gl_ModelViewProjectionMatrix * aux;
 }

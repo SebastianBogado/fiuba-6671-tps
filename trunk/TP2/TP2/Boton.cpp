@@ -19,8 +19,7 @@ extern char *pathEfecDoblar;
 extern char *pathEfecEsferizar;
 
 
-void* pBotonActual; //variable global para ejcutar el callback con wrapper
-extern GLfloat window_size[2];
+void* pBotonActual; //variable global para ejecutar el callback con wrapper
 
 /*
 Boton::Boton(string pathTextura, void (*mouseCallback)(int, int, int, int)){

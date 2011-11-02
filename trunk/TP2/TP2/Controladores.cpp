@@ -21,6 +21,7 @@ float tiempo = 0.0;
 
 //Efecto retorcer
 float anguloDeRetorsion = 90.0;
+bool esArista;
 
 //Efecto de doblar
 

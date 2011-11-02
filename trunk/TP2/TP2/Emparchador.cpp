@@ -21,19 +21,25 @@ void Emparchador::emparchar(Superficie* superficie){
         glBegin(GL_TRIANGLE_STRIP);
             for (int j = 0; j <= superficie->cantidadDePuntosBorde(); j++){
                 puntoInferior = superficie->getPunto(j, j, i);
-                puntoSuperior = superficie->getPunto(j, j, i+1);
-
                 normal = superficie->getNormal(j, j, i);
-                glNormal3fv(normal);
+				esArista = superficie->esArista(j, j, i);
+
+				glNormal3fv(normal);
 				adminTex->generarCoordText();
                 glVertex3fv(puntoInferior);
-                delete [] normal;
+                
+				delete []puntoInferior;
+				delete [] normal;
 
-                normal = superficie->getNormal(j, j, i+1);
-                glNormal3fv(normal);
+
+				puntoSuperior = superficie->getPunto(j, j, i+1);
+                normal = superficie->getNormal(j, j, i+1);				
+				esArista = superficie->esArista(j, j, i+1);
+                
+				glNormal3fv(normal);
 				adminTex->generarCoordText();
                 glVertex3fv(puntoSuperior);
-                delete []puntoInferior;
+                
                 delete []puntoSuperior;
                 delete []normal;
             }

@@ -7,6 +7,8 @@
 #include <glm/gtx/normal.hpp>
 using glm::gtx::normal::triangleNormal;
 
+extern bool esArista;
+
 class Emparchador{
     public:
         void emparchar(Superficie* superficie);
