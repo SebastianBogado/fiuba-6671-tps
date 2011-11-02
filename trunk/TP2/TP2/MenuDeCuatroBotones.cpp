@@ -32,6 +32,7 @@ void MenuDeCuatroBotones::posicionarBotones(){
 					this->posicionX, this->posicionY + i*separacion, 
 					anchoBoton, altoBoton);
 				pBotonActual = (void*) &botones[i];
+				botones[i].cargarTextura();
 				glutDisplayFunc(Boton::displayWrapper);
 				glutMouseFunc(botones[i].getMouseCallback());
 			}
@@ -52,6 +53,7 @@ void MenuDeCuatroBotones::posicionarBotones(){
 					this->posicionX + i*separacion, this->posicionY, 
 					anchoBoton, altoBoton); 
 				pBotonActual = (void*) &botones[i];
+				botones[i].cargarTextura();
 				glutDisplayFunc(Boton::displayWrapper);
 				glutMouseFunc(botones[i].getMouseCallback());
 			}

@@ -3,6 +3,7 @@
 
 varying vec3 N;
 varying vec3 v;
+varying vec2 vTexCoord;
 
 struct Onda{
 	float longitud;
@@ -135,6 +136,8 @@ vec3 calcularNormal(vec4 r, vec3 n){
 
 void main()
 {	
+
+	vTexCoord = gl_MultiTexCoord0.xy;
 	v = vec3(gl_ModelViewMatrix * gl_Vertex);   
 	N = normalize(gl_NormalMatrix * calcularNormal(gl_Vertex, gl_Normal));
 	vec4 aux = calcularRuido(gl_Vertex, gl_Normal);

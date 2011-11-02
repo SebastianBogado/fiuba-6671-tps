@@ -1,5 +1,7 @@
 varying vec3 N;
 varying vec3 v;
+uniform sampler2D textura;
+varying vec2 vTexCoord;
 
 #define MAX_LIGHTS 2 
 
@@ -22,7 +24,7 @@ void main (void)
    
       // calculate Specular Term:
       vec4 Ispec = gl_FrontLightProduct[i].specular 
-             * pow(max(dot(R,E),0.0),0.3*gl_FrontMaterial.shininess);
+             * pow(max(dot(R,E),0.0),0.3*gl_FrontMaterial.shininess)*2.0;
       Ispec = clamp(Ispec, 0.0, 1.0); 
    
       finalColor += Iamb + Idiff + Ispec;
@@ -30,5 +32,5 @@ void main (void)
    }
    
    // write Total Color: 
-   gl_FragColor = gl_FrontLightModelProduct.sceneColor + finalColor; 
+   gl_FragColor = gl_FrontLightModelProduct.sceneColor + finalColor+ texture2D(textura, vTexCoord).rgba; 
    }

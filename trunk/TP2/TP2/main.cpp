@@ -27,7 +27,13 @@ using namespace std;
 #include "Cubo.h"
 #include "Toroide.h"
 #include "Cilindro.h"
+#include "AdministradorTexturas.h"
 
+
+#include "TextureLoader.h"
+//para la prueba de Texturas...
+glTexture textura;
+TextureLoader *texLoad;
 
 
 // Tamaño de la ventana
@@ -71,6 +77,7 @@ extern float anguloDeRetorsion;
 
 //Efecto de "doblar"
 extern float distanciaDeDoblado; 
+extern float incrementoDeDistancia;
 
 
 // Variables asociadas a única fuente de luz de la escena
@@ -97,7 +104,20 @@ void Set3DEnv()
 }
 
 void init(void) 
-{
+{	
+
+	//Para la Prueba de Textura
+	texLoad = new TextureLoader();
+	char *p="C:\objEsfera.JPG";
+	//texLoad->LoadTextureFromDisk(p,&textura);
+	texLoad->LoadTextureFromDisk("./Archivos de Recursos/Texturas de Botones/objToroide.JPG",&textura);
+	//texLoad->LoadTextureFromDisk("C:\o.jpg",&textura);
+	//........
+
+
+	AdministradorTexturas *adminText=AdministradorTexturas::getInstancia();
+	adminText->CargarTexturas();
+
 	Emparchador emparchador;
     Superficie* superficie;
 
@@ -161,10 +181,28 @@ void init(void)
 
 
 void OnIdle (void)
-{	tiempo += 0.01;
+
+{	
+	
+	tiempo += 0.01;
 	if (tiempo > 1024.0) 
 		tiempo = 0;
     glutPostRedisplay();
+
+
+	if(verDoblar){
+		distanciaDeDoblado+=incrementoDeDistancia;
+
+		if (glm::abs(distanciaDeDoblado)>=15.0){
+			distanciaDeDoblado=-distanciaDeDoblado;
+			
+			
+		}else if(glm::abs(distanciaDeDoblado)<=1.2){
+			incrementoDeDistancia=-incrementoDeDistancia;
+			
+		}
+	}
+
 }
 
 void escena(void)
@@ -198,6 +236,7 @@ void escena(void)
 	}
    	if (verEsferizar){
 		shaderManager->setVertexShader(ESFERIZAR);
+		shaderManager->setUniform("tiempo", tiempo);
 		//setear uniforms y esas cosas 
 	}
 	/*
@@ -210,6 +249,8 @@ void escena(void)
 	//selección del material
 	if (verMaterialSombreadoBrillante){
 		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_BRILLANTE);
+		AdministradorTexturas *adminTex = AdministradorTexturas::getInstancia();
+		//shaderManager->setUniform("textura",0);//adminTex->getID(Ladrillos));
 		//setear uniforms y esas cosas
 	}
 	if (verMaterialSombreadoTexturado){

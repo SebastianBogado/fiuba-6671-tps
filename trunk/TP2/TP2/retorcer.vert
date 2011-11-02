@@ -1,6 +1,7 @@
 //Vertex shader retorcer
 varying vec3 N;
 varying vec3 v;
+varying vec2 vTexCoord;
 
 uniform float anguloDeRetorsion;
 uniform float tiempo;
@@ -62,7 +63,8 @@ vec3 calcularNormal(vec3 normal){
 
 void main(void)
 {
-
+	
+	vTexCoord = gl_MultiTexCoord0.xy;
    v = vec3(gl_ModelViewMatrix * gl_Vertex);       
    N = normalize(gl_NormalMatrix * calcularNormal(gl_Normal));
    //N = normalize(gl_NormalMatrix * gl_Normal);

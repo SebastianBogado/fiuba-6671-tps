@@ -12,13 +12,6 @@ enum TipoTextura {
 
 };
 
-enum TipoTexturaBoton{
-
-	objEsfera, objCubo , objToroide, objCilindro,
-	matBrillante, matTexturado, matReflectivo, matSemimate,
-	efecRetorcer, efecRuido, efecDoblar, efecEsferizar
-
-};
 
 
 
@@ -28,9 +21,6 @@ private:
 	
 	
 	glTexture textMate,textLadrillos,textSolido,textMetalica;
-	glTexture objTexture[4];
-	glTexture matTexture[4];
-	glTexture efecTexture[4];
 	TextureLoader textLoader;
 	GLfloat coordX,coordY;
 	int numero_Punto;
@@ -47,11 +37,12 @@ public:
 	static AdministradorTexturas* getInstancia();
 
 	void CargarTexturas();
-	void generarCoordTextBoton(float u,float v);
 	void generarCoordText();
 	void generarCoordTextTapa();
 	void elegirTextura(TipoTextura tipo);
-	void elegirTexturaBoton(TipoTexturaBoton tipoBoton);
+
+	int getID(TipoTextura tipo);
+
 	~AdministradorTexturas(void);
 };
 
