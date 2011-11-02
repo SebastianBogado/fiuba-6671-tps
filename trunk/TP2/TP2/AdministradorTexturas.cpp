@@ -58,6 +58,18 @@ void AdministradorTexturas::generarCoordText(){
 
 }
 
+void AdministradorTexturas::generarCoordText(float* punto){
+
+	this->aritmTrig.puntoActual(punto);
+
+	float v = this->aritmTrig.calcularPhi() / this->aritmTrig.pi();;
+
+	float u = this->aritmTrig.calcularTheta() / this->aritmTrig.dos_pi();
+
+	glTexCoord2f(u,v);
+}
+
+
 void AdministradorTexturas::sumarVecSup(){
 	
 	//this->coordX=+this->incX;
