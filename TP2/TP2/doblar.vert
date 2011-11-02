@@ -1,8 +1,12 @@
 //Vertex shader mnimo
 varying vec3 N;
 varying vec3 v;
+
+varying vec2 vTexCoord;
+
 float angulo;
 uniform float distancia;
+uniform float tiempo;
 
 float gradosARadianes(float grados) {
 
@@ -76,7 +80,7 @@ vec3 transformarNormal(vec3 normal){
 
 void main()
 {
-
+	vTexCoord = gl_MultiTexCoord0.xy;
 	float altura=1.0;
 	
 	vec4 vertice = gl_Vertex;

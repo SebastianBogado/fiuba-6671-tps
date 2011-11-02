@@ -5,9 +5,13 @@
 #include "AdministradorTexturas.h"
 using std::string;
 
+static bool primeroEnSalir=false;
+
 class Boton{
 public:
-	Boton(string pathTextura, void (*mouseCallback)(int, int, int, int));
+	Boton();
+	Boton(char* pathText, void (*mouseCallback)(int, int, int, int));
+	Boton::Boton(int tipo, void (*mouseCallback)(int, int, int, int));
 	~Boton(void);
 
 	//un arreglo para poder hacer el callback correctamente
@@ -17,10 +21,17 @@ public:
 	
 	mouse getMouseCallback();
 
+	void cargarTextura();
+
 private:
 	void display();
 	mouse pMouse;
 
-	AdministradorTexturas *adminText;
+	TextureLoader texLoader;
+	glTexture textura;
+	bool texturaCargada;
+	char* pathTextura;
+	int tipoBoton;
+	
 };
 
