@@ -18,3 +18,16 @@ void Cilindro::construir(){
     this->puntosEnAlto = paso;
     this->curvaBorde = new Circunferencia(radio, paso);
 }
+
+float* Cilindro::getNormalArista(int Xn, int Yn, int Zn){
+    float* normal = new float[3];
+    normal[0] = 1;
+    normal[1] = 0;
+    normal[2] = 0;
+    return normal;
+}
+bool Cilindro::esArista(int Xn, int Yn, int Zn){
+	//es arista en techo y piso
+
+	return false;
+}

@@ -73,6 +73,7 @@ extern float tiempo;
 
 //Efector "retorcer"
 extern float anguloDeRetorsion;
+extern bool esArista;
 
 
 //Efecto de "doblar"
@@ -85,6 +86,13 @@ float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
 float light_position[3] = {10.0f, 10.0f, 8.0f};
 float light_ambient[4] = {0.05f, 0.05f, 0.05f, 1.0f};
 
+//Material sombreado brillante
+GLfloat materialSombreadoBrillanteAmbiente[4] = {0.329412,0.223529, 0.027451, 1.0};
+GLfloat materialSombreadoBrillanteDifusa[4] = {0.780392, 0.568627, 0.113725, 1.0};
+GLfloat materialSombreadoBrillanteEspecular[4] = {0.992157, 0.941176, 0.807843, 1.0};
+GLfloat materialSombreadoBrillanteBrillo[] = {27.8974};
+GLfloat materialSombreadoBrillanteEmisiva[3] = {0.992157, 0.941176, 0.807843};
+  		 	 	 
 
 
 // Handle para el control de las Display Lists
@@ -214,14 +222,21 @@ void escena(void)
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	glEnable(GL_COLOR_MATERIAL);
 
-	glColor3f(0.0, 0.25, 0.75);
-	
+
 	//selección de la deformación
 	if (verRetorcer){
 		shaderManager->setVertexShader(RETORCER);
 		shaderManager->setUniform("anguloDeRetorsion", anguloDeRetorsion);
 		shaderManager->setUniform("tiempo", tiempo);
+		shaderManager->setUniform("esArista", esArista);
+	/*	  		 	
+glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, materialSombreadoBrillanteEspecular);
+glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialSombreadoBrillanteAmbiente);
+glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, materialSombreadoBrillanteBrillo);
+glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, materialSombreadoBrillanteDifusa);
+glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, materialSombreadoBrillanteEmisiva);*/
 		//setear uniforms y esas cosas
 	}
 	if (verRuido){

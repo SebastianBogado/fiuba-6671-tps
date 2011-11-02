@@ -11,13 +11,13 @@ class Esfera : public Superficie{
         Esfera(float radio, int paso);
 
         float* getPunto(int Xn, int Yn, int Zn);
+		bool esArista(int Xn, int Yn, int Zn);
 
     private:
         void construir();
         float calcularRadioSegunAltura(float altura);
         float radio;
 		float* getNormalArista(int Xn, int Yn, int Zn);
-		bool esArista(int Xn, int Yn, int Zn);
 };
 
 #endif // __ESFERA_H__
