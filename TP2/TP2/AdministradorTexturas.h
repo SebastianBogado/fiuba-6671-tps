@@ -1,5 +1,6 @@
 #pragma once
 #include "TextureLoader.h"
+#include "AritmeticaTrig.h"
 #include <GL/freeglut.h>
 #include <gl\gl.h>
 #include <gl\glu.h>
@@ -8,7 +9,8 @@ enum TipoTextura {
 	Mate,
 	Metalica,
 	Ladrillos,
-	Solido
+	Solido,
+	Caja_Cielo
 
 };
 
@@ -22,6 +24,9 @@ private:
 	
 	glTexture textMate,textLadrillos,textSolido,textMetalica;
 	TextureLoader textLoader;
+
+	AritmeticaTrig aritmTrig;
+
 	GLfloat coordX,coordY;
 	int numero_Punto;
 
@@ -38,6 +43,7 @@ public:
 
 	void CargarTexturas();
 	void generarCoordText();
+	void generarCoordText(float* punto);
 	void generarCoordTextTapa();
 	void elegirTextura(TipoTextura tipo);
 
