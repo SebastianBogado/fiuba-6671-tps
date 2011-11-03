@@ -46,46 +46,18 @@ float calcularRuidoEnDireccionNormal(vec4 r){
 	diferencia = Ax*sin(kx*r.x-wx*t)+ Ay*sin(ky*r.y-wy*t);
 
 	//una mezcla de senoides de argumento x.y
-	//diferencia = diferencia + A*sin(r.x*r.y-w*t) + 0.5*A*sin(0.9*r.x*r.y-1.5*w*t) + A*2.0*sin(1.8*r.x*r.y-0.3*w*t);
 	diferencia = diferencia + A*sin(k*r.x*r.y-w*t) + 0.5*A*sin(0.9*k*r.x*r.y-1.5*w*t) + A*2.0*sin(1.8*k*r.x*r.y-0.3*w*t);
 	
 
-	/*diferencia = Ax*sin(kx*r.x-wx*t);*/
+/*  diferencia = Ax*sin(kx*r.x-wx*t); */
 	return diferencia;
 }
 
-float calcularAngulo(float catetoAdyacente, float catetoOpuesto){
-	float angulo;
-	/*
-	if (catetoAdyacente == 0.0){
-		if (catetoOpuesto == 0.0)
-			angulo = 0.0;
-		if (catetoOpuesto > 0.0)
-			angulo = DPI/4.0;
-		if (catetoOpuesto < 0.0)
-			angulo = 3.0 * DPI / 4.0;
-	}
-	if (catetoAdyacente < 0.0){
-		if (catetoOpuesto <= 0.0)
-			angulo = DPI/2.0 + atan(catetoOpuesto/catetoAdyacente);
-		if (catetoOpuesto > 0.0)
-			angulo = DPI/4.0 + atan(-catetoOpuesto/catetoAdyacente);
-		if (catetoOpuesto == 0.0)
-			angulo = DPI/2.0;
-	}
-	if (catetoAdyacente > 0.0)
-		angulo = atan(catetoOpuesto/catetoAdyacente);
-		if (catetoOpuesto == 0.0)
-			angulo = DPI/4.0;
-		*/
-	angulo = atan(catetoOpuesto, catetoAdyacente);
-	if (catetoAdyacente == 0.0){
-		if (catetoOpuesto > 0.0)
-			angulo = DPI/4.0;
-		else
-			angulo = DPI/2.0;
-	}
-	return angulo;
+vec3 rotarEnX(float angulo, vec3 posicion){
+	mat3 rotadoraEnX = mat3(1.0,		 0.0,		  0.0,
+							0.0, cos(angulo),-sin(angulo),
+							0.0, sin(angulo), cos(angulo) );
+	return rotadoraEnX*posicion;
 }
 
 vec3 rotarEnY(float angulo, vec3 posicion){
@@ -107,11 +79,18 @@ vec4 calcularRuido(vec4 r, vec3 n){
 	float z = calcularRuidoEnDireccionNormal(r);
 
 	//Alinear a la dirección normal
-	float anguloDeRotacionEnY = calcularAngulo(n.z, n.x);
-	vec3 nuevaPosicion = rotarEnY(anguloDeRotacionEnY, vec3(0.0, 0.0, z));
+	vec3 nuevaPosicion;
+	if  (n.x == 0.0){
+		float anguloDeRotacionEnX =  atan(n.z, n.y);
+		nuevaPosicion = rotarEnX(anguloDeRotacionEnX, vec3(0.0,0.0,z));
+	}
+	else{
+		float anguloDeRotacionEnY =  atan(n.x, n.z);
+		nuevaPosicion = rotarEnY(anguloDeRotacionEnY, vec3(0.0,0.0,z));
 	
-	float anguloDeRotacionEnZ = calcularAngulo(n.x, n.y);
-	nuevaPosicion = rotarEnZ(anguloDeRotacionEnZ, nuevaPosicion);
+		float anguloDeRotacionEnZ = atan(n.y, n.x);
+		nuevaPosicion = rotarEnZ(anguloDeRotacionEnZ, nuevaPosicion);
+	}
 
 	//Trasladarlo al punto que pertenece
 	vec4 posicionFinal = vec4(nuevaPosicion, 0.0) + r;
@@ -136,7 +115,7 @@ vec3 calcularNormal(vec4 r, vec3 n){
 	float A = sqrt(Ax*Ax+Ay*Ay);
 	//Fin variables
 
-	
+
 	//normal de las dos senoides independientes
 	normalNueva = vec3(-kx*Ax*cos(kx*r.x-wx*t), -ky*Ay*cos(ky*r.y-wy*t), 1.0);
 	
@@ -148,14 +127,19 @@ vec3 calcularNormal(vec4 r, vec3 n){
 	normalNueva = vec3(-kx*Ax*cos(kx*r.x-wx*t), 0.0, 1.0);
 */
 	//Alineación de normalNueva (calculada según (0,0,1)) con n
-	float anguloDeRotacionEnY =  calcularAngulo(n.z, n.x);
-	normalNueva = rotarEnY(anguloDeRotacionEnY, normalNueva);
+	if  (n.x == 0.0){
+		float anguloDeRotacionEnX =  atan(n.z, n.y);
+		normalNueva = rotarEnX(anguloDeRotacionEnX, normalNueva);
+	}
+	else{
+		float anguloDeRotacionEnY =  atan(n.x, n.z);
+		normalNueva = rotarEnY(anguloDeRotacionEnY, normalNueva);
 	
-	float anguloDeRotacionEnZ = calcularAngulo(n.x, n.y);
-	normalNueva = rotarEnZ(anguloDeRotacionEnZ, normalNueva);
+		float anguloDeRotacionEnZ = atan(n.y, n.x);
+		normalNueva = rotarEnZ(anguloDeRotacionEnZ, normalNueva);
+	}
 
-	//No olvidar normalizar
-	return normalize(normalNueva);
+	return normalNueva;
 }
 
 void main()
@@ -166,8 +150,8 @@ void main()
 	N = normalize(gl_NormalMatrix * calcularNormal(gl_Vertex, gl_Normal));
 	vec4 aux = calcularRuido(gl_Vertex, gl_Normal);
 	//v = vec3(aux.x, aux.y, aux.z);
-	if (esArista)
-		gl_Position = gl_ModelViewProjectionMatrix * vec4 (gl_Vertex);
+	//if (esArista)
+		//gl_Position = gl_ModelViewProjectionMatrix * vec4 (gl_Vertex);
 
 	gl_Position = gl_ModelViewProjectionMatrix * aux;
 }
