@@ -84,7 +84,10 @@ float AritmeticaTrig::calcularTheta(){
 	if ( sinPhi > 0.0) {
 			acosAngulo = acos( this->punto_actual[0] / (sinPhi * this->radio) );
 	}else{
-			acosAngulo = 0.0;
+		if (this->punto_actual[1]>=0.0)
+			acosAngulo = this->thetaAnt;
+		else 
+			acosAngulo = this->Dos_PI - this->thetaAnt;
 	}
 
 	if (this->punto_actual[1]>=0.0)
