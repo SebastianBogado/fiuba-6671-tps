@@ -22,7 +22,6 @@ void Emparchador::emparchar(Superficie* superficie){
             for (int j = 0; j <= superficie->cantidadDePuntosBorde(); j++){
                 puntoInferior = superficie->getPunto(j, j, i);
                 normal = superficie->getNormal(j, j, i);
-				esArista = superficie->esArista(j, j, i);
 
 				glNormal3fv(normal);
 				adminTex->generarCoordText();
@@ -33,8 +32,7 @@ void Emparchador::emparchar(Superficie* superficie){
 
 
 				puntoSuperior = superficie->getPunto(j, j, i+1);
-                normal = superficie->getNormal(j, j, i+1);				
-				esArista = superficie->esArista(j, j, i+1);
+                normal = superficie->getNormal(j, j, i+1);
                 
 				glNormal3fv(normal);
 				adminTex->generarCoordText();

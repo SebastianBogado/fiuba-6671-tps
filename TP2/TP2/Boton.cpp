@@ -90,8 +90,8 @@ void Boton::display(){
 		glVertex2f(0.25, 0.25);
 		glVertex2f(-0.25, -0.25);
 	glEnd();*/
-	glBindTexture(GL_TEXTURE_2D,this->textura.TextureID);
-	glColor3f(1.0, 1.0, 9.0);
+	//glBindTexture(GL_TEXTURE_2D,this->textura.TextureID);
+	glColor3f(1.0, 1.0, 1.0);
 	//glBegin(GL_LINE_STRIP);	
 	glBegin(GL_TRIANGLE_STRIP);
 		//this->adminText->generarCoordTextBoton(1.0,1.0);

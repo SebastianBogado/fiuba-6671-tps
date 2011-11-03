@@ -21,13 +21,14 @@ float tiempo = 0.0;
 
 //Efecto retorcer
 float anguloDeRetorsion = 90.0;
-bool esArista;
 
 //Efecto de doblar
-
 float distanciaDeDoblado = 3.0;
-float incrementoDeDistancia =0.15;
+float incrementoDeDistancia = 0.15;
 
+//Efecto de ruido
+//Ondas...
+float arista = 1.4;
 
 
 
