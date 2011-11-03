@@ -22,7 +22,7 @@ class AdministradorTexturas
 private:
 	
 	
-	glTexture textMate,textLadrillos,textSolido,textMetalica;
+	glTexture textCaja_Cielo,textLadrillos;
 	TextureLoader textLoader;
 
 	AritmeticaTrig aritmTrig;

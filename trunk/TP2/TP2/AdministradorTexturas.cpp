@@ -1,6 +1,8 @@
 #include "AdministradorTexturas.h"
 
 
+
+
 AdministradorTexturas::AdministradorTexturas(void)
 {
 	this->numero_Punto=0;
@@ -17,6 +19,8 @@ void AdministradorTexturas::CargarTexturas(){
 
 
 	this->textLoader.LoadTextureFromDisk("./Archivos de Recursos/Texturas de Objetos/LadrilloRustico.jpg",&this->textLadrillos);
+	//this->textLoader.LoadTextureFromDisk("./Archivos de Recursos/Texturas de Objetos/sky_1.jpg",&this->textLadrillos);
+	this->textLoader.LoadTextureFromDisk(  "./Archivos de Recursos/Texturas de Objetos/sky_1.jpg",&this->textCaja_Cielo);
 	
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D,this->textLadrillos.TextureID);
@@ -97,7 +101,14 @@ void AdministradorTexturas::comprobarPuntos(){
 
 void AdministradorTexturas::elegirTextura(TipoTextura tipo){
 
-	glBindTexture(GL_TEXTURE_2D,this->textLadrillos.TextureID);
+	switch (tipo){
+	case Ladrillos:	glBindTexture(GL_TEXTURE_2D,this->textLadrillos.TextureID); 
+		break;
+
+	case Caja_Cielo: glBindTexture(GL_TEXTURE_2D,this->textCaja_Cielo.TextureID); 
+		break;
+	default: break;
+	}
 }
 
 
