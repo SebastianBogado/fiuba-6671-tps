@@ -90,6 +90,9 @@
     <ClCompile Include="TextureLoader.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="AritmeticaTrig.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MenuDeCuatroBotones.h">
@@ -147,6 +150,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="TextureLoader.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="AritmeticaTrig.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -227,6 +233,9 @@
     </None>
     <None Include="Archivos de recursos\Texturas de Botones\efecEsferizar.JPG">
       <Filter>Archivos de recursos\Texturas de Botones</Filter>
+    </None>
+    <None Include="Archivos de recursos\Texturas de Objetos\sky_1.jpg">
+      <Filter>Archivos de recursos\Texturas de objetos</Filter>
     </None>
   </ItemGroup>
 </Project>

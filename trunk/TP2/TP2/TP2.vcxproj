@@ -61,6 +61,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AdministradorTexturas.cpp" />
+    <ClCompile Include="AritmeticaTrig.cpp" />
     <ClCompile Include="Boton.cpp" />
     <ClCompile Include="Cilindro.cpp" />
     <ClCompile Include="Circunferencia.cpp" />
@@ -82,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdministradorTexturas.h" />
+    <ClInclude Include="AritmeticaTrig.h" />
     <ClInclude Include="Boton.h" />
     <ClInclude Include="Cilindro.h" />
     <ClInclude Include="Circunferencia.h" />
@@ -119,6 +121,7 @@
     <None Include="Archivos de recursos\Texturas de Botones\objEsfera.JPG" />
     <None Include="Archivos de recursos\Texturas de Botones\objToroide.JPG" />
     <None Include="Archivos de recursos\Texturas de Objetos\LadrilloRustico.jpg" />
+    <None Include="Archivos de recursos\Texturas de Objetos\sky_1.jpg" />
     <None Include="doblar.vert" />
     <None Include="esferizar.vert" />
     <None Include="luzPrincipal.frag" />

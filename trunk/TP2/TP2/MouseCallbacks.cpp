@@ -15,6 +15,7 @@ extern bool verRuido;
 extern bool verDoblar;
 extern bool verEsferizar;
 
+extern float arista;
 
 
 MouseCallbacks::mousee MouseCallbacks::getCallback(int boton){

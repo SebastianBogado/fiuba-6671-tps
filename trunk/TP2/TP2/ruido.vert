@@ -15,13 +15,20 @@ struct Onda{
 	float amplitud;
 };
 
-//uniform
-Onda ondaEnX = Onda(1.9, 2.5, 0.01);
-Onda ondaEnY = Onda(1.6, 2.8, 0.02);
+
 
 uniform float tiempo;
 
-uniform bool esArista;
+//Parámetros para forzar nodos en las aristas
+//TODO : si hay tiempo, considerar manejar todo con VAOs
+uniform bool esCubo;
+uniform bool esCilindro;
+uniform float arista;
+float n = 5.0;
+
+//uniform
+Onda ondaEnX = Onda(arista*n/2.0, 2.5, 0.01);
+Onda ondaEnY = Onda(arista*n, 2.8, 0.02);
 
 const float DPI = 6.283185307;
 
@@ -46,10 +53,10 @@ float calcularRuidoEnDireccionNormal(vec4 r){
 	diferencia = Ax*sin(kx*r.x-wx*t)+ Ay*sin(ky*r.y-wy*t);
 
 	//una mezcla de senoides de argumento x.y
-	diferencia = diferencia + A*sin(k*r.x*r.y-w*t) + 0.5*A*sin(0.9*k*r.x*r.y-1.5*w*t) + A*2.0*sin(1.8*k*r.x*r.y-0.3*w*t);
+diferencia = diferencia + A*sin(k*r.x*r.y-w*t) + 0.5*A*sin(0.9*k*r.x*r.y-1.5*w*t) + A*2.0*sin(1.8*k*r.x*r.y-0.3*w*t);
 	
-
-/*  diferencia = Ax*sin(kx*r.x-wx*t); */
+/*	
+  diferencia = Ax*sin(kx*r.x-wx*t); */
 	return diferencia;
 }
 
@@ -144,14 +151,46 @@ vec3 calcularNormal(vec4 r, vec3 n){
 
 void main()
 {	
-
-	vTexCoord = gl_MultiTexCoord0.xy;
-	v = vec3(gl_ModelViewMatrix * gl_Vertex);   
-	N = normalize(gl_NormalMatrix * calcularNormal(gl_Vertex, gl_Normal));
-	vec4 aux = calcularRuido(gl_Vertex, gl_Normal);
-	//v = vec3(aux.x, aux.y, aux.z);
-	//if (esArista)
-		//gl_Position = gl_ModelViewProjectionMatrix * vec4 (gl_Vertex);
-
-	gl_Position = gl_ModelViewProjectionMatrix * aux;
+	vTexCoord = gl_MultiTexCoord0.xy;	/*
+	if (esCilindro){
+		if ((gl_Vertex.z == 0.0) || (gl_Vertex.z == arista)){
+			if ( (gl_Vertex.x*gl_Vertex.x + gl_Vertex.y*gl_Vertex.y) == (arista/2.0)*(arista/2.0) ){
+				v = vec3(gl_ModelViewMatrix * gl_Vertex);
+				N = gl_Normal;
+				gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+			}
+		}
+	}
+	else{
+		if (esCubo){
+			if ((gl_Vertex.z == 0.0) || (gl_Vertex.z == arista)){
+				if ( ((-arista/2.0 <= gl_Vertex.x) && (gl_Vertex.x <= arista/2.0) && (gl_Vertex.y == arista/2.0)) || 
+					 ((-arista/2.0 <= gl_Vertex.x) && (gl_Vertex.x <= arista/2.0) && (gl_Vertex.y == -arista/2.0)) ||  
+					 ((-arista/2.0 <= gl_Vertex.y) && (gl_Vertex.y <= arista/2.0) && (gl_Vertex.x == arista/2.0)) || 
+					 ((-arista/2.0 <= gl_Vertex.y) && (gl_Vertex.y <= arista/2.0) && (gl_Vertex.x == -arista/2.0))){
+					v = vec3(gl_ModelViewMatrix * gl_Vertex);
+					N = gl_Normal;
+					gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+				}
+			}
+		
+		else{
+			vec4 aux = calcularRuido(gl_Vertex, gl_Normal);
+			v = vec3(gl_ModelViewMatrix * aux);   
+			N = normalize(gl_NormalMatrix * calcularNormal(gl_Vertex, gl_Normal));
+			gl_Position = gl_ModelViewProjectionMatrix * aux;
+		}
+	}	
+	else {
+		vec4 aux = calcularRuido(gl_Vertex, gl_Normal);
+		v = vec3(gl_ModelViewMatrix * aux);   
+		N = normalize(gl_NormalMatrix * calcularNormal(gl_Vertex, gl_Normal));
+		gl_Position = gl_ModelViewProjectionMatrix * aux;
+	}
+}*/
+vec4 aux = calcularRuido(gl_Vertex, gl_Normal);
+		v = vec3(gl_ModelViewMatrix * aux);   
+		N = normalize(gl_NormalMatrix * calcularNormal(gl_Vertex, gl_Normal));
+		gl_Position = gl_ModelViewProjectionMatrix * aux;
 }
+

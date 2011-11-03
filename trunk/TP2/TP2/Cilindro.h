@@ -10,6 +10,7 @@ class Cilindro : public Superficie{
         //Constructores con valores por defecto o especificados. Inicializan la estructura
         Cilindro();
         Cilindro(float radio, float altura, int paso);
+		float* getNormal(int Xn, int Yn, int Zn);
 		bool esArista(int Xn, int Yn, int Zn);
     private:
         float radio;

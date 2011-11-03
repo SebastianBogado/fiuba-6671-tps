@@ -73,16 +73,19 @@ extern float tiempo;
 
 //Efector "retorcer"
 extern float anguloDeRetorsion;
-extern bool esArista;
-
+extern float arista;
 
 //Efecto de "doblar"
 extern float distanciaDeDoblado; 
 extern float incrementoDeDistancia;
 
+//Efecto de ruido
+//Ondas
+extern float arista;
+
 
 // Variables asociadas a única fuente de luz de la escena
-float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+float light_color[4] = {1.0f, 1.0f, 1.0f, 0.5f};
 float light_position[3] = {10.0f, 10.0f, 8.0f};
 float light_ambient[4] = {0.05f, 0.05f, 0.05f, 1.0f};
 
@@ -156,7 +159,7 @@ void init(void)
 	glEndList();
 	
 	glNewList(DL_CUBO, GL_COMPILE);
-        superficie = new Cubo;
+        superficie = new Cubo(arista, 16);
         emparchador.emparchar(superficie);
         delete superficie;
     glEndList();
@@ -169,7 +172,7 @@ void init(void)
 	
 
 	glNewList(DL_CILINDRO, GL_COMPILE);
-        superficie = new Cilindro(.7,1.5,32);
+        superficie = new Cilindro(arista/2.0,arista,32);
         emparchador.emparchar(superficie);
         delete superficie;
 	glEndList();
@@ -193,8 +196,7 @@ void OnIdle (void)
 {	
 	
 	tiempo += 0.01;
-	if (tiempo > 1024.0) 
-		tiempo = 0;
+
     glutPostRedisplay();
 
 
@@ -230,7 +232,7 @@ void escena(void)
 		shaderManager->setVertexShader(RETORCER);
 		shaderManager->setUniform("anguloDeRetorsion", anguloDeRetorsion);
 		shaderManager->setUniform("tiempo", tiempo);
-		shaderManager->setUniform("esArista", esArista);
+
 	/*	  		 	
 glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, materialSombreadoBrillanteEspecular);
 glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialSombreadoBrillanteAmbiente);
@@ -242,6 +244,9 @@ glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, materialSombreadoBrillanteEmisiva);
 	if (verRuido){
 		shaderManager->setVertexShader(RUIDO);
 		shaderManager->setUniform("tiempo", tiempo);
+		shaderManager->setUniform("esCubo", verCubo);
+		shaderManager->setUniform("esCilindro", verCilindro);
+		shaderManager->setUniform("arista", arista);
 		//setear uniforms y esas cosas
 	}
     if (verDoblar){

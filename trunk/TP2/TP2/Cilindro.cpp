@@ -19,15 +19,30 @@ void Cilindro::construir(){
     this->curvaBorde = new Circunferencia(radio, paso);
 }
 
-float* Cilindro::getNormalArista(int Xn, int Yn, int Zn){
+float* Cilindro::getNormal(int Xn, int Yn, int Zn){
     float* normal = new float[3];
-    normal[0] = 1;
-    normal[1] = 0;
+	float* punto = getPunto(Xn, Yn, Zn);
+    normal[0] = punto[0];
+    normal[1] = punto[1];
     normal[2] = 0;
+	
+    //Normalizar
+    float norma = sqrt(normal[0]*normal[0] + normal[1]*normal[1]);
+    normal[0] /= norma;
+    normal[1] /= norma;
+
+	delete []punto;
     return normal;
 }
+float* Cilindro::getNormalArista(int Xn, int Yn, int Zn){
+    return getNormal(Xn, Yn, Zn);
+}
 bool Cilindro::esArista(int Xn, int Yn, int Zn){
-	//es arista en techo y piso
-
+	float* p = getPunto(Xn, Yn, Zn);
+	if ( ( (Zn == 0) || ( Zn == altura) ) &&
+		 ( (p[0]*p[0] + p[1]*p[1] == radio * radio))){
+		delete []p;
+		return true;
+	}
 	return false;
 }
