@@ -45,11 +45,14 @@ float calcularRuidoEnDireccionNormal(vec4 r){
 	//suma independientemente de 2 ondas
 	diferencia = Ax*sin(kx*r.x-wx*t)+ Ay*sin(ky*r.y-wy*t);
 
-		//una mezcla de senoides de argumento x.y
-diferencia = diferencia + A*sin(k*r.x*r.y-w*t) + 0.5*A*sin(0.9*k*r.x*r.y-1.5*w*t) + A*2.0*sin(1.8*k*r.x*r.y-0.3*w*t);
+	//una mezcla de senoides de argumento x.y
+	diferencia = diferencia + A*sin(k*r.x*r.y-w*t) + 0.5*A*sin(0.9*k*r.x*r.y-1.5*w*t) + A*2.0*sin(1.8*k*r.x*r.y-0.3*w*t);
 	
-/*
-  diferencia = Ax*sin(kx*r.x-wx*t); */
+/*	
+	//senoide estilo gota cayendo al agua
+	float argumento = kx*kx*r.x*r.x + ky*ky*r.y*r.y;
+	diferencia = A*sin(argumento-w*t)/(argumento-w*t);
+*/
 	return diferencia;
 }
 
@@ -124,8 +127,13 @@ vec3 calcularNormal(vec4 r, vec3 n){
 	normalNueva.y = normalNueva.y - A*k*r.x*sin(k*r.x*r.y-w*t) - 0.45*A*k*r.x*sin(0.9*k*r.x*r.y-1.5*w*t) - 3.6*A*k*r.x*sin(1.8*k*r.x*r.y-0.3*w*t); 
 	
 /*
-	normalNueva = vec3(-kx*Ax*cos(kx*r.x-wx*t), 0.0, 1.0);
+	//normal de la senoide "gota cayendo al agua"
+	float argumento = kx*kx*r.x*r.x + ky*ky*r.y*r.y;
+	normalNueva.x = 2.0*A*kx*r.x*(sin(argumento-w*t)/pow(argumento, 2.0) - cos(argumento-w*t)/argumento);
+	normalNueva.y = 2.0*A*ky*r.y*(sin(argumento-w*t)/pow(argumento, 2.0) - cos(argumento-w*t)/argumento);
+	normalNueva.z = 1.0;
 */
+
 	//Alineación de normalNueva (calculada según (0,0,1)) con n
 	if  (n.x == 0.0){
 		float anguloDeRotacionEnX =  atan(n.z, n.y);
