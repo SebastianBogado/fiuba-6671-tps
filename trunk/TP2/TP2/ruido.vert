@@ -19,11 +19,9 @@ uniform float tiempo;
 uniform bool esCubo;
 uniform bool esCilindro;
 uniform float arista;
-float n = 10.0;
-
-//uniform
-Onda ondaEnX = Onda(arista/(2.0*n), 10.0, 0.01);
-Onda ondaEnY = Onda(arista/n, 15.0, 0.02);
+uniform float n;
+uniform Onda ondaEnX;
+uniform Onda ondaEnY;
 
 const float DPI = 6.283185307;
 

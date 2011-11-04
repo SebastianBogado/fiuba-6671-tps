@@ -36,9 +36,10 @@ public:
 	void setFragmenShader(FragmentShader tipo);
 	void setShaderLuz(ShaderLuz tipo);
 	void usar();
+	void cerrar();
 	void bindAttribLocation( GLuint location, const char * name);
 	void bindFragDataLocation( GLuint location, const char * name );
-	void setUniform(const char *name,float x,float y, float z);
+	void setUniform(const char *name, float x, float y, float z);
 	void setUniform(const char *name, const vec3 & v);
 	void setUniform(const char *name, const vec4 & v);
 	void setUniform(const char *name, const mat4 & m);

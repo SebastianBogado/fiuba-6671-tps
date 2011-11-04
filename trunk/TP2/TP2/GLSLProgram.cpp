@@ -21,8 +21,8 @@ const string GLSLProgram::ARCHIVOS_FRAGMENT_SHADERS[4] = {
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO,
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE};
 
-const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_PRINCIPAL = "luzPrincipal.frag";
-const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_SECUNDARIA = "luzSecundaria.frag";
+const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_PRINCIPAL = "luzPrincipal.vert";
+const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_SECUNDARIA = "luzSecundaria.vert";
 const string GLSLProgram::ARCHIVOS_FRAGMENT_SHADERS_LUZ[2] = {
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_PRINCIPAL,
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_SECUNDARIA};
@@ -197,7 +197,12 @@ int GLSLProgram::getUniformLocation(const char * name ){
 	return glGetUniformLocation(programHandle, name);
 }
 
-
+void GLSLProgram::setUniform(const char *name, float x, float y, float z){
+	GLuint location = getUniformLocation(name);
+	if( location >= 0 ){
+		glUniform3f(location, x, y, z);
+	}
+}
 void GLSLProgram::setUniform(const char *name, const vec3 & v){
 	GLuint location = getUniformLocation(name);
 	if( location >= 0 ){
