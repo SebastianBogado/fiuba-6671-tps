@@ -52,7 +52,8 @@ float up[3]  = { 0.0,  0.0, 1.0};
 
 float anguloTheta=3.14/4.0;
 float anguloPhi=3.14/4.0;
-float difAngulo=3.14/30.0;
+float difAnguloX=3.14/30.0;
+float difAnguloY;
 float RadioEsfera=5;
 float deltaRadio=0.5;
 
@@ -454,16 +455,34 @@ void reshape (int w, int h)
 	
 	hud->resize(W_WIDTH, W_HEIGHT);
 }
-
+int xOrigen, yOrigen;
 void mouse(int button, int state, int x, int y){
-if ((button == 3) || (button == 4)) // It's a wheel event
-   {
-       // Each wheel event reports like a button click, GLUT_DOWN then GLUT_UP
-       if (state == GLUT_UP) return; // Disregard redundant GLUT_UP events
-       printf("Scroll %s At %d %d\n", (button == 3) ? "Up" : "Down", x, y);
-   }else{  // normal button event
-       printf("Button %s At %d %d\n", (state == GLUT_DOWN) ? "Down" : "Up", x, y);
-   }
+	if (button == GLUT_LEFT_BUTTON) {
+		if (state == GLUT_UP) {
+			xOrigen = -1;
+			yOrigen = -1;
+		}
+		else  {
+			xOrigen = x;
+			yOrigen = y;
+		}
+	}
+}
+
+void mouseEnMovimiento(int x, int y){
+	if (xOrigen >= 0) {cout << "difAnguloX = " << difAnguloX << endl;
+		float aux = asin(x/norma3(eye));
+		float aux2 = asin(xOrigen/norma3(eye));
+		difAnguloX = x - xOrigen;
+	}
+	if (yOrigen >= 0){cout << "difAnguloY = " << difAnguloY << endl;
+		float aux = asin(y/norma3(eye));
+		float aux2 = asin(yOrigen/norma3(eye));
+		difAnguloY = y - yOrigen;
+	}
+	anguloTheta += (0.001* difAnguloX);
+	anguloPhi += (0.001 * difAnguloY);
+	redimensionar();
 }
 
 void rueditaDelMouse(int button, int dir, int x, int y){
@@ -596,6 +615,14 @@ void keyboard (unsigned char key, int x, int y)
 		case 'q':
 			exit(0);
 			break;
+		case 'c':
+			luzPrincipal = !luzPrincipal;
+			glutPostRedisplay();
+			break;
+		case 'v':
+			luzSecundaria = !luzSecundaria;
+			glutPostRedisplay();
+			break;
 	  case '5':
 		  eye[0] = 0.0;
 		  eye[1] = 0.0;
@@ -713,6 +740,7 @@ int main(int argc, char** argv){
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(teclasParticulares);
 	glutMouseFunc(mouse);
+	glutMotionFunc(mouseEnMovimiento);
 	glutMouseWheelFunc(rueditaDelMouse);
 	glutIdleFunc(OnIdle);
 	init ();
