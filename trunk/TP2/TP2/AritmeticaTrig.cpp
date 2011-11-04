@@ -4,7 +4,7 @@
 AritmeticaTrig::AritmeticaTrig(void)
 {
 
-	this->PI=3.14; // faltan mas digitos...
+	this->PI=3.1415926535897; // faltan mas digitos...
 	this->Dos_PI=2.0*this->PI;
 
 	this->puntoAnterior[0]=0.0;

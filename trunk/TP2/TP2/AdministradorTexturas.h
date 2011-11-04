@@ -4,6 +4,7 @@
 #include <GL/freeglut.h>
 #include <gl\gl.h>
 #include <gl\glu.h>
+#include <glm/glm.hpp>
 
 enum TipoTextura {
 	Mate,
@@ -15,7 +16,7 @@ enum TipoTextura {
 };
 
 
-
+using namespace glm;
 
 class AdministradorTexturas
 {
@@ -32,6 +33,11 @@ private:
 
 	GLfloat incremento,incX,incY;
 
+
+	bool primerPuntoTapa,primerPunto;
+	vec2 puntoCentroTapa;
+	vec2 dirActual,dirAnt; 
+
 	void sumarVecSup();
 	void sumarVecInf();
 	void comprobarPuntos();
@@ -44,8 +50,10 @@ public:
 	void CargarTexturas();
 	void generarCoordText();
 	void generarCoordText(float* punto);
-	void generarCoordTextTapa();
+	void generarCoordTextTapa(float *punto);
 	void elegirTextura(TipoTextura tipo);
+
+	void reiniciar();
 
 	int getID(TipoTextura tipo);
 
