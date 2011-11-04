@@ -16,6 +16,7 @@ extern bool verDoblar;
 extern bool verEsferizar;
 
 extern float arista;
+extern float tiempo;
 
 
 MouseCallbacks::mousee MouseCallbacks::getCallback(int boton){
@@ -69,6 +70,7 @@ void MouseCallbacks::botonEsfera(int button, int state, int x, int y){
 	verCubo = false;
 	verToroide = false;
 	verCilindro = false;
+	tiempo = 0;
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonCubo(int button, int state, int x, int y){
@@ -76,6 +78,7 @@ void MouseCallbacks::botonCubo(int button, int state, int x, int y){
 	verCubo = true;
 	verToroide = false;
 	verCilindro = false;
+	tiempo = 0;
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonToroide(int button, int state, int x, int y){
@@ -83,6 +86,7 @@ void MouseCallbacks::botonToroide(int button, int state, int x, int y){
 	verCubo = false;
 	verToroide = true;
 	verCilindro = false;
+	tiempo = 0;
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonCilindro(int button, int state, int x, int y){
@@ -90,6 +94,7 @@ void MouseCallbacks::botonCilindro(int button, int state, int x, int y){
 	verCubo = false;
 	verToroide = false;
 	verCilindro = true;
+	tiempo = 0;
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonMaterialSombreadoBrillante(int button, int state, int x, int y){
@@ -97,6 +102,7 @@ void MouseCallbacks::botonMaterialSombreadoBrillante(int button, int state, int 
 	verMaterialSombreadoTexturado = false;
 	verMaterialReflectivo = false;
 	verMaterialSombreadoSemimate = false;
+	tiempo = 0;
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonMaterialSombreadoTexturado(int button, int state, int x, int y){
@@ -104,6 +110,7 @@ void MouseCallbacks::botonMaterialSombreadoTexturado(int button, int state, int 
 	verMaterialSombreadoTexturado = true;
 	verMaterialReflectivo = false;
 	verMaterialSombreadoSemimate = false;
+	tiempo = 0;
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonMaterialReflectivo(int button, int state, int x, int y){
@@ -111,6 +118,7 @@ void MouseCallbacks::botonMaterialReflectivo(int button, int state, int x, int y
 	verMaterialSombreadoTexturado = false;
 	verMaterialReflectivo = true;
 	verMaterialSombreadoSemimate = false;
+	tiempo = 0;
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonMaterialSombreadoSemimate(int button, int state, int x, int y){
@@ -118,6 +126,7 @@ void MouseCallbacks::botonMaterialSombreadoSemimate(int button, int state, int x
 	verMaterialSombreadoTexturado = false;
 	verMaterialReflectivo = false;
 	verMaterialSombreadoSemimate = true;
+	tiempo = 0;
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonRetorcer(int button, int state, int x, int y){
@@ -125,6 +134,7 @@ void MouseCallbacks::botonRetorcer(int button, int state, int x, int y){
 	verRuido = false;
 	verDoblar = false;
 	verEsferizar = false;
+	tiempo = 0;
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonRuido(int button, int state, int x, int y){
@@ -132,6 +142,7 @@ void MouseCallbacks::botonRuido(int button, int state, int x, int y){
 	verRuido = true;
 	verDoblar = false;
 	verEsferizar = false;
+	tiempo = 0;
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonDoblar(int button, int state, int x, int y){
@@ -139,6 +150,7 @@ void MouseCallbacks::botonDoblar(int button, int state, int x, int y){
 	verRuido = false;
 	verDoblar = true;
 	verEsferizar = false;
+	tiempo = 0;
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonEsferizar(int button, int state, int x, int y){
@@ -146,5 +158,6 @@ void MouseCallbacks::botonEsferizar(int button, int state, int x, int y){
 	verRuido = false;
 	verDoblar = false;
 	verEsferizar = true;
+	tiempo = 0;
 	glutPostRedisplay();
 }

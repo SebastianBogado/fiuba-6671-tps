@@ -9,12 +9,13 @@ uniform float distancia;
 uniform float tiempo;
 
 float gradosARadianes(float grados) {
-
 	const float PI = 3.141592653589;
 	
 	return grados * PI / 180.0;
+}
 
-
+float animacion(float distancia){
+	return distancia*sin(2.0*tiempo);
 }
 
 
@@ -88,7 +89,6 @@ void main()
 	//Solo sirve para Debuggear con el IDE
 	//vertice.z+=0.5; 
 	
-	
 	angulo = asin(vertice.z/abs(distancia));
 	
 	vec3 puntoReferencia = vec3(distancia,0.0,0.0);
@@ -103,9 +103,6 @@ void main()
 	
 	resultado= puntoReferencia + dirAVertice*distanciaObjetiva;
 	v = vec3(gl_ModelViewMatrix * gl_Vertex);
-	//No anda porque falta algo similar a "v = vec3(gl_ModelViewMatrix * gl_Vertex);"
-	//...
-	//La variable "resultado" es el vertice procesado....
 	    
 	N = normalize (gl_NormalMatrix * transformarNormal(gl_Normal));	
 	gl_Position = gl_ModelViewProjectionMatrix * vec4(resultado,gl_Vertex.w);
