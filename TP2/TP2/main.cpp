@@ -50,6 +50,12 @@ float eye[3] = {3.0, 3.0, 2.0};
 float at[3]  = { 0.0,  0.0, 0.0};
 float up[3]  = { 0.0,  0.0, 1.0};
 
+float anguloTheta=3.14/4.0;
+float anguloPhi=3.14/4.0;
+float difAngulo=3.14/30.0;
+float RadioEsfera=5;
+float deltaRadio=0.5;
+
 //Variables de control
 extern bool verEsfera;
 extern bool verCubo;
@@ -133,6 +139,35 @@ GLuint dl_handle;
 #define DL_CILINDRO (dl_handle+3)
 #define DL_CAJA_CIELO (dl_handle+4)
 
+
+float norma3(float* p){
+    float resultado=0;
+
+    resultado+=p[0]*p[0];
+    resultado+=p[1]*p[1];
+    resultado+=p[2]*p[2];
+
+    resultado=sqrt(resultado);
+
+    return resultado;
+}
+
+void redimensionar(){
+	float norma=norma3(eye);
+
+    eye[0]=cos(anguloPhi)*cos(anguloTheta)*norma;
+    eye[1]=cos(anguloPhi)*sin(anguloTheta)*norma;
+    eye[2]=sin(anguloPhi)*norma;
+
+    RadioEsfera=norma;
+}
+
+
+void redimensionarRadio(){
+	eye[0]=cos(anguloPhi)*cos(anguloTheta)*RadioEsfera;
+    eye[1]=cos(anguloPhi)*sin(anguloTheta)*RadioEsfera;
+    eye[2]=sin(anguloPhi)*RadioEsfera;
+}
 
 void Set3DEnv()
 {
@@ -421,7 +456,31 @@ void reshape (int w, int h)
 }
 
 void mouse(int button, int state, int x, int y){
-//mover cámara
+if ((button == 3) || (button == 4)) // It's a wheel event
+   {
+       // Each wheel event reports like a button click, GLUT_DOWN then GLUT_UP
+       if (state == GLUT_UP) return; // Disregard redundant GLUT_UP events
+       printf("Scroll %s At %d %d\n", (button == 3) ? "Up" : "Down", x, y);
+   }else{  // normal button event
+       printf("Button %s At %d %d\n", (state == GLUT_DOWN) ? "Down" : "Up", x, y);
+   }
+}
+
+void rueditaDelMouse(int button, int dir, int x, int y){
+	if (dir == 0) return;
+	
+	if (dir > 0){
+		if(RadioEsfera-deltaRadio>0){
+			RadioEsfera-=deltaRadio;
+			redimensionarRadio();
+        }
+	}
+    else{
+		RadioEsfera+=deltaRadio;
+        redimensionarRadio();
+    }
+
+	glutPostRedisplay();
 }
 
 #ifdef _DEBUG
@@ -625,12 +684,6 @@ void keyboard (unsigned char key, int x, int y)
 
 void teclasParticulares(int key, int x, int y){
 	switch(key) {
-		case GLUT_KEY_LEFT :
-
-			break;
-		case GLUT_KEY_RIGHT :
-				
-			break;
 		case GLUT_KEY_UP :
 			aumentarParametroSeleccionado();
 			break;
@@ -650,8 +703,8 @@ int main(int argc, char** argv){
 	glutInit(&argc, argv);
     glutInitWindowPosition (10, 10);
     glutInitWindowSize (ancho, alto); 
-	//glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
-	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+	glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
+	//glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
     //glutFullScreen();
    
 	ventanaPrincipal = glutCreateWindow("66.71 - TP2");
@@ -660,6 +713,7 @@ int main(int argc, char** argv){
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(teclasParticulares);
 	glutMouseFunc(mouse);
+	glutMouseWheelFunc(rueditaDelMouse);
 	glutIdleFunc(OnIdle);
 	init ();
 
