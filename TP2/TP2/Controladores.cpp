@@ -4,9 +4,9 @@ bool verCubo = false;
 bool verToroide = false;
 bool verCilindro = false;
 
-bool verMaterialSombreadoBrillante = true;
+bool verMaterialSombreadoBrillante = false;
 bool verMaterialSombreadoTexturado = false;
-bool verMaterialReflectivo = false;
+bool verMaterialReflectivo = true;
 bool verMaterialSombreadoSemimate = false;
 
 bool verRetorcer = true;

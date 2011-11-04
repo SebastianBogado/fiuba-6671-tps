@@ -6,6 +6,10 @@
 #include <stdio.h>
 using namespace std;
 
+
+extern bool verMaterialReflectivo;
+bool &verCaja_Cielo=verMaterialReflectivo;
+
 void Emparchador::emparchar(Superficie* superficie){
     float* puntoInferior;
     float* puntoSuperior;
@@ -14,7 +18,7 @@ void Emparchador::emparchar(Superficie* superficie){
     float* normal;
 
 	AdministradorTexturas *adminTex= AdministradorTexturas::getInstancia();
-	adminTex->elegirTextura(Ladrillos);
+
     glEnable(GL_DEPTH_TEST);
 
     for (int i = 0; i < superficie->cantidadDePuntosEnAlto(); i++){
@@ -24,6 +28,7 @@ void Emparchador::emparchar(Superficie* superficie){
                 normal = superficie->getNormal(j, j, i);
 
 				glNormal3fv(normal);
+
 				adminTex->generarCoordText();
                 glVertex3fv(puntoInferior);
                 
@@ -31,13 +36,60 @@ void Emparchador::emparchar(Superficie* superficie){
 				delete [] normal;
 
 
-				puntoSuperior = superficie->getPunto(j, j, i+1);
+				//Para punto Superior
                 normal = superficie->getNormal(j, j, i+1);
                 
 				glNormal3fv(normal);
+
 				adminTex->generarCoordText();
+
                 glVertex3fv(puntoSuperior);
                 
+                delete []puntoSuperior;
+                delete []normal;
+            }
+		glEnd();
+    }
+    if (superficie->tieneTapas())
+        this->emparcharTapas(superficie);
+}
+
+void Emparchador::emparchar2(Superficie* superficie){
+    float* puntoInferior;
+    float* puntoSuperior;
+    float* ultimoPuntoInferior;
+    float* ultimoPuntoSuperior;
+    float* normal;
+
+	AdministradorTexturas *adminTex= AdministradorTexturas::getInstancia();
+	if (verCaja_Cielo){
+		adminTex->elegirTextura(Caja_Cielo);
+		std::cout<<"Se ve caja Cielo \n";
+	}else{
+		adminTex->elegirTextura(Ladrillos);
+		std::cout<<"Se ve Ladrillos \n";
+	}
+    glEnable(GL_DEPTH_TEST);
+
+    for (int i = 0; i < superficie->cantidadDePuntosEnAlto(); i++){
+        glBegin(GL_TRIANGLE_STRIP);
+            for (int j = 0; j <= superficie->cantidadDePuntosBorde(); j++){
+                puntoInferior = superficie->getPunto(j, j, i);
+                puntoSuperior = superficie->getPunto(j, j, i+1);
+
+                normal = superficie->getNormal(j, j, i);
+                glNormal3fv(normal);
+				adminTex->generarCoordText(puntoInferior);
+                glVertex3fv(puntoInferior);
+                delete [] normal;
+
+
+				//Para punto Superior
+                normal = superficie->getNormal(j, j, i+1);
+                glNormal3fv(normal);
+				adminTex->generarCoordText(puntoSuperior);
+                glVertex3fv(puntoSuperior);
+                delete []puntoInferior;
                 delete []puntoSuperior;
                 delete []normal;
             }
