@@ -110,6 +110,7 @@ GLuint dl_handle;
 #define DL_CUBO (dl_handle+1)
 #define DL_TOROIDE (dl_handle+2)
 #define DL_CILINDRO (dl_handle+3)
+#define DL_CAJA_CIELO (dl_handle+4)
 
 
 void Set3DEnv()
@@ -123,15 +124,6 @@ void Set3DEnv()
 void init(void) 
 {	
 
-	//Para la Prueba de Textura
-	texLoad = new TextureLoader();
-	char *p="C:\objEsfera.JPG";
-	//texLoad->LoadTextureFromDisk(p,&textura);
-	texLoad->LoadTextureFromDisk("./Archivos de Recursos/Texturas de Botones/objToroide.JPG",&textura);
-	//texLoad->LoadTextureFromDisk("C:\o.jpg",&textura);
-	//........
-
-
 	AdministradorTexturas *adminText=AdministradorTexturas::getInstancia();
 	adminText->CargarTexturas();
 
@@ -142,7 +134,7 @@ void init(void)
 	glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
 
-	dl_handle = glGenLists(4);
+	dl_handle = glGenLists(5);
 
 	//DLs para las superficies
 	glNewList(DL_ESFERA, GL_COMPILE);
@@ -184,7 +176,12 @@ void init(void)
 	glEndList();
 
 
-	glClearColor (0.2148f, 0.2305f, 0.2422f, 0.0f);
+	glNewList(DL_CAJA_CIELO,GL_COMPILE);
+		superficie = new Esfera(15.0,32);
+       // emparchador.emparchar2(superficie);
+        delete superficie;
+
+	glEndList();
     glShadeModel (GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_color);
@@ -202,7 +199,8 @@ void OnIdle (void)
 {	
 	
 	tiempo += 0.01;
-
+	if (tiempo > 1024.0) 
+		tiempo = 0;
     glutPostRedisplay();
 
 
@@ -270,6 +268,8 @@ void escena(void)
 	//selección del material
 	if (verMaterialSombreadoBrillante){
 		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_BRILLANTE);
+		AdministradorTexturas *adminTex = AdministradorTexturas::getInstancia();
+		//shaderManager->setUniform("textura",0);//adminTex->getID(Ladrillos));
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, materialSombreadoBrillanteEspecular);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialSombreadoBrillanteAmbiente);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, materialSombreadoBrillanteBrillo);
@@ -308,6 +308,8 @@ void escena(void)
 		glCallList(DL_TOROIDE);
    	if (verCilindro)
 		glCallList(DL_CILINDRO);
+	if (verMaterialReflectivo)
+		glCallList(DL_CAJA_CIELO);
 
 	#ifdef _DEBUG // no encontré cómo seguir variables globales :P
 	if (verMaterialSombreadoBrillante){
