@@ -7,6 +7,7 @@
 class Emparchador{
     public:
         void emparchar(Superficie* superficie);
+		void emparchar2(Superficie* superficie);
     protected:
         void emparcharTapas(Superficie* superficie);
 };
