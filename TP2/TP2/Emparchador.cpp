@@ -18,7 +18,9 @@ void Emparchador::emparchar(Superficie* superficie){
     float* normal;
 
 	AdministradorTexturas *adminTex= AdministradorTexturas::getInstancia();
+	glEnable(GL_TEXTURE_2D);
 
+	adminTex->elegirTextura(Ladrillos);
     glEnable(GL_DEPTH_TEST);
 
     for (int i = 0; i < superficie->cantidadDePuntosEnAlto(); i++){
@@ -63,13 +65,10 @@ void Emparchador::emparchar2(Superficie* superficie){
     float* normal;
 
 	AdministradorTexturas *adminTex= AdministradorTexturas::getInstancia();
-	if (verCaja_Cielo){
-		adminTex->elegirTextura(Caja_Cielo);
-		std::cout<<"Se ve caja Cielo \n";
-	}else{
-		adminTex->elegirTextura(Ladrillos);
-		std::cout<<"Se ve Ladrillos \n";
-	}
+	
+	glEnable(GL_TEXTURE_2D);
+	adminTex->elegirTextura(Caja_Cielo);
+	//adminTex->elegirTextura(Ladrillos);
     glEnable(GL_DEPTH_TEST);
 
     for (int i = 0; i < superficie->cantidadDePuntosEnAlto(); i++){

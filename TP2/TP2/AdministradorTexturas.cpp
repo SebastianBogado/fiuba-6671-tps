@@ -17,16 +17,25 @@ AdministradorTexturas::AdministradorTexturas(void)
 
 void AdministradorTexturas::CargarTexturas(){
 
-
+	
 	this->textLoader.LoadTextureFromDisk("./Archivos de Recursos/Texturas de Objetos/LadrilloRustico.jpg",&this->textLadrillos);
+	
 	//this->textLoader.LoadTextureFromDisk("./Archivos de Recursos/Texturas de Objetos/sky_1.jpg",&this->textLadrillos);
-	this->textLoader.LoadTextureFromDisk(  "./Archivos de Recursos/Texturas de Objetos/sky_1.jpg",&this->textCaja_Cielo);
+	
 	
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D,this->textLadrillos.TextureID);
+	//glBindTexture(GL_TEXTURE_2D,this->textLadrillos.TextureID);
+	//glBindTexture(GL_TEXTURE_2D,this->textCaja_Cielo.TextureID);
+
+	
+
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+
+	this->textLoader2.LoadTextureFromDisk(  "./Archivos de Recursos/Texturas de Objetos/sky_1.jpg",&this->textCaja_Cielo);
 	
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
 }
 
 
@@ -70,7 +79,7 @@ void AdministradorTexturas::generarCoordText(float* punto){
 
 	float u = this->aritmTrig.calcularTheta() / this->aritmTrig.dos_pi();
 
-	glTexCoord2f(u,v);
+	glTexCoord2f(u,1-v);
 }
 
 
@@ -107,7 +116,7 @@ void AdministradorTexturas::elegirTextura(TipoTextura tipo){
 
 	case Caja_Cielo: glBindTexture(GL_TEXTURE_2D,this->textCaja_Cielo.TextureID); 
 		break;
-	default: break;
+	default:  glBindTexture(GL_TEXTURE_2D,this->textCaja_Cielo.TextureID); break;
 	}
 }
 
