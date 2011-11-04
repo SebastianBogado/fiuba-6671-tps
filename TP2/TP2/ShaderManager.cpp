@@ -73,6 +73,10 @@ void ShaderManager::usar(){
 		programa.usar();
 }
 
+void ShaderManager::cerrar(){
+	programa.renovar();
+}
+
 
 void ShaderManager::usarVertexShaderRetorcer(){
 	cambioElVertexShader = vertexShaderSeleccionado != RETORCER;
@@ -152,7 +156,7 @@ void ShaderManager::usarShaderLuzPrincipal(){
 	if (cambioLaLuz){
 		fragmentShaderLuzSeleccionado = LUZ_PRINCIPAL;
 		if ( (programa.compileShaderFromFile(fragmentShaderLuzSeleccionado, FRAGMENT, true)))
-			cout << "Fragment Shader Luz luzPrincipal.frag: compilación exitosa" << endl;
+			cout << "Fragment Shader Luz luzPrincipal.vert: compilación exitosa" << endl;
 	}
 }
 
@@ -161,7 +165,7 @@ void ShaderManager::usarShaderLuzSecundaria(){
 	if (cambioLaLuz){
 		fragmentShaderLuzSeleccionado = LUZ_SECUNDARIA;
 		if ( (programa.compileShaderFromFile(fragmentShaderLuzSeleccionado, FRAGMENT, true)))
-			cout << "Fragment Shader Luz luzSecundaria.frag: compilación exitosa" << endl;
+			cout << "Fragment Shader Luz luzSecundaria.vert: compilación exitosa" << endl;
 	}
 }
 
@@ -175,6 +179,10 @@ void ShaderManager::bindFragDataLocation( GLuint location, const char * name ){
 
 void ShaderManager::setUniform(const char *name, const vec3 & v){
 	programa.setUniform(name, v);
+}
+
+void ShaderManager::setUniform(const char *name, float x, float y, float z){
+	programa.setUniform(name, x, y, z);
 }
 
 void ShaderManager::setUniform(const char *name, const vec4 & v){

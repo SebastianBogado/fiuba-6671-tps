@@ -1,4 +1,4 @@
-//Vertex shader mnimo
+//Vertex shader 
 varying vec3 N;
 varying vec3 v;
 
@@ -51,7 +51,7 @@ float calcularDistanciaObjetiva(vec4 vertice,vec3 puntoRef){
 	
 	for (int i=0; i < 3 ; i++){
 	
-		parcial += pow(vector_distancia[i],2.0);
+		parcial += vector_distancia[i] * vector_distancia[i];
 	
 	}
 	

@@ -71,9 +71,12 @@ extern bool luzSecundaria;
 
 extern float tiempo;
 
-//Efector "retorcer"
+//Efecto "retorcer"
 extern float anguloDeRetorsion;
 extern float arista;
+
+//Efecto de esferizar
+extern float centro[];
 
 //Efecto de "doblar"
 extern float distanciaDeDoblado; 
@@ -81,13 +84,31 @@ extern float incrementoDeDistancia;
 
 //Efecto de ruido
 //Ondas
+struct Onda{
+	float longitud;
+	float frecuencia;
+	float amplitud;
+};
+
+extern float n;
+extern Onda ondaEnX;
+extern Onda ondaEnY;
 extern float arista;
 
+//Parámetro que se modifica al apretar las flechitas
+float* parametroSeleccionado;
+float variacion = 1.0;
+bool modificandoOndaEnX = true;
 
-// Variables asociadas a única fuente de luz de la escena
-float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
-float light_position[3] = {-10.0f, -10.0f, 3.0f};
-float light_ambient[4] = {0.5f, 0.5f, 0.5f, 1.0f};
+// Variables de las luces
+
+float luzPrincipalColor[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+float luzPrincipalPosicion[3] = {-10.0f, -10.0f, 3.0f};
+float luzPrincipalAmbiente[4] = {0.5f, 0.5f, 0.5f, 1.0f};
+
+float luzSecundariaColor[4] = {0.5f, 0.5f, 0.5f, 0.5f};
+float luzSecundariaPosicion[3] = {5.0f, 5.0f, 3.0f};
+float luzSecundariaAmbiente[4] = {0.1f, 0.1f, 0.1f, 1.0f};
 
 //Material sombreado brillante
 GLfloat materialSombreadoBrillanteAmbiente[4] = {0.3, 0.8, 0.7, 1.0};
@@ -97,10 +118,10 @@ GLfloat materialSombreadoBrillanteBrillo[] = {5};
 GLfloat materialSombreadoBrillanteEmisiva[3] = {0.15,0.4,0.35};
 
 //Material sombreado semimate
-GLfloat materialSombreadoSemimateAmbiente[4] = {1.0, 1.0, 1.0, 1.0};//{0.329412,0.223529, 0.027451, 1.0};
-GLfloat materialSombreadoSemimateDifusa[4] =  {1.0, 1.0, 1.0, 1.0};//{0.780392, 0.568627, 0.113725, 1.0};
-GLfloat materialSombreadoSemimateEspecular[4] = {1.0, 1.0, 1.0, 1.0};//{0.992157, 0.941176, 0.807843, 1.0};
-GLfloat materialSombreadoSemimateBrillo[] = {32};//{27.8974};
+GLfloat materialSombreadoSemimateAmbiente[4] = {1.0, 1.0, 1.0, 1.0};
+GLfloat materialSombreadoSemimateDifusa[4] =  {1.0, 1.0, 1.0, 1.0};
+GLfloat materialSombreadoSemimateEspecular[4] = {1.0, 1.0, 1.0, 1.0};
+GLfloat materialSombreadoSemimateBrillo[] = {32};
 GLfloat materialSombreadoSemimateEmisiva[3] = {1.0,1.0,1.0};
   		 	 	 
 
@@ -130,7 +151,7 @@ void init(void)
 	Emparchador emparchador;
     Superficie* superficie;
 
-	glClearColor (0.02f, 0.02f, 0.04f, 0.0f);
+
 	glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
 
@@ -182,12 +203,18 @@ void init(void)
         delete superficie;
 
 	glEndList();
+
+	glClearColor (0.2148f, 0.2305f, 0.2422f, 0.0f);
     glShadeModel (GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_color);
-    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-    glEnable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, luzPrincipalColor);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, luzPrincipalAmbiente);
+    glLightfv(GL_LIGHT0, GL_POSITION, luzPrincipalPosicion);
+
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, luzSecundariaColor);
+    glLightfv(GL_LIGHT1, GL_AMBIENT, luzSecundariaAmbiente);
+    glLightfv(GL_LIGHT1, GL_POSITION, luzSecundariaPosicion);
+    glEnable(GL_LIGHT1);
     glEnable(GL_LIGHTING);
 	
 
@@ -199,8 +226,6 @@ void OnIdle (void)
 {	
 	
 	tiempo += 0.01;
-	if (tiempo > 1024.0) 
-		tiempo = 0;
     glutPostRedisplay();
 
 
@@ -211,7 +236,7 @@ void OnIdle (void)
 			distanciaDeDoblado=-distanciaDeDoblado;
 			
 			
-		}else if(glm::abs(distanciaDeDoblado)<=1.2){
+		}else if(glm::abs(distanciaDeDoblado)<=2){
 			incrementoDeDistancia=-incrementoDeDistancia;
 			
 		}
@@ -230,7 +255,6 @@ void escena(void)
 	glLoadIdentity();
 	glEnable(GL_COLOR_MATERIAL);
 
-
 	//selección de la deformación
 	if (verRetorcer){
 		shaderManager->setVertexShader(RETORCER);
@@ -245,7 +269,13 @@ void escena(void)
 		shaderManager->setUniform("esCubo", verCubo);
 		shaderManager->setUniform("esCilindro", verCilindro);
 		shaderManager->setUniform("arista", arista);
-		//setear uniforms y esas cosas
+		shaderManager->setUniform("n", n);
+		shaderManager->setUniform("ondaEnX.longitud", ondaEnX.longitud);
+		shaderManager->setUniform("ondaEnX.frecuencia", ondaEnX.frecuencia);
+		shaderManager->setUniform("ondaEnX.amplitud", ondaEnX.amplitud);
+		shaderManager->setUniform("ondaEnY.longitud", ondaEnY.longitud);
+		shaderManager->setUniform("ondaEnY.frecuencia", ondaEnY.frecuencia);
+		shaderManager->setUniform("ondaEnY.amplitud", ondaEnY.amplitud);
 	}
     if (verDoblar){
 		shaderManager->setVertexShader(DOBLAR);
@@ -256,15 +286,25 @@ void escena(void)
    	if (verEsferizar){
 		shaderManager->setVertexShader(ESFERIZAR);
 		shaderManager->setUniform("tiempo", tiempo);
+		shaderManager->setUniform("centro", centro[0], centro[1], centro[2]);
 		//setear uniforms y esas cosas 
 	}
-	/*
+
 	//selección de las luces
-	if (luzPrincipal)
-		shaderManager->setShaderLuz(LUZ_PRINCIPAL);
-	if (luzSecundaria)
-		shaderManager->setShaderLuz(LUZ_SECUNDARIA);
-	*/
+	if (luzPrincipal){
+		//Cuando esté implementado:	shaderManager->setShaderLuz(LUZ_PRINCIPAL);
+		glEnable(GL_LIGHT0);
+	}
+	else
+		glDisable(GL_LIGHT0);
+		
+	if (luzSecundaria){
+		//Cuando esté implementado:	shaderManager->setShaderLuz(LUZ_SECUNDARIA);
+		glEnable(GL_LIGHT1);
+	}
+	else
+		glDisable(GL_LIGHT1);
+
 	//selección del material
 	if (verMaterialSombreadoBrillante){
 		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_BRILLANTE);
@@ -362,6 +402,10 @@ void escena(void)
 		system("cls");
 	}
 
+	if (verDoblar){
+		cout << "distanciaDeDoblado = " << distanciaDeDoblado << endl;
+		system("cls");
+	}
 	#endif
 
 	glutSwapBuffers();
@@ -380,6 +424,7 @@ void mouse(int button, int state, int x, int y){
 //mover cámara
 }
 
+#ifdef _DEBUG
 GLfloat* parametroAModificar;
 int indice = 0;
 
@@ -430,16 +475,67 @@ void modificarBrillo(float &brillo, float variacion){
 		return;
 	}
 }
+#endif
+
+void aumentarParametroSeleccionado(){
+	if (parametroSeleccionado == NULL)
+		return;
+	*parametroSeleccionado += variacion; 
+}
+void disminuirParametroSeleccionado(){
+	if (parametroSeleccionado == NULL)
+		return;
+	*parametroSeleccionado -= variacion; 
+}
 void keyboard (unsigned char key, int x, int y)
 {
    switch (key) {
-		
+#ifdef _DEBUG
+		case 'a':
+			modificarAmbiente();
+			break;
+		case 'd':
+			modificarDifusa();
+			break;
+		case 's':
+		  modificarEspecular();
+		  break;
+		case 'e':
+		  modificarEmisiva();
+		  break;
+		case '1':
+		indice = 0;
+		break;
+	case '2':
+		indice = 1;
+		break;
+	case '3':
+		indice = 2;
+		break;
+	case '4':
+		indice = 3;
+		break;
+	case 'p':
+		modificarNormalizado(*parametroAModificar, 0.01);
+		break;
+	case 'l':
+		modificarNormalizado(*parametroAModificar, -0.01);
+		break;
+	case 'o':
+		if (verMaterialSombreadoBrillante)
+			modificarBrillo(materialSombreadoBrillanteBrillo[0], 1);
+		if (verMaterialSombreadoSemimate)
+			modificarBrillo(materialSombreadoSemimateBrillo[0], 1);
+		break;
+	case 'k':
+		if (verMaterialSombreadoBrillante)
+			modificarBrillo(materialSombreadoBrillanteBrillo[0], -1);
+		if (verMaterialSombreadoSemimate)
+			modificarBrillo(materialSombreadoSemimateBrillo[0], -1);
+		break;
+#endif
 		case 'q':
 			exit(0);
-			break;
-		case 'v':
-			cout << anguloDeRetorsion << endl;
-			anguloDeRetorsion -= 1;
 			break;
 	  case '5':
 		  eye[0] = 0.0;
@@ -470,52 +566,77 @@ void keyboard (unsigned char key, int x, int y)
 		  up[2] = 1.0;
 		  glutPostRedisplay();
 		  break;
-		  
-	  case 'a':
-		  modificarAmbiente();
-		  break;
-		case 'd':
-		  modificarDifusa();
-		  break;
-	case 's':
-		  modificarEspecular();
-		  break;
-	case 'e':
-		  modificarEmisiva();
-		  break;
-	case '1':
-		indice = 0;
-		break;
-	case '2':
-		indice = 1;
-		break;
-	case '3':
-		indice = 2;
-		break;
-	case '4':
-		indice = 3;
-		break;
-	case 'p':
-		modificarNormalizado(*parametroAModificar, 0.01);
-		break;
-	case 'l':
-		modificarNormalizado(*parametroAModificar, -0.01);
-		break;
-	case 'o':
-		if (verMaterialSombreadoBrillante)
-			modificarBrillo(materialSombreadoBrillanteBrillo[0], 1);
-		if (verMaterialSombreadoSemimate)
-			modificarBrillo(materialSombreadoSemimateBrillo[0], 1);
-		break;
-	case 'k':
-		if (verMaterialSombreadoBrillante)
-			modificarBrillo(materialSombreadoBrillanteBrillo[0], -1);
-		if (verMaterialSombreadoSemimate)
-			modificarBrillo(materialSombreadoSemimateBrillo[0], -1);
-		break;
      default:
          break;
    }
+
+	if (verRetorcer)
+		variacion = 1.0;
+   if (verRuido)
+	switch (key){
+	case 'x':
+		parametroSeleccionado = &n; 
+		modificandoOndaEnX = true;
+		variacion = 1.0;
+		break;
+	case 'y':
+		parametroSeleccionado = &n; 
+		modificandoOndaEnX = false; 
+		variacion = 1.0;
+		break;
+	case 'l':
+		parametroSeleccionado = &n; 
+		variacion = 1.0;
+		break;
+	case 'a':
+		variacion = 0.01;
+		if (modificandoOndaEnX)
+			parametroSeleccionado = &ondaEnX.amplitud;
+		else
+			parametroSeleccionado = &ondaEnY.amplitud;
+		break;
+	case 'f':
+		variacion = 0.01;
+		if (modificandoOndaEnX)
+			parametroSeleccionado = &ondaEnX.frecuencia;
+		else
+			parametroSeleccionado = &ondaEnY.frecuencia;
+		break;
+	default:
+		break;
+   }
+
+   if (verEsferizar){
+	   variacion = 0.01;
+		switch (key){
+		case 'x':
+			parametroSeleccionado = &centro[0]; break;
+		case 'y':
+			parametroSeleccionado = &centro[1]; break;
+		case 'z':
+			parametroSeleccionado = &centro[2]; break;
+		default: break;
+		}
+	}
+}
+
+void teclasParticulares(int key, int x, int y){
+	switch(key) {
+		case GLUT_KEY_LEFT :
+
+			break;
+		case GLUT_KEY_RIGHT :
+				
+			break;
+		case GLUT_KEY_UP :
+			aumentarParametroSeleccionado();
+			break;
+		case GLUT_KEY_DOWN :
+			disminuirParametroSeleccionado();
+			break;
+		default:
+			break;
+	}
 }
 
 int main(int argc, char** argv){	
@@ -533,6 +654,7 @@ int main(int argc, char** argv){
     glutDisplayFunc(escena); 
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
+	glutSpecialFunc(teclasParticulares);
 	glutMouseFunc(mouse);
 	glutIdleFunc(OnIdle);
 	init ();

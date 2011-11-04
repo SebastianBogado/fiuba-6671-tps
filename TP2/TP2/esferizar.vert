@@ -1,39 +1,38 @@
-//Vertex shader escala en x e y
+//Vertex shader 
 varying vec3 N;
 varying vec3 v;
 varying vec2 vTexCoord;
 uniform float tiempo;
+uniform vec3 centro;
 
 void main()
 {	
-
 	vTexCoord = gl_MultiTexCoord0.xy;
-
-	//Luego esto tiene que ser un Uniform
-	vec3 centro = vec3(0.0,0.0,0.5);
-	
 	v = vec3(gl_ModelViewMatrix * gl_Vertex);       
-   
-	
-	vec3  vertice = gl_Vertex.xyz;
-	
-	float distancia = 0.0;
+
 	float parcial=0.0;
-	vec3 vectorDir = vertice - centro;
+	float x = gl_Vertex.x;
+	float y = gl_Vertex.y;
+	float z = gl_Vertex.z;
+
+	vec3 vectorDir = gl_Vertex.xyz-centro;
+
 	for( int i=0; i < 3; i++){
-		parcial+=pow(vertice[i] -centro[i],2.0 );
+		parcial+= vectorDir[i] * vectorDir[i];
 	}
 	
-	distancia = sqrt(parcial);
+	float distancia = sqrt(parcial);
 	
 
-	float amplitud = (sin(tiempo*2.0)+1.0)/2.0;
+	float amplitud = 0.1*(sin(tiempo*2.0)+1.0)/2.0;
 
 
 	//if (distancia > 1)
+	vec3 vertice;
 	if(distancia != 0.0)
-	vertice +=  amplitud*0.1/pow(distancia,2.0)*normalize( vectorDir );	
-	
+		vertice = gl_Vertex.xyz + amplitud/pow(distancia,2.0)*normalize( vectorDir );	
+	else
+		vertice = gl_Vertex.xyz;
 	N = normalize(gl_NormalMatrix * gl_Normal);
 	//N= normalize(vectorDir);
 

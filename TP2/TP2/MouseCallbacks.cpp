@@ -15,9 +15,24 @@ extern bool verRuido;
 extern bool verDoblar;
 extern bool verEsferizar;
 
-extern float arista;
 extern float tiempo;
 
+struct Onda{
+	float longitud;
+	float frecuencia;
+	float amplitud;
+};
+
+extern float n;
+extern Onda ondaEnX;
+extern Onda ondaEnY;
+extern float arista;
+
+extern float centro[3];
+
+extern float anguloDeRetorsion;
+
+extern float* parametroSeleccionado;
 
 MouseCallbacks::mousee MouseCallbacks::getCallback(int boton){
 	switch(boton){
@@ -134,7 +149,10 @@ void MouseCallbacks::botonRetorcer(int button, int state, int x, int y){
 	verRuido = false;
 	verDoblar = false;
 	verEsferizar = false;
+
 	tiempo = 0;
+	parametroSeleccionado = &anguloDeRetorsion;
+
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonRuido(int button, int state, int x, int y){
@@ -142,7 +160,10 @@ void MouseCallbacks::botonRuido(int button, int state, int x, int y){
 	verRuido = true;
 	verDoblar = false;
 	verEsferizar = false;
+
 	tiempo = 0;
+	parametroSeleccionado = &n;
+
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonDoblar(int button, int state, int x, int y){
@@ -150,7 +171,10 @@ void MouseCallbacks::botonDoblar(int button, int state, int x, int y){
 	verRuido = false;
 	verDoblar = true;
 	verEsferizar = false;
+
 	tiempo = 0;
+	parametroSeleccionado = NULL;
+
 	glutPostRedisplay();
 }
 void MouseCallbacks::botonEsferizar(int button, int state, int x, int y){
@@ -158,6 +182,9 @@ void MouseCallbacks::botonEsferizar(int button, int state, int x, int y){
 	verRuido = false;
 	verDoblar = false;
 	verEsferizar = true;
+
 	tiempo = 0;
+	parametroSeleccionado = &centro[0];
+
 	glutPostRedisplay();
 }
