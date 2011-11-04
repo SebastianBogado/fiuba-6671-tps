@@ -118,9 +118,9 @@ GLfloat materialSombreadoBrillanteBrillo[] = {5};
 GLfloat materialSombreadoBrillanteEmisiva[3] = {0.15,0.4,0.35};
 
 //Material sombreado semimate
-GLfloat materialSombreadoSemimateAmbiente[4] = {1.0, 1.0, 1.0, 1.0};
-GLfloat materialSombreadoSemimateDifusa[4] =  {1.0, 1.0, 1.0, 1.0};
-GLfloat materialSombreadoSemimateEspecular[4] = {1.0, 1.0, 1.0, 1.0};
+GLfloat materialSombreadoSemimateAmbiente[4] = {0.5, 0.6, 0.7, 1.0};
+GLfloat materialSombreadoSemimateDifusa[4] =  {7.0, 8.0, 9.0, 1.0};
+GLfloat materialSombreadoSemimateEspecular[4] = {0.1, 0.1, 0.1, 0.1};
 GLfloat materialSombreadoSemimateBrillo[] = {32};
 GLfloat materialSombreadoSemimateEmisiva[3] = {1.0,1.0,1.0};
   		 	 	 
