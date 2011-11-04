@@ -23,7 +23,7 @@ private:
 	
 	
 	glTexture textCaja_Cielo,textLadrillos;
-	TextureLoader textLoader;
+	TextureLoader textLoader,textLoader2;
 
 	AritmeticaTrig aritmTrig;
 
