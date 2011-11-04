@@ -37,6 +37,7 @@ void Emparchador::emparchar(Superficie* superficie){
 
 
 				//Para punto Superior
+				puntoSuperior= superficie->getPunto(j, j, i+1);
                 normal = superficie->getNormal(j, j, i+1);
                 
 				glNormal3fv(normal);
