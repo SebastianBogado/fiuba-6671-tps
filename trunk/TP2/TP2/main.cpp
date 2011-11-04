@@ -577,26 +577,26 @@ void keyboard (unsigned char key, int x, int y)
 	case 'x':
 		parametroSeleccionado = &n; 
 		modificandoOndaEnX = true;
-		variacion = 1.0;
+		variacion = 10.0;
 		break;
 	case 'y':
 		parametroSeleccionado = &n; 
 		modificandoOndaEnX = false; 
-		variacion = 1.0;
+		variacion = 10.0;
 		break;
 	case 'l':
 		parametroSeleccionado = &n; 
-		variacion = 1.0;
+		variacion = 10.0;
 		break;
 	case 'a':
-		variacion = 0.01;
+		variacion = 10.01;
 		if (modificandoOndaEnX)
 			parametroSeleccionado = &ondaEnX.amplitud;
 		else
 			parametroSeleccionado = &ondaEnY.amplitud;
 		break;
 	case 'f':
-		variacion = 0.01;
+		variacion = 10.01;
 		if (modificandoOndaEnX)
 			parametroSeleccionado = &ondaEnX.frecuencia;
 		else
@@ -605,6 +605,9 @@ void keyboard (unsigned char key, int x, int y)
 	default:
 		break;
    }
+
+   if (verDoblar)
+	   variacion = 0.0005;
 
    if (verEsferizar){
 	   variacion = 0.005;

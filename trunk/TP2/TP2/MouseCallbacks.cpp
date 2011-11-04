@@ -32,6 +32,8 @@ extern float centro[3];
 
 extern float anguloDeRetorsion;
 
+extern float incrementoDeDistancia;
+
 extern float* parametroSeleccionado;
 
 MouseCallbacks::mousee MouseCallbacks::getCallback(int boton){
@@ -173,7 +175,7 @@ void MouseCallbacks::botonDoblar(int button, int state, int x, int y){
 	verEsferizar = false;
 
 	tiempo = 0;
-	parametroSeleccionado = NULL;
+	parametroSeleccionado = &incrementoDeDistancia;
 
 	glutPostRedisplay();
 }
