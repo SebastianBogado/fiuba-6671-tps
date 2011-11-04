@@ -607,7 +607,7 @@ void keyboard (unsigned char key, int x, int y)
    }
 
    if (verEsferizar){
-	   variacion = 0.01;
+	   variacion = 0.005;
 		switch (key){
 		case 'x':
 			parametroSeleccionado = &centro[0]; break;
