@@ -198,8 +198,8 @@ void init(void)
 
 
 	glNewList(DL_CAJA_CIELO,GL_COMPILE);
-		superficie = new Esfera(15.0,32);
-       // emparchador.emparchar2(superficie);
+		superficie = new Esfera(8.0,32);
+        //emparchador.emparchar2(superficie);
         delete superficie;
 
 	glEndList();
@@ -647,7 +647,8 @@ int main(int argc, char** argv){
 	glutInit(&argc, argv);
     glutInitWindowPosition (10, 10);
     glutInitWindowSize (ancho, alto); 
-	glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
+	//glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
+	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
     //glutFullScreen();
    
 	ventanaPrincipal = glutCreateWindow("66.71 - TP2");
