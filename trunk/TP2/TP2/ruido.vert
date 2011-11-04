@@ -1,10 +1,5 @@
 //Vertex shader ruido
 //
-
-//TODO : revisar las normales de z negativo. Pueden ser el origen del problema de que se parta en dos las figuras
-// que tienen puntos de z<0
-//TODO 2 : encontrar una manera de pasarle al shader si un vértice es normal. Por ahora, temo que voy a tener
-// que pasarle un array con todos los vértices arista :S
 varying vec3 N;
 varying vec3 v;
 varying vec2 vTexCoord;
@@ -24,11 +19,11 @@ uniform float tiempo;
 uniform bool esCubo;
 uniform bool esCilindro;
 uniform float arista;
-float n = 5.0;
+float n = 10.0;
 
 //uniform
-Onda ondaEnX = Onda(arista*n/2.0, 2.5, 0.01);
-Onda ondaEnY = Onda(arista*n, 2.8, 0.02);
+Onda ondaEnX = Onda(arista/(2.0*n), 10.0, 0.01);
+Onda ondaEnY = Onda(arista/n, 15.0, 0.02);
 
 const float DPI = 6.283185307;
 
@@ -52,10 +47,10 @@ float calcularRuidoEnDireccionNormal(vec4 r){
 	//suma independientemente de 2 ondas
 	diferencia = Ax*sin(kx*r.x-wx*t)+ Ay*sin(ky*r.y-wy*t);
 
-	//una mezcla de senoides de argumento x.y
+		//una mezcla de senoides de argumento x.y
 diferencia = diferencia + A*sin(k*r.x*r.y-w*t) + 0.5*A*sin(0.9*k*r.x*r.y-1.5*w*t) + A*2.0*sin(1.8*k*r.x*r.y-0.3*w*t);
 	
-/*	
+/*
   diferencia = Ax*sin(kx*r.x-wx*t); */
 	return diferencia;
 }

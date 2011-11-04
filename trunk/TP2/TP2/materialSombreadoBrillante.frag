@@ -1,7 +1,5 @@
 varying vec3 N;
 varying vec3 v;
-uniform sampler2D textura;
-varying vec2 vTexCoord;
 
 #define MAX_LIGHTS 2 
 
@@ -32,5 +30,5 @@ void main (void)
    }
    
    // write Total Color: 
-   gl_FragColor = gl_FrontLightModelProduct.sceneColor + finalColor+ texture2D(textura, vTexCoord).rgba; 
+   gl_FragColor = gl_FrontLightModelProduct.sceneColor + finalColor;
    }
