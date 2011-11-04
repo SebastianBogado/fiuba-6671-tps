@@ -1,6 +1,6 @@
 #include "AdministradorTexturas.h"
 
-
+extern bool VerMaterialTexturado;
 
 
 AdministradorTexturas::AdministradorTexturas(void)
@@ -12,6 +12,10 @@ AdministradorTexturas::AdministradorTexturas(void)
 
 	this->coordX=0.0;
 	this->coordY=0.0;//this->incY;
+
+	this->primerPuntoTapa=true;
+	this->primerPunto=true;
+	this->puntoCentroTapa=vec2(0.0);
 }
 
 
@@ -24,10 +28,7 @@ void AdministradorTexturas::CargarTexturas(){
 	
 	
 	glEnable(GL_TEXTURE_2D);
-	//glBindTexture(GL_TEXTURE_2D,this->textLadrillos.TextureID);
-	//glBindTexture(GL_TEXTURE_2D,this->textCaja_Cielo.TextureID);
-
-	
+	glBindTexture(GL_TEXTURE_2D,this->textLadrillos.TextureID);	
 
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
@@ -82,7 +83,6 @@ void AdministradorTexturas::generarCoordText(float* punto){
 	glTexCoord2f(u,1-v);
 }
 
-
 void AdministradorTexturas::sumarVecSup(){
 	
 	//this->coordX=+this->incX;
@@ -105,10 +105,9 @@ void AdministradorTexturas::comprobarPuntos(){
 
 }
 
-
-
-
 void AdministradorTexturas::elegirTextura(TipoTextura tipo){
+
+	glEnable(GL_TEXTURE_2D);
 
 	switch (tipo){
 	case Ladrillos:	glBindTexture(GL_TEXTURE_2D,this->textLadrillos.TextureID); 
@@ -120,12 +119,115 @@ void AdministradorTexturas::elegirTextura(TipoTextura tipo){
 	}
 }
 
-
 int AdministradorTexturas::getID(TipoTextura tipo){
 
 	return this->textLadrillos.TextureID;
 
 }
+
+void AdministradorTexturas::generarCoordTextTapa(float *punto){
+
+	float u=0.0,v=0.0;
+	float angulo=0.0;
+	vec2 centro=vec2(0.5,0.5);
+	vec2 dir=vec2(punto[0],punto[1]);
+
+	dir=normalize(dir);
+	dir*=0.5;
+	
+	dir+=centro;
+	glTexCoord2f(dir.x,dir.y);
+	/*
+	return;
+
+	if (!this->primerPunto && this->primerPuntoTapa || vec2(punto[0],punto[1]) == this->puntoCentroTapa){
+		
+		this->puntoCentroTapa=vec2(punto[0],punto[1]);
+		u=0.5;
+		v=0.5;
+
+		this->primerPuntoTapa=false;
+	}else if(this->primerPunto){
+		u=0.5;
+		v=0.0;
+		this->primerPunto=false;
+	}
+	else
+	{
+
+		dir= vec2(punto[0],punto[1])-this->puntoCentroTapa;
+		
+		dir = dir/sqrt(dir.x*dir.x + dir.y*dir.y);
+
+		if (dir.y >= 0.0)
+			angulo= acos(dir.x);
+		else
+			angulo= this->aritmTrig.dos_pi() - acos(dir.x);
+
+
+		float pi=this->aritmTrig.pi();
+		
+
+
+		if (dir.y !=0.0 && dir.x/ dir.y <= 1.0)
+			dir/=dir.y;
+		else if (dir.x!=0.0 && dir.y/dir.x <=1.0)
+			dir/=dir.x;
+
+		dir/=2;
+
+		dir+=centro;
+
+		u=dir.x;
+		v=dir.y;
+
+
+		/*
+		if (angulo >= pi/4.0 && angulo < 3.0*pi/4.0){
+
+			v=1.0;
+			dir=dir/dir.y;
+			dir+=centro;
+			u = dir.x;
+			
+
+		}else if(angulo >=3.0*pi/4.0 && angulo < 5.0*pi/4.0){
+			u=0.0;
+			dir=dir/dir.x;
+			dir+=centro;
+			v=dir.y;
+
+		}else if(angulo >= 5.0*pi/4.0 && angulo < 7.0*pi/4.0){
+
+			v=0.0;
+			dir=dir/dir.y;
+			dir+=centro;
+			u=dir.x;
+
+		}else if (angulo >= 7.0*pi/4.0 && angulo <  pi/4.0){
+
+			u=1.0;
+			dir=dir/dir.x;
+			dir+=centro;
+			v=dir.y;
+
+		}
+		
+	}*/
+
+	//glTexCoord2f(u,v);
+
+
+}
+
+
+void AdministradorTexturas::reiniciar(){
+
+	this->primerPuntoTapa=true;
+	this->primerPunto=true;
+
+}
+
 
 AdministradorTexturas::~AdministradorTexturas(void)
 {

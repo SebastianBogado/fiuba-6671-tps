@@ -95,8 +95,7 @@ void Emparchador::emparchar2(Superficie* superficie){
             }
 		glEnd();
     }
-    if (superficie->tieneTapas())
-        this->emparcharTapas(superficie);
+
 }
 
 
@@ -105,29 +104,46 @@ void Emparchador::emparcharTapas(Superficie* superficie){
     float* puntoBorde;
     float* ultimoPuntoBorde;
     float* normal = new float[3];
+
+	AdministradorTexturas *adminTex=AdministradorTexturas::getInstancia();
+
     normal[0] = 0;
     normal[1] = 0;
+	
     for (int i = 0; i <= superficie->cantidadDePuntosEnAlto(); i += superficie->cantidadDePuntosEnAlto()){
-        glBegin(GL_TRIANGLE_FAN);
-            centroTapa = superficie->getPunto(0, 0, i);
-            if (i == 0)
-                normal[2] = -1;
-            else
-                normal[2] = 1;
+		adminTex->reiniciar();
+		glBegin(GL_TRIANGLE_STRIP);
+		//glBegin(GL_LINE_STRIP);
+			
+			centroTapa = superficie->getPunto(0, 0, i);
 
-            glNormal3fv(normal);
-            glVertex3f(0.0, 0.0, centroTapa[2]);
+/*
+			glNormal3fv(normal);
+			adminTex->generarCoordTextTapa(centroTapa);
+			glVertex3f(0.0, 0.0, centroTapa[2]);
+			*/
+            
             for (int j = 0; j < superficie->cantidadDePuntosBorde(); j++){
 
                 puntoBorde = superficie->getPunto(j, j, i);
 
                 glNormal3fv(normal);
+				adminTex->generarCoordTextTapa(puntoBorde);
                 glVertex3fv(puntoBorde);
+
+
+				glNormal3fv(normal);
+				adminTex->generarCoordTextTapa(centroTapa);
+				glVertex3f(0.0, 0.0, centroTapa[2]);
+
                 delete []puntoBorde;
             }
+
             ultimoPuntoBorde = superficie->getPunto(0, 0, i);
 
             glNormal3fv(normal);
+			
+			adminTex->generarCoordTextTapa(ultimoPuntoBorde);
             glVertex3fv(ultimoPuntoBorde);
             delete []centroTapa;
             delete []ultimoPuntoBorde;
