@@ -16,12 +16,10 @@ uniform float tiempo;
 
 //Parámetros para forzar nodos en las aristas
 //TODO : si hay tiempo, considerar manejar todo con VAOs
-uniform bool esCubo;
-uniform bool esCilindro;
-uniform float arista;
 uniform float n;
 uniform Onda ondaEnX;
 uniform Onda ondaEnY;
+uniform Onda ondaEnZ;
 
 const float DPI = 6.283185307;
 
@@ -35,24 +33,13 @@ float calcularRuidoEnDireccionNormal(vec4 r){
 	float Ay = ondaEnY.amplitud;
 	float ky = DPI / ondaEnY.longitud; 
 	float wy = DPI * ondaEnY.frecuencia;
+	float Az = ondaEnZ.amplitud;
+	float kz = DPI / ondaEnZ.longitud; 
+	float wz = DPI * ondaEnZ.frecuencia;
 	float t = tiempo;
-	float k = sqrt(kx*kx + ky*ky);
-	float w = sqrt(wx*wx + wy*wy);
-	float A = sqrt(Ax*Ax + Ay*Ay);
 	//Fin variables
 
-	
-	//suma independientemente de 2 ondas
-	diferencia = Ax*sin(kx*r.x-wx*t)+ Ay*sin(ky*r.y-wy*t);
-
-	//una mezcla de senoides de argumento x.y
-	diferencia = diferencia + A*sin(k*r.x*r.y-w*t) + 0.5*A*sin(0.9*k*r.x*r.y-1.5*w*t) + A*2.0*sin(1.8*k*r.x*r.y-0.3*w*t);
-	
-/*	
-	//senoide estilo gota cayendo al agua
-	float argumento = kx*kx*r.x*r.x + ky*ky*r.y*r.y;
-	diferencia = A*sin(argumento-w*t)/(argumento-w*t);
-*/
+	diferencia = Ax*sin(kx*r.x-wx*t)+ Ay*sin(ky*r.y-wy*t) + Az*sin(kz*r.z-wz*t);;
 	return diferencia;
 }
 
@@ -78,26 +65,11 @@ vec3 rotarEnZ(float angulo, vec3 posicion){
 }
 
 vec4 calcularRuido(vec4 r, vec3 n){
-	//Calcular el ruido en la dirección normal
-	float z = calcularRuidoEnDireccionNormal(r);
-
-	//Alinear a la dirección normal
-	vec3 nuevaPosicion;
-	if  (n.x == 0.0){
-		float anguloDeRotacionEnX =  atan(n.z, n.y);
-		nuevaPosicion = rotarEnX(anguloDeRotacionEnX, vec3(0.0,0.0,z));
-	}
-	else{
-		float anguloDeRotacionEnY =  atan(n.x, n.z);
-		nuevaPosicion = rotarEnY(anguloDeRotacionEnY, vec3(0.0,0.0,z));
+	vec4 posicionFinal = r;
+	posicionFinal.x += calcularRuidoEnDireccionNormal(r);
+	posicionFinal.y += calcularRuidoEnDireccionNormal(r);
+	posicionFinal.z += calcularRuidoEnDireccionNormal(r);
 	
-		float anguloDeRotacionEnZ = atan(n.y, n.x);
-		nuevaPosicion = rotarEnZ(anguloDeRotacionEnZ, nuevaPosicion);
-	}
-
-	//Trasladarlo al punto que pertenece
-	vec4 posicionFinal = vec4(nuevaPosicion, 0.0) + r;
-
 	//Fin
 	return posicionFinal;
 }
@@ -112,86 +84,22 @@ vec3 calcularNormal(vec4 r, vec3 n){
 	float Ay = ondaEnY.amplitud;
 	float ky = DPI / ondaEnY.longitud; 
 	float wy = DPI * ondaEnY.frecuencia;
+	float Az = ondaEnZ.amplitud;
+	float kz = DPI / ondaEnZ.longitud; 
+	float wz = DPI * ondaEnZ.frecuencia;
 	float t = tiempo;
-	float k = sqrt(kx*kx + ky*ky);
-	float w = sqrt(wx*wx + wy*wy);
-	float A = sqrt(Ax*Ax+Ay*Ay);
 	//Fin variables
 
-
-	//normal de las dos senoides independientes
-	normalNueva = vec3(-kx*Ax*cos(kx*r.x-wx*t), -ky*Ay*cos(ky*r.y-wy*t), 1.0);
-	
-	//normal de las senoides de argumento x.y
-	normalNueva.x = normalNueva.x - A*k*r.y*sin(k*r.x*r.y-w*t) - 0.45*A*k*r.y*sin(0.9*k*r.x*r.y-1.5*w*t) - 3.6*A*k*r.y*sin(1.8*k*r.x*r.y-0.3*w*t);
-	normalNueva.y = normalNueva.y - A*k*r.x*sin(k*r.x*r.y-w*t) - 0.45*A*k*r.x*sin(0.9*k*r.x*r.y-1.5*w*t) - 3.6*A*k*r.x*sin(1.8*k*r.x*r.y-0.3*w*t); 
-	
-/*
-	//normal de la senoide "gota cayendo al agua"
-	float argumento = kx*kx*r.x*r.x + ky*ky*r.y*r.y;
-	normalNueva.x = 2.0*A*kx*r.x*(sin(argumento-w*t)/pow(argumento, 2.0) - cos(argumento-w*t)/argumento);
-	normalNueva.y = 2.0*A*ky*r.y*(sin(argumento-w*t)/pow(argumento, 2.0) - cos(argumento-w*t)/argumento);
-	normalNueva.z = 1.0;
-*/
-
-	//Alineación de normalNueva (calculada según (0,0,1)) con n
-	if  (n.x == 0.0){
-		float anguloDeRotacionEnX =  atan(n.z, n.y);
-		normalNueva = rotarEnX(anguloDeRotacionEnX, normalNueva);
-	}
-	else{
-		float anguloDeRotacionEnY =  atan(n.x, n.z);
-		normalNueva = rotarEnY(anguloDeRotacionEnY, normalNueva);
-	
-		float anguloDeRotacionEnZ = atan(n.y, n.x);
-		normalNueva = rotarEnZ(anguloDeRotacionEnZ, normalNueva);
-	}
-
+	normalNueva = vec3(-kx*Ax*cos(kx*r.x-wx*t), -ky*Ay*cos(ky*r.y-wy*t), -kz*Az*cos(kz*r.z-wz*t));
 	return normalNueva;
 }
 
 void main()
 {	
-	vTexCoord = gl_MultiTexCoord0.xy;	/*
-	if (esCilindro){
-		if ((gl_Vertex.z == 0.0) || (gl_Vertex.z == arista)){
-			if ( (gl_Vertex.x*gl_Vertex.x + gl_Vertex.y*gl_Vertex.y) == (arista/2.0)*(arista/2.0) ){
-				v = vec3(gl_ModelViewMatrix * gl_Vertex);
-				N = gl_Normal;
-				gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-			}
-		}
-	}
-	else{
-		if (esCubo){
-			if ((gl_Vertex.z == 0.0) || (gl_Vertex.z == arista)){
-				if ( ((-arista/2.0 <= gl_Vertex.x) && (gl_Vertex.x <= arista/2.0) && (gl_Vertex.y == arista/2.0)) || 
-					 ((-arista/2.0 <= gl_Vertex.x) && (gl_Vertex.x <= arista/2.0) && (gl_Vertex.y == -arista/2.0)) ||  
-					 ((-arista/2.0 <= gl_Vertex.y) && (gl_Vertex.y <= arista/2.0) && (gl_Vertex.x == arista/2.0)) || 
-					 ((-arista/2.0 <= gl_Vertex.y) && (gl_Vertex.y <= arista/2.0) && (gl_Vertex.x == -arista/2.0))){
-					v = vec3(gl_ModelViewMatrix * gl_Vertex);
-					N = gl_Normal;
-					gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-				}
-			}
-		
-		else{
-			vec4 aux = calcularRuido(gl_Vertex, gl_Normal);
-			v = vec3(gl_ModelViewMatrix * aux);   
-			N = normalize(gl_NormalMatrix * calcularNormal(gl_Vertex, gl_Normal));
-			gl_Position = gl_ModelViewProjectionMatrix * aux;
-		}
-	}	
-	else {
-		vec4 aux = calcularRuido(gl_Vertex, gl_Normal);
-		v = vec3(gl_ModelViewMatrix * aux);   
-		N = normalize(gl_NormalMatrix * calcularNormal(gl_Vertex, gl_Normal));
-		gl_Position = gl_ModelViewProjectionMatrix * aux;
-	}
-}*/
-vec4 aux = calcularRuido(gl_Vertex, gl_Normal);
-		v = vec3(gl_ModelViewMatrix * aux);   
-		N = normalize(gl_NormalMatrix * calcularNormal(gl_Vertex, gl_Normal));
-		gl_Position = gl_ModelViewProjectionMatrix * aux;
+	vTexCoord = gl_MultiTexCoord0.xy;
+	vec4 aux = calcularRuido(gl_Vertex, gl_Normal);
+	v = vec3(gl_ModelViewMatrix * aux);   
+	N = normalize(gl_NormalMatrix * calcularNormal(gl_Vertex, gl_Normal));
+	gl_Position = gl_ModelViewProjectionMatrix * aux;
 }
 
