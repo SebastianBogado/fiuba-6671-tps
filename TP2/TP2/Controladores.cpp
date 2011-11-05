@@ -4,15 +4,17 @@ bool verCubo = false;
 bool verToroide = false;
 bool verCilindro = false;
 
-bool verMaterialSombreadoBrillante = false;
+bool verMaterialSombreadoBrillante = true;
 bool verMaterialSombreadoTexturado = false;
-bool verMaterialReflectivo = true;
+bool verMaterialReflectivo = false;
 bool verMaterialSombreadoSemimate = false;
 
 bool verRetorcer = true;
 bool verRuido = false;
 bool verDoblar = false;
 bool verEsferizar = false;
+
+bool usarShaders = true;
 
 bool luzPrincipal = true;
 bool luzSecundaria = true;
@@ -36,10 +38,11 @@ struct Onda{
 	float amplitud;
 };
 
-float n = 10.0;
+float n = 1;
 float arista = 1.4;
-Onda ondaEnX = {arista/(2.0*n), 10.0, 0.01};
-Onda ondaEnY = {arista/n, 15.0, 0.02};
+Onda ondaEnX = {arista/(2.0*n), 3.0, 0.07};
+Onda ondaEnY = {arista/n, 6.0, 0.05};
+Onda ondaEnZ = {arista/n, 5.0, 0.04};
 
 
 

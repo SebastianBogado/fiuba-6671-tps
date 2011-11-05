@@ -73,6 +73,8 @@ extern bool verRuido;
 extern bool verDoblar;
 extern bool verEsferizar;
 
+extern bool usarShaders;
+
 extern bool luzPrincipal;
 extern bool luzSecundaria;
 
@@ -80,7 +82,6 @@ extern float tiempo;
 
 //Efecto "retorcer"
 extern float anguloDeRetorsion;
-extern float arista;
 
 //Efecto de esferizar
 extern float centro[];
@@ -100,6 +101,7 @@ struct Onda{
 extern float n;
 extern Onda ondaEnX;
 extern Onda ondaEnY;
+extern Onda ondaEnZ;
 extern float arista;
 
 //Parámetro que se modifica al apretar las flechitas
@@ -234,8 +236,8 @@ void init(void)
 
 
 	glNewList(DL_CAJA_CIELO,GL_COMPILE);
-		superficie = new Esfera(8.0,32);
-        //emparchador.emparchar2(superficie);
+		superficie = new Esfera(2.0,32);
+       emparchador.emparchar2(superficie);
         delete superficie;
 
 	glEndList();
@@ -302,9 +304,6 @@ void escena(void)
 	if (verRuido){
 		shaderManager->setVertexShader(RUIDO);
 		shaderManager->setUniform("tiempo", tiempo);
-		shaderManager->setUniform("esCubo", verCubo);
-		shaderManager->setUniform("esCilindro", verCilindro);
-		shaderManager->setUniform("arista", arista);
 		shaderManager->setUniform("n", n);
 		shaderManager->setUniform("ondaEnX.longitud", ondaEnX.longitud);
 		shaderManager->setUniform("ondaEnX.frecuencia", ondaEnX.frecuencia);
@@ -312,6 +311,9 @@ void escena(void)
 		shaderManager->setUniform("ondaEnY.longitud", ondaEnY.longitud);
 		shaderManager->setUniform("ondaEnY.frecuencia", ondaEnY.frecuencia);
 		shaderManager->setUniform("ondaEnY.amplitud", ondaEnY.amplitud);
+		shaderManager->setUniform("ondaEnZ.longitud", ondaEnZ.longitud);
+		shaderManager->setUniform("ondaEnZ.frecuencia", ondaEnZ.frecuencia);
+		shaderManager->setUniform("ondaEnZ.amplitud", ondaEnZ.amplitud);
 	}
     if (verDoblar){
 		shaderManager->setVertexShader(DOBLAR);
@@ -373,8 +375,11 @@ void escena(void)
 	
 	
 	//aplicar shaders
-	shaderManager->usar();
-	
+	if (usarShaders)
+		shaderManager->usar();
+	else
+		shaderManager->cerrar();
+
 	//selección de primitiva
 	if (verEsfera)
 		glCallList(DL_ESFERA);
@@ -663,26 +668,26 @@ void keyboard (unsigned char key, int x, int y)
 	case 'x':
 		parametroSeleccionado = &n; 
 		modificandoOndaEnX = true;
-		variacion = 10.0;
+		variacion = 1.0;
 		break;
 	case 'y':
 		parametroSeleccionado = &n; 
 		modificandoOndaEnX = false; 
-		variacion = 10.0;
+		variacion = 1.0;
 		break;
 	case 'l':
 		parametroSeleccionado = &n; 
-		variacion = 10.0;
+		variacion = 1.0;
 		break;
 	case 'a':
-		variacion = 10.01;
+		variacion = 0.01;
 		if (modificandoOndaEnX)
 			parametroSeleccionado = &ondaEnX.amplitud;
 		else
 			parametroSeleccionado = &ondaEnY.amplitud;
 		break;
 	case 'f':
-		variacion = 10.01;
+		variacion = 0.01;
 		if (modificandoOndaEnX)
 			parametroSeleccionado = &ondaEnX.frecuencia;
 		else
@@ -717,6 +722,9 @@ void teclasParticulares(int key, int x, int y){
 		case GLUT_KEY_DOWN :
 			disminuirParametroSeleccionado();
 			break;
+		case GLUT_KEY_F1 :
+			usarShaders = !usarShaders;
+			break;
 		default:
 			break;
 	}
@@ -730,10 +738,11 @@ int main(int argc, char** argv){
 	glutInit(&argc, argv);
     glutInitWindowPosition (10, 10);
     glutInitWindowSize (ancho, alto); 
-	glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
-	//glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-    //glutFullScreen();
-   
+	if (!GLEW_NV_copy_image)
+		glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
+	else
+		glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+
 	ventanaPrincipal = glutCreateWindow("66.71 - TP2");
     glutDisplayFunc(escena); 
 	glutReshapeFunc(reshape);
