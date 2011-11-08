@@ -5,36 +5,68 @@ varying vec2 vTexCoord;
 uniform float tiempo;
 uniform vec3 centro;
 
+float radioEsfera = 1.0;
+
+vec3 calcularDireccion(){
+
+	vec3 resultado=gl_Vertex.xyz - centro;
+
+	return resultado;
+};
+
+float calcDistAEsfera(vec3 vector){
+
+	float resultado=0.0;
+	for (int i=0; i < 3;i++)
+		resultado += vector[i]*vector[i];
+
+	resultado = sqrt (resultado);
+
+	resultado = resultado - radioEsfera;
+
+	return resultado;
+}
+
+vec3 calcularNormal(vec3 vector){
+
+	vec3 resultado = vector + gl_Normal.xyz;
+
+	resultado /= 2.0;
+
+	return resultado;
+
+}
+
+
 void main()
 {	
 	vTexCoord = gl_MultiTexCoord0.xy;
-	v = vec3(gl_ModelViewMatrix * gl_Vertex);       
+	v = vec3(gl_ModelViewMatrix * gl_Vertex);     
 
-	float parcial=0.0;
-	float x = gl_Vertex.x;
-	float y = gl_Vertex.y;
-	float z = gl_Vertex.z;
-
-	vec3 vectorDir = gl_Vertex.xyz-centro;
-
-	for( int i=0; i < 3; i++){
-		parcial+= vectorDir[i] * vectorDir[i];
-	}
+	vec3 vecDir = calcularDireccion();
 	
-	float distancia = sqrt(parcial);
+	//float distancia = sqrt(parcial);
+	float distancia = calcDistAEsfera(vecDir);
 	
+	vecDir = normalize (vecDir);
 
-	float amplitud = 0.1*(sin(tiempo*2.0)+1.0)/2.0;
+	N = calcularNormal(vecDir);
 
-
-	//if (distancia > 1)
+	float amplitud = (sin(tiempo*2.0)+1.0)/2.0;
+		
 	vec3 vertice;
-	if(distancia != 0.0)
-		vertice = gl_Vertex.xyz + amplitud/pow(distancia,2.0)*normalize( vectorDir );	
+
+	if(abs(distancia) >= 0.001)
+	 vertice = gl_Vertex.xyz - amplitud * distancia * vecDir;
 	else
 		vertice = gl_Vertex.xyz;
-	N = normalize(gl_NormalMatrix * gl_Normal);
-	//N= normalize(vectorDir);
 
-	gl_Position = gl_ModelViewProjectionMatrix *vec4(vertice,1.0);
+
+	N = normalize(gl_NormalMatrix * gl_Normal);
+
+
+	if (abs(gl_Vertex.x) > 10.0 || abs(gl_Vertex.y) > 10.0 ||abs(gl_Vertex.z) > 10.0) 
+		gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+	else
+		gl_Position = gl_ModelViewProjectionMatrix *vec4(vertice,1.0);
 }
