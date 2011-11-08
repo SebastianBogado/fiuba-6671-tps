@@ -12,7 +12,7 @@ vec3 calcularDireccion(){
 	vec3 resultado=gl_Vertex.xyz - centro;
 
 	return resultado;
-};
+}
 
 float calcDistAEsfera(vec3 vector){
 

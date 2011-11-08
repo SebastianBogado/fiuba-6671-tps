@@ -149,4 +149,5 @@ void Emparchador::emparcharTapas(Superficie* superficie){
             delete []ultimoPuntoBorde;
         glEnd();
     }
+	delete []normal;
 }
