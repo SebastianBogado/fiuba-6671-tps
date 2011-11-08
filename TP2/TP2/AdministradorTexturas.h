@@ -41,6 +41,8 @@ private:
 	void sumarVecSup();
 	void sumarVecInf();
 	void comprobarPuntos();
+
+	void cargarParametrosTextura();
 	
 public:
 	AdministradorTexturas(void);

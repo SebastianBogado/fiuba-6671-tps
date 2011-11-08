@@ -30,16 +30,23 @@ void AdministradorTexturas::CargarTexturas(){
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D,this->textLadrillos.TextureID);	
 
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+	this->cargarParametrosTextura();
 
 	this->textLoader2.LoadTextureFromDisk(  "./Archivos de Recursos/Texturas de Objetos/sky_1.jpg",&this->textCaja_Cielo);
 	
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+	this->cargarParametrosTextura();
 }
 
 
+void AdministradorTexturas::cargarParametrosTextura(){
+
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+
+}
 
 AdministradorTexturas* AdministradorTexturas::getInstancia(){
 
@@ -132,10 +139,10 @@ void AdministradorTexturas::generarCoordTextTapa(float *punto){
 	vec2 centro=vec2(0.5,0.5);
 	vec2 dir=vec2(punto[0],punto[1]);
 
-	dir=normalize(dir);
-	dir*=0.5;
+	//dir=normalize(dir);
+	//dir*=3.0;
 	
-	dir+=centro;
+	//dir+=centro;
 	glTexCoord2f(dir.x,dir.y);
 	/*
 	return;
