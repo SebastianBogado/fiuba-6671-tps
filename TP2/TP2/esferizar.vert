@@ -55,18 +55,15 @@ void main()
 	float amplitud = (sin(tiempo*2.0)+1.0)/2.0;
 		
 	vec3 vertice;
-
+	
 	if(abs(distancia) >= 0.001)
 	 vertice = gl_Vertex.xyz - amplitud * distancia * vecDir;
 	else
 		vertice = gl_Vertex.xyz;
 
-
-	N = normalize(gl_NormalMatrix * gl_Normal);
-
-
 	if (abs(gl_Vertex.x) > 10.0 || abs(gl_Vertex.y) > 10.0 ||abs(gl_Vertex.z) > 10.0) 
 		gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
 	else
 		gl_Position = gl_ModelViewProjectionMatrix *vec4(vertice,1.0);
+		
 }

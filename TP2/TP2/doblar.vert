@@ -105,5 +105,9 @@ void main()
 	v = vec3(gl_ModelViewMatrix * gl_Vertex);
 	    
 	N = normalize (gl_NormalMatrix * transformarNormal(gl_Normal));	
-	gl_Position = gl_ModelViewProjectionMatrix * vec4(resultado,gl_Vertex.w);
+
+	if (abs(gl_Vertex.x) > 10.0 || abs(gl_Vertex.y) > 10.0 ||abs(gl_Vertex.z) > 10.0) 
+		gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+	else
+		gl_Position = gl_ModelViewProjectionMatrix * vec4(resultado,gl_Vertex.w);
 }
