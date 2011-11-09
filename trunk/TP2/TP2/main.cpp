@@ -200,19 +200,6 @@ void init(void)
 	    superficie = new Esfera;
         emparchador.emparchar(superficie);
         delete superficie;
-		/*glBegin(GL_TRIANGLES);
-			for (float i=-1.5; i <= 1.5; i+=0.1){
-				for (float j=-1.5; j <= 1.5; j+=0.1){
-					glVertex3f(j,i,0);
-					glVertex3f(j+0.1,i,0);
-					glVertex3f(j,i+0.1,0);
-
-					glVertex3f(j+0.1,i,0);
-					glVertex3f(j+0.1,i+0.1,0);
-					glVertex3f(j,i+0.1,0);
-				}
-			}
-		glEnd();*/
 	glEndList();
 	
 	glNewList(DL_CUBO, GL_COMPILE);
@@ -475,18 +462,17 @@ void mouse(int button, int state, int x, int y){
 }
 
 void mouseEnMovimiento(int x, int y){
-	if (xOrigen >= 0) {cout << "difAnguloX = " << difAnguloX << endl;
-		float aux = asin(x/norma3(eye));
-		float aux2 = asin(xOrigen/norma3(eye));
-		difAnguloX = x - xOrigen;
+	if (xOrigen >= 0) {
+		difAnguloX = xOrigen - x;
+		xOrigen = x;
 	}
-	if (yOrigen >= 0){cout << "difAnguloY = " << difAnguloY << endl;
-		float aux = asin(y/norma3(eye));
-		float aux2 = asin(yOrigen/norma3(eye));
+	if (yOrigen >= 0){
 		difAnguloY = y - yOrigen;
+		yOrigen = y;
 	}
-	anguloTheta += (0.001* difAnguloX);
-	anguloPhi += (0.001 * difAnguloY);
+	
+	anguloTheta += (0.005* difAnguloX);
+	anguloPhi += (0.005 * difAnguloY);
 	redimensionar();
 }
 
