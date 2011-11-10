@@ -4,25 +4,30 @@ const string GLSLProgram::NOMBRE_ARCHIVO_VERTEX_SHADER_RETORCER = "retorcer.vert
 const string GLSLProgram::NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO = "ruido.vert";
 const string GLSLProgram::NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR = "doblar.vert";
 const string GLSLProgram::NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR = "esferizar.vert";
+const string GLSLProgram::NOMBRE_ARCHIVO_VERTEX_SHADER_BASICO = "basico.vert";
 
-const string GLSLProgram::ARCHIVOS_VERTEX_SHADERS[4] = {
-		NOMBRE_ARCHIVO_VERTEX_SHADER_RETORCER,
-		NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO,
-		NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR,
-		NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR};
+const string GLSLProgram::ARCHIVOS_VERTEX_SHADERS[] = {
+	NOMBRE_ARCHIVO_VERTEX_SHADER_BASICO,
+	NOMBRE_ARCHIVO_VERTEX_SHADER_RETORCER,
+	NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO,
+	NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR,
+	NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR};
 
 const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE = "materialSombreadoBrillante.frag";
 const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO = "materialSombreadoTexturado.frag";
 const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO = "materialReflectivo.frag";
 const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE = "materialSombreadoSemimate.frag";
-const string GLSLProgram::ARCHIVOS_FRAGMENT_SHADERS[4] = {
+const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_BASICO = "basico.frag";
+
+const string GLSLProgram::ARCHIVOS_FRAGMENT_SHADERS[] = {
+	NOMBRE_ARCHIVO_FRAGMENT_SHADER_BASICO,
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE,
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO,
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO,
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE};
 
-const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_PRINCIPAL = "luzPrincipal.vert";
-const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_SECUNDARIA = "luzSecundaria.vert";
+const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_PRINCIPAL = "luzPrincipal.frag";
+const string GLSLProgram::NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_SECUNDARIA = "luzSecundaria.frag";
 const string GLSLProgram::ARCHIVOS_FRAGMENT_SHADERS_LUZ[2] = {
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_PRINCIPAL,
 	NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_SECUNDARIA};
@@ -36,12 +41,24 @@ GLSLProgram::GLSLProgram(){
 	this->luzShaderActual = 0;
 }
 
+bool GLSLProgram::inicializarBasico(){
+	//if (!compileShaderFromFile(0, FRAGMENT, true))
+		//return false;
+	if (!compileShaderFromFile(0, FRAGMENT, false))
+		return false;
+	if (!compileShaderFromFile(0, VERTEX, true))
+		return false;
+	return link();
+}
+
 void GLSLProgram::usar(){
 	if (linked)
 		glUseProgram(programHandle);
 	else
 		cout << "El programa no ha sido linkeado" << endl;
 }
+
+void GLSLProgram::cerrar(){ glUseProgram(0); }
 
 string GLSLProgram::log(){ return logString; }
 

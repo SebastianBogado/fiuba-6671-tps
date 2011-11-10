@@ -231,10 +231,16 @@
     <None Include="Archivos de recursos\Texturas de Objetos\sky_1.jpg">
       <Filter>Archivos de recursos\Texturas de objetos</Filter>
     </None>
+    <None Include="luzSecundaria.frag">
+      <Filter>Shaders</Filter>
+    </None>
     <None Include="luzPrincipal.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="luzSecundaria.frag">
+    <None Include="basico.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="basico.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

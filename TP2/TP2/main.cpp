@@ -105,34 +105,43 @@ extern Onda ondaEnZ;
 extern float arista;
 
 //Parámetro que se modifica al apretar las flechitas
-float* parametroSeleccionado;
+float* parametroSeleccionado = &anguloDeRetorsion;
 float variacion = 1.0;
 bool modificandoOndaEnX = true;
 
 // Variables de las luces
 
 float luzPrincipalColor[4] = {1.0f, 1.0f, 1.0f, 1.0f};
-float luzPrincipalPosicion[3] = {-10.0f, -10.0f, 3.0f};
-float luzPrincipalAmbiente[4] = {0.5f, 0.5f, 0.5f, 1.0f};
+float luzPrincipalPosicion[3] = {4.0f, 4.0f, 2.0f};
+float luzPrincipalAmbiente[4] = {1.0f, 1.0f, 1.0f, 1.0f};
 
 float luzSecundariaColor[4] = {0.5f, 0.5f, 0.5f, 0.5f};
 float luzSecundariaPosicion[3] = {5.0f, 5.0f, 3.0f};
 float luzSecundariaAmbiente[4] = {0.1f, 0.1f, 0.1f, 1.0f};
 
 //Material sombreado brillante
-GLfloat materialSombreadoBrillanteAmbiente[4] = {0.3, 0.8, 0.7, 1.0};
-GLfloat materialSombreadoBrillanteDifusa[4] =  {0.3, 0.8, 0.7, 1.0};
+GLfloat materialSombreadoBrillanteAmbiente[4] = {0.15, 0.4, 0.35, 1.0};
+GLfloat materialSombreadoBrillanteDifusa[4] =  {0.15, 0.4, 0.35, 1.0};
 GLfloat materialSombreadoBrillanteEspecular[4] = {0.3, 0.8, 0.7, 1.0};
-GLfloat materialSombreadoBrillanteBrillo[] = {5};
-GLfloat materialSombreadoBrillanteEmisiva[3] = {0.15,0.4,0.35};
+GLfloat materialSombreadoBrillanteBrillo[] = {120};
+
+//Material texturado
+GLfloat materialSombreadoTexturadoAmbiente[4] = {0.1, 0.1, 0.1, 1.0};
+GLfloat materialSombreadoTexturadoDifusa[4] =  {0.1, 0.1, 0.1, 1.0};
+GLfloat materialSombreadoTexturadoEspecular[4] = {0.1, 0.1, 0.1, 1.0};
+GLfloat materialSombreadoTexturadoBrillo[] = {5};
+
+//Material reflectivo 
+GLfloat materialReflectivoAmbiente[4] = {0.6, 0.6, 0.6, 1.0};
+GLfloat materialReflectivoDifusa[4] =  {0.6, 0.6, 0.6, 1.0};
+GLfloat materialReflectivoEspecular[4] = {0.1, 0.1, 0.1, 0.1};
+GLfloat materialReflectivoBrillo[] = {100};
 
 //Material sombreado semimate
 GLfloat materialSombreadoSemimateAmbiente[4] = {0.5, 0.6, 0.7, 1.0};
-GLfloat materialSombreadoSemimateDifusa[4] =  {7.0, 8.0, 9.0, 1.0};
+GLfloat materialSombreadoSemimateDifusa[4] =  {0.5, 0.6, 0.7, 1.0};
 GLfloat materialSombreadoSemimateEspecular[4] = {0.1, 0.1, 0.1, 0.1};
-GLfloat materialSombreadoSemimateBrillo[] = {32};
-GLfloat materialSombreadoSemimateEmisiva[3] = {1.0,1.0,1.0};
-  		 	 	 
+GLfloat materialSombreadoSemimateBrillo[] = {5};
 
 // Handle para el control de las Display Lists
 GLuint dl_handle;
@@ -177,7 +186,7 @@ void Set3DEnv()
 	glViewport (10, -100, (GLsizei) W_WIDTH, (GLsizei) W_HEIGHT); 
     glMatrixMode (GL_PROJECTION);
     glLoadIdentity ();
-    gluPerspective(60.0, (GLfloat) W_WIDTH/(GLfloat) W_HEIGHT, 1.0, 10.0);
+    gluPerspective(60.0, (GLfloat) W_WIDTH/(GLfloat) W_HEIGHT, 1.0, 20.0);
 }
 
 void init(void) 
@@ -223,7 +232,7 @@ void init(void)
 
 
 	glNewList(DL_CAJA_CIELO,GL_COMPILE);
-		superficie = new Esfera(2.0,32);
+		superficie = new Esfera(7.0,32);
        emparchador.emparchar2(superficie);
         delete superficie;
 
@@ -232,24 +241,23 @@ void init(void)
 	glClearColor (0.2148f, 0.2305f, 0.2422f, 0.0f);
     glShadeModel (GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, luzPrincipalColor);
-    glLightfv(GL_LIGHT0, GL_AMBIENT, luzPrincipalAmbiente);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, luzPrincipalColor);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, luzPrincipalAmbiente);
     glLightfv(GL_LIGHT0, GL_POSITION, luzPrincipalPosicion);
 
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, luzSecundariaColor);
-    glLightfv(GL_LIGHT1, GL_AMBIENT, luzSecundariaAmbiente);
+	glLightfv(GL_LIGHT1, GL_AMBIENT, luzSecundariaAmbiente);
     glLightfv(GL_LIGHT1, GL_POSITION, luzSecundariaPosicion);
-    glEnable(GL_LIGHT1);
-    glEnable(GL_LIGHTING);
 	
-
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	
+	glEnable(GL_LIGHTING);
+	
 }
 
 
-void OnIdle (void)
-
-{	
-	
+void OnIdle (void){	
 	tiempo += 0.01;
     glutPostRedisplay();
 
@@ -274,8 +282,7 @@ void escena(void)
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Set3DEnv();
 	gluLookAt (eye[0], eye[1], eye[2], at[0], at[1], at[2], up[0], up[1], up[2]);
-
-	
+		
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glEnable(GL_COLOR_MATERIAL);
@@ -316,19 +323,17 @@ void escena(void)
 	}
 
 	//selección de las luces
-	if (luzPrincipal){
-		//Cuando esté implementado:	shaderManager->setShaderLuz(LUZ_PRINCIPAL);
+	if (luzPrincipal)		
 		glEnable(GL_LIGHT0);
-	}
 	else
 		glDisable(GL_LIGHT0);
 		
-	if (luzSecundaria){
-		//Cuando esté implementado:	shaderManager->setShaderLuz(LUZ_SECUNDARIA);
+	if (luzSecundaria)
 		glEnable(GL_LIGHT1);
-	}
 	else
 		glDisable(GL_LIGHT1);
+
+	shaderManager->setShaderLuz(LUZ_PRINCIPAL);
 
 	//selección del material
 	if (verMaterialSombreadoBrillante){
@@ -339,15 +344,23 @@ void escena(void)
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialSombreadoBrillanteAmbiente);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, materialSombreadoBrillanteBrillo);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, materialSombreadoBrillanteDifusa);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, materialSombreadoBrillanteEmisiva);
 		//setear uniforms y esas cosas
 	}
-	if (verMaterialSombreadoTexturado){
-		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_TEXTURADO);
+	if (verMaterialSombreadoTexturado){shaderManager->setFragmenShader(MATERIAL_SOMBREADO_TEXTURADO);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, materialSombreadoTexturadoEspecular);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialSombreadoTexturadoAmbiente);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, materialSombreadoTexturadoBrillo);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, materialSombreadoTexturadoDifusa);
+		
 		//setear uniforms y esas cosas
 	}
 	if (verMaterialReflectivo){
 		shaderManager->setFragmenShader(MATERIAL_REFLECTIVO);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, materialReflectivoEspecular);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialReflectivoAmbiente);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, materialReflectivoBrillo);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, materialReflectivoDifusa);
+		
 		//setear uniforms y esas cosas
 	}
    	if (verMaterialSombreadoSemimate){
@@ -356,17 +369,9 @@ void escena(void)
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialSombreadoSemimateAmbiente);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, materialSombreadoSemimateBrillo);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, materialSombreadoSemimateDifusa);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, materialSombreadoSemimateEmisiva);
 		//setear uniforms y esas cosas
 	}
 	
-	
-	//aplicar shaders
-	if (usarShaders)
-		shaderManager->usar();
-	else
-		shaderManager->cerrar();
-
 	//selección de primitiva
 	if (verEsfera)
 		glCallList(DL_ESFERA);
@@ -376,8 +381,18 @@ void escena(void)
 		glCallList(DL_TOROIDE);
    	if (verCilindro)
 		glCallList(DL_CILINDRO);
-	if (verMaterialReflectivo)
+	if (verMaterialReflectivo){
+		shaderManager->cerrar();
 		glCallList(DL_CAJA_CIELO);
+	}
+	
+	//aplicar shaders
+	if (usarShaders)
+		shaderManager->usar();
+	else
+		shaderManager->cerrar();	
+
+
 
 	#ifdef _DEBUG // no encontré cómo seguir variables globales :P
 	if (verMaterialSombreadoBrillante){
@@ -396,11 +411,6 @@ void escena(void)
 			cout << materialSombreadoBrillanteEspecular[i] << ", ";
 		cout << "}" << endl;
 
-			cout << "materialSombreadoBrillanteEmisiva = {";
-		for (int i = 0; i < 3; i++)
-			cout << materialSombreadoBrillanteEmisiva[i] << ", ";
-		cout << "}" << endl;
-	
 		cout << "materialSombreadoBrillanteBrillo: " << materialSombreadoBrillanteBrillo[0] << endl;
 		system("cls");
 	}
@@ -421,21 +431,51 @@ void escena(void)
 			cout << materialSombreadoSemimateEspecular[i] << ", ";
 		cout << "}" << endl;
 		
-		cout << "materialSombreadoSemimateEmisiva = {";
-		for (int i = 0; i < 3; i++)
-			cout << materialSombreadoSemimateEmisiva[i] << ", ";
-		cout << "}" << endl;
-
 		cout << "materialSombreadoSemimateBrillo: " << materialSombreadoSemimateBrillo[0] << endl;
 		system("cls");
 	}
 
-	if (verDoblar){
-		cout << "distanciaDeDoblado = " << distanciaDeDoblado << endl;
+	if (verMaterialSombreadoTexturado){
+		cout << "materialSombreadoTexturadoAmbiente = {";
+		for (int i = 0; i < 4; i++)
+			cout << materialSombreadoTexturadoAmbiente[i] << ", ";
+		cout << "}" << endl;
+
+		cout << "materialSombreadoTexturadoDifusa = {";
+		for (int i = 0; i < 4; i++)
+			cout << materialSombreadoTexturadoDifusa[i] << ", ";
+		cout << "}" << endl;
+
+		cout << "materialSombreadoTexturadoEspecular = {";
+		for (int i = 0; i < 4; i++)
+			cout << materialSombreadoTexturadoEspecular[i] << ", ";
+		cout << "}" << endl;
+
+		cout << "materialSombreadoTexturadoBrillo: " << materialSombreadoTexturadoBrillo[0] << endl;
+		system("cls");
+	}
+
+	if (verMaterialReflectivo){
+		cout << "materialReflectivoAmbiente = {";
+		for (int i = 0; i < 4; i++)
+			cout << materialReflectivoAmbiente[i] << ", ";
+		cout << "}" << endl;
+
+		cout << "materialReflectivoDifusa = {";
+		for (int i = 0; i < 4; i++)
+			cout << materialReflectivoDifusa[i] << ", ";
+		cout << "}" << endl;
+
+		cout << "materialReflectivoEspecular = {";
+		for (int i = 0; i < 4; i++)
+			cout << materialReflectivoEspecular[i] << ", ";
+		cout << "}" << endl;
+
+		cout << "materialReflectivoBrillo: " << materialReflectivoBrillo[0] << endl;
 		system("cls");
 	}
 	#endif
-
+	
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
@@ -447,6 +487,7 @@ void reshape (int w, int h)
 	
 	hud->resize(W_WIDTH, W_HEIGHT);
 }
+
 int xOrigen, yOrigen;
 void mouse(int button, int state, int x, int y){
 	if (button == GLUT_LEFT_BUTTON) {
@@ -502,25 +543,32 @@ void modificarAmbiente(){
 		parametroAModificar = &materialSombreadoBrillanteAmbiente[indice];
 	if (verMaterialSombreadoSemimate)
 		parametroAModificar = &materialSombreadoSemimateAmbiente[indice];
+	if (verMaterialSombreadoTexturado)
+		parametroAModificar = &materialSombreadoTexturadoAmbiente[indice];
+	if (verMaterialReflectivo)
+		parametroAModificar = &materialReflectivoAmbiente[indice];
 }
 void modificarDifusa(){
 	if (verMaterialSombreadoBrillante)
 		parametroAModificar = &materialSombreadoBrillanteDifusa[indice];
 	if (verMaterialSombreadoSemimate)
 		parametroAModificar = &materialSombreadoSemimateDifusa[indice];
+	if (verMaterialSombreadoTexturado)
+		parametroAModificar = &materialSombreadoTexturadoDifusa[indice];
+	if (verMaterialReflectivo)
+		parametroAModificar = &materialReflectivoDifusa[indice];
 }
 void modificarEspecular(){
 	if (verMaterialSombreadoBrillante)
 		parametroAModificar = &materialSombreadoBrillanteEspecular[indice];
 	if (verMaterialSombreadoSemimate)
 		parametroAModificar = &materialSombreadoSemimateEspecular[indice];
+	if (verMaterialSombreadoTexturado)
+		parametroAModificar = &materialSombreadoTexturadoEspecular[indice];
+	if (verMaterialReflectivo)
+		parametroAModificar = &materialReflectivoEspecular[indice];
 }
-void modificarEmisiva(){
-	if (verMaterialSombreadoBrillante)
-		parametroAModificar = &materialSombreadoBrillanteEmisiva[indice];
-	if (verMaterialSombreadoSemimate)
-		parametroAModificar = &materialSombreadoSemimateEmisiva[indice];
-}
+
 void modificarNormalizado(float &parametro, float variacion){
 	parametro += variacion;
 	if (parametro > 1.0){
@@ -569,9 +617,6 @@ void keyboard (unsigned char key, int x, int y)
 		case 's':
 		  modificarEspecular();
 		  break;
-		case 'e':
-		  modificarEmisiva();
-		  break;
 		case '1':
 		indice = 0;
 		break;
@@ -595,12 +640,20 @@ void keyboard (unsigned char key, int x, int y)
 			modificarBrillo(materialSombreadoBrillanteBrillo[0], 1);
 		if (verMaterialSombreadoSemimate)
 			modificarBrillo(materialSombreadoSemimateBrillo[0], 1);
+		if (verMaterialSombreadoTexturado)
+			modificarBrillo(materialSombreadoTexturadoBrillo[0], 1);
+		if (verMaterialReflectivo)
+			modificarBrillo(materialReflectivoBrillo[0], 1);
 		break;
 	case 'k':
 		if (verMaterialSombreadoBrillante)
 			modificarBrillo(materialSombreadoBrillanteBrillo[0], -1);
 		if (verMaterialSombreadoSemimate)
 			modificarBrillo(materialSombreadoSemimateBrillo[0], -1);
+		if (verMaterialSombreadoTexturado)
+			modificarBrillo(materialSombreadoTexturadoBrillo[0], -1);
+		if (verMaterialReflectivo)
+			modificarBrillo(materialReflectivoBrillo[0], -1);
 		break;
 #endif
 		case 'q':
@@ -740,9 +793,10 @@ int main(int argc, char** argv){
 	glutIdleFunc(OnIdle);
 	init ();
 
+	
 	hud = new HUD(ventanaPrincipal, ancho, alto);
+	
 	glewInit();
-
 	shaderManager = new ShaderManager();
 	
 		

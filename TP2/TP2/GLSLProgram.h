@@ -38,12 +38,14 @@ private:
 	static const string NOMBRE_ARCHIVO_VERTEX_SHADER_RUIDO;
 	static const string NOMBRE_ARCHIVO_VERTEX_SHADER_DOBLAR;
 	static const string NOMBRE_ARCHIVO_VERTEX_SHADER_ESFERIZAR;
+	static const string NOMBRE_ARCHIVO_VERTEX_SHADER_BASICO;
 
 	static const string ARCHIVOS_FRAGMENT_SHADERS[];
 	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_BRILLANTE;
 	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_TEXTURADO;
 	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_REFLECTIVO;
 	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_MATERIAL_SOMBREADO_SEMIMATE;
+	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_BASICO;
 
 	static const string ARCHIVOS_FRAGMENT_SHADERS_LUZ[];
 	static const string NOMBRE_ARCHIVO_FRAGMENT_SHADER_LUZ_PRINCIPAL;
@@ -51,6 +53,8 @@ private:
 
 public:
 	GLSLProgram();
+
+	bool inicializarBasico();
 
 	bool compileShaderFromFile(int tShader, GLSLShaderType type, bool esLuz = false );
 	//TODO : considerar hacer los métodos de renovar privados
@@ -61,6 +65,7 @@ public:
 
 	bool link();
 	void usar();
+	void cerrar();
 	string log();
 	int getProgramHandle();
 	bool isLinked();

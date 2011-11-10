@@ -8,10 +8,16 @@ ShaderManager::ShaderManager(void){
 	vertexShaderSeleccionado = -1;
 	fragmentShaderSeleccionado = -1;
 	fragmentShaderLuzSeleccionado = -1;
-	programa;
 	cambioElVertexShader = true;
 	cambioElFragmentShader = true;
 	cambioLaLuz = true;
+
+	programa;
+
+	shadersTriviales;
+	if (!shadersTriviales.inicializarBasico())
+		cout << shadersTriviales.log().c_str() << endl;
+		
 }
 
 
@@ -74,7 +80,9 @@ void ShaderManager::usar(){
 }
 
 void ShaderManager::cerrar(){
-	programa.renovar();
+	programa.cerrar();
+	//puede ser necesario esto
+	//shadersTriviales.usar();
 }
 
 

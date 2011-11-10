@@ -122,6 +122,8 @@
     <None Include="Archivos de recursos\Texturas de Botones\objToroide.JPG" />
     <None Include="Archivos de recursos\Texturas de Objetos\LadrilloRustico.jpg" />
     <None Include="Archivos de recursos\Texturas de Objetos\sky_1.jpg" />
+    <None Include="basico.frag" />
+    <None Include="basico.vert" />
     <None Include="doblar.vert" />
     <None Include="esferizar.vert" />
     <None Include="luzPrincipal.frag" />
