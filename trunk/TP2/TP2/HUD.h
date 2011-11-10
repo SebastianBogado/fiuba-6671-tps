@@ -31,8 +31,10 @@ private:
 	void inicializarMenuFormas();
 	void inicializarMenuMateriales();
 	void inicializarMenuDeformaciones();
+	void inicializarVentanaDeInformacion();
 
 	propiedades calcularTamanioDeMenuHorizontal();
 	propiedades calcularTamanioDeMenuVertical(bool esElIzquierdo);	
+	propiedades calcularTamanioDeVentanaDeInformacion();	
 };
 

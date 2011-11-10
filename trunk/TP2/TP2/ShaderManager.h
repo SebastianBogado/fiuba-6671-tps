@@ -3,14 +3,16 @@
 
 
 enum VertexShader {
-	RETORCER=0,
+	VERTEX_BASICO = 0,
+	RETORCER,
 	RUIDO,
 	DOBLAR,
 	ESFERIZAR
 };
 
 enum FragmentShader{
-	MATERIAL_SOMBREADO_BRILLANTE=0,
+	FRAGMENT_BASICO = 0,
+	MATERIAL_SOMBREADO_BRILLANTE,
 	MATERIAL_SOMBREADO_TEXTURADO,
 	MATERIAL_REFLECTIVO,
 	MATERIAL_SOMBREADO_SEMIMATE
@@ -61,6 +63,7 @@ private:
 	bool cambioLaLuz;
 	
 	GLSLProgram programa;
+	GLSLProgram	shadersTriviales;
 
 	void usarVertexShaderRetorcer();
 	void usarVertexShaderRuido();

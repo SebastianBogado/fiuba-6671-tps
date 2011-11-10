@@ -8,6 +8,9 @@ using glm::mat4;
 
 class InterfazGLSLProgram{
 public:
+	virtual void usar() = 0;
+	virtual void cerrar() = 0;
+
 	virtual void bindAttribLocation( GLuint location, const char * name) = 0;
 	virtual void bindFragDataLocation( GLuint location, const char * name ) = 0;
 

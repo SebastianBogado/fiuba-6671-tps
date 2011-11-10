@@ -2,7 +2,11 @@
 uniform sampler2D textura;
 varying vec2 vTexCoord;
 
-void main()
-{
-	gl_FragColor = texture2D(textura, vTexCoord).rgba; 
+
+vec4 calcularColorPorLuz();
+
+void main(){
+
+	vec4 finalColor = calcularColorPorLuz();
+	gl_FragColor = texture2D(textura, vTexCoord).rgba + gl_FrontLightModelProduct.sceneColor + finalColor; 
 }
