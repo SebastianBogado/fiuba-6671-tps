@@ -6,13 +6,17 @@
 varying vec3 N;
 varying vec3 v;
 
-#define MAX_LIGHTS 2 
+uniform int primeraLuz;
+uniform int ultimaLuz;
+
 
 vec4 calcularColorPorLuz(){
 	vec3 vN = normalize(N);
 	vec4 finalColor = vec4(0.0, 0.0, 0.0, 0.0);
-	/**/
-	for (int i=0;i<MAX_LIGHTS;i++){
+	
+	int MAX_LIGHTS = ultimaLuz - primeraLuz + 1;
+
+	for (int i=primeraLuz;i<MAX_LIGHTS+primeraLuz;i++){
 		
 		vec3 L = normalize(gl_LightSource[i].position.xyz - v); 
 		vec3 E = normalize(-v); // we are in Eye Coordinates, so EyePos is (0,0,0) 

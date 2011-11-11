@@ -106,6 +106,10 @@ extern Onda ondaEnY;
 extern Onda ondaEnZ;
 extern float arista;
 
+//Para indicar cuáles luces procesar
+int primeraLuz = 0;
+int ultimaLuz = 1;
+
 //Parámetro que se modifica al apretar las flechitas
 float* parametroSeleccionado = &anguloDeRetorsion;
 float variacion = 1.0;
@@ -113,9 +117,9 @@ bool modificandoOndaEnX = true;
 
 // Variables de las luces
 
-float luzPrincipalPosicion[4] = {5.0, 5.0, 5.0, 0.0};
-float luzPrincipalDifusa[4] = {0.1,0.1,0.1,1.0};
-float luzPrincipalAmbiente[4] = {0.3,0.3,0.3,1.0};
+float luzPrincipalPosicion[4] = {3.0, 5.0, 2.0, 0.0};
+float luzPrincipalDifusa[4] = {0.3,0.3,0.3,1.0};
+float luzPrincipalAmbiente[4] = {0.7,0.7,0.7,1.0};
 float luzPrincipalEspecular[4] = {0.8,0.8,0.8,1.0};
 
 float luzSecundariaPosicion[4] = {-3.0,0.0,2.0,0.0};
@@ -223,24 +227,24 @@ void init(void)
 	glNewList(DL_ESFERA, GL_COMPILE);
 		//comprobarTexturaAUsar(adminText);
 	    superficie = new Esfera;
-		emparchador.verNormales(superficie);
-        //emparchador.emparchar(superficie);
+		//emparchador.verNormales(superficie);
+        emparchador.emparchar(superficie);
         delete superficie;
 	glEndList();
 	
 	glNewList(DL_CUBO, GL_COMPILE);
 		//comprobarTexturaAUsar(adminText);
         superficie = new Cubo(arista, 16);
-		emparchador.verNormales(superficie);
-        //emparchador.emparchar(superficie);
+		//emparchador.verNormales(superficie);
+        emparchador.emparchar(superficie);
         delete superficie;
     glEndList();
 
 	glNewList(DL_TOROIDE, GL_COMPILE);
 		//comprobarTexturaAUsar(adminText);
         superficie = new Toroide;
-		emparchador.verNormales(superficie);
-		//emparchador.emparchar(superficie);
+		//emparchador.verNormales(superficie);
+		emparchador.emparchar(superficie);
 		delete superficie;
 	glEndList();
 	
@@ -248,8 +252,8 @@ void init(void)
 	glNewList(DL_CILINDRO, GL_COMPILE);
 		//comprobarTexturaAUsar(adminText);
         superficie = new Cilindro(arista/2.0,arista,32);
-		emparchador.verNormales(superficie);
-        //emparchador.emparchar(superficie);
+		//emparchador.verNormales(superficie);
+        emparchador.emparchar(superficie);
         delete superficie;
 	glEndList();
 
@@ -350,18 +354,20 @@ void escena(void)
 		//setear uniforms y esas cosas 
 	}
 
+	shaderManager->setShaderLuz(LUZ_PRINCIPAL);
 	//selección de las luces
 	if (luzPrincipal)		
-		glEnable(GL_LIGHT0);
+		primeraLuz = 0;
 	else
-		glDisable(GL_LIGHT0);
-		
-	if (luzSecundaria)
-		glEnable(GL_LIGHT1);
-	else
-		glDisable(GL_LIGHT1);
+		primeraLuz = 1;
 
-	shaderManager->setShaderLuz(LUZ_PRINCIPAL);
+	if (luzSecundaria)
+		ultimaLuz = 1;
+	else
+		ultimaLuz = 0;
+	cout << luzPrincipal << endl;
+	shaderManager->setUniform("primeraLuz", primeraLuz);
+	shaderManager->setUniform("ultimaLuz", ultimaLuz);
 
 	//selección del material
 	if (verMaterialSombreadoBrillante){
