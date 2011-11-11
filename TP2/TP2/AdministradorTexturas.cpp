@@ -124,6 +124,9 @@ void AdministradorTexturas::elegirTextura(TipoTextura tipo){
 		break;
 	default:  glBindTexture(GL_TEXTURE_2D,this->textCaja_Cielo.TextureID); break;
 	}
+
+	this->cargarParametrosTextura();
+
 }
 
 int AdministradorTexturas::getID(TipoTextura tipo){
@@ -142,7 +145,7 @@ void AdministradorTexturas::generarCoordTextTapa(float *punto){
 	//dir=normalize(dir);
 	//dir*=3.0;
 	
-	//dir+=centro;
+	dir-=centro;
 	glTexCoord2f(dir.x,dir.y);
 	/*
 	return;

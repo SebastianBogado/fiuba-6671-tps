@@ -20,9 +20,8 @@ void Emparchador::emparchar(Superficie* superficie){
 	AdministradorTexturas *adminTex= AdministradorTexturas::getInstancia();
 	glEnable(GL_TEXTURE_2D);
 
-	adminTex->elegirTextura(Ladrillos);
+	//adminTex->elegirTextura(Ladrillos);
     glEnable(GL_DEPTH_TEST);
-
     for (int i = 0; i < superficie->cantidadDePuntosEnAlto(); i++){
         glBegin(GL_TRIANGLE_STRIP);
             for (int j = 0; j <= superficie->cantidadDePuntosBorde(); j++){
