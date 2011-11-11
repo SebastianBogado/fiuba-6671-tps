@@ -121,21 +121,21 @@ enum modificando{
 modificando ondaSeleccionada;
 
 // Variables de las luces
-float luzPrincipalPosicion[4] = {3.0, 5.0, 2.0, 0.0};
+float luzPrincipalPosicion[4] = {4.0, 1.0, 2.0, 0.0};
 float luzPrincipalDifusa[4] = {0.3,0.3,0.3,1.0};
 float luzPrincipalAmbiente[4] = {0.7,0.7,0.7,1.0};
 float luzPrincipalEspecular[4] = {0.8,0.8,0.8,1.0};
 
-float luzSecundariaPosicion[4] = {-3.0,0.0,2.0,0.0};
+float luzSecundariaPosicion[4] = {2.0,4.0,2.0,0.0};
 float luzSecundariaDifusa[4] = {0.05f, 0.05, 0.05, 1.0};
 float luzSecundariaAmbiente[4] = {0.1f, 0.1f, 0.1f, 1.0f};
 float luzSecundariaEspecular[4] = {0.3, 0.3, 0.3, 1.0};
 
 //Material sombreado brillante
-GLfloat materialSombreadoBrillanteAmbiente[4] = {0.15, 0.4, 0.35, 1.0};
-GLfloat materialSombreadoBrillanteDifusa[4] =  {0.15, 0.4, 0.35, 1.0};
-GLfloat materialSombreadoBrillanteEspecular[4] = {0.3, 0.8, 0.7, 1.0};
-GLfloat materialSombreadoBrillanteBrillo[] = {120};
+GLfloat materialSombreadoBrillanteAmbiente[4] = {0.3, 0.8, 0.7, 1.0};
+GLfloat materialSombreadoBrillanteDifusa[4] =  {0.3, 0.8, 0.7, 1.0};
+GLfloat materialSombreadoBrillanteEspecular[4] = {0.5, 1.0, 0.9, 1.0};
+GLfloat materialSombreadoBrillanteBrillo[] = {100};
 
 //Material texturado
 GLfloat materialSombreadoTexturadoAmbiente[4] = {0.1, 0.1, 0.1, 1.0};
@@ -419,7 +419,7 @@ void escena(void)
 	glPushMatrix();
 	if (rotarEscena)
 		 glRotatef(tiempo*360, 0.5, 1.0f, 0.1f);
-	   
+
 	//selección de primitiva
 	if (verEsfera)
 		glCallList(DL_ESFERA);
