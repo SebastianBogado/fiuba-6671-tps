@@ -8,6 +8,11 @@ class Emparchador{
     public:
         void emparchar(Superficie* superficie);
 		void emparchar2(Superficie* superficie);
+
+		/* Utilícese el siguiente sólo para debuggear
+		 * Nota: las normales están escaladas al 30% porque en esta aplicación todas las figuras
+		 * son de medidas pequeñas, y se veían muy grandes las normales unitarias
+		 */
 		void verNormales(Superficie* superficie);
     protected:
         void emparcharTapas(Superficie* superficie);

@@ -105,7 +105,7 @@ void Emparchador::verNormales(Superficie* superficie){
             normal = superficie->getNormal(j, j, i);
 			glBegin(GL_LINES);
 			    glVertex3fv(punto);
-				glVertex3f(punto[0]+normal[0],punto[1]+normal[1],punto[2]+normal[2]);
+				glVertex3f(punto[0]+0.3*normal[0],punto[1]+0.3*normal[1],punto[2]+0.3*normal[2]);
 			glEnd();    
 			delete []punto;
 			delete []normal;
