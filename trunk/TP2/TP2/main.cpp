@@ -156,6 +156,8 @@ GLuint dl_handle;
 #define DL_CAJA_CIELO (dl_handle+4)
 
 
+AdministradorTexturas *adminText;
+
 float norma3(float* p){
     float resultado=0;
 
@@ -193,10 +195,20 @@ void Set3DEnv()
     gluPerspective(60.0, (GLfloat) W_WIDTH/(GLfloat) W_HEIGHT, 1.0, 20.0);
 }
 
+void comprobarTexturaAUsar(AdministradorTexturas *admin){
+
+	if (!verMaterialReflectivo){
+		admin->elegirTextura(Ladrillos);
+	}else{
+		admin->elegirTextura(Caja_Cielo);
+	}
+
+}
+
 void init(void) 
 {	
 
-	AdministradorTexturas *adminText=AdministradorTexturas::getInstancia();
+	adminText=AdministradorTexturas::getInstancia();
 	adminText->CargarTexturas();
 
 	Emparchador emparchador;
@@ -210,18 +222,21 @@ void init(void)
 
 	//DLs para las superficies
 	glNewList(DL_ESFERA, GL_COMPILE);
+		//comprobarTexturaAUsar(adminText);
 	    superficie = new Esfera;
         emparchador.emparchar(superficie);
         delete superficie;
 	glEndList();
 	
 	glNewList(DL_CUBO, GL_COMPILE);
+		//comprobarTexturaAUsar(adminText);
         superficie = new Cubo(arista, 16);
         emparchador.emparchar(superficie);
         delete superficie;
     glEndList();
 
 	glNewList(DL_TOROIDE, GL_COMPILE);
+		//comprobarTexturaAUsar(adminText);
         superficie = new Toroide;
 		emparchador.emparchar(superficie);
 		delete superficie;
@@ -229,6 +244,7 @@ void init(void)
 	
 
 	glNewList(DL_CILINDRO, GL_COMPILE);
+		//comprobarTexturaAUsar(adminText);
         superficie = new Cilindro(arista/2.0,arista,32);
         emparchador.emparchar(superficie);
         delete superficie;
@@ -237,7 +253,7 @@ void init(void)
 
 	glNewList(DL_CAJA_CIELO,GL_COMPILE);
 		superficie = new Esfera(8.0,32);
-       emparchador.emparchar2(superficie);
+		emparchador.emparchar2(superficie);
         delete superficie;
 
 	glEndList();
@@ -346,6 +362,7 @@ void escena(void)
 
 	//selección del material
 	if (verMaterialSombreadoBrillante){
+		glDisable(GL_TEXTURE_2D);
 		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_BRILLANTE);
 		AdministradorTexturas *adminTex = AdministradorTexturas::getInstancia();
 		//shaderManager->setUniform("textura",0);//adminTex->getID(Ladrillos));
@@ -356,6 +373,7 @@ void escena(void)
 		//setear uniforms y esas cosas
 	}
 	if (verMaterialSombreadoTexturado){shaderManager->setFragmenShader(MATERIAL_SOMBREADO_TEXTURADO);
+		adminText->elegirTextura(Ladrillos);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, materialSombreadoTexturadoEspecular);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialSombreadoTexturadoAmbiente);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, materialSombreadoTexturadoBrillo);
@@ -364,7 +382,10 @@ void escena(void)
 		//setear uniforms y esas cosas
 	}
 	if (verMaterialReflectivo){
+		adminText->elegirTextura(Caja_Cielo);
 		shaderManager->setFragmenShader(MATERIAL_REFLECTIVO);
+		shaderManager->setUniform("posCamara",glm::vec3(eye[0],eye[1],eye[2]));
+		shaderManager->setUniform("texCajaDeCielo",0);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, materialReflectivoEspecular);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialReflectivoAmbiente);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, materialReflectivoBrillo);
@@ -373,6 +394,7 @@ void escena(void)
 		//setear uniforms y esas cosas
 	}
    	if (verMaterialSombreadoSemimate){
+		glDisable(GL_TEXTURE_2D);
 		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_SEMIMATE);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, materialSombreadoSemimateEspecular);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialSombreadoSemimateAmbiente);
@@ -380,7 +402,7 @@ void escena(void)
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, materialSombreadoSemimateDifusa);
 		//setear uniforms y esas cosas
 	}
-	 shaderManager->usar();
+	shaderManager->usar();
 	glPushMatrix();
 	if (rotarEscena)
 		 glRotatef(tiempo*360, 0.5, 1.0f, 0.1f);
@@ -794,7 +816,7 @@ int main(int argc, char** argv){
 	glutInit(&argc, argv);
     glutInitWindowPosition (10, 10);
     glutInitWindowSize (ancho, alto); 
-	if (!GLEW_NV_copy_image)
+	if (GLEW_NV_conditional_render)
 		glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
 	else
 		glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
