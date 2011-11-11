@@ -22,18 +22,13 @@ vec4 calcular(vec4 posicionOriginal){
 	float angulo = gradosARadianes(animacion(anguloDeRetorsion));
 	angulo = angulo * posicionOriginal.z;
 	angulo = angulo/2.0;
-	float xAux;// = posicionOriginal.y;
-	float yAux;// = posicionOriginal.x;
+	float xAux;
+	float yAux;
 	float cosAngulo = cos (angulo);
 	float tgAngulo = tan (angulo);
 	
-	//float aux = posicionOriginal.y/posicionOriginal.x;
-	//float alfa = atan(aux);
-	//alfa = alfa + angulo;
-	//xAux = xAux / tan(alfa);
 	xAux = cosAngulo*(posicionOriginal.x - tgAngulo * posicionOriginal.y);
 	
-	//yAux = yAux * tan(alfa);
 	yAux = cosAngulo*(tgAngulo * posicionOriginal.x + posicionOriginal.y);
 
 	vec4 posicionFinal = vec4(xAux, yAux, posicionOriginal.z, posicionOriginal.w);
@@ -63,14 +58,15 @@ vec3 calcularNormal(vec3 normal){
 
 void main(void)
 {
-	
 	vTexCoord = gl_MultiTexCoord0.xy;
-   v = vec3(gl_ModelViewMatrix * gl_Vertex);       
-   N = normalize(gl_NormalMatrix * calcularNormal(gl_Normal));
-   //N = normalize(gl_NormalMatrix * gl_Normal);
-   vec4 aux = calcular(gl_Vertex);
-   if (abs(gl_Vertex.x) > 10.0 || abs(gl_Vertex.y) > 10.0 ||abs(gl_Vertex.z) > 10.0) 
+	N = normalize(gl_NormalMatrix * calcularNormal(gl_Normal));
+	vec4 aux = calcular(gl_Vertex);
+	if (abs(gl_Vertex.x) > 10.0 || abs(gl_Vertex.y) > 10.0 ||abs(gl_Vertex.z) > 10.0){
+		v = vec3(gl_ModelViewMatrix * gl_Vertex); 
 		gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-	else
+	}
+	else{
+		v = vec3(gl_ModelViewMatrix * aux);
 		gl_Position = gl_ModelViewProjectionMatrix * aux;
+	}
 }

@@ -61,9 +61,12 @@ void main()
 	else
 		vertice = gl_Vertex.xyz;
 
-	if (abs(gl_Vertex.x) > 10.0 || abs(gl_Vertex.y) > 10.0 ||abs(gl_Vertex.z) > 10.0) 
+	if (abs(gl_Vertex.x) > 10.0 || abs(gl_Vertex.y) > 10.0 ||abs(gl_Vertex.z) > 10.0){
+		v = vec3(gl_ModelViewMatrix * gl_Vertex);
 		gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-	else
+	}
+	else{
+		v = vec3(gl_ModelViewMatrix * vec4(vertice,1.0));
 		gl_Position = gl_ModelViewProjectionMatrix *vec4(vertice,1.0);
-		
+	}
 }

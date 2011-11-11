@@ -78,6 +78,8 @@ extern bool usarShaders;
 extern bool luzPrincipal;
 extern bool luzSecundaria;
 
+extern bool rotarEscena;
+
 extern float tiempo;
 
 //Efecto "retorcer"
@@ -111,13 +113,15 @@ bool modificandoOndaEnX = true;
 
 // Variables de las luces
 
-float luzPrincipalColor[4] = {1.0f, 1.0f, 1.0f, 1.0f};
-float luzPrincipalPosicion[3] = {4.0f, 4.0f, 2.0f};
-float luzPrincipalAmbiente[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+float luzPrincipalPosicion[4] = {5.0, 5.0, 5.0, 0.0};
+float luzPrincipalDifusa[4] = {0.1,0.1,0.1,1.0};
+float luzPrincipalAmbiente[4] = {0.3,0.3,0.3,1.0};
+float luzPrincipalEspecular[4] = {0.8,0.8,0.8,1.0};
 
-float luzSecundariaColor[4] = {0.5f, 0.5f, 0.5f, 0.5f};
-float luzSecundariaPosicion[3] = {5.0f, 5.0f, 3.0f};
+float luzSecundariaPosicion[4] = {-3.0,0.0,2.0,0.0};
+float luzSecundariaDifusa[4] = {0.05f, 0.05, 0.05, 1.0};
 float luzSecundariaAmbiente[4] = {0.1f, 0.1f, 0.1f, 1.0f};
+float luzSecundariaEspecular[4] = {0.3, 0.3, 0.3, 1.0};
 
 //Material sombreado brillante
 GLfloat materialSombreadoBrillanteAmbiente[4] = {0.15, 0.4, 0.35, 1.0};
@@ -132,10 +136,10 @@ GLfloat materialSombreadoTexturadoEspecular[4] = {0.1, 0.1, 0.1, 1.0};
 GLfloat materialSombreadoTexturadoBrillo[] = {5};
 
 //Material reflectivo 
-GLfloat materialReflectivoAmbiente[4] = {0.6, 0.6, 0.6, 1.0};
-GLfloat materialReflectivoDifusa[4] =  {0.6, 0.6, 0.6, 1.0};
-GLfloat materialReflectivoEspecular[4] = {0.1, 0.1, 0.1, 0.1};
-GLfloat materialReflectivoBrillo[] = {100};
+GLfloat materialReflectivoAmbiente[4] = {0.7, 0.7, 0.7, 1.0};
+GLfloat materialReflectivoDifusa[4] =  {0.7, 0.7, 0.7, 1.0};
+GLfloat materialReflectivoEspecular[4] = {0.3, 0.3, 0.3, 1.0};
+GLfloat materialReflectivoBrillo[] = {32};
 
 //Material sombreado semimate
 GLfloat materialSombreadoSemimateAmbiente[4] = {0.5, 0.6, 0.7, 1.0};
@@ -199,7 +203,7 @@ void init(void)
     Superficie* superficie;
 
 
-	glShadeModel(GL_FLAT);
+	glShadeModel(GL_SMOOTH);
 	glEnable(GL_DEPTH_TEST);
 
 	dl_handle = glGenLists(5);
@@ -232,7 +236,7 @@ void init(void)
 
 
 	glNewList(DL_CAJA_CIELO,GL_COMPILE);
-		superficie = new Esfera(7.0,32);
+		superficie = new Esfera(8.0,32);
        emparchador.emparchar2(superficie);
         delete superficie;
 
@@ -241,18 +245,23 @@ void init(void)
 	glClearColor (0.2148f, 0.2305f, 0.2422f, 0.0f);
     glShadeModel (GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, luzPrincipalColor);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, luzPrincipalAmbiente);
-    glLightfv(GL_LIGHT0, GL_POSITION, luzPrincipalPosicion);
-
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, luzSecundariaColor);
-	glLightfv(GL_LIGHT1, GL_AMBIENT, luzSecundariaAmbiente);
-    glLightfv(GL_LIGHT1, GL_POSITION, luzSecundariaPosicion);
-	
-	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
-	
 	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);	    
+	glEnable(GL_LIGHT1);
+
+	glLightfv(GL_LIGHT0, GL_POSITION, luzPrincipalPosicion);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, luzPrincipalDifusa);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, luzPrincipalAmbiente);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, luzPrincipalEspecular);
+
+	glLightfv(GL_LIGHT1, GL_POSITION, luzSecundariaPosicion);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, luzSecundariaDifusa);
+	glLightfv(GL_LIGHT1, GL_AMBIENT, luzSecundariaAmbiente);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, luzSecundariaEspecular);
+
+	
+
+	
 	
 }
 
@@ -371,7 +380,11 @@ void escena(void)
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, materialSombreadoSemimateDifusa);
 		//setear uniforms y esas cosas
 	}
-	
+	 shaderManager->usar();
+	glPushMatrix();
+	if (rotarEscena)
+		 glRotatef(tiempo*360, 0.5, 1.0f, 0.1f);
+	   
 	//selección de primitiva
 	if (verEsfera)
 		glCallList(DL_ESFERA);
@@ -383,6 +396,8 @@ void escena(void)
 		glCallList(DL_CILINDRO);
 	if (verMaterialReflectivo){
 		shaderManager->cerrar();
+		glDisable(GL_LIGHTING);
+		glDisable(GL_COLOR_MATERIAL);
 		glCallList(DL_CAJA_CIELO);
 	}
 	
@@ -392,9 +407,7 @@ void escena(void)
 	else
 		shaderManager->cerrar();	
 
-
-
-	#ifdef _DEBUG // no encontré cómo seguir variables globales :P
+#ifdef _DEBUG // no encontré cómo seguir variables globales :P
 	if (verMaterialSombreadoBrillante){
 		cout << "materialSombreadoBrillanteAmbiente = {";
 		for (int i = 0; i < 4; i++)
@@ -474,10 +487,11 @@ void escena(void)
 		cout << "materialReflectivoBrillo: " << materialReflectivoBrillo[0] << endl;
 		system("cls");
 	}
-	#endif
+#endif
 	
 	glutSwapBuffers();
 	glutPostRedisplay();
+	glPopMatrix();
 }
 
 void reshape (int w, int h)
@@ -763,6 +777,9 @@ void teclasParticulares(int key, int x, int y){
 			break;
 		case GLUT_KEY_F1 :
 			usarShaders = !usarShaders;
+			break;
+		case GLUT_KEY_F2 :
+			rotarEscena = !rotarEscena;
 			break;
 		default:
 			break;

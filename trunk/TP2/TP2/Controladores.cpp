@@ -16,8 +16,10 @@ bool verEsferizar = false;
 
 bool usarShaders = true;
 
-bool luzPrincipal = true;
-bool luzSecundaria = true;
+bool luzPrincipal = false;
+bool luzSecundaria = false;
+
+bool rotarEscena = false;
 
 float tiempo = 0.0;
 
