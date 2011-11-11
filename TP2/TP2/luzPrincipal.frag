@@ -14,9 +14,9 @@ vec4 calcularColorPorLuz(){
 	vec3 vN = normalize(N);
 	vec4 finalColor = vec4(0.0, 0.0, 0.0, 0.0);
 	
-	int MAX_LIGHTS = ultimaLuz - primeraLuz + 1;
+	int nLuces = ultimaLuz - primeraLuz + 1;
 
-	for (int i=primeraLuz;i<MAX_LIGHTS+primeraLuz;i++){
+	for (int i=primeraLuz;i<nLuces+primeraLuz;i++){
 		
 		vec3 L = normalize(gl_LightSource[i].position.xyz - v); 
 		vec3 E = normalize(-v); // we are in Eye Coordinates, so EyePos is (0,0,0) 
@@ -29,7 +29,7 @@ vec4 calcularColorPorLuz(){
 		Idiff = clamp(Idiff, 0.0, 1.0); 
    
 		// calculate Specular Term:
-		vec4 Ispec = gl_FrontLightProduct[i].specular * pow(max(dot(R,E),0.0),0.3*gl_FrontMaterial.shininess)*2.0;
+		vec4 Ispec = gl_FrontLightProduct[i].specular * pow(max(dot(R,E),0.0),gl_FrontMaterial.shininess)*2.0;
 		Ispec = clamp(Ispec, 0.0, 1.0); 
    
 		finalColor += Iamb + Idiff + Ispec;

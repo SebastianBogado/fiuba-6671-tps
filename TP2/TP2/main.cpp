@@ -113,10 +113,14 @@ int ultimaLuz = 1;
 //Parámetro que se modifica al apretar las flechitas
 float* parametroSeleccionado = &anguloDeRetorsion;
 float variacion = 1.0;
-bool modificandoOndaEnX = true;
+enum modificando{
+	X,
+	Y,
+	Z
+};
+modificando ondaSeleccionada;
 
 // Variables de las luces
-
 float luzPrincipalPosicion[4] = {3.0, 5.0, 2.0, 0.0};
 float luzPrincipalDifusa[4] = {0.3,0.3,0.3,1.0};
 float luzPrincipalAmbiente[4] = {0.7,0.7,0.7,1.0};
@@ -365,7 +369,7 @@ void escena(void)
 		ultimaLuz = 1;
 	else
 		ultimaLuz = 0;
-	cout << luzPrincipal << endl;
+
 	shaderManager->setUniform("primeraLuz", primeraLuz);
 	shaderManager->setUniform("ultimaLuz", ultimaLuz);
 
@@ -438,8 +442,29 @@ void escena(void)
 		shaderManager->usar();
 	else
 		shaderManager->cerrar();	
-/*
+
 #ifdef _DEBUG // no encontré cómo seguir variables globales :P
+	/*if (verRuido){
+		switch (ondaSeleccionada){
+		case modificando::X:
+			cout << "X, amplitud: " << ondaEnX.amplitud << endl;
+			cout << "X, frecuencia: " << ondaEnX.frecuencia << endl;
+			cout << "X, longitud de onda: " << ondaEnX.longitud << endl; 
+			break;
+		case modificando::Y:
+			cout << "Y, amplitud: " << ondaEnY.amplitud << endl;
+			cout << "Y, frecuencia: " << ondaEnY.frecuencia << endl;
+			cout << "Y, longitud de onda: " << ondaEnY.longitud << endl;
+			break;
+		case modificando::Z:
+			cout << "Z, amplitud: " << ondaEnZ.amplitud << endl;
+			cout << "Z, frecuencia: " << ondaEnZ.frecuencia << endl;
+			cout << "Z, longitud de onda: " << ondaEnZ.longitud << endl;
+			break;
+		default: break;
+		}
+		system("cls");
+	}
 	if (verMaterialSombreadoBrillante){
 		cout << "materialSombreadoBrillanteAmbiente = {";
 		for (int i = 0; i < 4; i++)
@@ -518,9 +543,9 @@ void escena(void)
 
 		cout << "materialReflectivoBrillo: " << materialReflectivoBrillo[0] << endl;
 		system("cls");
-	}
+	}*/
 #endif
-	*/
+	
 	glutSwapBuffers();
 	glutPostRedisplay();
 	
@@ -751,32 +776,55 @@ void keyboard (unsigned char key, int x, int y)
    if (verRuido)
 	switch (key){
 	case 'x':
-		parametroSeleccionado = &n; 
-		modificandoOndaEnX = true;
-		variacion = 1.0;
+		parametroSeleccionado = &ondaEnX.longitud; 
+		ondaSeleccionada = modificando::X;
+		variacion = 0.2;
 		break;
 	case 'y':
-		parametroSeleccionado = &n; 
-		modificandoOndaEnX = false; 
-		variacion = 1.0;
+		parametroSeleccionado = &ondaEnY.longitud; 
+		ondaSeleccionada = modificando::Y;
+		variacion = 0.2;
+		break;
+	case 'z':
+		parametroSeleccionado = &ondaEnZ.longitud; 
+		ondaSeleccionada = modificando::Z; 
+		variacion = 0.2;
 		break;
 	case 'l':
-		parametroSeleccionado = &n; 
-		variacion = 1.0;
+		variacion = 0.2;
+		switch (ondaSeleccionada){
+		case modificando::X:
+			parametroSeleccionado = &ondaEnX.longitud; break;
+		case modificando::Y:
+			parametroSeleccionado = &ondaEnY.longitud; break;
+		case modificando::Z:
+			parametroSeleccionado = &ondaEnZ.longitud; break;
+		default: break;
+		}
 		break;
 	case 'a':
 		variacion = 0.01;
-		if (modificandoOndaEnX)
-			parametroSeleccionado = &ondaEnX.amplitud;
-		else
-			parametroSeleccionado = &ondaEnY.amplitud;
+		switch (ondaSeleccionada){
+		case modificando::X:
+			parametroSeleccionado = &ondaEnX.amplitud; break;
+		case modificando::Y:
+			parametroSeleccionado = &ondaEnY.amplitud; break;
+		case modificando::Z:
+			parametroSeleccionado = &ondaEnZ.amplitud; break;
+		default: break;
+		}
 		break;
 	case 'f':
 		variacion = 0.01;
-		if (modificandoOndaEnX)
-			parametroSeleccionado = &ondaEnX.frecuencia;
-		else
-			parametroSeleccionado = &ondaEnY.frecuencia;
+		switch (ondaSeleccionada){
+		case modificando::X:
+			parametroSeleccionado = &ondaEnX.frecuencia; break;
+		case modificando::Y:
+			parametroSeleccionado = &ondaEnY.frecuencia; break;
+		case modificando::Z:
+			parametroSeleccionado = &ondaEnZ.frecuencia; break;
+		default: break;
+		}
 		break;
 	default:
 		break;
