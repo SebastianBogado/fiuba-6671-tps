@@ -48,15 +48,15 @@ float* Superficie::getNormal(int Xn, int Yn, int Zn){
     delete [] puntoDos;
 
     //Dirección abajo e izquierda
-    puntoUno = getPunto(Xn, Yn, Zn-1);
-    puntoDos = getPunto(Xn-1, Yn-1, Zn);
+    puntoUno = getPunto(Xn-1, Yn-1, Zn);
+    puntoDos = getPunto(Xn, Yn, Zn-1);
     float* normal3 = calcularNormal(puntoCentral, puntoUno, puntoDos);
     delete [] puntoUno;
     delete [] puntoDos;
 
     //Dirección izquierda y arriba
-    puntoUno = getPunto(Xn-1, Yn-1, Zn);
-    puntoDos = getPunto(Xn, Yn, Zn+1);
+    puntoUno = getPunto(Xn, Yn, Zn+1);
+    puntoDos = getPunto(Xn-1, Yn-1, Zn);
     float* normal4 = calcularNormal(puntoCentral, puntoUno, puntoDos);
     delete [] puntoUno;
     delete [] puntoDos;
