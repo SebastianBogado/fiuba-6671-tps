@@ -6,6 +6,7 @@ uniform float tiempo;
 uniform vec3 centro;
 
 float radioEsfera = 1.0;
+float amplitud;
 
 vec3 calcularDireccion(){
 
@@ -29,9 +30,7 @@ float calcDistAEsfera(vec3 vector){
 
 vec3 calcularNormal(vec3 vector){
 
-	vec3 resultado = vector + gl_Normal.xyz;
-
-	resultado /= 2.0;
+	vec3 resultado = mix(vector,gl_Normal.xyz,amplitud);
 
 	return resultado;
 
@@ -52,7 +51,7 @@ void main()
 
 	N = calcularNormal(vecDir);
 
-	float amplitud = (sin(tiempo*2.0)+1.0)/2.0;
+	amplitud = (sin(tiempo*2.0)+1.0)/2.0;
 		
 	vec3 vertice;
 	
