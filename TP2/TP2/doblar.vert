@@ -62,16 +62,33 @@ float calcularDistanciaObjetiva(vec4 vertice,vec3 puntoRef){
 }
 
 
-vec3 transformarNormal(vec3 normal){
+vec3 transformarNormal(vec3 normalEntrada){
+	vec3 normal = normalize (normalEntrada);
+	
+	vec3 normalTransformada = vec3(0.0);
+	
+	float signo =distancia / abs (distancia);
 
-	vec3 normalTransformada=normal;
-	if(distancia>0.0){
-		normalTransformada.x=cos(angulo);
-		}
-	else {
-		normalTransformada.x=-cos(angulo);
-		}
-	normalTransformada.z=sin(angulo);
+	vec3 vecRotacion=vec3(0.0,1.0*signo,0.0);
+
+	float coseno = dot(normal,vecRotacion);
+	
+	float cosAngulo = cos (angulo);
+	float sinAngulo = sin (angulo);
+	
+	if ( coseno  == 1.0 || coseno == -1){
+		normalTransformada = normal;
+	}
+	else{
+		if(distancia>0.0)
+			normalTransformada.x=normal.x*cosAngulo + sinAngulo*normal.z;
+		else 
+			normalTransformada.x=normal.x*(-cosAngulo)+ sinAngulo*normal.z;
+
+		normalTransformada.y=normal.y;
+		normalTransformada.z=-normal.x*sinAngulo + cosAngulo*normal.z; 
+		
+	}
 	
 	return normalTransformada;
 
