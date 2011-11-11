@@ -69,9 +69,10 @@ float* Superficie::getNormal(int Xn, int Yn, int Zn){
     normal[1] = normal1[1] + normal2[1] + normal3[1] + normal4[1];
     normal[2] = normal1[2] + normal2[2] + normal3[2] + normal4[2];
 
-    normal[0] /= 4.0;
-    normal[1] /= 4.0;
-    normal[2] /= 4.0;
+	float norma = sqrt(normal[0]*normal[0] + normal[1]*normal[1] + normal[2]*normal[2]);
+    normal[0] /= norma;
+    normal[1] /= norma;
+    normal[2] /= norma;
 
     delete []normal1;
     delete []normal2;

@@ -59,5 +59,6 @@ vec2 calcularCoordTex(){
 void main (void){
 	vec4 finalColor = calcularColorPorLuz();
 	vec2 coordTex =calcularCoordTex();
-   gl_FragColor = 0.7*gl_FrontLightModelProduct.sceneColor + 0.7*finalColor + texture2D(texCajaDeCielo, coordTex).rgba; 
+	gl_FragColor = mix (gl_FrontLightModelProduct.sceneColor + finalColor, texture2D(texCajaDeCielo, coordTex).rgba, 0.5);
+   //gl_FragColor = 0.7*gl_FrontLightModelProduct.sceneColor + 0.7*finalColor + texture2D(texCajaDeCielo, coordTex).rgba; 
 }

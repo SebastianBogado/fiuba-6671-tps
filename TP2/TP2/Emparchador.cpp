@@ -13,8 +13,6 @@ bool &verCaja_Cielo=verMaterialReflectivo;
 void Emparchador::emparchar(Superficie* superficie){
     float* puntoInferior;
     float* puntoSuperior;
-    float* ultimoPuntoInferior;
-    float* ultimoPuntoSuperior;
     float* normal;
 
 	AdministradorTexturas *adminTex= AdministradorTexturas::getInstancia();
@@ -29,9 +27,9 @@ void Emparchador::emparchar(Superficie* superficie){
                 normal = superficie->getNormal(j, j, i);
 
 				glNormal3fv(normal);
-
 				adminTex->generarCoordText();
                 glVertex3fv(puntoInferior);
+				//glVertex3f(puntoInferior[0]+normal[0],puntoInferior[1]+normal[1],puntoInferior[2]+normal[2]);
                 
 				delete []puntoInferior;
 				delete [] normal;
@@ -42,11 +40,9 @@ void Emparchador::emparchar(Superficie* superficie){
                 normal = superficie->getNormal(j, j, i+1);
                 
 				glNormal3fv(normal);
-
 				adminTex->generarCoordText();
-
                 glVertex3fv(puntoSuperior);
-                
+                //glVertex3f(puntoSuperior[0]+normal[0],puntoSuperior[1]+normal[1],puntoSuperior[2]+normal[2]);
                 delete []puntoSuperior;
                 delete []normal;
             }
@@ -97,6 +93,25 @@ void Emparchador::emparchar2(Superficie* superficie){
 
 }
 
+void Emparchador::verNormales(Superficie* superficie){
+	float* punto;
+    float* normal;
+	glEnable(GL_DEPTH_TEST);
+	glLineWidth(2.0);
+	
+    for (int i = 0; i <= superficie->cantidadDePuntosEnAlto(); i++){
+		for (int j = 0; j <= superficie->cantidadDePuntosBorde(); j++){
+			punto = superficie->getPunto(j, j, i);
+            normal = superficie->getNormal(j, j, i);
+			glBegin(GL_LINES);
+			    glVertex3fv(punto);
+				glVertex3f(punto[0]+normal[0],punto[1]+normal[1],punto[2]+normal[2]);
+			glEnd();    
+			delete []punto;
+			delete []normal;
+		}
+	}
+}
 
 void Emparchador::emparcharTapas(Superficie* superficie){
     float* centroTapa;
