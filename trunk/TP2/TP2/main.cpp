@@ -223,21 +223,24 @@ void init(void)
 	glNewList(DL_ESFERA, GL_COMPILE);
 		//comprobarTexturaAUsar(adminText);
 	    superficie = new Esfera;
-        emparchador.emparchar(superficie);
+		emparchador.verNormales(superficie);
+        //emparchador.emparchar(superficie);
         delete superficie;
 	glEndList();
 	
 	glNewList(DL_CUBO, GL_COMPILE);
 		//comprobarTexturaAUsar(adminText);
         superficie = new Cubo(arista, 16);
-        emparchador.emparchar(superficie);
+		emparchador.verNormales(superficie);
+        //emparchador.emparchar(superficie);
         delete superficie;
     glEndList();
 
 	glNewList(DL_TOROIDE, GL_COMPILE);
 		//comprobarTexturaAUsar(adminText);
         superficie = new Toroide;
-		emparchador.emparchar(superficie);
+		emparchador.verNormales(superficie);
+		//emparchador.emparchar(superficie);
 		delete superficie;
 	glEndList();
 	
@@ -245,7 +248,8 @@ void init(void)
 	glNewList(DL_CILINDRO, GL_COMPILE);
 		//comprobarTexturaAUsar(adminText);
         superficie = new Cilindro(arista/2.0,arista,32);
-        emparchador.emparchar(superficie);
+		emparchador.verNormales(superficie);
+        //emparchador.emparchar(superficie);
         delete superficie;
 	glEndList();
 
@@ -641,7 +645,7 @@ void disminuirParametroSeleccionado(){
 	*parametroSeleccionado -= variacion; 
 }
 void keyboard (unsigned char key, int x, int y)
-{
+{	key = tolower(key);
    switch (key) {
 #ifdef _DEBUG
 		case 'a':

@@ -76,7 +76,7 @@ vec3 transformarNormal(vec3 normalEntrada){
 	float cosAngulo = cos (angulo);
 	float sinAngulo = sin (angulo);
 	
-	if ( coseno  == 1.0 || coseno == -1){
+	if ( coseno  == 1.0 || coseno == -1.0){
 		normalTransformada = normal;
 	}
 	else{
