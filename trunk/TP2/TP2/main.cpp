@@ -43,7 +43,7 @@ GLfloat window_size[2];
 
 HUD* hud;
 ShaderManager* shaderManager;
-
+AdministradorTexturas *adminText;
 
 // Variables que controlan la ubicación de la cámara en la Escena 3D
 float eye[3] = {3.0, 3.0, 2.0};
@@ -156,7 +156,6 @@ GLuint dl_handle;
 #define DL_CAJA_CIELO (dl_handle+4)
 
 
-AdministradorTexturas *adminText;
 
 float norma3(float* p){
     float resultado=0;
@@ -317,7 +316,7 @@ void escena(void)
 		shaderManager->setVertexShader(RETORCER);
 		shaderManager->setUniform("anguloDeRetorsion", anguloDeRetorsion);
 		shaderManager->setUniform("tiempo", tiempo);
-
+	
 		//setear uniforms y esas cosas
 	}
 	if (verRuido){
@@ -372,7 +371,8 @@ void escena(void)
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, materialSombreadoBrillanteDifusa);
 		//setear uniforms y esas cosas
 	}
-	if (verMaterialSombreadoTexturado){shaderManager->setFragmenShader(MATERIAL_SOMBREADO_TEXTURADO);
+	if (verMaterialSombreadoTexturado){
+		shaderManager->setFragmenShader(MATERIAL_SOMBREADO_TEXTURADO);
 		adminText->elegirTextura(Ladrillos);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, materialSombreadoTexturadoEspecular);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialSombreadoTexturadoAmbiente);
@@ -390,7 +390,6 @@ void escena(void)
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, materialReflectivoAmbiente);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, materialReflectivoBrillo);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, materialReflectivoDifusa);
-		
 		//setear uniforms y esas cosas
 	}
    	if (verMaterialSombreadoSemimate){
@@ -416,6 +415,7 @@ void escena(void)
 		glCallList(DL_TOROIDE);
    	if (verCilindro)
 		glCallList(DL_CILINDRO);
+	glPopMatrix();
 	if (verMaterialReflectivo){
 		shaderManager->cerrar();
 		glDisable(GL_LIGHTING);
@@ -428,7 +428,7 @@ void escena(void)
 		shaderManager->usar();
 	else
 		shaderManager->cerrar();	
-
+/*
 #ifdef _DEBUG // no encontré cómo seguir variables globales :P
 	if (verMaterialSombreadoBrillante){
 		cout << "materialSombreadoBrillanteAmbiente = {";
@@ -510,10 +510,10 @@ void escena(void)
 		system("cls");
 	}
 #endif
-	
+	*/
 	glutSwapBuffers();
 	glutPostRedisplay();
-	glPopMatrix();
+	
 }
 
 void reshape (int w, int h)
@@ -816,11 +816,7 @@ int main(int argc, char** argv){
 	glutInit(&argc, argv);
     glutInitWindowPosition (10, 10);
     glutInitWindowSize (ancho, alto); 
-	if (GLEW_NV_conditional_render)
-		glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
-	else
-		glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-
+	
 	ventanaPrincipal = glutCreateWindow("66.71 - TP2");
     glutDisplayFunc(escena); 
 	glutReshapeFunc(reshape);
@@ -837,7 +833,13 @@ int main(int argc, char** argv){
 	
 	glewInit();
 	shaderManager = new ShaderManager();
-	
+
+	//Probablemente había mil formas más elegantes, pero bueno...
+	// 73 es "I" en ASCII, o sea, I de "Intel"
+	if (glGetString(GL_VENDOR)[0] ==  73)
+		glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
+	else
+		glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 		
 	//loop principal
 	glutMainLoop();
