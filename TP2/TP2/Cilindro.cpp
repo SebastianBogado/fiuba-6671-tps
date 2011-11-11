@@ -20,7 +20,12 @@ void Cilindro::construir(){
 }
 
 float* Cilindro::getNormal(int Xn, int Yn, int Zn){
-    float* normal = new float[3];
+    if (Xn >= cantidadDePuntosBorde())
+        return getNormal(Xn-cantidadDePuntosBorde(), Yn-cantidadDePuntosBorde(), Zn);
+	if (Xn < 0)
+        return getNormal(Xn+cantidadDePuntosBorde(), Yn+cantidadDePuntosBorde(), Zn);
+
+	float* normal = new float[3];
 	float* punto = getPunto(Xn, Yn, Zn);
     normal[0] = punto[0];
     normal[1] = punto[1];

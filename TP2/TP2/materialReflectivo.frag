@@ -1,6 +1,5 @@
-//Fragment shader básico
-varying vec3 N;
-varying vec3 v;
+varying vec3 N; //normal
+varying vec3 v; //vértice en coordenadas de vista
 
 vec4 calcularColorPorLuz();
 

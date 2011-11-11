@@ -15,7 +15,7 @@ vec4 calcularColorPorLuz(){
 		
 		vec3 L = normalize(gl_LightSource[i].position.xyz - v); 
 		vec3 E = normalize(-v); // we are in Eye Coordinates, so EyePos is (0,0,0) 
-		vec3 R = normalize(-reflect(L,vN)); 
+		vec3 R = normalize(reflect(L,vN)); 
    
 		//calculate Ambient Term: 
 		vec4 Iamb = gl_FrontLightProduct[i].ambient;// * pow(max(dot(R,E),0.0),0.3*gl_FrontMaterial.shininess); 
@@ -34,5 +34,3 @@ vec4 calcularColorPorLuz(){
 	return finalColor;   
 }
 
-
-   
