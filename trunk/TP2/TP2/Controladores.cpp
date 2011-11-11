@@ -40,11 +40,11 @@ struct Onda{
 	float amplitud;
 };
 
-float n = 1;
+float n = 0.5;
 float arista = 1.4;
 Onda ondaEnX = {arista/(2.0*n), 3.0, 0.07};
-Onda ondaEnY = {arista/n, 6.0, 0.05};
-Onda ondaEnZ = {arista/n, 5.0, 0.04};
+Onda ondaEnY = {arista/n, 4.0, 0.05};
+Onda ondaEnZ = {arista/(4*n), 5.0, 0.04};
 
 
 
