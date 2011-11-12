@@ -875,7 +875,16 @@ int main(int argc, char** argv){
     glutInitWindowPosition (10, 10);
     glutInitWindowSize (ancho, alto); 
 	
+	
 	ventanaPrincipal = glutCreateWindow("66.71 - TP2");
+	
+	//Probablemente había mil formas más elegantes, pero bueno...
+	// 73 es "I" en ASCII, o sea, I de "Intel"
+	if (glGetString(GL_VENDOR)[0] ==  73)
+		glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
+	else
+		glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+
     glutDisplayFunc(escena); 
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
@@ -885,20 +894,10 @@ int main(int argc, char** argv){
 	glutMouseWheelFunc(rueditaDelMouse);
 	glutIdleFunc(OnIdle);
 	init ();
-
-	
 	hud = new HUD(ventanaPrincipal, ancho, alto);
-	
 	glewInit();
-	shaderManager = new ShaderManager();
-
-	//Probablemente había mil formas más elegantes, pero bueno...
-	// 73 es "I" en ASCII, o sea, I de "Intel"
-	if (glGetString(GL_VENDOR)[0] ==  73)
-		glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH);
-	else
-		glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-		
+	shaderManager = new ShaderManager();	
+	
 	//loop principal
 	glutMainLoop();
     return 0;
