@@ -42,8 +42,8 @@ GLSLProgram::GLSLProgram(){
 }
 
 bool GLSLProgram::inicializarBasico(){
-	//if (!compileShaderFromFile(0, FRAGMENT, true))
-		//return false;
+	if (!compileShaderFromFile(0, FRAGMENT, true))
+		return false;
 	if (!compileShaderFromFile(0, FRAGMENT, false))
 		return false;
 	if (!compileShaderFromFile(0, VERTEX, true))
@@ -73,8 +73,11 @@ bool GLSLProgram::compileShaderFromFile(int tShader, GLSLShaderType type, bool e
 
 	switch (type){
 		case VERTEX:
-			if (!fileExists(ARCHIVOS_VERTEX_SHADERS[tShader]))
+			if (!fileExists(ARCHIVOS_VERTEX_SHADERS[tShader])){
+				logString = "Archivo inexistente: ";
+				logString += (ARCHIVOS_VERTEX_SHADERS[tShader]);
 				return !todoEnOrden;
+			}
 			shaderHandle = glCreateShader(GL_VERTEX_SHADER);
 			if (vertexShaderActual != 0)
 				renovarVertexShader();
@@ -82,8 +85,11 @@ bool GLSLProgram::compileShaderFromFile(int tShader, GLSLShaderType type, bool e
 			aux = cargarArchivo(ARCHIVOS_VERTEX_SHADERS[tShader]);
 			break;
 		case FRAGMENT:
-			if (!fileExists(ARCHIVOS_FRAGMENT_SHADERS[tShader]))
+			if (!fileExists(ARCHIVOS_FRAGMENT_SHADERS[tShader])){
+				logString = "Archivo inexistente: ";
+				logString += (ARCHIVOS_FRAGMENT_SHADERS[tShader]);
 				return !todoEnOrden;
+			}
 			shaderHandle = glCreateShader(GL_FRAGMENT_SHADER);
 			if (esLuz){
 				if (luzShaderActual != 0)

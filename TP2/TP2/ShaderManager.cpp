@@ -92,6 +92,8 @@ void ShaderManager::usarVertexShaderRetorcer(){
 		vertexShaderSeleccionado = RETORCER;
 		if ( (programa.compileShaderFromFile(vertexShaderSeleccionado, VERTEX)))
 			cout << "Vertex Shader retorcer.vert: compilacion exitosa" << endl;
+		else
+			cout << programa.log().c_str() << endl;
 	}
 }
 
@@ -101,6 +103,8 @@ void ShaderManager::usarVertexShaderRuido(){
 		vertexShaderSeleccionado = RUIDO;
 		if ( (programa.compileShaderFromFile(vertexShaderSeleccionado, VERTEX)))
 			cout << "Vertex Shader ruido.vert: compilación exitosa" << endl;
+		else
+			cout << programa.log().c_str() << endl;
 	}
 }
 
@@ -110,6 +114,8 @@ void ShaderManager::usarVertexShaderDoblar(){
 		vertexShaderSeleccionado = DOBLAR;
 		if ( (programa.compileShaderFromFile(vertexShaderSeleccionado, VERTEX)))
 			cout << "Vertex Shader doblar.vert: compilación exitosa" << endl;
+		else
+			cout << programa.log().c_str() << endl;
 	}
 }
 
@@ -119,6 +125,8 @@ void ShaderManager::usarVertexShaderEsferizar(){
 		vertexShaderSeleccionado = ESFERIZAR;
 		if ( (programa.compileShaderFromFile(vertexShaderSeleccionado, VERTEX)))
 			cout << "Vertex Shader esferizar.vert: compilación exitosa" << endl;
+		else
+			cout << programa.log().c_str() << endl;
 	}
 }
 
@@ -129,6 +137,8 @@ void ShaderManager::usarFragmentShaderMaterialSombreadoBrillante(){
 		fragmentShaderSeleccionado = MATERIAL_SOMBREADO_BRILLANTE;
 		if ( (programa.compileShaderFromFile(fragmentShaderSeleccionado, FRAGMENT)))
 			cout << "Fragment Shader materialSombreadoBrillante.frag: compilación exitosa" << endl;
+		else
+			cout << programa.log().c_str() << endl;
 	}
 }
 
@@ -138,6 +148,8 @@ void ShaderManager::usarFragmentShaderMaterialSombreadoTexturado(){
 		fragmentShaderSeleccionado = MATERIAL_SOMBREADO_TEXTURADO;
 		if ( (programa.compileShaderFromFile(fragmentShaderSeleccionado, FRAGMENT)))
 			cout << "Fragment Shader materialSombreadoTexturadofrag: compilación exitosa" << endl;
+		else
+			cout << programa.log().c_str() << endl;
 	}
 }
 
@@ -147,6 +159,8 @@ void ShaderManager::usarFragmentShaderMaterialReflectivo(){
 		fragmentShaderSeleccionado = MATERIAL_REFLECTIVO;
 		if ( (programa.compileShaderFromFile(fragmentShaderSeleccionado, FRAGMENT)))
 			cout << "Fragment Shader materialReflectivo.frag: compilación exitosa" << endl;
+		else
+			cout << programa.log().c_str() << endl;
 	}
 }
 
@@ -156,6 +170,8 @@ void ShaderManager::usarFragmentShaderMaterialSombreadoSemimate(){
 		fragmentShaderSeleccionado = MATERIAL_SOMBREADO_SEMIMATE;
 		if ( (programa.compileShaderFromFile(fragmentShaderSeleccionado, FRAGMENT)))
 			cout << "Fragment Shader materialSombreadoSemimate.frag: compilación exitosa" << endl;
+		else
+			cout << programa.log().c_str() << endl;
 	}
 }
 
@@ -165,6 +181,8 @@ void ShaderManager::usarShaderLuzPrincipal(){
 		fragmentShaderLuzSeleccionado = LUZ_PRINCIPAL;
 		if ( (programa.compileShaderFromFile(fragmentShaderLuzSeleccionado, FRAGMENT, true)))
 			cout << "Fragment Shader Luz luzPrincipal.vert: compilación exitosa" << endl;
+		else
+			cout << programa.log().c_str() << endl;
 	}
 }
 
@@ -174,6 +192,8 @@ void ShaderManager::usarShaderLuzSecundaria(){
 		fragmentShaderLuzSeleccionado = LUZ_SECUNDARIA;
 		if ( (programa.compileShaderFromFile(fragmentShaderLuzSeleccionado, FRAGMENT, true)))
 			cout << "Fragment Shader Luz luzSecundaria.vert: compilación exitosa" << endl;
+		else
+			cout << programa.log().c_str() << endl;
 	}
 }
 
