@@ -90,7 +90,7 @@ vec3 calcularNormal(vec4 r, vec3 n){
 	float t = tiempo;
 	//Fin variables
 
-	normalNueva = vec3(-kx*Ax*cos(kx*r.x-wx*t), -ky*Ay*cos(ky*r.y-wy*t), -kz*Az*cos(kz*r.z-wz*t));
+normalNueva = vec3(1.0+kx*Ax*cos(kx*r.x-wx*t), 1.0+ky*Ay*cos(ky*r.y-wy*t), 1.0+kz*Az*cos(kz*r.z-wz*t));
 	return normalNueva;
 }
 
