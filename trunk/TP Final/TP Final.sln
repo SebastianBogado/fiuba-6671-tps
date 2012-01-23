@@ -2,6 +2,14 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TP", "TP\TP.vcxproj", "{F1F0E6B0-2597-453E-9298-491D272576FE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EB125ABA-C868-4C60-AA51-61DF55E45438} = {EB125ABA-C868-4C60-AA51-61DF55E45438}
+		{A090BEBC-76ED-4B65-B2EC-2AB0E74F9FC4} = {A090BEBC-76ED-4B65-B2EC-2AB0E74F9FC4}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Curvas", "Curvas\Curvas.vcxproj", "{A090BEBC-76ED-4B65-B2EC-2AB0E74F9FC4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Camara", "Camara\Camara.vcxproj", "{EB125ABA-C868-4C60-AA51-61DF55E45438}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -17,6 +25,14 @@ Global
 		{F1F0E6B0-2597-453E-9298-491D272576FE}.Debug|Win32.Build.0 = Debug|Win32
 		{F1F0E6B0-2597-453E-9298-491D272576FE}.Release|Win32.ActiveCfg = Release|Win32
 		{F1F0E6B0-2597-453E-9298-491D272576FE}.Release|Win32.Build.0 = Release|Win32
+		{A090BEBC-76ED-4B65-B2EC-2AB0E74F9FC4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A090BEBC-76ED-4B65-B2EC-2AB0E74F9FC4}.Debug|Win32.Build.0 = Debug|Win32
+		{A090BEBC-76ED-4B65-B2EC-2AB0E74F9FC4}.Release|Win32.ActiveCfg = Release|Win32
+		{A090BEBC-76ED-4B65-B2EC-2AB0E74F9FC4}.Release|Win32.Build.0 = Release|Win32
+		{EB125ABA-C868-4C60-AA51-61DF55E45438}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EB125ABA-C868-4C60-AA51-61DF55E45438}.Debug|Win32.Build.0 = Debug|Win32
+		{EB125ABA-C868-4C60-AA51-61DF55E45438}.Release|Win32.ActiveCfg = Release|Win32
+		{EB125ABA-C868-4C60-AA51-61DF55E45438}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
