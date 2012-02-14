@@ -60,11 +60,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Library Include="lib\Camara.lib" />
+    <Library Include="lib\Curvas.lib" />
     <Library Include="lib\freeglut.lib" />
-    <Library Include="lib\glew32s.lib" />
+    <Library Include="lib\glew32.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Control.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Control.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Camara\Camara.vcxproj">
+      <Project>{eb125aba-c868-4c60-aa51-61df55e45438}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
