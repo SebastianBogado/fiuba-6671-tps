@@ -21,7 +21,13 @@
     <Library Include="lib\freeglut.lib">
       <Filter>lib</Filter>
     </Library>
-    <Library Include="lib\glew32s.lib">
+    <Library Include="lib\Camara.lib">
+      <Filter>lib</Filter>
+    </Library>
+    <Library Include="lib\Curvas.lib">
+      <Filter>lib</Filter>
+    </Library>
+    <Library Include="lib\glew32.lib">
       <Filter>lib</Filter>
     </Library>
   </ItemGroup>
@@ -29,5 +35,13 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="Control.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Control.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
