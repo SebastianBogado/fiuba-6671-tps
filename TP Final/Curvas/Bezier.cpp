@@ -46,6 +46,8 @@ vec3 Bezier::evaluar(Flotante x){
         return res;
 
 }
+int Bezier::cantidadDePuntos(){ return this->cantidadPuntos; }
+int Bezier::cantidadDeTramos(){ return this->cantTramos; }
 
 Bezier::~Bezier()
 {

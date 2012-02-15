@@ -34,6 +34,10 @@ class Curva
         */
         void definirPunto(int num,vec3 punto);
 
+		// Para averiguar la cantidad de tramos y puntos
+		virtual int cantidadDePuntos() = 0;
+		virtual int cantidadDeTramos() = 0;
+
         virtual ~Curva();
     protected:
         vec3 *puntos;
