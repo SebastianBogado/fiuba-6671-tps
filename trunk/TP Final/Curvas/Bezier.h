@@ -22,6 +22,10 @@ class Bezier : public Curva
     */
        vec3 evaluar(Flotante x);
 
+	   // Para averiguar la cantidad de tramos y puntos
+		int cantidadDePuntos();
+		int cantidadDeTramos();
+
         virtual ~Bezier();
     private:
     BaseBerstein *base;
