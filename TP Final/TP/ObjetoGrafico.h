@@ -9,7 +9,7 @@ public:
 		Funcion que dibuja al objeto en la escena
 	*/
 
-	virtual void graficar();
+	virtual void graficar()=0;
 
 	/*
 		Funciones para el manejo de shader del objeto
