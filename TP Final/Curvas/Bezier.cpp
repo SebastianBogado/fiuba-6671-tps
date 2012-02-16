@@ -46,6 +46,20 @@ vec3 Bezier::evaluar(Flotante x){
         return res;
 
 }
+
+vec3 Bezier::tangente(Flotante x){
+
+    vec3 res;
+/*
+    for(int i=0; i< this->cantidadPuntos ; i++){
+
+        res += this->base[i].derivada(x) * this->puntos[i];
+
+    }
+*/
+    return res;
+	
+}
 int Bezier::cantidadDePuntos(){ return this->cantidadPuntos; }
 int Bezier::cantidadDeTramos(){ return this->cantTramos; }
 

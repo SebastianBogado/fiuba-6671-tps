@@ -15,6 +15,7 @@ class Curva
         *  Metodo virtual que identifica a evaluar un punto de la curva segun el tipo de curva que sea.
         */
         virtual vec3 evaluar(Flotante x)=0;
+		virtual vec3 tangente(Flotante x)=0;
 
         int truncar(Flotante x);
 
