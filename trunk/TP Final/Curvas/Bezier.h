@@ -27,6 +27,7 @@ class Bezier : public Curva
         */
        vec3 tangente(Flotante x);
 
+
 	   // Para averiguar la cantidad de tramos y puntos
 		int cantidadDePuntos();
 		int cantidadDeTramos();
