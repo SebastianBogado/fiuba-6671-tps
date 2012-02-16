@@ -68,9 +68,11 @@
   <ItemGroup>
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjetoGrafico.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h" />
+    <ClInclude Include="ObjetoGrafico.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Camara\Camara.vcxproj">
