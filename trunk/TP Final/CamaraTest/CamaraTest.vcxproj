@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F1F0E6B0-2597-453E-9298-491D272576FE}</ProjectGuid>
-    <RootNamespace>TP</RootNamespace>
+    <ProjectGuid>{40A68ED5-7898-4C90-AB0F-3F8401E2CC95}</ProjectGuid>
+    <RootNamespace>CamaraTest</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -60,30 +60,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Library Include="lib\Camara.lib" />
-    <Library Include="lib\Curvas.lib" />
-    <Library Include="lib\freeglut.lib" />
-    <Library Include="lib\glew32.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Control.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="ObjetoGrafico.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Control.h" />
-    <ClInclude Include="ObjetoGrafico.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Camara\Camara.vcxproj">
       <Project>{eb125aba-c868-4c60-aa51-61df55e45438}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\Curvas\Curvas.vcxproj">
-      <Project>{a090bebc-76ed-4b65-b2ec-2ab0e74f9fc4}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Superficies\Superficies.vcxproj">
-      <Project>{48ce121e-087d-41a2-9848-dce4b30835f0}</Project>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Camara\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

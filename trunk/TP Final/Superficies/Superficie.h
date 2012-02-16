@@ -6,6 +6,8 @@
 #include "..\Curvas\Curva.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "SuperficieDiscretizada.h"
+#include <iostream>
+using namespace std;
 
 
 class Superficie{

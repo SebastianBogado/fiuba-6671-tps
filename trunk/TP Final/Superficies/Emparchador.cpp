@@ -8,26 +8,28 @@ using namespace std;
 void Emparchador::emparchar(Superficie* superficie){
     vec3 punto;
     vec3 normal;
+	int I_MAX = superficie->cantidadDePuntosEnAlto();
+	int J_MAX = superficie->cantidadDePuntosBorde();
 
     glEnable(GL_DEPTH_TEST);
-    for (int i = 0; i < superficie->cantidadDePuntosEnAlto(); i++){
+    for (int i = 0; i < I_MAX; i++){
         glBegin(GL_TRIANGLE_STRIP);
-            for (int j = 0; j <= superficie->cantidadDePuntosBorde(); j++){
+            for (int j = 0; j < J_MAX; j++){
                 //Punto inferior
 				punto = superficie->getPunto(j, i);
                 normal = superficie->getNormal(j, i);
 
 				glNormal3fv(&normal[0]);
                 glVertex3fv(&punto[0]);
-
+				//cout << "( " << punto[0] << ", " << punto[1] << ", " << punto[2] << " ) con ";
 				//Para punto Superior
 				punto= superficie->getPunto(j, i+1);
                 normal = superficie->getNormal(j, i+1);
                 
 				glNormal3fv(&normal[0]);
                 glVertex3fv(&punto[0]);
-               
-            }
+				//cout << "( " << punto[0] << ", " << punto[1] << ", " << punto[2] << " ). j = " << j << "; i = " << i << endl;
+			}
 		glEnd();
     }
   /*  if (superficie->tieneTapas())
@@ -37,11 +39,14 @@ void Emparchador::emparchar(Superficie* superficie){
 void Emparchador::verNormales(Superficie* superficie){
 	vec3 punto;
     vec3 normal;
+	int I_MAX = superficie->cantidadDePuntosEnAlto();
+	int J_MAX = superficie->cantidadDePuntosBorde();
+
 	glEnable(GL_DEPTH_TEST);
 	glLineWidth(2.0);
 	
-    for (int i = 0; i <= superficie->cantidadDePuntosEnAlto(); i++){
-		for (int j = 0; j <= superficie->cantidadDePuntosBorde(); j++){
+    for (int i = 0; i < I_MAX; i++){
+		for (int j = 0; j < J_MAX; j++){
 			punto = superficie->getPunto(j, i);
             normal = superficie->getNormal(j, i);
 			glBegin(GL_LINES);

@@ -23,7 +23,10 @@ SuperficieDiscretizada::~SuperficieDiscretizada(void){
 }
 
 void SuperficieDiscretizada::agregarPunto(vec3 puntoNuevo, int Xn, int Yn){ this->puntos[Xn][Yn] = puntoNuevo; }
-void SuperficieDiscretizada::agregarNormal(vec3 normalNueva, int Xn, int Yn){ this->puntos[Xn][Yn] = normalNueva; }
+void SuperficieDiscretizada::agregarNormal(vec3 normalNueva, int Xn, int Yn){ this->normales[Xn][Yn] = normalNueva; }
+
+vec3 SuperficieDiscretizada::getPunto(int Xn, int Yn){ return this->puntos[Xn][Yn]; }
+vec3 SuperficieDiscretizada::getNormal(int Xn, int Yn){ return this->normales[Xn][Yn]; }
 
 int SuperficieDiscretizada::cantidadDePuntosBorde(){ return this->cantDePuntosBorde; }
 int SuperficieDiscretizada::cantidadDePuntosEnAlto(){ return this->cantDePuntosEnAlto; }
