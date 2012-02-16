@@ -20,9 +20,12 @@ class Test
         bool comparar(float esperado,float recivido);
         bool comparar(vec3 esperado,vec3 recivido);
         bool comparar(float * esperado,float * recivido);
+		vec3 normalizar(vec3 vector);
 
         virtual ~Test();
     protected:
+
+		
 
         void comprobarErrores(string metodo);
         void inicializarVector(float x,float y,float z,float* vector);
