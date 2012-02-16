@@ -4,8 +4,9 @@
 #define __SUPERFICIE_H__
 
 #include "..\Curvas\Curva.h"
-#include "SuperficieDiscretizada.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include "SuperficieDiscretizada.h"
+
 
 class Superficie{
     public:

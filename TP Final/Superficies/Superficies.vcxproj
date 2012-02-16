@@ -49,6 +49,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;..\TP\lib\Curvas.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -65,6 +66,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Emparchador.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Superficie.cpp" />
     <ClCompile Include="SuperficieDeBarrido.cpp" />
@@ -72,14 +74,15 @@
     <ClCompile Include="SuperficieDiscretizada.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Emparchador.h" />
     <ClInclude Include="Superficie.h" />
     <ClInclude Include="SuperficieDeBarrido.h" />
     <ClInclude Include="SuperficieDeRevolucion.h" />
     <ClInclude Include="SuperficieDiscretizada.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TP\TP.vcxproj">
-      <Project>{f1f0e6b0-2597-453e-9298-491d272576fe}</Project>
+    <ProjectReference Include="..\Curvas\Curvas.vcxproj">
+      <Project>{a090bebc-76ed-4b65-b2ec-2ab0e74f9fc4}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
