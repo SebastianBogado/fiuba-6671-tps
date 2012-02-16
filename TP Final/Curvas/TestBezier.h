@@ -17,6 +17,7 @@ class TestBezier : public Test
 
                 void testConstructor();
                 void testEvaluar();
+				void testTangente();
 
                 virtual ~TestBezier();
         private:
