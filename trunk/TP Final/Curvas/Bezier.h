@@ -22,6 +22,11 @@ class Bezier : public Curva
     */
        vec3 evaluar(Flotante x);
 
+	   /*
+        *Se evalua el valor de la tangente para algun punto de la curva.
+        */
+       vec3 tangente(Flotante x);
+
 	   // Para averiguar la cantidad de tramos y puntos
 		int cantidadDePuntos();
 		int cantidadDeTramos();

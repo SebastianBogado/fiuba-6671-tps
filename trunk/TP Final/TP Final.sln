@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Curvas", "Curvas\Curvas.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Camara", "Camara\Camara.vcxproj", "{EB125ABA-C868-4C60-AA51-61DF55E45438}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Superficies", "Superficies\Superficies.vcxproj", "{48CE121E-087D-41A2-9848-DCE4B30835F0}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -33,6 +35,10 @@ Global
 		{EB125ABA-C868-4C60-AA51-61DF55E45438}.Debug|Win32.Build.0 = Debug|Win32
 		{EB125ABA-C868-4C60-AA51-61DF55E45438}.Release|Win32.ActiveCfg = Release|Win32
 		{EB125ABA-C868-4C60-AA51-61DF55E45438}.Release|Win32.Build.0 = Release|Win32
+		{48CE121E-087D-41A2-9848-DCE4B30835F0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{48CE121E-087D-41A2-9848-DCE4B30835F0}.Debug|Win32.Build.0 = Debug|Win32
+		{48CE121E-087D-41A2-9848-DCE4B30835F0}.Release|Win32.ActiveCfg = Release|Win32
+		{48CE121E-087D-41A2-9848-DCE4B30835F0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
