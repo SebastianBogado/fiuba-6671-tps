@@ -41,6 +41,7 @@ void TestBezier::iniciar(){
 
         this->testConstructor();
         this->testEvaluar();
+		this->testTangente();
 
 
 }
@@ -77,6 +78,8 @@ void TestBezier::testConstructor(){
 
 
         errorEncontrado = p1 || p2 || p3 || p4 || p5 || p6 || p7;
+
+		delete[] puntos;
 
         this->errorEnMetodo(errorEncontrado,"Constructor e inicializacion");
 
@@ -115,6 +118,60 @@ void TestBezier::testEvaluar(){
         this->errorEncontrado = p1 || p2 || p3 || p4;
 
         this->errorEnMetodo(errorEncontrado,"Evaluar");
+
+}
+
+
+void TestBezier::testTangente(){
+
+	this->tituloTest("Tangente");
+
+	vec3 *puntos=new vec3[7];
+
+    puntos[0]=vec3(1.0,0.0,0.0);
+    puntos[1]=vec3(0.0,1.0,0.0);
+    puntos[2]=vec3(0.0,0.0,1.0);
+    puntos[3]=vec3(2.0,0.0,0.0);
+    puntos[4]=vec3(2.0,1.0,0.0);
+    puntos[5]=vec3(2.0,1.0,0.0);
+    puntos[6]=vec3(0.0,0.0,2.0);
+
+    this->inicializar(2,puntos);
+
+
+	vec3 ptoEsperado = puntos[1] - puntos[0];
+	vec3 ptoRecivido = this->curva->tangente(0.0);
+	
+	ptoEsperado = vec3(this->normalizar(ptoEsperado)); 
+	ptoRecivido = vec3(this->normalizar(ptoRecivido));
+
+	bool p1 = !(comparar(ptoEsperado,ptoRecivido));
+	/////////////////////////
+	///////////////////////
+	ptoEsperado = puntos[3] - puntos[2];
+	ptoRecivido = this->curva->tangente(0.99999);
+	
+	ptoEsperado = vec3(this->normalizar(ptoEsperado)); 
+	ptoRecivido = vec3(this->normalizar(ptoRecivido));
+
+	bool p2 = !(comparar(ptoEsperado,ptoRecivido));
+
+	/////////////////////////
+	///////////////////////
+	ptoEsperado = puntos[6] - puntos[5];
+	ptoRecivido = this->curva->tangente(2);
+	
+	ptoEsperado = vec3(this->normalizar(ptoEsperado)); 
+	ptoRecivido = vec3(this->normalizar(ptoRecivido));
+
+	bool p3 = !(comparar(ptoEsperado,ptoRecivido));
+
+
+	this->errorEncontrado= p1 || p2 || p3;
+
+	this->errorEnMetodo(errorEncontrado,"Tangente");
+
+
 
 }
 

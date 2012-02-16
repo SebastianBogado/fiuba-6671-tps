@@ -1,4 +1,5 @@
 #include "Test.h"
+#include <math.h>
 
 using namespace std;
 
@@ -91,8 +92,23 @@ bool Test::comparar(float* esperado,float * recivido){
         vec3 rec(recivido[0],recivido[1],recivido[2]);
 
         return this->comparar(esp,rec);
+}
 
+vec3 Test::normalizar(vec3 vector){
+	
+	double parcial,norma;
 
+	for (int i=0;i < 3; i++)
+		parcial = vector[i] * vector[i];
+
+	norma = sqrt(parcial);
+	
+	if (norma > 0.0){
+		for (int i=0; i < 3; i++)
+			vector[i] /= norma;
+	}
+
+	return vector;
 }
 
 void Test::registrarError(bool comparacion){
