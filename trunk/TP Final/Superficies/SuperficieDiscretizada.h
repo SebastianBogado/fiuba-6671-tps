@@ -1,9 +1,9 @@
 #pragma once
-#include "Superficie.h"
+#include <glm\glm.hpp>
+using namespace glm;
 
 //Sólo contiene los puntos y normales de la superficie ideal según cierta discretización en una matriz
-class SuperficieDiscretizada
-{
+class SuperficieDiscretizada{
 public:
 	SuperficieDiscretizada(int cantidadDePuntosBorde, int cantidadDePuntosEnAlto);
 	~SuperficieDiscretizada(void);

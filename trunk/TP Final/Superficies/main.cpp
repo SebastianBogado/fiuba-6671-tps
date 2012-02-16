@@ -9,6 +9,11 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <math.h>
+#include "SuperficieDeRevolucion.h"
+#include "SuperficieDeBarrido.h"
+#include "..\Curvas\BSpline.h"
+#include "..\Curvas\Bezier.h"
+#include "Emparchador.h"
 
 
 // Variables asociadas a única fuente de luz de la escena
@@ -22,12 +27,15 @@ bool view_grid = true;
 bool view_axis = true;
 bool edit_panel = false;
 
+//Superficies, como variables globales
+SuperficieDeRevolucion* pruebaRevolucionConBSpline;
 
 // Handle para el control de las Display Lists
 GLuint dl_handle;
 #define DL_AXIS (dl_handle+0)
 #define DL_GRID (dl_handle+1)
 #define DL_AXIS2D_TOP (dl_handle+2)
+#define DL_SUP_REVOLUCION_BSPLINE (dl_handle+3)
 
 // Tamaño de la ventana
 GLfloat window_size[2];
@@ -164,6 +172,21 @@ void SetPanelTopEnv()
 	gluOrtho2D(-0.10, 1.05, -0.10, 1.05);
 }
 
+void inicializarSuperficies(){
+	vec3 bsplineP1 = vec3(3.0, 0.0, 0.0); 
+	vec3 bsplineP2 = vec3(3.0, 0.0, 3.0);
+	vec3 bsplineP3 = vec3(1.0, 1.0, 4.0);
+	vec3 bsplineP4 = vec3(4.0, 0.0, 5.0);
+	vec3 bsplineP5 = vec3(4.0, 2.0, 6.0);
+	BSpline* bsplinePrueba = new BSpline(5);
+	bsplinePrueba->incluirPunto(bsplineP1);
+	bsplinePrueba->incluirPunto(bsplineP2);
+	bsplinePrueba->incluirPunto(bsplineP3);
+	bsplinePrueba->incluirPunto(bsplineP4);
+	bsplinePrueba->incluirPunto(bsplineP5);
+	pruebaRevolucionConBSpline = new SuperficieDeRevolucion(bsplinePrueba);
+	pruebaRevolucionConBSpline->discretizar(30, 36);
+}
 
 void init(void) 
 {
@@ -178,6 +201,8 @@ void init(void)
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
 
+	inicializarSuperficies();
+
 	// Generación de las Display Lists
 	glNewList(DL_AXIS, GL_COMPILE);
 		DrawAxis();
@@ -188,6 +213,10 @@ void init(void)
 	glNewList(DL_AXIS2D_TOP, GL_COMPILE);
 		DrawAxis2DTopView();
 	glEndList();
+	glNewList(DL_SUP_REVOLUCION_BSPLINE, GL_COMPILE);
+		Emparchador::emparchar(pruebaRevolucionConBSpline);
+	glEndList();
+
 }
 
 
@@ -215,8 +244,7 @@ void display(void)
 	// Draw here
 	//
 
-	
-
+	glCallList(DL_SUP_REVOLUCION_BSPLINE);
 
 
 

@@ -2,8 +2,8 @@
 
 
 SuperficieDeRevolucion::SuperficieDeRevolucion(Curva* curvaBorde, 
-											   float anguloEnGrados = 360, 
-											   vec3 ejeDeRotacion = vec3(0.0, 0.0, 1.0)) : Superficie(curvaBorde){
+											   float anguloEnGrados, 
+											   vec3 ejeDeRotacion) : Superficie(curvaBorde){
 	this->angulo = anguloEnGrados;
 	this->ejeDeRotacion = ejeDeRotacion;
 }
@@ -31,7 +31,7 @@ void SuperficieDeRevolucion::discretizar(int discretizacionBorde, int discretiza
 				//Para conseguir la normal, roto 90° respecto del eje formado por el
 				//producto vectorial entre la tangente y el eje de rotación de la superficie
 				vec4 tangente = vec4(curvaBorde->tangente(i+j), 1.0);
-				mat4 rot = rotate(mat4(1.0f), float(90), cross(ejeDeRotacion, curvaBorde->tangente(i+j));
+				mat4 rot = rotate(mat4(1.0f), float(90), cross(ejeDeRotacion, curvaBorde->tangente(i+j)));
 				vec4 n = rot * tangente;
 				vec3 normalizada = normalize(vec3(n.x, n.y, n.z));
 				miDiscretizacion->agregarNormal(normalizada, numeroDePunto, k);
