@@ -56,7 +56,7 @@ vec3 BSpline::tangente(Flotante x){
 }
 
 int BSpline::cantidadDePuntos(){ return this->cantidadPuntos; }
-int BSpline::cantidadDeTramos(){ return (this->cantidadPuntos - 2); }
+int BSpline::cantidadDeTramos(){ return (this->cantidadPuntos - 3); }
 
 BSpline::~BSpline()
 {
