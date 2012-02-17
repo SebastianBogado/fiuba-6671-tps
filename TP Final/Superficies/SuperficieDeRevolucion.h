@@ -9,5 +9,7 @@ public:
 private:
 	float angulo;
 	vec3 ejeDeRotacion;
+
+	bool invertirEjeDeRotacionParaLaNormal(vec3 v, vec3 tg); 
 };
 
