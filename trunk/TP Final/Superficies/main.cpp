@@ -208,16 +208,28 @@ void inicializarSupRevolucionConBSpline(){
 	DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_REVOL_BSPLINE;
 }
 void inicializarSupRevolucionConBezier(){
-	vec3 bezierP1 = vec3(3.0, 0.0, 0.0); 
-	vec3 bezierP2 = vec3(3.0, 0.0, 3.0);
-	vec3 bezierP3 = vec3(1.0, 0.0, 2.0);
-	vec3 bezierP4 = vec3(4.0, 0.0, 3.0);
-	Bezier* bezierPrueba = new Bezier(1);
+	vec3 bezierP1 = vec3(0.0, 0.0, 0.0); 
+	vec3 bezierP2 = vec3(1.0, 0.0, -0.1);
+	vec3 bezierP3 = vec3(0.9, 0.0, 0.6);
+	vec3 bezierP4 = vec3(0.6, 0.0, 1.2);
+	vec3 bezierP5 = vec3(0.3, 0.0, 1.8); 
+	vec3 bezierP6 = vec3(0.8, 0.0, 2.2);
+	vec3 bezierP7 = vec3(0.4, 0.0, 2.9);
+	vec3 bezierP8 = vec3(0.0, 0.0, 3.6);
+	vec3 bezierP9 = vec3(0.3, 0.0, 4.0); 
+	vec3 bezierP10 = vec3(0.0, 0.0, 4.0);
+	Bezier* bezierPrueba = new Bezier(3);
 	bezierPrueba->incluirPunto(bezierP1);
 	bezierPrueba->incluirPunto(bezierP2);
 	bezierPrueba->incluirPunto(bezierP3);
 	bezierPrueba->incluirPunto(bezierP4);
-	pruebaRevolucionConBezier = new SuperficieDeRevolucion(bezierPrueba, 70);
+	bezierPrueba->incluirPunto(bezierP5);
+	bezierPrueba->incluirPunto(bezierP6);
+	bezierPrueba->incluirPunto(bezierP7);
+	bezierPrueba->incluirPunto(bezierP8);
+	bezierPrueba->incluirPunto(bezierP9);
+	bezierPrueba->incluirPunto(bezierP10);
+	pruebaRevolucionConBezier = new SuperficieDeRevolucion(bezierPrueba);
 	pruebaRevolucionConBezier->discretizar(30, 36);
 }
 void inicializarSupBarridoConBSplineBSpline(){
