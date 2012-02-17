@@ -23,16 +23,35 @@ void Control::teclado(unsigned char tecla, int x, int y){
 	case 'q': exit(0); break;
 	default: break;
 	}
+
+	glutPostRedisplay();
 }
 
 void Control::mouse(int button, int state, int x, int y){
 	camara->controladorBotonesMouse(button, state, x, y);
 	//Cualquier otro control inherente al mouse va acá, 
 	//junto con la discriminación entre release y debug mode
+
+	glutPostRedisplay();
 }
 
 void Control::mouseMov(int x, int y){
 	camara->controladorMovMouse(x, y);
 	//Cualquier otro control inherente al mouse en movimiento va acá, 
 	//junto con la discriminación entre release y debug mode
+
+	glutPostRedisplay();
+}
+
+void Control::actualizarDatos(){
+
+
+	//glutPostRedisplay();	
+}
+
+
+void Control::dibujarEscena(){
+
+
+
 }
