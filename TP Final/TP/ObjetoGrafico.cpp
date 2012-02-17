@@ -15,6 +15,16 @@ void ObjetoGrafico::posicionar(float *nuevaPosicion){
 	}
 }
 
+
+void ObjetoGrafico::inicializarVector(float *vector,float x,float y, float z){
+
+	if (vector!= NULL){
+		vector[0] = x;
+		vector[1] = y;
+		vector[2] = z;
+	}
+}
+
 ObjetoGrafico::~ObjetoGrafico(void)
 {
 }

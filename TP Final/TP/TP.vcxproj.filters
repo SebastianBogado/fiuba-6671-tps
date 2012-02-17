@@ -22,6 +22,12 @@
     <Filter Include="Archivos de encabezado\Modelo">
       <UniqueIdentifier>{9bcc00d4-4753-4d9d-8594-63804565c013}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\Objetos">
+      <UniqueIdentifier>{6bd2cd3a-82b5-4f02-90ee-88c638ed2cc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objetos">
+      <UniqueIdentifier>{3cde2cd9-88e7-45ad-b88d-2560b3001e91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\freeglut.lib">
@@ -47,6 +53,9 @@
     <ClCompile Include="ObjetoGrafico.cpp">
       <Filter>Archivos de código fuente\Modelo</Filter>
     </ClCompile>
+    <ClCompile Include="MaquinaDeBotellas.cpp">
+      <Filter>Archivos de código fuente\Objetos</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h">
@@ -54,6 +63,9 @@
     </ClInclude>
     <ClInclude Include="ObjetoGrafico.h">
       <Filter>Archivos de encabezado\Modelo</Filter>
+    </ClInclude>
+    <ClInclude Include="MaquinaDeBotellas.h">
+      <Filter>Archivos de encabezado\Objetos</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

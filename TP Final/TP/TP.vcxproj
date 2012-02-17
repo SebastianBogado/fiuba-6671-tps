@@ -68,10 +68,12 @@
   <ItemGroup>
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MaquinaDeBotellas.cpp" />
     <ClCompile Include="ObjetoGrafico.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h" />
+    <ClInclude Include="MaquinaDeBotellas.h" />
     <ClInclude Include="ObjetoGrafico.h" />
   </ItemGroup>
   <ItemGroup>
