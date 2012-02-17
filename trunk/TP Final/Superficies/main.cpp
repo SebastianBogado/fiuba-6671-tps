@@ -33,6 +33,10 @@ bool verNormales = true;
 Superficie* superficieSeleccionada;
 SuperficieDeRevolucion* pruebaRevolucionConBSpline;
 SuperficieDeRevolucion* pruebaRevolucionConBezier;
+SuperficieDeBarrido* pruebaBarridoConBSplineBSpline;
+SuperficieDeBarrido* pruebaBarridoConBSplineBezier;
+SuperficieDeBarrido* pruebaBarridoConBezierBezier;
+SuperficieDeBarrido* pruebaBarridoConBezierBSpline;
 
 // Handle para el control de las Display Lists
 GLuint dl_handle;
@@ -43,10 +47,14 @@ GLuint dl_handle;
 #define DL_VER_NORMALES_REVOL_BSPLINE (dl_handle+4)
 #define DL_VER_SUPERFICIE_REVOL_BEZIER (dl_handle+5)
 #define DL_VER_NORMALES_REVOL_BEZIER (dl_handle+6)
-#define DL_VER_SUPERFICIE_BARRIDO_BSPLINE (dl_handle+7)
-#define DL_VER_NORMALES_BARRIDO_BSPLINE (dl_handle+8)
-#define DL_VER_SUPERFICIE_BARRIDO_BEZIER (dl_handle+9)
-#define DL_VER_NORMALES_BARRIDO_BEZIER (dl_handle+10)
+#define DL_VER_SUPERFICIE_BARRIDO_BSPLINE_BSPLINE (dl_handle+7)
+#define DL_VER_NORMALES_BARRIDO_BSPLINE_BSPLINE (dl_handle+8)
+#define DL_VER_SUPERFICIE_BARRIDO_BSPLINE_BEZIER (dl_handle+9)
+#define DL_VER_NORMALES_BARRIDO_BSPLINE_BEZIER (dl_handle+10)
+#define DL_VER_SUPERFICIE_BARRIDO_BEZIER_BEZIER (dl_handle+11)
+#define DL_VER_NORMALES_BARRIDO_BEZIER_BEZIER (dl_handle+12)
+#define DL_VER_SUPERFICIE_BARRIDO_BEZIER_BSPLINE (dl_handle+13)
+#define DL_VER_NORMALES_BARRIDO_BEZIER_BSPLINE (dl_handle+14)
 GLuint DL_SUP_SELECCIONADA;
 
 // Tamaño de la ventana
@@ -212,17 +220,49 @@ void inicializarSupRevolucionConBezier(){
 	pruebaRevolucionConBezier = new SuperficieDeRevolucion(bezierPrueba, 70);
 	pruebaRevolucionConBezier->discretizar(30, 36);
 }
-void inicializarSupBarridoConBSpline(){
+void inicializarSupBarridoConBSplineBSpline(){
+	//Curva borde
+	vec3 bordeP1 = vec3(3.0, 0.0, 0.0); 
+	vec3 bordeP2 = vec3(3.0, 0.0, 3.0);
+	vec3 bordeP3 = vec3(1.0, 0.0, 4.0);
+	vec3 bordeP4 = vec3(4.0, 0.0, 5.0);
+	vec3 bordeP5 = vec3(2.0, 0.0, 6.0);
+	BSpline* borde = new BSpline(5);
+	borde->incluirPunto(bordeP1);
+	borde->incluirPunto(bordeP2);
+	borde->incluirPunto(bordeP3);
+	borde->incluirPunto(bordeP4);
+	borde->incluirPunto(bordeP5);
+	//Curva camino
+	vec3 caminoP1 = vec3(2.0, 0.0, 6.0);
+	vec3 caminoP2 = vec3(3.0, 3.0, 6.0);
+	vec3 caminoP3 = vec3(3.0, 4.0, 4.0);
+	vec3 caminoP4 = vec3(4.0, 6.0, 5.0);
+	BSpline* camino = new BSpline(4);
+	camino->incluirPunto(caminoP1);
+	camino->incluirPunto(caminoP2);
+	camino->incluirPunto(caminoP3);
+	camino->incluirPunto(caminoP4);
+	pruebaBarridoConBSplineBSpline = new SuperficieDeBarrido(borde, camino);
+	pruebaBarridoConBSplineBSpline->discretizar(30, 30);
+}
+void inicializarSupBarridoConBSplineBezier(){
 
 }
-void inicializarSupBarridoConBezier(){
+void inicializarSupBarridoConBezierBezier(){
+
+}
+void inicializarSupBarridoConBezierBSpline(){
 
 }
 void inicializarSuperficies(){
 	inicializarSupRevolucionConBSpline();
 	inicializarSupRevolucionConBezier();
-	inicializarSupBarridoConBSpline();
-	inicializarSupBarridoConBezier();
+	inicializarSupBarridoConBSplineBSpline();
+	inicializarSupBarridoConBSplineBezier();
+	inicializarSupBarridoConBezierBezier();
+	inicializarSupBarridoConBezierBSpline();
+
 }
 
 void init(void) 
@@ -250,6 +290,9 @@ void init(void)
 	glNewList(DL_AXIS2D_TOP, GL_COMPILE);
 		DrawAxis2DTopView();
 	glEndList();
+
+
+	//Superficies de revolución
 	glNewList(DL_VER_SUPERFICIE_REVOL_BSPLINE, GL_COMPILE);
 		Emparchador::emparchar(pruebaRevolucionConBSpline);
 	glEndList();
@@ -263,6 +306,36 @@ void init(void)
 		Emparchador::verNormales(pruebaRevolucionConBezier);
 	glEndList();
 
+
+	//Superficies de barrido
+	glNewList(DL_VER_SUPERFICIE_BARRIDO_BSPLINE_BSPLINE, GL_COMPILE);
+		Emparchador::emparchar(pruebaBarridoConBSplineBSpline);
+	glEndList();
+	glNewList(DL_VER_NORMALES_BARRIDO_BSPLINE_BSPLINE, GL_COMPILE);
+		Emparchador::verNormales(pruebaBarridoConBSplineBSpline);
+	glEndList();
+	/*
+	glNewList(DL_VER_SUPERFICIE_BARRIDO_BSPLINE_BEZIER, GL_COMPILE);
+		Emparchador::emparchar(pruebaBarridoConBSplineBezier);
+	glEndList();
+	glNewList(DL_VER_NORMALES_BARRIDO_BSPLINE_BEZIER, GL_COMPILE);
+		Emparchador::verNormales(pruebaBarridoConBSplineBezier);
+	glEndList();
+
+	glNewList(DL_VER_SUPERFICIE_BARRIDO_BEZIER_BEZIER, GL_COMPILE);
+		Emparchador::emparchar(pruebaBarridoConBezierBezier);
+	glEndList();
+	glNewList(DL_VER_NORMALES_BARRIDO_BEZIER_BEZIER, GL_COMPILE);
+		Emparchador::verNormales(pruebaBarridoConBezierBezier);
+	glEndList();
+
+	glNewList(DL_VER_SUPERFICIE_BARRIDO_BEZIER_BSPLINE, GL_COMPILE);
+		Emparchador::emparchar(pruebaBarridoConBezierBSpline);
+	glEndList();
+	glNewList(DL_VER_NORMALES_BARRIDO_BEZIER_BSPLINE, GL_COMPILE);
+		Emparchador::verNormales(pruebaBarridoConBezierBSpline);
+	glEndList();
+	*/
 }
 
 
@@ -383,6 +456,14 @@ void keyboard (unsigned char key, int x, int y)
 		  DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_REVOL_BSPLINE; break;
 	  case '5':
 		  DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_REVOL_BEZIER; break;
+  	  case '6':
+		  DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_BARRIDO_BSPLINE_BSPLINE; break;
+  	  case '7':
+		  DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_BARRIDO_BSPLINE_BEZIER; break;
+  	  case '8':
+		  DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_BARRIDO_BEZIER_BEZIER; break;
+  	  case '9':
+		  DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_BARRIDO_BEZIER_BSPLINE; break;
      default:
          break;
    }
