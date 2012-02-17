@@ -16,34 +16,27 @@ float light_position[3] = {10.0f, 10.0f, 8.0f};
 float light_ambient[4] = {0.05f, 0.05f, 0.05f, 1.0f};
 
 Delineador* delineador;
-Bezier* bezierPrueba;
-BSpline* bsplinePrueba;
-//Puntos de las curvas
-vec3 bezierP1 = vec3(3.0, 0.0, 0.0); 
-vec3 bezierP2 = vec3(3.0, 0.0, 3.0);
-vec3 bezierP3 = vec3(1.0, 5.0, 2.0);
-vec3 bezierP4 = vec3(4.0, 6.0, 3.0);
+BSpline* bsplineRevol;
+Bezier* bezierRevol;
 
-vec3 bsplineP1 = vec3(3.0, 0.0, 0.0); 
-vec3 bsplineP2 = vec3(3.0, 0.0, 3.0);
-vec3 bsplineP3 = vec3(1.0, 0.0, 4.0);
-vec3 bsplineP4 = vec3(4.0, 0.0, 5.0);
-vec3 bsplineP5 = vec3(2.0, 0.0, 6.0);
+BSpline* bsplineBarridoBorde1;
+BSpline* bsplineBarridoCamino1;
 
-/*vec3 bsplineP1 = vec3(3.0, 0.0, 0.0); 
-vec3 bsplineP2 = vec3(3.0, 0.0, 3.0);
-vec3 bsplineP3 = vec3(1.0, 5.0, 2.0);
-vec3 bsplineP4 = vec3(4.0, 6.0, 3.0);
-vec3 bsplineP5 = vec3(4.0, 6.0, 5.0);
-*/
+BSpline* bsplineBarridoBorde2;
+Bezier* bezierBarridoCamino2;
+
+Bezier* bezierBarridoBorde3;
+Bezier* bezierBarridoCamino3;
+
+Bezier* bezierBarridoBorde4;
+BSpline* bsplineBarridoCamino4;
 
 // Variables de control
 bool view_grid = true;
 bool view_axis = true;
 bool edit_panel = false;
-bool verBezier = true;
-bool verSpline = false;
 bool verPuntos = true;
+bool verCurvas = true;
 
 
 // Handle para el control de las Display Lists
@@ -51,10 +44,25 @@ GLuint dl_handle;
 #define DL_AXIS (dl_handle+0)
 #define DL_GRID (dl_handle+1)
 #define DL_AXIS2D_TOP (dl_handle+2)
-#define DL_BEZIER (dl_handle+3)
-#define DL_PUNTOS_BEZIER (dl_handle+4)
-#define DL_BSPLINE (dl_handle+5)
-#define DL_PUNTOS_BSPLINE (dl_handle+6)
+
+#define DL_BSPLINE_REVOL (dl_handle+3)
+#define DL_PUNTOS_BSPLINE_REVOL (dl_handle+4)
+#define DL_BEZIER_REVOL (dl_handle+5)
+#define DL_PUNTOS_BEZIER_REVOL (dl_handle+6)
+
+#define DL_CURVAS_BARRIDO_BSPLINE_BSPLINE (dl_handle+7)
+#define DL_PUNTOS_CURVAS_BARRIDO_BSPLINE_BSPLINE (dl_handle+8)
+
+#define DL_CURVAS_BARRIDO_BSPLINE_BEZIER (dl_handle+9)
+#define DL_PUNTOS_CURVAS_BARRIDO_BSPLINE_BEZIER (dl_handle+10)
+
+#define DL_CURVAS_BARRIDO_BEZIER_BEZIER (dl_handle+11)
+#define DL_PUNTOS_CURVAS_BARRIDO_BEZIER_BEZIER (dl_handle+12)
+
+#define DL_CURVAS_BARRIDO_BEZIER_BSPLINE (dl_handle+13)
+#define DL_PUNTOS_CURVAS_BARRIDO_BEZIER_BSPLINE (dl_handle+14)
+
+GLuint DL_CURVA_SELECCIONADA;
 
 // Tamaño de la ventana
 GLfloat window_size[2];
@@ -200,6 +208,131 @@ void dibujarPuntosDeControl(Curva* curva){
 		 glPopMatrix();
 	}
 }
+void inicializarBSplineRevol(){
+	vec3 bsplineP1 = vec3(3.0, 0.0, 0.0); 
+	vec3 bsplineP2 = vec3(3.0, 0.0, 3.0);
+	vec3 bsplineP3 = vec3(1.0, 0.0, 4.0);
+	vec3 bsplineP4 = vec3(4.0, 0.0, 5.0);
+	vec3 bsplineP5 = vec3(2.0, 0.0, 6.0);
+	bsplineRevol = new BSpline(5);
+	bsplineRevol->incluirPunto(bsplineP1);
+	bsplineRevol->incluirPunto(bsplineP2);
+	bsplineRevol->incluirPunto(bsplineP3);
+	bsplineRevol->incluirPunto(bsplineP4);
+	bsplineRevol->incluirPunto(bsplineP5);
+	DL_CURVA_SELECCIONADA = DL_BSPLINE_REVOL;
+}
+void inicializarBezierRevol(){
+	vec3 bezierP1 = vec3(3.0, 0.0, 0.0); 
+	vec3 bezierP2 = vec3(3.0, 0.0, 3.0);
+	vec3 bezierP3 = vec3(1.0, 0.0, 2.0);
+	vec3 bezierP4 = vec3(4.0, 0.0, 3.0);
+	bezierRevol = new Bezier(1);
+	bezierRevol->incluirPunto(bezierP1);
+	bezierRevol->incluirPunto(bezierP2);
+	bezierRevol->incluirPunto(bezierP3);
+	bezierRevol->incluirPunto(bezierP4);
+}
+void inicializarCurvasBarridoBSplineBSpline(){
+	//Curva borde
+	vec3 bordeP1 = vec3(3.0, 0.0, 0.0); 
+	vec3 bordeP2 = vec3(3.0, 0.0, 3.0);
+	vec3 bordeP3 = vec3(1.0, 0.0, 4.0);
+	vec3 bordeP4 = vec3(4.0, 0.0, 5.0);;
+	vec3 bordeP5 = vec3(2.0, 0.0, 6.0);
+	bsplineBarridoBorde1 = new BSpline(5);
+	bsplineBarridoBorde1->incluirPunto(bordeP1);
+	bsplineBarridoBorde1->incluirPunto(bordeP2);
+	bsplineBarridoBorde1->incluirPunto(bordeP3);
+	bsplineBarridoBorde1->incluirPunto(bordeP4);
+	bsplineBarridoBorde1->incluirPunto(bordeP5);
+	//Curva camino
+	vec3 caminoP1 = vec3(2.0, 0.0, 6.0);
+	vec3 caminoP2 = vec3(3.0, 3.0, 6.0);
+	vec3 caminoP3 = vec3(3.0, 4.0, 4.0);
+	vec3 caminoP4 = vec3(4.0, 6.0, 5.0);
+	bsplineBarridoCamino1 = new BSpline(4);
+	bsplineBarridoCamino1->incluirPunto(caminoP1);
+	bsplineBarridoCamino1->incluirPunto(caminoP2);
+	bsplineBarridoCamino1->incluirPunto(caminoP3);
+	bsplineBarridoCamino1->incluirPunto(caminoP4);
+}
+void inicializarCurvasBarridoBSplineBezier(){
+	//Curva borde
+	vec3 bordeP1 = vec3(0.0, 0.0, 0.0); 
+	vec3 bordeP2 = vec3(5.0, 0.0, 5.0);
+	vec3 bordeP3 = vec3(0.0, 0.0, 8.0);
+	bsplineBarridoBorde2 = new BSpline(3);
+	bsplineBarridoBorde2->incluirPunto(bordeP1);
+	bsplineBarridoBorde2->incluirPunto(bordeP2);
+	bsplineBarridoBorde2->incluirPunto(bordeP3);
+	//Curva camino
+	vec3 caminoP1 = vec3(0.0, 0.0, 5.0);
+	vec3 caminoP2 = vec3(0.0, 3.0, 6.0);
+	vec3 caminoP3 = vec3(0.0, 6.0, 3.0);
+	vec3 caminoP4 = vec3(4.0, 6.0, 3.0);
+	bezierBarridoCamino2 = new Bezier(1);
+	bezierBarridoCamino2->incluirPunto(caminoP1);
+	bezierBarridoCamino2->incluirPunto(caminoP2);
+	bezierBarridoCamino2->incluirPunto(caminoP3);
+	bezierBarridoCamino2->incluirPunto(caminoP4);
+}
+void inicializarCurvasBarridoBezierBezier(){
+	//Curva borde
+	vec3 bordeP1 = vec3(3.0, 0.0, 0.0); 
+	vec3 bordeP2 = vec3(0.0, -3.0, 0.0);
+	vec3 bordeP3 = vec3(-3.0, 0.0, 0.0);
+	vec3 bordeP4 = vec3(0.0, 3.0, 0.0);
+	bezierBarridoBorde3 = new Bezier(1);
+	bezierBarridoBorde3->incluirPunto(bordeP1);
+	bezierBarridoBorde3->incluirPunto(bordeP2);
+	bezierBarridoBorde3->incluirPunto(bordeP3);
+	bezierBarridoBorde3->incluirPunto(bordeP4);
+	//Curva camino
+	vec3 caminoP1 = vec3(0.0, 0.0, 0.0);
+	vec3 caminoP2 = vec3(0.0, 0.0, 4.0);
+	vec3 caminoP3 = vec3(0.0, 4.0, 4.0);
+	vec3 caminoP4 = vec3(0.0, 8.0, 4.0);
+	vec3 caminoP5 = vec3(0.0, 8.0, 8.0);
+	bezierBarridoCamino3 = new Bezier(2);
+	bezierBarridoCamino3->incluirPunto(caminoP1);
+	bezierBarridoCamino3->incluirPunto(caminoP2);
+	bezierBarridoCamino3->incluirPunto(caminoP3);
+	bezierBarridoCamino3->incluirPunto(caminoP4);
+	bezierBarridoCamino3->incluirPunto(caminoP5);
+}
+void inicializarCurvasBarridoBezierBSpline(){
+	//Curva borde
+	vec3 bordeP1 = vec3(3.0, 0.0, 0.0); 
+	vec3 bordeP2 = vec3(4.0, -3.0, 3.0);
+	vec3 bordeP3 = vec3(2.0, -1.0, 5.0);
+	vec3 bordeP4 = vec3(1.0, 3.0, 7.0);
+	bezierBarridoBorde4 = new Bezier(1);
+	bezierBarridoBorde4->incluirPunto(bordeP1);
+	bezierBarridoBorde4->incluirPunto(bordeP2);
+	bezierBarridoBorde4->incluirPunto(bordeP3);
+	bezierBarridoBorde4->incluirPunto(bordeP4);
+	//Curva camino
+	vec3 caminoP1 = vec3(0.0, 0.0, 0.0);
+	vec3 caminoP2 = vec3(5.0, 5.0, 5.0);
+	vec3 caminoP3 = vec3(0.0, 0.0, 4.0);
+	vec3 caminoP4 = vec3(0.0, 0.0, 10.0);
+	vec3 caminoP5 = vec3(12.0, 12.0, 12.0);
+	bsplineBarridoCamino4 = new BSpline(4);
+	bsplineBarridoCamino4->incluirPunto(caminoP1);
+	bsplineBarridoCamino4->incluirPunto(caminoP2);
+	bsplineBarridoCamino4->incluirPunto(caminoP3);
+	bsplineBarridoCamino4->incluirPunto(caminoP4);
+	bsplineBarridoCamino4->incluirPunto(caminoP5);
+}
+void inicializarCurvas(){
+	inicializarBSplineRevol();
+	inicializarBezierRevol();
+	inicializarCurvasBarridoBSplineBSpline();
+	inicializarCurvasBarridoBSplineBezier();
+	inicializarCurvasBarridoBezierBezier();
+	inicializarCurvasBarridoBezierBSpline();
+}
 
 void init(void) 
 {
@@ -214,21 +347,7 @@ void init(void)
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
 	
-	//Inicializando las curvas
-	bezierPrueba = new Bezier(1);
-	bsplinePrueba = new BSpline(5);
-	
-	bezierPrueba->incluirPunto(bezierP1);
-	bezierPrueba->incluirPunto(bezierP2);
-	bezierPrueba->incluirPunto(bezierP3);
-	bezierPrueba->incluirPunto(bezierP4);
-		
-	bsplinePrueba->incluirPunto(bsplineP1);
-	bsplinePrueba->incluirPunto(bsplineP2);
-	bsplinePrueba->incluirPunto(bsplineP3);
-	bsplinePrueba->incluirPunto(bsplineP4);
-	bsplinePrueba->incluirPunto(bsplineP5);
-
+	inicializarCurvas();
 
 	// Generación de las Display Lists
 	glNewList(DL_AXIS, GL_COMPILE);
@@ -240,19 +359,57 @@ void init(void)
 	glNewList(DL_AXIS2D_TOP, GL_COMPILE);
 		DrawAxis2DTopView();
 	glEndList();
- 	glNewList(DL_BEZIER, GL_COMPILE);
-		delineador->delinear(bezierPrueba, 30);
+
+	//Curvas de las superficies de revolución
+	glNewList(DL_BSPLINE_REVOL, GL_COMPILE);
+		delineador->delinear(bsplineRevol, 30);
 	glEndList();
-	glNewList(DL_PUNTOS_BEZIER, GL_COMPILE);
-		dibujarPuntosDeControl(bezierPrueba);
+	glNewList(DL_PUNTOS_BSPLINE_REVOL, GL_COMPILE);
+		dibujarPuntosDeControl(bsplineRevol);
 	glEndList();
-	glNewList(DL_BSPLINE, GL_COMPILE);
-		delineador->delinear(bsplinePrueba, 30);
+ 	glNewList(DL_BEZIER_REVOL, GL_COMPILE);
+		delineador->delinear(bezierRevol, 30);
 	glEndList();
-	glNewList(DL_PUNTOS_BSPLINE, GL_COMPILE);
-		dibujarPuntosDeControl(bsplinePrueba);
+	glNewList(DL_PUNTOS_BEZIER_REVOL, GL_COMPILE);
+		dibujarPuntosDeControl(bezierRevol);
+	glEndList();
+	
+	//Curvas de las superficies de barrido
+	glNewList(DL_CURVAS_BARRIDO_BSPLINE_BSPLINE, GL_COMPILE);
+		delineador->delinear(bsplineBarridoBorde1, 30);
+		delineador->delinear(bsplineBarridoCamino1, 30);
+	glEndList();
+	glNewList(DL_PUNTOS_CURVAS_BARRIDO_BSPLINE_BSPLINE, GL_COMPILE);
+		dibujarPuntosDeControl(bsplineBarridoBorde1);
+		dibujarPuntosDeControl(bsplineBarridoCamino1);
 	glEndList();
 
+	glNewList(DL_CURVAS_BARRIDO_BSPLINE_BEZIER, GL_COMPILE);
+		delineador->delinear(bsplineBarridoBorde2, 30);
+		delineador->delinear(bezierBarridoCamino2, 30);
+	glEndList();
+	glNewList(DL_PUNTOS_CURVAS_BARRIDO_BSPLINE_BEZIER, GL_COMPILE);
+		dibujarPuntosDeControl(bsplineBarridoBorde2);
+		dibujarPuntosDeControl(bezierBarridoCamino2);
+	glEndList();
+
+	glNewList(DL_CURVAS_BARRIDO_BEZIER_BEZIER, GL_COMPILE);
+		delineador->delinear(bezierBarridoBorde3, 30);
+		delineador->delinear(bezierBarridoCamino3, 30);
+	glEndList();
+	glNewList(DL_PUNTOS_CURVAS_BARRIDO_BEZIER_BEZIER, GL_COMPILE);
+		dibujarPuntosDeControl(bezierBarridoBorde3);
+		dibujarPuntosDeControl(bezierBarridoCamino3);
+	glEndList();
+
+	glNewList(DL_CURVAS_BARRIDO_BEZIER_BSPLINE, GL_COMPILE);
+		delineador->delinear(bezierBarridoBorde4, 30);
+		delineador->delinear(bsplineBarridoCamino4, 30);
+	glEndList();
+	glNewList(DL_PUNTOS_CURVAS_BARRIDO_BEZIER_BSPLINE, GL_COMPILE);
+		dibujarPuntosDeControl(bezierBarridoBorde4);
+		dibujarPuntosDeControl(bsplineBarridoCamino4);
+	glEndList();
 }
 
 
@@ -279,16 +436,11 @@ void display(void)
 	//
 	// Draw here
 	//
-	if (verBezier){
-		glCallList(DL_BEZIER);
-		if (verPuntos)
-			glCallList(DL_PUNTOS_BEZIER);
-	}		
-	if (verSpline){
-		glCallList(DL_BSPLINE);
-		if (verPuntos)
-			glCallList(DL_PUNTOS_BSPLINE);
-	}
+	if (verCurvas)
+		glCallList(DL_CURVA_SELECCIONADA);
+	if (verPuntos)
+		glCallList(DL_CURVA_SELECCIONADA+1);
+	
 	
 
 	//
@@ -342,14 +494,10 @@ void keyboard (unsigned char key, int x, int y)
 		  glutPostRedisplay();
 		  break;
 
-	  case 's':
-		  verSpline = true;
-		  verBezier = false; break;
-	  case 'b':
-		  verBezier = true;
-		  verSpline = false; break;
 	  case 'p':
 		  verPuntos = !verPuntos; break;
+	  case 'o':
+		  verCurvas = !verCurvas; break;
 
 	  case '2':
 		  eye[0] = 0.0;
@@ -380,6 +528,18 @@ void keyboard (unsigned char key, int x, int y)
 		  up[2] = 1.0;
 		  glutPostRedisplay();
 		  break;
+	  case '4':
+		  DL_CURVA_SELECCIONADA = DL_BSPLINE_REVOL; break;
+	  case '5':
+		  DL_CURVA_SELECCIONADA = DL_BEZIER_REVOL; break;
+  	  case '6':
+		  DL_CURVA_SELECCIONADA = DL_CURVAS_BARRIDO_BSPLINE_BSPLINE; break;
+  	  case '7':
+		  DL_CURVA_SELECCIONADA = DL_CURVAS_BARRIDO_BSPLINE_BEZIER; break;
+  	  case '8':
+		  DL_CURVA_SELECCIONADA = DL_CURVAS_BARRIDO_BEZIER_BEZIER; break;
+  	  case '9':
+		  DL_CURVA_SELECCIONADA = DL_CURVAS_BARRIDO_BEZIER_BSPLINE; break;
      default:
          break;
    }

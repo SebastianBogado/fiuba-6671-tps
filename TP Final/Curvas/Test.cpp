@@ -44,7 +44,7 @@ bool Test::comparar(float esperado,float recivido){
 
     if (!esIgual){
 
-        cout<<"Se esperaba el valor: "<<esperado<<" y se recivio: "<<recivido<<endl;
+        cout<<"Se esperaba el valor: "<<esperado<<" y se recibio: "<<recivido<<endl;
     }
 
         registrarError(esIgual);
@@ -52,18 +52,18 @@ bool Test::comparar(float esperado,float recivido){
     return esIgual;
 }
 
-bool Test::comparar(vec3 esperado,vec3 recivido){
+bool Test::comparar(vec3 esperado,vec3 recibido){
 
     bool esIgual;
 
-    esIgual =   esperado.x == recivido.x &&
-                    esperado.y == recivido.y &&
-                    esperado.z == recivido.z ;
+    esIgual =   esperado.x == recibido.x &&
+                    esperado.y == recibido.y &&
+                    esperado.z == recibido.z ;
 
     if(!esIgual){
 
         cout<<"Se esperaba : ("<<esperado.x<<"; "<<esperado.y<<"; "<<esperado.z<<") ";
-        cout<<" y se recivio : ("<<recivido.x<<"; "<<recivido.y<<"; "<<recivido.z<<")"<<endl;
+        cout<<" y se recivio : ("<<recibido.x<<"; "<<recibido.y<<"; "<<recibido.z<<")"<<endl;
 
     }
 
@@ -86,10 +86,10 @@ void Test::inicializarVector(float x,float y,float z,float *vector){
 
 }
 
-bool Test::comparar(float* esperado,float * recivido){
+bool Test::comparar(float* esperado,float * recibido){
 
         vec3 esp(esperado[0],esperado[1],esperado[2]);
-        vec3 rec(recivido[0],recivido[1],recivido[2]);
+        vec3 rec(recibido[0],recibido[1],recibido[2]);
 
         return this->comparar(esp,rec);
 }

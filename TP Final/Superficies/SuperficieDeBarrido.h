@@ -8,5 +8,6 @@ public:
 	void discretizar(int discretizacionBorde, int discretizacionAvance);
 private:
 	Curva* curvaCamino;
+	mat4 calcularRealineacion(int k, float pasoCamino);
 };
 
