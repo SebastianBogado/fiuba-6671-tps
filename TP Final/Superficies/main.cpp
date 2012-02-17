@@ -32,14 +32,22 @@ bool verNormales = true;
 //Superficies, como variables globales
 Superficie* superficieSeleccionada;
 SuperficieDeRevolucion* pruebaRevolucionConBSpline;
+SuperficieDeRevolucion* pruebaRevolucionConBezier;
 
 // Handle para el control de las Display Lists
 GLuint dl_handle;
 #define DL_AXIS (dl_handle+0)
 #define DL_GRID (dl_handle+1)
 #define DL_AXIS2D_TOP (dl_handle+2)
-#define DL_VER_SUPERFICIE (dl_handle+3)
-#define DL_VER_NORMALES (dl_handle+4)
+#define DL_VER_SUPERFICIE_REVOL_BSPLINE (dl_handle+3)
+#define DL_VER_NORMALES_REVOL_BSPLINE (dl_handle+4)
+#define DL_VER_SUPERFICIE_REVOL_BEZIER (dl_handle+5)
+#define DL_VER_NORMALES_REVOL_BEZIER (dl_handle+6)
+#define DL_VER_SUPERFICIE_BARRIDO_BSPLINE (dl_handle+7)
+#define DL_VER_NORMALES_BARRIDO_BSPLINE (dl_handle+8)
+#define DL_VER_SUPERFICIE_BARRIDO_BEZIER (dl_handle+9)
+#define DL_VER_NORMALES_BARRIDO_BEZIER (dl_handle+10)
+GLuint DL_SUP_SELECCIONADA;
 
 // Tamaño de la ventana
 GLfloat window_size[2];
@@ -175,8 +183,7 @@ void SetPanelTopEnv()
     glLoadIdentity ();
 	gluOrtho2D(-0.10, 1.05, -0.10, 1.05);
 }
-
-void inicializarSuperficies(){
+void inicializarSupRevolucionConBSpline(){
 	vec3 bsplineP1 = vec3(3.0, 0.0, 0.0); 
 	vec3 bsplineP2 = vec3(3.0, 0.0, 3.0);
 	vec3 bsplineP3 = vec3(1.0, 0.0, 4.0);
@@ -190,7 +197,32 @@ void inicializarSuperficies(){
 	bsplinePrueba->incluirPunto(bsplineP5);
 	pruebaRevolucionConBSpline = new SuperficieDeRevolucion(bsplinePrueba, 180);
 	pruebaRevolucionConBSpline->discretizar(30, 36);
-	superficieSeleccionada = pruebaRevolucionConBSpline;
+	DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_REVOL_BSPLINE;
+}
+void inicializarSupRevolucionConBezier(){
+	vec3 bezierP1 = vec3(3.0, 0.0, 0.0); 
+	vec3 bezierP2 = vec3(3.0, 0.0, 3.0);
+	vec3 bezierP3 = vec3(1.0, 0.0, 2.0);
+	vec3 bezierP4 = vec3(4.0, 0.0, 3.0);
+	Bezier* bezierPrueba = new Bezier(1);
+	bezierPrueba->incluirPunto(bezierP1);
+	bezierPrueba->incluirPunto(bezierP2);
+	bezierPrueba->incluirPunto(bezierP3);
+	bezierPrueba->incluirPunto(bezierP4);
+	pruebaRevolucionConBezier = new SuperficieDeRevolucion(bezierPrueba, 70);
+	pruebaRevolucionConBezier->discretizar(30, 36);
+}
+void inicializarSupBarridoConBSpline(){
+
+}
+void inicializarSupBarridoConBezier(){
+
+}
+void inicializarSuperficies(){
+	inicializarSupRevolucionConBSpline();
+	inicializarSupRevolucionConBezier();
+	inicializarSupBarridoConBSpline();
+	inicializarSupBarridoConBezier();
 }
 
 void init(void) 
@@ -218,11 +250,17 @@ void init(void)
 	glNewList(DL_AXIS2D_TOP, GL_COMPILE);
 		DrawAxis2DTopView();
 	glEndList();
-	glNewList(DL_VER_SUPERFICIE, GL_COMPILE);
-		Emparchador::emparchar(superficieSeleccionada);
+	glNewList(DL_VER_SUPERFICIE_REVOL_BSPLINE, GL_COMPILE);
+		Emparchador::emparchar(pruebaRevolucionConBSpline);
 	glEndList();
-	glNewList(DL_VER_NORMALES, GL_COMPILE);
-		Emparchador::verNormales(superficieSeleccionada);
+	glNewList(DL_VER_NORMALES_REVOL_BSPLINE, GL_COMPILE);
+		Emparchador::verNormales(pruebaRevolucionConBSpline);
+	glEndList();
+	glNewList(DL_VER_SUPERFICIE_REVOL_BEZIER, GL_COMPILE);
+		Emparchador::emparchar(pruebaRevolucionConBezier);
+	glEndList();
+	glNewList(DL_VER_NORMALES_REVOL_BEZIER, GL_COMPILE);
+		Emparchador::verNormales(pruebaRevolucionConBezier);
 	glEndList();
 
 }
@@ -253,9 +291,9 @@ void display(void)
 	//
 
 	if (verSuperficie)
-		glCallList(DL_VER_SUPERFICIE);
+		glCallList(DL_SUP_SELECCIONADA);
 	if (verNormales)
-		glCallList(DL_VER_NORMALES);
+		glCallList(DL_SUP_SELECCIONADA+1);
 
 
 	//
@@ -341,6 +379,10 @@ void keyboard (unsigned char key, int x, int y)
 		  up[2] = 1.0;
 		  glutPostRedisplay();
 		  break;
+	  case '4':
+		  DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_REVOL_BSPLINE; break;
+	  case '5':
+		  DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_REVOL_BEZIER; break;
      default:
          break;
    }
