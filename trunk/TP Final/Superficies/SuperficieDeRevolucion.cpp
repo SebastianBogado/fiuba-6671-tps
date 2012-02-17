@@ -52,5 +52,5 @@ bool SuperficieDeRevolucion::invertirEjeDeRotacionParaLaNormal(vec3 v, vec3 tg){
 	
 	return invertir;
 	*/
-	return (tg.x < 0);
+	return (tg.x < 0);//Solución temporal. Sirve para el caso en que el eje de rotación es el z, y la curva es plana, contenida en el y=0
 }
