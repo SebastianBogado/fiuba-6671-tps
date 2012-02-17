@@ -8,7 +8,7 @@ using namespace std;
 void Emparchador::emparchar(Superficie* superficie){
     vec3 punto;
     vec3 normal;
-	int I_MAX = superficie->cantidadDePuntosEnAlto();
+	int I_MAX = superficie->cantidadDePuntosEnAlto() - 1;
 	int J_MAX = superficie->cantidadDePuntosBorde();
 
     glEnable(GL_DEPTH_TEST);

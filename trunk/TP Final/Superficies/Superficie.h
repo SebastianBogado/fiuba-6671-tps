@@ -5,6 +5,7 @@
 
 #include "..\Curvas\Curva.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/vector_angle.hpp>
 #include "SuperficieDiscretizada.h"
 #include <iostream>
 using namespace std;

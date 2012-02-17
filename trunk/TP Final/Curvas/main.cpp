@@ -28,7 +28,7 @@ vec3 bsplineP1 = vec3(3.0, 0.0, 0.0);
 vec3 bsplineP2 = vec3(3.0, 0.0, 3.0);
 vec3 bsplineP3 = vec3(1.0, 0.0, 4.0);
 vec3 bsplineP4 = vec3(4.0, 0.0, 5.0);
-vec3 bsplineP5 = vec3(4.0, 0.0, 6.0);
+vec3 bsplineP5 = vec3(2.0, 0.0, 6.0);
 
 /*vec3 bsplineP1 = vec3(3.0, 0.0, 0.0); 
 vec3 bsplineP2 = vec3(3.0, 0.0, 3.0);
