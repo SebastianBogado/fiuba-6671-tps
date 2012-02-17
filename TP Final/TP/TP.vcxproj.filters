@@ -16,6 +16,12 @@
     <Filter Include="lib">
       <UniqueIdentifier>{0c7754a4-24f9-4e8a-8671-208a7845daeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\Modelo">
+      <UniqueIdentifier>{926f1ac1-779e-4d36-a3a6-1c154077ac45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Modelo">
+      <UniqueIdentifier>{9bcc00d4-4753-4d9d-8594-63804565c013}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\freeglut.lib">
@@ -39,7 +45,7 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="ObjetoGrafico.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Archivos de código fuente\Modelo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,7 +53,7 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="ObjetoGrafico.h">
-      <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado\Modelo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

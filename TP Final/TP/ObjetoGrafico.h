@@ -14,6 +14,8 @@ public:
 
 	virtual void graficar()=0;
 
+	void posicionar(float *nuevaPosicion);
+
 
 protected:
 
