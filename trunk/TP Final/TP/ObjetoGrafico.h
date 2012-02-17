@@ -36,6 +36,8 @@ protected:
 		... y mas cosas que faltan definir (como texturas, etc)
 	*/
 
+	void inicializarVector(float *vector,float x,float y, float z);
+
 	//////////////////////
 	//Atributos de Clase//
 	//////////////////////
