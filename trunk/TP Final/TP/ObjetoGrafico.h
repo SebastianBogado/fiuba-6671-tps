@@ -1,6 +1,9 @@
 #pragma once
 
 #include <GL\freeglut.h>
+#include <iostream>
+
+using namespace std;
 
 class ObjetoGrafico
 {
@@ -14,6 +17,10 @@ public:
 
 	virtual void graficar()=0;
 
+
+	/*
+		Define la posicion de donde se graficara el Objeto
+	*/
 	void posicionar(float *nuevaPosicion);
 
 
@@ -29,10 +36,13 @@ protected:
 		... y mas cosas que faltan definir (como texturas, etc)
 	*/
 
-
-	//Variables
+	//////////////////////
+	//Atributos de Clase//
+	//////////////////////
 
 	float *posicionObjeto;
+	string rutaTextura;
+	string rutaShaderDeVertices,rutaShaderDeFragmentos;
 
 
 	~ObjetoGrafico(void);
