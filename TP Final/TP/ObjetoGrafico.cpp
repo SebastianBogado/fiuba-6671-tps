@@ -8,11 +8,17 @@ ObjetoGrafico::ObjetoGrafico(void)
 
 void ObjetoGrafico::posicionar(float *nuevaPosicion){
 
-	if (this->posicionObjeto != NULL){
-		posicionObjeto[0] = nuevaPosicion[0];
-		posicionObjeto[1] = nuevaPosicion[1];
-		posicionObjeto[2] = nuevaPosicion[2];		
-	}
+	if (this->posicionObjeto != NULL)
+		this->posicionar(nuevaPosicion[0],nuevaPosicion[1],nuevaPosicion[2]);	
+	
+}
+
+void ObjetoGrafico::posicionar(const float& x,const float& y,const float& z){
+
+		posicionObjeto[0] = x;
+		posicionObjeto[1] = y;
+		posicionObjeto[2] = z;
+	
 }
 
 

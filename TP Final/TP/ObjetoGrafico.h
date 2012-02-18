@@ -23,6 +23,8 @@ public:
 	*/
 	void posicionar(float *nuevaPosicion);
 
+	void posicionar(const float& x,const float& y,const float& z);
+
 
 	virtual ~ObjetoGrafico(void);
 
