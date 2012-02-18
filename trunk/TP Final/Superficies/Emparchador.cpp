@@ -53,9 +53,9 @@ void Emparchador::verNormales(Superficie* superficie){
 			    glVertex3fv(&punto[0]);
 				glVertex3f(punto[0]+0.3*normal[0],punto[1]+0.3*normal[1],punto[2]+0.3*normal[2]);
 			glEnd();    
-
 		}
 	}
+	glLineWidth(1.0);
 }
 
 void Emparchador::emparcharTapas(Superficie* superficie){/**
