@@ -115,6 +115,8 @@ void MaquinaDeBotellas::detenerShader(){
 
 }
 
+void MaquinaDeBotellas::actualizarAtributos(){ }
+
 MaquinaDeBotellas::~MaquinaDeBotellas(void)
 {
 

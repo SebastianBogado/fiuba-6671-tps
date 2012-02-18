@@ -8,6 +8,8 @@ public:
 
 	void graficar();
 
+	void actualizarAtributos();
+
 private:
 
 	void aplicarShader();

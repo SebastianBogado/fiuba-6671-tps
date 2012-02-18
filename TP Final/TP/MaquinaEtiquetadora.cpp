@@ -11,14 +11,12 @@ void MaquinaEtiquetadora::graficar(){
 
 }
 
-void MaquinaEtiquetadora::aplicarShader(){
 
+void MaquinaEtiquetadora::actualizarAtributos(){ }
 
-}
+void MaquinaEtiquetadora::aplicarShader(){ }
 
-void MaquinaEtiquetadora::detenerShader(){
-
-}
+void MaquinaEtiquetadora::detenerShader(){ }
 
 MaquinaEtiquetadora::~MaquinaEtiquetadora(void)
 {

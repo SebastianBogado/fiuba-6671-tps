@@ -12,11 +12,17 @@ public:
 
 
 	/*
-		Funcion que dibuja al objeto en la escena
+		Metodo que dibuja al objeto en la escena
 	*/
 
 	virtual void graficar()=0;
 
+
+	/*
+		Metodo que actualiza el estado del objeto para el proxima vez que sea dibujado
+	*/
+
+	virtual void actualizarAtributos()=0;
 
 	/*
 		Define la posicion de donde se graficara el Objeto
