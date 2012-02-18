@@ -1,27 +1,24 @@
-#include "MaquinaDeBotellas.h"
+#include "CuartoDeMaquinas.h"
 
 
-MaquinaDeBotellas::MaquinaDeBotellas(void)
+CuartoDeMaquinas::CuartoDeMaquinas(void)
 {
+
 	this->posicionObjeto = new float[3];
 
 	posicionObjeto[0] = 1.0;
 	posicionObjeto[1] = 1.0;
 	posicionObjeto[2] = 0.0;
 
-	this->ancho = 1.0;
-	this->largo = 2.0;
-	this->alto = 3.0;
+	this->ancho = 10.0;
+	this->largo = 15.0;
+	this->alto = 6.0;
 
 	this->inicializarVertices();
 
 }
 
-
-
-
-void MaquinaDeBotellas::graficar(){
-
+void CuartoDeMaquinas::graficar(){
 
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
@@ -61,30 +58,24 @@ void MaquinaDeBotellas::graficar(){
 			glVertex3fv(vertices[4]);
 			glVertex3fv(vertices[5]);
 
-			//6ta tapa la del piso, no parece necesaria
+			//6ta tapa la del piso, que resultaria el piso
+			glVertex3fv(vertices[0]);
+			glVertex3fv(vertices[1]);
+			glVertex3fv(vertices[2]);
+			glVertex3fv(vertices[3]);
 
 		glEnd();
 	glPopMatrix();
 
 }
 
-void MaquinaDeBotellas::aplicarShader(){
+void CuartoDeMaquinas::actualizarAtributos(){ }
 
+void CuartoDeMaquinas::aplicarShader(){ }
 
-}
+void CuartoDeMaquinas::detenerShader(){ }
 
-void MaquinaDeBotellas::detenerShader(){
-
-
-
-}
-
-void MaquinaDeBotellas::actualizarAtributos(){ }
-
-MaquinaDeBotellas::~MaquinaDeBotellas(void)
+CuartoDeMaquinas::~CuartoDeMaquinas(void)
 {
-
 	delete[] this->posicionObjeto;
-
-
 }

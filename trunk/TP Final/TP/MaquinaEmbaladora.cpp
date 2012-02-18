@@ -1,27 +1,25 @@
-#include "MaquinaDeBotellas.h"
+#include "MaquinaEmbaladora.h"
 
 
-MaquinaDeBotellas::MaquinaDeBotellas(void)
+MaquinaEmbaladora::MaquinaEmbaladora(void)
 {
+
 	this->posicionObjeto = new float[3];
 
 	posicionObjeto[0] = 1.0;
-	posicionObjeto[1] = 1.0;
+	posicionObjeto[1] = 6.0;
 	posicionObjeto[2] = 0.0;
 
-	this->ancho = 1.0;
+	this->ancho = 2.0;
 	this->largo = 2.0;
 	this->alto = 3.0;
 
 	this->inicializarVertices();
-
 }
 
 
 
-
-void MaquinaDeBotellas::graficar(){
-
+void MaquinaEmbaladora::graficar(){
 
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
@@ -68,23 +66,16 @@ void MaquinaDeBotellas::graficar(){
 
 }
 
-void MaquinaDeBotellas::aplicarShader(){
+void MaquinaEmbaladora::actualizarAtributos(){ }
 
-
-}
-
-void MaquinaDeBotellas::detenerShader(){
-
-
+void MaquinaEmbaladora::aplicarShader(){
 
 }
 
-void MaquinaDeBotellas::actualizarAtributos(){ }
+void MaquinaEmbaladora::detenerShader(){
+}
 
-MaquinaDeBotellas::~MaquinaDeBotellas(void)
+MaquinaEmbaladora::~MaquinaEmbaladora(void)
 {
-
 	delete[] this->posicionObjeto;
-
-
 }
