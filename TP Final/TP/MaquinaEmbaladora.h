@@ -1,21 +1,19 @@
 #pragma once
 #include "ObjetoGraficoCubico.h"
-class MaquinaDeBotellas :
+class MaquinaEmbaladora :
 	public ObjetoGraficoCubico
 {
 public:
-	MaquinaDeBotellas(void);
+	MaquinaEmbaladora(void);
 
 	void graficar();
-
 	void actualizarAtributos();
 
-	virtual ~MaquinaDeBotellas(void);
+	~MaquinaEmbaladora(void);
 
-protected:
-
+private:
 	void aplicarShader();
 	void detenerShader();
-	
+
 };
 
