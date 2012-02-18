@@ -17,6 +17,16 @@ MaquinaDeBotellas::MaquinaDeBotellas(void)
 
 }
 
+void MaquinaDeBotellas::definirParametros(float ancho,float largo,float alto){
+
+	this->ancho = ancho;
+	this->largo = largo;
+	this->alto = alto;
+
+	this->actualizarVertices();
+
+}
+
 void MaquinaDeBotellas::inicializarVertices(){
 
 	this->cantidadVertices = 8;
@@ -25,6 +35,13 @@ void MaquinaDeBotellas::inicializarVertices(){
 
 	for (int i=0; i < cantidadVertices ; i++)
 		this->vertices[i] = new float[3]; 
+
+	
+	this->actualizarVertices();
+
+}
+
+void MaquinaDeBotellas::actualizarVertices(){
 
 	this->inicializarVector(vertices[0],0.0,0.0,0.0);
 	this->inicializarVector(vertices[1],largo,0.0,0.0);
@@ -35,9 +52,9 @@ void MaquinaDeBotellas::inicializarVertices(){
 	this->inicializarVector(vertices[5],largo,0.0,alto);
 	this->inicializarVector(vertices[6],largo,ancho,alto);
 	this->inicializarVector(vertices[7],0.0,ancho,alto);
-
-
 }
+
+
 
 void MaquinaDeBotellas::graficar(){
 
@@ -50,6 +67,36 @@ void MaquinaDeBotellas::graficar(){
 		glBegin(GL_QUADS);
 			
 			//Se dibuja la MAquina
+			glVertex3fv(vertices[1]);
+			glVertex3fv(vertices[2]);
+			glVertex3fv(vertices[6]);
+			glVertex3fv(vertices[5]);
+
+
+			glVertex3fv(vertices[2]);
+			glVertex3fv(vertices[3]);
+			glVertex3fv(vertices[7]);
+			glVertex3fv(vertices[6]);
+
+
+			glVertex3fv(vertices[3]);
+			glVertex3fv(vertices[6]);
+			glVertex3fv(vertices[4]);
+			glVertex3fv(vertices[7]);
+
+			//4ta tapa
+			glVertex3fv(vertices[0]);
+			glVertex3fv(vertices[4]);
+			glVertex3fv(vertices[5]);
+			glVertex3fv(vertices[1]);
+
+			//5ta tapa
+
+			glVertex3fv(vertices[6]);
+			glVertex3fv(vertices[7]);
+			glVertex3fv(vertices[4]);
+			glVertex3fv(vertices[5]);
+
 			
 
 		glEnd();

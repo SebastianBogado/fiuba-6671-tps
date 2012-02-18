@@ -3,6 +3,7 @@
 #include "..\Camara\Camara.h"
 
 #include <GL\freeglut.h>
+#include "EscenaGrafica.h"
 
 class Control{
 public:
@@ -24,6 +25,7 @@ public:
 	
 private:
 	static Camara* camara;
+	static EscenaGrafica* escena;
 	
 	bool debug;
 };

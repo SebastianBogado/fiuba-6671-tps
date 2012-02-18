@@ -7,6 +7,8 @@ float Control::upPorDefecto[3] = { 0.0,  0.0, 1.0};
 
 Camara* Control::camara = new Camara(&atPorDefecto[0], &posicionPorDefecto[0], &upPorDefecto[0]);
 
+EscenaGrafica* Control::escena = new EscenaGrafica();
+
 Control::Control(bool debug){
 	this->debug = debug;
 }
@@ -52,6 +54,6 @@ void Control::actualizarDatos(){
 
 void Control::dibujarEscena(){
 
-
+	escena->graficar();
 
 }

@@ -8,16 +8,19 @@ public:
 
 	void graficar();
 
+	void definirParametros(float ancho,float largo,float alto);
+
 protected:
 
 	void aplicarShader();
 	void detenerShader();
 
 	void inicializarVertices();
+	void actualizarVertices();
 
 	float **vertices;
 	float ancho,largo,alto;
 	int cantidadVertices;
-	~MaquinaDeBotellas(void);
+	virtual ~MaquinaDeBotellas(void);
 };
 
