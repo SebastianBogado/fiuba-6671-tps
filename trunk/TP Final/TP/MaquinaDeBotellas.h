@@ -8,6 +8,8 @@ public:
 
 	void graficar();
 
+	void actualizarAtributos();
+
 	void definirParametros(float ancho,float largo,float alto);
 
 protected:
