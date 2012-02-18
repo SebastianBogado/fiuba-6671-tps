@@ -24,6 +24,8 @@ public:
 	void posicionar(float *nuevaPosicion);
 
 
+	virtual ~ObjetoGrafico(void);
+
 protected:
 
 	/*
@@ -45,8 +47,6 @@ protected:
 	float *posicionObjeto;
 	string rutaTextura;
 	string rutaShaderDeVertices,rutaShaderDeFragmentos;
-
-
-	~ObjetoGrafico(void);
+	
 };
 

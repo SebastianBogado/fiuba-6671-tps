@@ -20,6 +20,12 @@
 #endif
 
 #include "Control.h"
+///////////////////////////////////////////////
+//////Control del todo la Escena del TP////////
+///////////////////////////////////////////////
+Control* control;							///
+//////////////////////////////////////////////
+//////////////////////////////////////////////
 
 // Variables asociadas a única fuente de luz de la escena
 float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -106,6 +112,8 @@ void init(void)
 	glNewList(DL_GRID, GL_COMPILE);
 		DrawXYGrid();
 	glEndList();
+
+	control = new Control(debug);
 }
 
 
@@ -151,7 +159,7 @@ int main(int argc, char** argv){
 	else
 		glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
 	    
-	Control* control = new Control(debug);
+	
 
 	init();
 	glutDisplayFunc(escena); 
