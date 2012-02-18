@@ -252,10 +252,10 @@ void inicializarSupBarridoConBSplineBSpline(){
 	borde->incluirPunto(bordeP4);
 	borde->incluirPunto(bordeP5);
 	//Curva camino
-	vec3 caminoP1 = vec3(2.0, 0.0, 6.0);
-	vec3 caminoP2 = vec3(3.0, 3.0, 6.0);
-	vec3 caminoP3 = vec3(3.0, 4.0, 4.0);
-	vec3 caminoP4 = vec3(4.0, 6.0, 5.0);
+	vec3 caminoP1 = vec3(2.0, -3.0, 3.0);
+	vec3 caminoP2 = vec3(3.0, 3.0, 3.0);
+	vec3 caminoP3 = vec3(1.0, 4.0, 3.0);
+	vec3 caminoP4 = vec3(4.0, 6.0, 2.0);
 	BSpline* camino = new BSpline(4);
 	camino->incluirPunto(caminoP1);
 	camino->incluirPunto(caminoP2);
@@ -265,13 +265,78 @@ void inicializarSupBarridoConBSplineBSpline(){
 	pruebaBarridoConBSplineBSpline->discretizar(30, 30);
 }
 void inicializarSupBarridoConBSplineBezier(){
-
+		//Curva borde
+	vec3 bordeP1 = vec3(0.0, 0.0, 0.0); 
+	vec3 bordeP2 = vec3(5.0, 0.0, 5.0);
+	vec3 bordeP3 = vec3(0.0, 0.0, 8.0);
+	BSpline* borde = new BSpline(5);
+	borde->incluirPunto(bordeP1);
+	borde->incluirPunto(bordeP2);
+	borde->incluirPunto(bordeP3);
+	//Curva camino
+	vec3 caminoP1 = vec3(0.0, 0.0, 5.0);
+	vec3 caminoP2 = vec3(0.0, 3.0, 6.0);
+	vec3 caminoP3 = vec3(0.0, 6.0, 3.0);
+	vec3 caminoP4 = vec3(4.0, 6.0, 3.0);
+	Bezier* camino = new Bezier(1);
+	camino->incluirPunto(caminoP1);
+	camino->incluirPunto(caminoP2);
+	camino->incluirPunto(caminoP3);
+	camino->incluirPunto(caminoP4);
+	pruebaBarridoConBSplineBezier= new SuperficieDeBarrido(borde, camino);
+	pruebaBarridoConBSplineBezier->discretizar(30, 30);
 }
 void inicializarSupBarridoConBezierBezier(){
-
+	//Curva borde
+	vec3 bordeP1 = vec3(3.0, 0.0, 0.0); 
+	vec3 bordeP2 = vec3(0.0, -3.0, 0.0);
+	vec3 bordeP3 = vec3(-3.0, 0.0, 0.0);
+	vec3 bordeP4 = vec3(0.0, 3.0, 0.0);
+	Bezier* borde = new Bezier(1);
+	borde->incluirPunto(bordeP1);
+	borde->incluirPunto(bordeP2);
+	borde->incluirPunto(bordeP3);
+	borde->incluirPunto(bordeP4);
+	//Curva camino
+	vec3 caminoP1 = vec3(0.0, 0.0, 0.0);
+	vec3 caminoP2 = vec3(0.0, 0.0, 4.0);
+	vec3 caminoP3 = vec3(0.0, 4.0, 4.0);
+	vec3 caminoP4 = vec3(0.0, 8.0, 4.0);
+	vec3 caminoP5 = vec3(0.0, 8.0, 8.0);
+	Bezier* camino = new Bezier(2);
+	camino->incluirPunto(caminoP1);
+	camino->incluirPunto(caminoP2);
+	camino->incluirPunto(caminoP3);
+	camino->incluirPunto(caminoP4);
+	camino->incluirPunto(caminoP5);
+	pruebaBarridoConBezierBezier = new SuperficieDeBarrido(borde, camino);
+	pruebaBarridoConBezierBezier->discretizar(30, 30);
 }
 void inicializarSupBarridoConBezierBSpline(){
-
+	//Curva borde
+	vec3 bordeP1 = vec3(3.0, 0.0, 0.0); 
+	vec3 bordeP2 = vec3(4.0, -3.0, 3.0);
+	vec3 bordeP3 = vec3(2.0, -1.0, 5.0);
+	vec3 bordeP4 = vec3(1.0, 3.0, 7.0);
+	Bezier* borde = new Bezier(1);
+	borde->incluirPunto(bordeP1);
+	borde->incluirPunto(bordeP2);
+	borde->incluirPunto(bordeP3);
+	borde->incluirPunto(bordeP4);
+	//Curva camino
+	vec3 caminoP1 = vec3(0.0, 0.0, 0.0);
+	vec3 caminoP2 = vec3(5.0, 5.0, 5.0);
+	vec3 caminoP3 = vec3(0.0, 0.0, 4.0);
+	vec3 caminoP4 = vec3(0.0, 0.0, 10.0);
+	vec3 caminoP5 = vec3(12.0, 12.0, 12.0);
+	BSpline* camino = new BSpline(5);
+	camino->incluirPunto(caminoP1);
+	camino->incluirPunto(caminoP2);
+	camino->incluirPunto(caminoP3);
+	camino->incluirPunto(caminoP4);
+	camino->incluirPunto(caminoP5);
+	pruebaBarridoConBezierBSpline = new SuperficieDeBarrido(borde, camino);
+	pruebaBarridoConBezierBSpline->discretizar(30, 30);
 }
 void inicializarSuperficies(){
 	inicializarSupRevolucionConBSpline();
@@ -332,7 +397,7 @@ void init(void)
 	glNewList(DL_VER_NORMALES_BARRIDO_BSPLINE_BSPLINE, GL_COMPILE);
 		Emparchador::verNormales(pruebaBarridoConBSplineBSpline);
 	glEndList();
-	/*
+
 	glNewList(DL_VER_SUPERFICIE_BARRIDO_BSPLINE_BEZIER, GL_COMPILE);
 		Emparchador::emparchar(pruebaBarridoConBSplineBezier);
 	glEndList();
@@ -353,7 +418,6 @@ void init(void)
 	glNewList(DL_VER_NORMALES_BARRIDO_BEZIER_BSPLINE, GL_COMPILE);
 		Emparchador::verNormales(pruebaBarridoConBezierBSpline);
 	glEndList();
-	*/
 }
 
 
