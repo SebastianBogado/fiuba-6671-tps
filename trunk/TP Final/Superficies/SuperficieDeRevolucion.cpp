@@ -31,13 +31,21 @@ void SuperficieDeRevolucion::discretizar(int discretizacionBorde, int discretiza
 			//Para conseguir la normal, roto 90° respecto del eje formado por el
 			//producto vectorial entre la tangente y el eje de rotación de la superficie
 			vec3 tg = curvaBorde->tangente(u);
-			vec4 tangente = vec4(tg, 1.0);
-			vec3 ejeDeRot = cross(ejeDeRotacion, tg); 
-			if (invertirEjeDeRotacionParaLaNormal(ejeDeRotacion, tg))
-				ejeDeRot = -ejeDeRot;
+			vec4 n;
+			bool tangenteEsParalelaAlEjeZ = (tg.x == 0) && (tg.y == 0);
+			if (tangenteEsParalelaAlEjeZ){		//Esto resuelve el problema de cuando el producto vectorial es nulo
+				n = vec4(1.0, 0.0, 0.0, 1.0);	// y no se puede calcular la normal con este método
+				n = rotadora * n;
+			}
+			else{
+				vec4 tangente = vec4(tg, 1.0);
+				vec3 ejeDeRot = cross(ejeDeRotacion, tg);
+				if (invertirEjeDeRotacionParaLaNormal(ejeDeRotacion, tg))
+					ejeDeRot = -ejeDeRot;
 		
-			mat4 rot = rotate(rotadora, float(90), ejeDeRot);
-			vec4 n = rot * tangente;
+				mat4 rot = rotate(rotadora, float(90), ejeDeRot);
+				n = rot * tangente;
+			}
 			vec3 normalizada = normalize(vec3(n.x, n.y, n.z));
 			miDiscretizacion->agregarNormal(normalizada, i, k);
 		}
