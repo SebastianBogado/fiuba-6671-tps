@@ -9,9 +9,9 @@ MaquinaDeBotellas::MaquinaDeBotellas(void)
 	posicionObjeto[1] = 1.0;
 	posicionObjeto[2] = 0.0;
 
-	this->ancho = 1;
-	this->largo = 1;
-	this->alto = 3;
+	this->ancho = 1.0;
+	this->largo = 2.0;
+	this->alto = 3.0;
 
 	this->inicializarVertices();
 
@@ -80,7 +80,7 @@ void MaquinaDeBotellas::graficar(){
 
 
 			glVertex3fv(vertices[3]);
-			glVertex3fv(vertices[6]);
+			glVertex3fv(vertices[0]);
 			glVertex3fv(vertices[4]);
 			glVertex3fv(vertices[7]);
 
@@ -97,7 +97,7 @@ void MaquinaDeBotellas::graficar(){
 			glVertex3fv(vertices[4]);
 			glVertex3fv(vertices[5]);
 
-			
+			//6ta tapa la del piso, no parece necesaria
 
 		glEnd();
 	glPopMatrix();

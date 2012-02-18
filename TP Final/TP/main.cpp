@@ -128,6 +128,8 @@ void escena(void)
 			   Control::atPorDefecto[0], Control::atPorDefecto[1], Control::atPorDefecto[2],
 			   Control::upPorDefecto[0], Control::upPorDefecto[1], Control::upPorDefecto[2]);
 	
+	control->dibujarEscena();
+
 	glCallList(DL_AXIS);
 	glCallList(DL_GRID);
 
