@@ -59,6 +59,9 @@
     <ClCompile Include="EscenaGrafica.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="MaquinaEtiquetadora.cpp">
+      <Filter>Archivos de código fuente\Objetos</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h">
@@ -72,6 +75,9 @@
     </ClInclude>
     <ClInclude Include="EscenaGrafica.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="MaquinaEtiquetadora.h">
+      <Filter>Archivos de encabezado\Objetos</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
