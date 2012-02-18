@@ -34,7 +34,8 @@ void SuperficieDeBarrido::discretizar(int discretizacionBorde, int discretizacio
 			vec3 puntoCamino = curvaCamino->evaluar(t);
 			//Si no es el primer punto (k=0), entonces evalúo la translación restando el punto actual con el anterior
 			if (k){
-				transladora = translate(mat4(1.0f), puntoCamino - curvaCamino->evaluar((k-1)*pasoCamino)); 
+				if (!i) //Sólo se calcula la translación en la primera iteración. Debe haber formas más elegantes y óptimas.
+					transladora = translate(transladora, puntoCamino - curvaCamino->evaluar((k-1)*pasoCamino)); 
 				rotadora = calcularRealineacion(k, pasoCamino);
 			}
 			vec4 p = transladora * vec4(puntoBaseBorde, 1.0); //Punto transladado
@@ -43,7 +44,7 @@ void SuperficieDeBarrido::discretizar(int discretizacionBorde, int discretizacio
 			//cout << "( " << p[0] << ", " << p[1] << ", " << p[2] << " ). i = " << i << "; u = " << u <<"; k = " << k << endl;
 			//Para conseguir la normal, hago el producto vectorial entre la tangente de cada curva
 			vec3 tgBorde = curvaBorde->tangente(u);
-			vec3 tgCamino = curvaBorde->tangente(t);
+			vec3 tgCamino = curvaCamino->tangente(t);
 			vec3 n = cross(tgCamino, tgBorde); 
 			/*
 			vec4 tangente = vec4(tg, 1.0);
