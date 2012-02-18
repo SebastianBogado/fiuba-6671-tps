@@ -27,19 +27,17 @@ void SuperficieDeBarrido::discretizar(int discretizacionBorde, int discretizacio
 	mat4 transladora = mat4(1.0f);
 	mat4 rotadora = mat4(1.0f);
 	for (int k = 0; k < puntosEnAlto; k++){
+		t = k*pasoCamino;
+		vec3 puntoCamino = curvaCamino->evaluar(t);
+		transladora = translate(mat4(1.0f), puntoCamino - curvaCamino->evaluar(0)); 
+		rotadora = calcularRealineacion(t);
 		for (int i = 0; i < puntosBorde; i++){
 			u = i*pasoBorde;
-			t = k*pasoCamino;
 			vec3 puntoBaseBorde = curvaBorde->evaluar(u);
-			vec3 puntoCamino = curvaCamino->evaluar(t);
 			//Si no es el primer punto (k=0), entonces evalúo la translación restando el punto actual con el anterior
-			if (k){
-				if (!i) //Sólo se calcula la translación en la primera iteración. Debe haber formas más elegantes y óptimas.
-					transladora = translate(transladora, puntoCamino - curvaCamino->evaluar((k-1)*pasoCamino)); 
-				rotadora = calcularRealineacion(k, pasoCamino);
-			}
-			vec4 p = transladora * vec4(puntoBaseBorde, 1.0); //Punto transladado
-			p = rotadora * p;
+			
+			vec4 p = rotadora * vec4(puntoBaseBorde, 1.0); //Punto transladado
+			p = transladora * p; //Punto rotado
 			miDiscretizacion->agregarPunto(vec3(p.x, p.y, p.z), i, k);
 			//cout << "( " << p[0] << ", " << p[1] << ", " << p[2] << " ). i = " << i << "; u = " << u <<"; k = " << k << endl;
 			//Para conseguir la normal, hago el producto vectorial entre la tangente de cada curva
@@ -58,17 +56,17 @@ void SuperficieDeBarrido::discretizar(int discretizacionBorde, int discretizacio
 	this->discretizada = true;
 }
 
-mat4 SuperficieDeBarrido::calcularRealineacion(int k, float pasoCamino){
-	vec3 tgActual = curvaCamino->tangente(k*pasoCamino);
-	vec3 tgAnterior = curvaCamino->tangente((k-1)*pasoCamino);
-	vec3 ejeDeRotacion = cross(tgAnterior, tgActual);
+mat4 SuperficieDeBarrido::calcularRealineacion(float t){
+	vec3 tgActual = curvaCamino->tangente(t);
+	vec3 tgPrimera = curvaCamino->tangente(0);
+	vec3 ejeDeRotacion = cross(tgPrimera, tgActual);
 	mat4 I = mat4(1.0f);
 	if ((ejeDeRotacion.x == 0) && (ejeDeRotacion.y == 0) && (ejeDeRotacion.z == 0))
 		return I;
 	tgActual = normalize(tgActual);
-	tgAnterior = normalize(tgAnterior);
+	tgPrimera = normalize(tgPrimera);
 
-	float angulo = acos(dot(tgAnterior, tgActual));
+	float angulo = acos(dot(tgPrimera, tgActual));
 
 	return rotate(I, degrees(angulo), ejeDeRotacion);
 }

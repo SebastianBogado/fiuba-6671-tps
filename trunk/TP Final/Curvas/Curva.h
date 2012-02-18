@@ -25,7 +25,7 @@ class Curva
         void incluirPunto(vec3 punto);
 
         /*
-        * Se devuelve el punto que corresponda en el orden de la curva que fue incluido.
+        * Se devuelve el punto, modificable, que corresponda en el orden de la curva que fue incluido.
         */
         vec3 verPunto(int num);
 

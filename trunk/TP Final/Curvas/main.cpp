@@ -288,8 +288,8 @@ void inicializarCurvasBarridoBSplineBSpline(){
 	//Curva camino
 	vec3 caminoP1 = vec3(2.0, -3.0, 3.0);
 	vec3 caminoP2 = vec3(3.0, 3.0, 3.0);
-	vec3 caminoP3 = vec3(1.0, 4.0, 3.0);
-	vec3 caminoP4 = vec3(4.0, 6.0, 2.0);
+	vec3 caminoP3 = vec3(4.0, 4.0, 3.0);
+	vec3 caminoP4 = vec3(5.0, 6.0, 2.0);
 	bsplineBarridoCamino1 = new BSpline(4);
 	bsplineBarridoCamino1->incluirPunto(caminoP1);
 	bsplineBarridoCamino1->incluirPunto(caminoP2);
@@ -319,26 +319,36 @@ void inicializarCurvasBarridoBSplineBezier(){
 void inicializarCurvasBarridoBezierBezier(){
 	//Curva borde
 	vec3 bordeP1 = vec3(3.0, 0.0, 0.0); 
-	vec3 bordeP2 = vec3(0.0, -3.0, 0.0);
-	vec3 bordeP3 = vec3(-3.0, 0.0, 0.0);
-	vec3 bordeP4 = vec3(0.0, 3.0, 0.0);
-	bezierBarridoBorde3 = new Bezier(1);
+	vec3 bordeP2 = vec3(3.0, -3.0, 0.0);
+	vec3 bordeP3 = vec3(-3.0, -3.0, 0.0);
+	vec3 bordeP4 = vec3(-3.0, 0.0, 0.0);
+	vec3 bordeP5 = vec3(-3.0, 3.0, 0.0);
+	vec3 bordeP6 = vec3(3.0, 3.0, 0.0);
+	vec3 bordeP7 = vec3(3.0, 0.0, 0.0);
+	bezierBarridoBorde3 = new Bezier(2);
 	bezierBarridoBorde3->incluirPunto(bordeP1);
 	bezierBarridoBorde3->incluirPunto(bordeP2);
 	bezierBarridoBorde3->incluirPunto(bordeP3);
 	bezierBarridoBorde3->incluirPunto(bordeP4);
+	bezierBarridoBorde3->incluirPunto(bordeP5);
+	bezierBarridoBorde3->incluirPunto(bordeP6);
+	bezierBarridoBorde3->incluirPunto(bordeP7);
 	//Curva camino
 	vec3 caminoP1 = vec3(0.0, 0.0, 0.0);
 	vec3 caminoP2 = vec3(0.0, 0.0, 4.0);
 	vec3 caminoP3 = vec3(0.0, 4.0, 4.0);
 	vec3 caminoP4 = vec3(0.0, 8.0, 4.0);
-	vec3 caminoP5 = vec3(0.0, 8.0, 8.0);
+	vec3 caminoP5 = vec3(0.0, 12.0, 4.0);
+	vec3 caminoP6 = vec3(0.0, 12.0, 8.0);
+	vec3 caminoP7 = vec3(0.0, 12.0, 12.0);
 	bezierBarridoCamino3 = new Bezier(2);
 	bezierBarridoCamino3->incluirPunto(caminoP1);
 	bezierBarridoCamino3->incluirPunto(caminoP2);
 	bezierBarridoCamino3->incluirPunto(caminoP3);
 	bezierBarridoCamino3->incluirPunto(caminoP4);
 	bezierBarridoCamino3->incluirPunto(caminoP5);
+	bezierBarridoCamino3->incluirPunto(caminoP6);
+	bezierBarridoCamino3->incluirPunto(caminoP7);
 }
 void inicializarCurvasBarridoBezierBSpline(){
 	//Curva borde
