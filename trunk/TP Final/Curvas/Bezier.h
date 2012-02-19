@@ -34,6 +34,8 @@ class Bezier : public Curva
 
         virtual ~Bezier();
     private:
+
+
     BaseBerstein *base;
     int cantTramos;
 };

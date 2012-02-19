@@ -26,7 +26,10 @@ Bezier::Bezier(int cantidadTramos)
 
 
 vec3 Bezier::evaluar(Flotante x){
+		
+	//return this->definirEvaluador(false,x);
 
+		
         vec3 res(0.0);
 
         int numTramo = this->truncar(x);
@@ -34,8 +37,19 @@ vec3 Bezier::evaluar(Flotante x){
 
         if ((numTramo >= 0 && numTramo < this->cantTramos) || ( numTramo == cantTramos && x ==  cantTramos ) ){
 
-                int indice = 3 * numTramo;
-                float valorX = x - (float)(numTramo);
+             //   int indice = 3 * numTramo;
+             //   float valorX = x - (float)(numTramo);
+			int indice;
+				float valorX;
+
+				if (numTramo < cantTramos){
+					indice = 3 * numTramo;
+					valorX = x - (float)(numTramo);
+				}
+				else {
+					indice = 3 * (numTramo -1);
+					valorX = 1.0;
+				}
 
 
                 for (int i=0; i<4; i++)
@@ -49,21 +63,38 @@ vec3 Bezier::evaluar(Flotante x){
 
 vec3 Bezier::tangente(Flotante x){
 
+	//return definirEvaluador(true,x);
+
 	vec3 res(0.0);
 
         int numTramo = this->truncar(x);
 
         if ((numTramo >= 0 && numTramo < this->cantTramos) || ( numTramo == cantTramos && x ==  cantTramos ) ){
 
-                int indice = 3 * numTramo;
-                float valorX = x - (float)(numTramo);
+                int indice;
+				float valorX;
+
+				if (numTramo < cantTramos){
+					indice = 3 * numTramo;
+					valorX = x - (float)(numTramo);
+				}
+				else {
+					indice = 3 * (numTramo -1);
+					valorX = 1.0;
+				}
+                
+
+				if ( numTramo == cantTramos && x >=  cantTramos )
+					valorX = 0.999;
 
                 for (int i=0; i<4; i++)
                         res += this->base->evaluarDerivada(i,valorX) * this->puntos[indice + i];
 
         }
+		
 
-        return res;
+		return res;
+        
 
 }
 
