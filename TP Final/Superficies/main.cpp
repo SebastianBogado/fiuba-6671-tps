@@ -240,22 +240,26 @@ void inicializarSupRevolucionConBezier(){
 }
 void inicializarSupBarridoConBSplineBSpline(){
 	//Curva borde
-	vec3 bordeP1 = vec3(3.0, 0.0, 0.0); 
-	vec3 bordeP2 = vec3(3.0, 0.0, 3.0);
-	vec3 bordeP3 = vec3(1.0, 0.0, 4.0);
-	vec3 bordeP4 = vec3(4.0, 0.0, 5.0);
-	vec3 bordeP5 = vec3(2.0, 0.0, 6.0);
-	BSpline* borde = new BSpline(5);
+	vec3 bordeP1 = vec3(6.5, 0.0, 2.5); 
+	vec3 bordeP2 = vec3(6.0, 0.0, 2.0);
+	vec3 bordeP3 = vec3(6.0, 0.0, 2.0);
+	vec3 bordeP4 = vec3(5.5, 0.0, 2.0);
+	vec3 bordeP5 = vec3(5.0, 0.0, 2.0); 
+	vec3 bordeP6 = vec3(5.0, 0.0, 2.0);
+	vec3 bordeP7 = vec3(4.5, 0.0, 2.5);
+	BSpline* borde = new BSpline(7);
 	borde->incluirPunto(bordeP1);
 	borde->incluirPunto(bordeP2);
 	borde->incluirPunto(bordeP3);
 	borde->incluirPunto(bordeP4);
 	borde->incluirPunto(bordeP5);
+	borde->incluirPunto(bordeP6);
+	borde->incluirPunto(bordeP7);
 	//Curva camino
-	vec3 caminoP1 = vec3(2.0, -3.0, 3.0);
-	vec3 caminoP2 = vec3(3.0, 3.0, 3.0);
-	vec3 caminoP3 = vec3(4.0, 4.0, 3.0);
-	vec3 caminoP4 = vec3(5.0, 6.0, 2.0);
+	vec3 caminoP1 = vec3(5.0, -3.0, 2.0);
+	vec3 caminoP2 = vec3(5.0, 3.0, 2.0);
+	vec3 caminoP3 = vec3(-1.0, 3.0, 2.0);
+	vec3 caminoP4 = vec3(-1.0, 18.0, 2.0);
 	BSpline* camino = new BSpline(4);
 	camino->incluirPunto(caminoP1);
 	camino->incluirPunto(caminoP2);
@@ -265,11 +269,11 @@ void inicializarSupBarridoConBSplineBSpline(){
 	pruebaBarridoConBSplineBSpline->discretizar(30, 30);
 }
 void inicializarSupBarridoConBSplineBezier(){
-		//Curva borde
+	//Curva borde
 	vec3 bordeP1 = vec3(0.0, 0.0, 0.0); 
 	vec3 bordeP2 = vec3(5.0, 0.0, 5.0);
 	vec3 bordeP3 = vec3(0.0, 0.0, 8.0);
-	BSpline* borde = new BSpline(5);
+	BSpline* borde = new BSpline(3);
 	borde->incluirPunto(bordeP1);
 	borde->incluirPunto(bordeP2);
 	borde->incluirPunto(bordeP3);
