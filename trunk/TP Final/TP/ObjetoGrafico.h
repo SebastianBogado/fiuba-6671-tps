@@ -31,6 +31,7 @@ public:
 
 	void posicionar(const float& x,const float& y,const float& z);
 
+	inline float* vectorPosicion(){ return posicionObjeto;}
 
 	virtual ~ObjetoGrafico(void);
 
@@ -41,6 +42,8 @@ protected:
 	*/
 	virtual void aplicarShader()=0;
 	virtual void detenerShader()=0;
+
+	
 
 	/*
 		... y mas cosas que faltan definir (como texturas, etc)

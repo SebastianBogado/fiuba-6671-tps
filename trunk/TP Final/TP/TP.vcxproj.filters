@@ -71,6 +71,9 @@
     <ClCompile Include="MaquinaEmbaladora.cpp">
       <Filter>Archivos de código fuente\Objetos</Filter>
     </ClCompile>
+    <ClCompile Include="LamparaDeTecho.cpp">
+      <Filter>Archivos de código fuente\Objetos</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h">
@@ -95,6 +98,9 @@
       <Filter>Archivos de encabezado\Objetos</Filter>
     </ClInclude>
     <ClInclude Include="MaquinaEmbaladora.h">
+      <Filter>Archivos de encabezado\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="LamparaDeTecho.h">
       <Filter>Archivos de encabezado\Objetos</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,6 +7,11 @@ class ObjetoGraficoCubico :
 public:
 	ObjetoGraficoCubico(void);
 	void definirParametros(float ancho,float largo,float alto);
+
+	float valorAltura();
+	float valorAncho();
+	float valorLargo();
+
 	~ObjetoGraficoCubico(void);
 protected:
 	void inicializarVertices();
