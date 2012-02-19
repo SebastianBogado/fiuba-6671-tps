@@ -66,27 +66,35 @@
     <Library Include="lib\glew32.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Botella.cpp" />
+    <ClCompile Include="CintaTransportadora.cpp" />
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="CuartoDeMaquinas.cpp" />
     <ClCompile Include="EscenaGrafica.cpp" />
     <ClCompile Include="LamparaDeTecho.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaquinaDeBotellas.cpp" />
+    <ClCompile Include="MaquinaDeLlenado.cpp" />
     <ClCompile Include="MaquinaEmbaladora.cpp" />
     <ClCompile Include="MaquinaEtiquetadora.cpp" />
     <ClCompile Include="ObjetoGrafico.cpp" />
     <ClCompile Include="ObjetoGraficoCubico.cpp" />
+    <ClCompile Include="PaqueteDeBotellas.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Botella.h" />
+    <ClInclude Include="CintaTransportadora.h" />
     <ClInclude Include="Control.h" />
     <ClInclude Include="CuartoDeMaquinas.h" />
     <ClInclude Include="EscenaGrafica.h" />
     <ClInclude Include="LamparaDeTecho.h" />
     <ClInclude Include="MaquinaDeBotellas.h" />
+    <ClInclude Include="MaquinaDeLlenado.h" />
     <ClInclude Include="MaquinaEmbaladora.h" />
     <ClInclude Include="MaquinaEtiquetadora.h" />
     <ClInclude Include="ObjetoGrafico.h" />
     <ClInclude Include="ObjetoGraficoCubico.h" />
+    <ClInclude Include="PaqueteDeBotellas.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Camara\Camara.vcxproj">

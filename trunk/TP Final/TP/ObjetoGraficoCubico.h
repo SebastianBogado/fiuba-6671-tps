@@ -12,7 +12,7 @@ public:
 	float valorAncho();
 	float valorLargo();
 
-	~ObjetoGraficoCubico(void);
+	virtual ~ObjetoGraficoCubico(void);
 protected:
 	void inicializarVertices();
 	void actualizarVertices();

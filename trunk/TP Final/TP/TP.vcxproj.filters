@@ -28,6 +28,12 @@
     <Filter Include="Archivos de encabezado\Objetos">
       <UniqueIdentifier>{3cde2cd9-88e7-45ad-b88d-2560b3001e91}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\Objetos\Maquinas">
+      <UniqueIdentifier>{246817a3-85c2-4450-aa15-ac01cbeca4d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Objetos\Maquinas">
+      <UniqueIdentifier>{2bb7d46a-5166-4ffc-8be4-b03c24a94909}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\freeglut.lib">
@@ -53,14 +59,8 @@
     <ClCompile Include="ObjetoGrafico.cpp">
       <Filter>Archivos de código fuente\Modelo</Filter>
     </ClCompile>
-    <ClCompile Include="MaquinaDeBotellas.cpp">
-      <Filter>Archivos de código fuente\Objetos</Filter>
-    </ClCompile>
     <ClCompile Include="EscenaGrafica.cpp">
       <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="MaquinaEtiquetadora.cpp">
-      <Filter>Archivos de código fuente\Objetos</Filter>
     </ClCompile>
     <ClCompile Include="ObjetoGraficoCubico.cpp">
       <Filter>Archivos de código fuente\Modelo</Filter>
@@ -68,11 +68,29 @@
     <ClCompile Include="CuartoDeMaquinas.cpp">
       <Filter>Archivos de código fuente\Objetos</Filter>
     </ClCompile>
-    <ClCompile Include="MaquinaEmbaladora.cpp">
-      <Filter>Archivos de código fuente\Objetos</Filter>
-    </ClCompile>
     <ClCompile Include="LamparaDeTecho.cpp">
       <Filter>Archivos de código fuente\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="Botella.cpp">
+      <Filter>Archivos de código fuente\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="PaqueteDeBotellas.cpp">
+      <Filter>Archivos de código fuente\Objetos</Filter>
+    </ClCompile>
+    <ClCompile Include="MaquinaEtiquetadora.cpp">
+      <Filter>Archivos de código fuente\Objetos\Maquinas</Filter>
+    </ClCompile>
+    <ClCompile Include="MaquinaDeBotellas.cpp">
+      <Filter>Archivos de código fuente\Objetos\Maquinas</Filter>
+    </ClCompile>
+    <ClCompile Include="MaquinaDeLlenado.cpp">
+      <Filter>Archivos de código fuente\Objetos\Maquinas</Filter>
+    </ClCompile>
+    <ClCompile Include="MaquinaEmbaladora.cpp">
+      <Filter>Archivos de código fuente\Objetos\Maquinas</Filter>
+    </ClCompile>
+    <ClCompile Include="CintaTransportadora.cpp">
+      <Filter>Archivos de código fuente\Objetos\Maquinas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,14 +100,8 @@
     <ClInclude Include="ObjetoGrafico.h">
       <Filter>Archivos de encabezado\Modelo</Filter>
     </ClInclude>
-    <ClInclude Include="MaquinaDeBotellas.h">
-      <Filter>Archivos de encabezado\Objetos</Filter>
-    </ClInclude>
     <ClInclude Include="EscenaGrafica.h">
       <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="MaquinaEtiquetadora.h">
-      <Filter>Archivos de encabezado\Objetos</Filter>
     </ClInclude>
     <ClInclude Include="ObjetoGraficoCubico.h">
       <Filter>Archivos de encabezado\Modelo</Filter>
@@ -97,11 +109,29 @@
     <ClInclude Include="CuartoDeMaquinas.h">
       <Filter>Archivos de encabezado\Objetos</Filter>
     </ClInclude>
-    <ClInclude Include="MaquinaEmbaladora.h">
-      <Filter>Archivos de encabezado\Objetos</Filter>
-    </ClInclude>
     <ClInclude Include="LamparaDeTecho.h">
       <Filter>Archivos de encabezado\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="Botella.h">
+      <Filter>Archivos de encabezado\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="PaqueteDeBotellas.h">
+      <Filter>Archivos de encabezado\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="MaquinaEtiquetadora.h">
+      <Filter>Archivos de encabezado\Objetos\Maquinas</Filter>
+    </ClInclude>
+    <ClInclude Include="MaquinaDeBotellas.h">
+      <Filter>Archivos de encabezado\Objetos\Maquinas</Filter>
+    </ClInclude>
+    <ClInclude Include="MaquinaDeLlenado.h">
+      <Filter>Archivos de encabezado\Objetos\Maquinas</Filter>
+    </ClInclude>
+    <ClInclude Include="MaquinaEmbaladora.h">
+      <Filter>Archivos de encabezado\Objetos\Maquinas</Filter>
+    </ClInclude>
+    <ClInclude Include="CintaTransportadora.h">
+      <Filter>Archivos de encabezado\Objetos\Maquinas</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
