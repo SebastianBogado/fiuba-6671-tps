@@ -3,6 +3,7 @@
 #include "MaquinaDeBotellas.h"
 #include "CuartoDeMaquinas.h"
 #include "MaquinaEmbaladora.h"
+#include "LamparaDeTecho.h"
 
 class EscenaGrafica
 {

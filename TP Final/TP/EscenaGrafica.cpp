@@ -3,16 +3,17 @@
 
 EscenaGrafica::EscenaGrafica(void)
 {
-	this->cantidadObjetos = 3;
+	this->cantidadObjetos = 4;
 
 	this->objetos = new ObjetoGrafico*[this->cantidadObjetos];
 
+	CuartoDeMaquinas *cuarto = new CuartoDeMaquinas();
 
-	this->objetos[0] = new CuartoDeMaquinas();
+	this->objetos[0] = cuarto;
 	this->objetos[1] = new MaquinaDeBotellas();
 	this->objetos[2] = new MaquinaEmbaladora();
+	this->objetos[3] = new LamparaDeTecho(cuarto);
 }
-
 
 void EscenaGrafica::graficar(){
 

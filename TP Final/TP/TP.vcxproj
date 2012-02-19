@@ -69,6 +69,7 @@
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="CuartoDeMaquinas.cpp" />
     <ClCompile Include="EscenaGrafica.cpp" />
+    <ClCompile Include="LamparaDeTecho.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaquinaDeBotellas.cpp" />
     <ClCompile Include="MaquinaEmbaladora.cpp" />
@@ -80,6 +81,7 @@
     <ClInclude Include="Control.h" />
     <ClInclude Include="CuartoDeMaquinas.h" />
     <ClInclude Include="EscenaGrafica.h" />
+    <ClInclude Include="LamparaDeTecho.h" />
     <ClInclude Include="MaquinaDeBotellas.h" />
     <ClInclude Include="MaquinaEmbaladora.h" />
     <ClInclude Include="MaquinaEtiquetadora.h" />

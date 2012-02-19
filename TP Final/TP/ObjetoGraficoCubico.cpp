@@ -29,6 +29,13 @@ void ObjetoGraficoCubico::definirParametros(float ancho,float largo,float alto){
 
 }
 
+float ObjetoGraficoCubico::valorAltura(){	return this->alto;}
+
+float ObjetoGraficoCubico::valorLargo(){ return this->largo; }
+
+float ObjetoGraficoCubico::valorAncho(){ return this->ancho;}
+
+
 void ObjetoGraficoCubico::actualizarVertices(){
 
 	this->inicializarVector(vertices[0],0.0,0.0,0.0);
