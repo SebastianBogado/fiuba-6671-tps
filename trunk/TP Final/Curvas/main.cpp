@@ -290,15 +290,23 @@ void inicializarCurvasBarridoBSplineBSpline(){
 	bsplineBarridoBorde1->incluirPunto(bordeP6);
 	bsplineBarridoBorde1->incluirPunto(bordeP7);
 	//Curva camino
-	vec3 caminoP1 = vec3(5.5, -3.0, 2.0);
-	vec3 caminoP2 = vec3(5.5, 3.0, 2.0);
-	vec3 caminoP3 = vec3(-0.5, 3.0, 2.0);
-	vec3 caminoP4 = vec3(-0.5, 18.0, 2.0);
-	bsplineBarridoCamino1 = new BSpline(4);
+	vec3 caminoP1 = vec3(5.5, -1.5, 2.0);
+	vec3 caminoP2 = vec3(5.5, 1.5, 2.0);
+	vec3 caminoP3 = vec3(5.5, 4.5, 2.0);
+	vec3 caminoP4 = vec3(2.5, 4.5, 2.0);
+	vec3 caminoP5 = vec3(-0.5, 4.5, 2.0);
+	vec3 caminoP6 = vec3(-0.5, 7.5, 2.0);
+	vec3 caminoP7 = vec3(-0.5, 10.5, 2.0);
+	vec3 caminoP8 = vec3(-0.5, 13.5, 2.0);
+	bsplineBarridoCamino1 = new BSpline(8);
 	bsplineBarridoCamino1->incluirPunto(caminoP1);
 	bsplineBarridoCamino1->incluirPunto(caminoP2);
 	bsplineBarridoCamino1->incluirPunto(caminoP3);
 	bsplineBarridoCamino1->incluirPunto(caminoP4);
+	bsplineBarridoCamino1->incluirPunto(caminoP5);
+	bsplineBarridoCamino1->incluirPunto(caminoP6);
+	bsplineBarridoCamino1->incluirPunto(caminoP7);
+	bsplineBarridoCamino1->incluirPunto(caminoP8);
 }
 void inicializarCurvasBarridoBSplineBezier(){
 	//Curva borde
