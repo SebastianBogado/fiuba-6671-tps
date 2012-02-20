@@ -256,15 +256,23 @@ void inicializarSupBarridoConBSplineBSpline(){
 	borde->incluirPunto(bordeP6);
 	borde->incluirPunto(bordeP7);
 	//Curva camino
-	vec3 caminoP1 = vec3(5.0, -3.0, 2.0);
-	vec3 caminoP2 = vec3(5.0, 3.0, 2.0);
-	vec3 caminoP3 = vec3(-1.0, 3.0, 2.0);
-	vec3 caminoP4 = vec3(-1.0, 18.0, 2.0);
-	BSpline* camino = new BSpline(4);
+	vec3 caminoP1 = vec3(5.5, -1.5, 2.0);
+	vec3 caminoP2 = vec3(5.5, 1.5, 2.0);
+	vec3 caminoP3 = vec3(5.5, 4.5, 2.0);
+	vec3 caminoP4 = vec3(2.5, 4.5, 2.0);
+	vec3 caminoP5 = vec3(-0.5, 4.5, 2.0);
+	vec3 caminoP6 = vec3(-0.5, 7.5, 2.0);
+	vec3 caminoP7 = vec3(-0.5, 10.5, 2.0);
+	vec3 caminoP8 = vec3(-0.5, 13.5, 2.0);
+	BSpline* camino = new BSpline(8);
 	camino->incluirPunto(caminoP1);
 	camino->incluirPunto(caminoP2);
 	camino->incluirPunto(caminoP3);
 	camino->incluirPunto(caminoP4);
+	camino->incluirPunto(caminoP5);
+	camino->incluirPunto(caminoP6);
+	camino->incluirPunto(caminoP7);
+	camino->incluirPunto(caminoP8);
 	pruebaBarridoConBSplineBSpline = new SuperficieDeBarrido(borde, camino);
 	pruebaBarridoConBSplineBSpline->discretizar(30, 30);
 }
@@ -359,7 +367,6 @@ void inicializarSuperficies(){
 	inicializarSupBarridoConBSplineBezier();
 	inicializarSupBarridoConBezierBezier();
 	inicializarSupBarridoConBezierBSpline();
-
 }
 
 void init(void) 
