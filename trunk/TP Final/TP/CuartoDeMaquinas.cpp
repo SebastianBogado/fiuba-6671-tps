@@ -6,12 +6,12 @@ CuartoDeMaquinas::CuartoDeMaquinas(void)
 
 	this->posicionObjeto = new float[3];
 
-	posicionObjeto[0] = 1.0;
-	posicionObjeto[1] = 1.0;
+	posicionObjeto[0] = 0.0;
+	posicionObjeto[1] = 0.0;
 	posicionObjeto[2] = 0.0;
 
 	this->ancho = 10.0;
-	this->largo = 15.0;
+	this->largo = 30.0;
 	this->alto = 6.0;
 
 	this->inicializarVertices();

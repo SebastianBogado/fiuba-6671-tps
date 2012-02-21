@@ -27,6 +27,10 @@ private:
 	void detenerShader();
 
 	ObjetoGraficoCubico *cuarto;
+	float ladoMayorCuarto,ladoMenorCuarto;
+
+	bool rotarCamaras;
+
 	float largo,ancho,grosor,alturaCampana;
 	int cantVertices;
 	float **vertices;
