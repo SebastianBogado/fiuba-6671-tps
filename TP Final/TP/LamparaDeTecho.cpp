@@ -13,7 +13,8 @@ LamparaDeTecho::LamparaDeTecho(ObjetoGraficoCubico *habitacion)
 {
 	//this->posicionObjeto = new float[3];
 
-	this->cuarto = habitacion;
+	//this->cuarto = habitacion;
+	this->definirHabitacion(habitacion);
 	
 	this->inicializarVertices();
 
@@ -21,16 +22,34 @@ LamparaDeTecho::LamparaDeTecho(ObjetoGraficoCubico *habitacion)
 
 void LamparaDeTecho::graficar(){
 
+
+
+
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 		glTranslatef(cuarto->vectorPosicion()[0],cuarto->vectorPosicion()[1],cuarto->vectorPosicion()[2]);
-
-				
-		glTranslatef(cuarto->valorLargo() / 3.0,cuarto->valorAncho() / 2.0,cuarto->valorAltura());	
-		this->graficarLamparaSimple();
 		
-		glTranslatef(cuarto->valorLargo() / 3.0,0.0,0.0);	
-		this->graficarLamparaSimple();
+
+		if(rotarCamaras){
+
+			//glTranslatef(cuarto->valorLargo() /2.0,);
+
+			glRotatef(90.0,0.0,0.0,1.0);
+			glTranslatef(0.0,-ladoMenorCuarto,0.0);
+
+		}
+
+		for (float i=1.0; i <= 3.1; i=i+1){
+			glPushMatrix();
+
+			glTranslatef(i*ladoMayorCuarto / 4.0 , ladoMenorCuarto / 4.0,cuarto->valorAltura());	
+			this->graficarLamparaSimple();
+		
+			glTranslatef(0.0,ladoMenorCuarto / 3.0 ,0.0);	
+			this->graficarLamparaSimple();
+
+			glPopMatrix();
+		}
 
 	glPopMatrix();
 
@@ -72,6 +91,17 @@ void LamparaDeTecho::actualizarVertices(){
 void LamparaDeTecho::definirHabitacion(ObjetoGraficoCubico *habitacion){
 
 	this->cuarto= habitacion;
+
+	rotarCamaras = (cuarto->valorLargo() < cuarto->valorAncho());
+
+	if (rotarCamaras){
+		ladoMayorCuarto = cuarto->valorAncho();
+		ladoMenorCuarto = cuarto->valorLargo();
+	}else{
+		ladoMayorCuarto = cuarto->valorLargo();
+		ladoMenorCuarto = cuarto->valorAncho();
+
+	}
 
 }
 
