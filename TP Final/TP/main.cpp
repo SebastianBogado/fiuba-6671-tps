@@ -172,7 +172,7 @@ int main(int argc, char** argv){
 	glutMotionFunc(control->mouseMov);
 	//glutMouseWheelFunc(rueditaDelMouse);
 	glutIdleFunc(control->actualizarDatos);
-	//glewInit();
+	glewInit();
 	glutMainLoop();
     return 0;
 }
