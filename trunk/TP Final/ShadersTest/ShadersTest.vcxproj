@@ -10,9 +10,28 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GLSLProgram.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Curvas\Curvas.vcxproj">
+      <Project>{a090bebc-76ed-4b65-b2ec-2ab0e74f9fc4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Superficies\Superficies.vcxproj">
+      <Project>{48ce121e-087d-41a2-9848-dce4b30835f0}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GLSLProgram.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="prueba.frag" />
+    <None Include="prueba.vert" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F1F0E6B0-2597-453E-9298-491D272576FE}</ProjectGuid>
-    <RootNamespace>TP</RootNamespace>
+    <ProjectGuid>{46FEBDC6-1B31-4CE9-B312-F73905B9E404}</ProjectGuid>
+    <RootNamespace>ShadersTest</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -37,7 +56,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ExcludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;$(MSBuildToolsPath32);$(VCInstallDir)atlmfc\lib;$(VCInstallDir)lib;C:\MinGW\bin;C:\MinGW\lib;</ExcludePath>
+    <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;..\TP\lib</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -46,7 +65,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\TP\lib\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;..\TP\lib\glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -60,56 +79,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;..\TP\lib\glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <Library Include="lib\Camara.lib" />
-    <Library Include="lib\Curvas.lib" />
-    <Library Include="lib\freeglut.lib" />
-    <Library Include="lib\glew32.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Botella.cpp" />
-    <ClCompile Include="CintaTransportadora.cpp" />
-    <ClCompile Include="Control.cpp" />
-    <ClCompile Include="CuartoDeMaquinas.cpp" />
-    <ClCompile Include="EscenaGrafica.cpp" />
-    <ClCompile Include="LamparaDeTecho.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MaquinaDeBotellas.cpp" />
-    <ClCompile Include="MaquinaDeLlenado.cpp" />
-    <ClCompile Include="MaquinaEmbaladora.cpp" />
-    <ClCompile Include="MaquinaEtiquetadora.cpp" />
-    <ClCompile Include="ObjetoGrafico.cpp" />
-    <ClCompile Include="ObjetoGraficoCubico.cpp" />
-    <ClCompile Include="PaqueteDeBotellas.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Botella.h" />
-    <ClInclude Include="CintaTransportadora.h" />
-    <ClInclude Include="Control.h" />
-    <ClInclude Include="CuartoDeMaquinas.h" />
-    <ClInclude Include="EscenaGrafica.h" />
-    <ClInclude Include="LamparaDeTecho.h" />
-    <ClInclude Include="MaquinaDeBotellas.h" />
-    <ClInclude Include="MaquinaDeLlenado.h" />
-    <ClInclude Include="MaquinaEmbaladora.h" />
-    <ClInclude Include="MaquinaEtiquetadora.h" />
-    <ClInclude Include="ObjetoGrafico.h" />
-    <ClInclude Include="ObjetoGraficoCubico.h" />
-    <ClInclude Include="PaqueteDeBotellas.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Camara\Camara.vcxproj">
-      <Project>{eb125aba-c868-4c60-aa51-61df55e45438}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Curvas\Curvas.vcxproj">
-      <Project>{a090bebc-76ed-4b65-b2ec-2ab0e74f9fc4}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Superficies\Superficies.vcxproj">
-      <Project>{48ce121e-087d-41a2-9848-dce4b30835f0}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

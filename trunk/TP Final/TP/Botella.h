@@ -29,5 +29,8 @@ private:
 	void aplicarShader();
 	void detenerShader();
 
+	bool tieneEtiqueta;
+	float porcentajeDeLlenado;
+
 };
 
