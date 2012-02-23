@@ -8,6 +8,7 @@
 #include "..\Curvas\Bezier.h"
 #include "..\Superficies\Emparchador.h"
 #include "GLSLProgram.h"
+#include "TextureLoader.h"
 using namespace std;
 
 // Variables asociadas a única fuente de luz de la escena
@@ -15,10 +16,16 @@ float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
 float light_position[3] = {10.0f, 10.0f, 8.0f};
 float light_ambient[4] = {0.05f, 0.05f, 0.05f, 1.0f};
 
+TextureLoader* texLoader = new TextureLoader();
 
 Bezier* perfilBotella;
 SuperficieDeRevolucion* superficieBotella;
 GLSLProgram* GLSLBotella;
+glTexture etiquetaCoca;
+glTexture tapaCoca;
+bool tieneEtiqueta = false;
+bool tieneTapa = false;
+float porcentajeDeLlenado;
 
 BSpline* formaCintaTransportadora;
 BSpline* caminoCintaTransportadora;
@@ -190,8 +197,8 @@ void inicializarSuperficieBotella(){
 	vec3 bezierP9 = vec3(0.2, 0.0, 2.8); 
 	vec3 bezierP10 = vec3(0.2, 0.0, 3.0); 
 	vec3 bezierP11 = vec3(0.2, 0.0, 3.2); 
-	vec3 bezierP12 = vec3(0.2, 0.0, 3.3); 
-	vec3 bezierP13 = vec3(0.0, 0.0, 3.3);
+	vec3 bezierP12 = vec3(0.2, 0.0, 3.2); 
+	vec3 bezierP13 = vec3(0.0, 0.0, 3.2);
 	perfilBotella = new Bezier(4);
 	perfilBotella->incluirPunto(bezierP1);
 	perfilBotella->incluirPunto(bezierP2);
@@ -247,30 +254,52 @@ void inicializarSuperficieCintaTransportadora(){
 	superficieCintaTransportadora = new SuperficieDeBarrido(formaCintaTransportadora, caminoCintaTransportadora);
 	superficieCintaTransportadora->discretizar(30, 30);
 }
-void inicializarSupeficiesYGLSL(){
+void inicializarSupeficies(){
 	//Superficies
 	inicializarSuperficieBotella();
 	inicializarSuperficieCintaTransportadora();
-	//GLSLPrograms
-	GLSLBotella = new GLSLProgram("prueba.vert", "prueba.frag");
+	
+}
+void inicializarGLSL(){
+	GLSLBotella = new GLSLProgram("botella.vert", "botella.frag");
+}
+void incializarTexturas(){
+	texLoader->SetMipMapping(true);
+	texLoader->LoadTextureFromDisk("etiquetaCoca.bmp", &etiquetaCoca);
+	texLoader->LoadTextureFromDisk("tapaCoca.bmp", &tapaCoca);
 }
 
 void dibujarBotella(){
 	glDisable(GL_LIGHTING);
-	glEnable(GL_BLEND);glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glDepthMask(GL_FALSE);
+	glEnable(GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	if (actualizar){
 		delete GLSLBotella;
-		GLSLBotella = new GLSLProgram("prueba.vert", "prueba.frag");
+		GLSLBotella = new GLSLProgram("botella.vert", "botella.frag");
 		actualizar = false;
 	}
 	
 	if (!GLSLBotella->isLinked())
 		GLSLBotella->link();
 	GLSLBotella->usar();
+	
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, etiquetaCoca.TextureID);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, tapaCoca.TextureID);
+	
+	GLSLBotella->setUniform("etiquetaText", 0);
+	GLSLBotella->setUniform("tapaText", 1);
+	GLSLBotella->setUniform("porcentajeDeLiquido", float(0.56));
+	GLSLBotella->setUniform("tieneEtiqueta", tieneEtiqueta);
+	GLSLBotella->setUniform("tieneTapa", tieneTapa);
 	Emparchador::emparchar(superficieBotella);
-	GLSLBotella->cerrar();
 
+	GLSLBotella->cerrar();
+	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
+	//glDepthMask(GL_TRUE);
 }
 
 void dibujarCintaTransportadora(){
@@ -289,7 +318,9 @@ void init(void)
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
 	
-	inicializarSupeficiesYGLSL();
+	inicializarSupeficies();
+	inicializarGLSL();
+	incializarTexturas();
 
 	// Generación de las Display Lists
 	glNewList(DL_AXIS, GL_COMPILE);
@@ -383,7 +414,10 @@ void keyboard (unsigned char key, int x, int y)
 		  edit_panel = !edit_panel;
 		  glutPostRedisplay();
 		  break;
-
+	  case 'n':
+		  tieneEtiqueta = !tieneEtiqueta; break;
+	  case 'm':
+		  tieneTapa = !tieneTapa; break;
 	  case '2':
 		  eye[0] = 0.0;
 		  eye[1] = 0.0;

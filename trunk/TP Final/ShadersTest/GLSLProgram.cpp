@@ -1,5 +1,6 @@
 #include "GLSLProgram.h"
 
+const string GLSLProgram::tiposDeShaders[5] = {"Vertex", "Fragment", "Geometry", "Tess control", "Tess evaluation"};
 
 GLSLProgram::GLSLProgram(){
 	this->linked = false;
@@ -44,6 +45,7 @@ bool GLSLProgram::compileShaderFromFile(const char* fileName, GLSLShaderType typ
 			if (!fileExists(fileName)){
 				logString = "Archivo inexistente: ";
 				logString += (fileName);
+				cout << logString.c_str() << endl;
 				return !todoEnOrden;
 			}
 			shaderHandle = glCreateShader(GL_VERTEX_SHADER);
@@ -52,6 +54,7 @@ bool GLSLProgram::compileShaderFromFile(const char* fileName, GLSLShaderType typ
 			if (!fileExists(fileName)){
 				logString = "Archivo inexistente: ";
 				logString += (fileName);
+				cout << logString.c_str() << endl;
 				return !todoEnOrden;
 			}
 			shaderHandle = glCreateShader(GL_FRAGMENT_SHADER);
@@ -79,7 +82,7 @@ bool GLSLProgram::compileShaderFromFile(const char* fileName, GLSLShaderType typ
 	GLint result;
 	glGetShaderiv(shaderHandle, GL_COMPILE_STATUS, &result );
 	if( GL_FALSE == result ){
-		cout << "Falló la compilación" << endl;
+		cout << "Falló la compilación del " <<  tiposDeShaders[type].c_str() << " Shader." << endl;
 		GLint logLen;
 		glGetShaderiv( shaderHandle, GL_INFO_LOG_LENGTH, &logLen );
 		if( logLen > 0 ){
