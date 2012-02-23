@@ -11,10 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GLSLProgram.cpp" />
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Curvas\Curvas.vcxproj">
       <Project>{a090bebc-76ed-4b65-b2ec-2ab0e74f9fc4}</Project>
     </ProjectReference>
@@ -23,11 +19,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GLSLProgram.h" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="botella.frag" />
+    <None Include="botella.vert" />
+    <None Include="etiquetaCoca.bmp" />
+    <None Include="etiquetaCoca256.bmp" />
     <None Include="prueba.frag" />
     <None Include="prueba.vert" />
+    <None Include="tapaCoca.bmp" />
+    <None Include="tapaCoca256.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GLSLProgram.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="TextureLoader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GLSLProgram.h" />
+    <ClInclude Include="TextureLoader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{46FEBDC6-1B31-4CE9-B312-F73905B9E404}</ProjectGuid>
@@ -57,6 +65,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSdkDir)lib;$(FrameworkSDKDir)\lib;..\TP\lib</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetExt>.exe</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

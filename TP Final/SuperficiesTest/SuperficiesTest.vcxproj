@@ -60,6 +60,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Curvas\Curvas.vcxproj">
+      <Project>{a090bebc-76ed-4b65-b2ec-2ab0e74f9fc4}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Superficies\Superficies.vcxproj">
       <Project>{48ce121e-087d-41a2-9848-dce4b30835f0}</Project>
     </ProjectReference>

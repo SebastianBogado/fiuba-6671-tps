@@ -219,8 +219,8 @@ void inicializarSupRevolucionConBezier(){
 	vec3 bezierP9 = vec3(0.2, 0.0, 2.8); 
 	vec3 bezierP10 = vec3(0.2, 0.0, 3.0); 
 	vec3 bezierP11 = vec3(0.2, 0.0, 3.2); 
-	vec3 bezierP12 = vec3(0.2, 0.0, 3.3); 
-	vec3 bezierP13 = vec3(0.0, 0.0, 3.3);
+	vec3 bezierP12 = vec3(0.2, 0.0, 3.2); 
+	vec3 bezierP13 = vec3(0.0, 0.0, 3.2);
 	Bezier* bezierPrueba = new Bezier(4);
 	bezierPrueba->incluirPunto(bezierP1);
 	bezierPrueba->incluirPunto(bezierP2);

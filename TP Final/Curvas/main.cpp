@@ -255,8 +255,8 @@ void inicializarBezierRevol(){/*
 	vec3 bezierP9 = vec3(0.2, 0.0, 2.8); 
 	vec3 bezierP10 = vec3(0.2, 0.0, 3.0); 
 	vec3 bezierP11 = vec3(0.2, 0.0, 3.2); 
-	vec3 bezierP12 = vec3(0.2, 0.0, 3.3); 
-	vec3 bezierP13 = vec3(0.0, 0.0, 3.3);
+	vec3 bezierP12 = vec3(0.2, 0.0, 3.2); 
+	vec3 bezierP13 = vec3(0.0, 0.0, 3.2);
 	bezierRevol = new Bezier(4);
 	bezierRevol->incluirPunto(bezierP1);
 	bezierRevol->incluirPunto(bezierP2);

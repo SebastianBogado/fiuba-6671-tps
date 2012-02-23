@@ -57,4 +57,5 @@ private:
 	bool fileExists( const string & fileName );
 	//Devuelve una cadena con todo el contenido del archivo
 	char* cargarArchivo(string fileName);
+	static const string tiposDeShaders[];
 };

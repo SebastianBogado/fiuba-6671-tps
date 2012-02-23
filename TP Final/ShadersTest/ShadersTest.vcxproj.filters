@@ -18,24 +18,48 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="GLSLProgram.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GLSLProgram.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="prueba.vert">
+    <None Include="botella.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="botella.vert">
       <Filter>Shaders</Filter>
     </None>
     <None Include="prueba.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="prueba.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="etiquetaCoca.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="etiquetaCoca256.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="tapaCoca.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="tapaCoca256.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TextureLoader.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="GLSLProgram.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TextureLoader.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="GLSLProgram.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
