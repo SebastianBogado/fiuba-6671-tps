@@ -34,10 +34,8 @@ void SuperficieDeRevolucion::discretizar(int discretizacionBorde, int discretiza
 			vec4 n;
 			vec3 ejeDeRot = cross(ejeDeRotacion, tg);
 			bool tangenteEsParalelaAlEje = (ejeDeRot.x == 0) && (ejeDeRot.y == 0) && (ejeDeRot.z == 0);
-			if (tangenteEsParalelaAlEje){		//Esto resuelve el problema de cuando el producto vectorial es nulo
-				n = vec4(1.0, 0.0, 0.0, 1.0);	// y no se puede calcular la normal con este método
-				n = rotadora * n;
-			}
+			if (tangenteEsParalelaAlEje)		//Esto resuelve el problema de cuando el producto vectorial es nulo
+				n = vec4(p.x, p.y, 0.0, 1.0);	// y no se puede calcular la normal con este método
 			else{
 				vec4 tangente = vec4(tg, 1.0);
 				if (invertirEjeDeRotacionParaLaNormal(ejeDeRotacion, tg))

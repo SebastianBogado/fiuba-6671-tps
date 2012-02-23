@@ -461,7 +461,7 @@ void keyboard (unsigned char key, int x, int y)
 void teclasParticulares(int key, int x, int y){
 	switch(key) {
 		case GLUT_KEY_F5 :
-			actualizar = !actualizar;
+			actualizar = true;
 			break;
 		default:
 			break;
