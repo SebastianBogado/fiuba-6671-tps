@@ -140,57 +140,65 @@ int GLSLProgram::getUniformLocation(const char * name ){
 
 void GLSLProgram::setUniform(const char *name, float x, float y, float z){
 	GLuint location = getUniformLocation(name);
-	if( location >= 0 ){
+	if( location >= 0 )
 		glUniform3f(location, x, y, z);
-	}
+	else
+		cout << "No existe el parametro " << name << " como variable uniforme." << endl;
 }
 void GLSLProgram::setUniform(const char *name, const vec3 & v){
 	GLuint location = getUniformLocation(name);
-	if( location >= 0 ){
+	if( location >= 0 )
 		glUniform3fv(location, 1, &v[0]);
-	}
+	else
+		cout << "No existe el parametro " << name << " como variable uniforme." << endl;
 }
 
 void GLSLProgram::setUniform(const char *name, const vec4 & v){
 	GLuint location = getUniformLocation(name);
-	if( location >= 0 ){
+	if( location >= 0 )
 		glUniform4fv(location, 1, &v[0]);
-	}
+	else
+		cout << "No existe el parametro " << name << " como variable uniforme." << endl;
 }
 
 void GLSLProgram::setUniform(const char *name, const mat4 & m){
 	GLuint location = getUniformLocation(name);
-	if( location >= 0 ){
+	if( location >= 0 )
 		glUniformMatrix4fv(location, 1, GL_FALSE, &m[0][0]);
-	}
+	else
+		cout << "No existe el parametro " << name << " como variable uniforme." << endl;
 }
 
 void GLSLProgram::setUniform(const char *name, const mat3 & m){
 	GLuint location = getUniformLocation(name);
-	if( location >= 0 ){
+	if( location >= 0 )
 		glUniformMatrix3fv(location, 1, GL_FALSE, &m[0][0]);
-	}
+	else
+		cout << "No existe el parametro " << name << " como variable uniforme." << endl;
 }
 
 void GLSLProgram::setUniform(const char *name, float val ){
 	GLuint location = getUniformLocation(name);
-	if( location >= 0 ){
+	if( location >= 0 )
 		glUniform1f(location, val);
-	}
+	else
+		cout << "No existe el parametro " << name << " como variable uniforme." << endl;
 }
 
 void GLSLProgram::setUniform(const char *name, int val ){
 	GLuint location = getUniformLocation(name);
-	if( location >= 0 ){
+	if( location >= 0 )
 		glUniform1i(location, val);
-	}
+	else
+		cout << "No existe el parametro " << name << " como variable uniforme." << endl;
 }
 
 void GLSLProgram::setUniform(const char *name, bool val ){
 	GLuint location = getUniformLocation(name);
-	if( location >= 0 ){
+	if( location >= 0 )
 		glUniform1i(location, val);
-	}
+	else
+		cout << "No existe el parametro " << name << " como variable uniforme." << endl;
 }
 
 void GLSLProgram::printActiveUniforms(){
