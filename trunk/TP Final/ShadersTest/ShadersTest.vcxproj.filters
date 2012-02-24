@@ -48,6 +48,9 @@
     <None Include="cintaTransportadora.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="cintaTransportadora.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextureLoader.cpp">
