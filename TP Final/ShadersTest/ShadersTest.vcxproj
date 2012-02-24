@@ -21,6 +21,7 @@
   <ItemGroup>
     <None Include="botella.frag" />
     <None Include="botella.vert" />
+    <None Include="cintaTransportadora.bmp" />
     <None Include="cintaTransportadora.frag" />
     <None Include="cintaTransportadora.vert" />
     <None Include="etiquetaCoca.bmp" />

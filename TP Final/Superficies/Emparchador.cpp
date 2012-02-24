@@ -42,7 +42,8 @@ void Emparchador::emparchar(Superficie* superficie, int repeticionesDeLaTexturaS
 				if (t > 1.0) t -= 1.0;
 			}
 		glEnd();
-		s += pasoTexS; t = 0.0;
+		t = 0.0; cout << s << endl;
+		s += pasoTexS; 
 		if (s > 1.0) s -= 1.0;
     }
 	glDisable(GL_TEXTURE_2D);

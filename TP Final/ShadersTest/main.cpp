@@ -256,7 +256,7 @@ void inicializarSuperficieCintaTransportadora(){
 	caminoCintaTransportadora->incluirPunto(caminoP7);
 	caminoCintaTransportadora->incluirPunto(caminoP8);
 	superficieCintaTransportadora = new SuperficieDeBarrido(formaCintaTransportadora, caminoCintaTransportadora);
-	superficieCintaTransportadora->discretizar(30, 30);
+	superficieCintaTransportadora->discretizar(5, 10);
 }
 void inicializarSupeficies(){
 	//Superficies
