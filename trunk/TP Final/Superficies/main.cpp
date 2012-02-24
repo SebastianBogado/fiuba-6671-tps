@@ -13,6 +13,7 @@
 #include "SuperficieDeBarrido.h"
 #include "..\Curvas\BSpline.h"
 #include "..\Curvas\Bezier.h"
+#include "..\Curvas\Circunferencia.h"
 #include "Emparchador.h"
 
 
@@ -191,19 +192,25 @@ void SetPanelTopEnv()
     glLoadIdentity ();
 	gluOrtho2D(-0.10, 1.05, -0.10, 1.05);
 }
-void inicializarSupRevolucionConBSpline(){
+void inicializarSupRevolucionConBSpline(){/* Estos puntos son buenos para una superficie que verifique luces
 	vec3 bsplineP1 = vec3(3.0, 0.0, 0.0); 
 	vec3 bsplineP2 = vec3(3.0, 0.0, 3.0);
 	vec3 bsplineP3 = vec3(1.0, 0.0, 4.0);
 	vec3 bsplineP4 = vec3(4.0, 0.0, 5.0);
-	vec3 bsplineP5 = vec3(2.0, 0.0, 6.0);
+	vec3 bsplineP5 = vec3(2.0, 0.0, 6.0);*/
+
+	vec3 bsplineP1 = vec3(-1.0, 0.0, 1.0); 
+	vec3 bsplineP2 = vec3(1.0, 0.0, 1.0);
+	vec3 bsplineP3 = vec3(1.0, 0.0, 2.5);
+	vec3 bsplineP4 = vec3(1.0, 0.0, 4.0); 
+	vec3 bsplineP5 = vec3(-1.0, 0.0, 4.0);
 	BSpline* bsplinePrueba = new BSpline(5);
 	bsplinePrueba->incluirPunto(bsplineP1);
 	bsplinePrueba->incluirPunto(bsplineP2);
 	bsplinePrueba->incluirPunto(bsplineP3);
 	bsplinePrueba->incluirPunto(bsplineP4);
 	bsplinePrueba->incluirPunto(bsplineP5);
-	pruebaRevolucionConBSpline = new SuperficieDeRevolucion(bsplinePrueba, 180);
+	pruebaRevolucionConBSpline = new SuperficieDeRevolucion(bsplinePrueba);
 	pruebaRevolucionConBSpline->discretizar(30, 36);
 	DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_REVOL_BSPLINE;
 }
@@ -331,26 +338,19 @@ void inicializarSupBarridoConBezierBezier(){
 	camino->incluirPunto(caminoP5);
 	camino->incluirPunto(caminoP6);
 	camino->incluirPunto(caminoP7);
+	
 	pruebaBarridoConBezierBezier = new SuperficieDeBarrido(borde, camino);
 	pruebaBarridoConBezierBezier->discretizar(30, 30);
 }
 void inicializarSupBarridoConBezierBSpline(){
 	//Curva borde
-	vec3 bordeP1 = vec3(3.0, 0.0, 0.0); 
-	vec3 bordeP2 = vec3(4.0, -3.0, 3.0);
-	vec3 bordeP3 = vec3(2.0, -1.0, 5.0);
-	vec3 bordeP4 = vec3(1.0, 3.0, 7.0);
-	Bezier* borde = new Bezier(1);
-	borde->incluirPunto(bordeP1);
-	borde->incluirPunto(bordeP2);
-	borde->incluirPunto(bordeP3);
-	borde->incluirPunto(bordeP4);
+	Circunferencia* borde = new Circunferencia(0.1);
 	//Curva camino
-	vec3 caminoP1 = vec3(0.0, 0.0, 0.0);
-	vec3 caminoP2 = vec3(5.0, 5.0, 5.0);
-	vec3 caminoP3 = vec3(0.0, 0.0, 4.0);
-	vec3 caminoP4 = vec3(0.0, 0.0, 10.0);
-	vec3 caminoP5 = vec3(12.0, 12.0, 12.0);
+	vec3 caminoP1 = vec3(0.0, 0.0, -1.0);
+	vec3 caminoP2 = vec3(0.0, 0.0, 1.0);
+	vec3 caminoP3 = vec3(0.0, 0.0, 2.0);
+	vec3 caminoP4 = vec3(0.0, 1.0, 2.0);
+	vec3 caminoP5 = vec3(0.0, 10.0, 2.0);
 	BSpline* camino = new BSpline(5);
 	camino->incluirPunto(caminoP1);
 	camino->incluirPunto(caminoP2);

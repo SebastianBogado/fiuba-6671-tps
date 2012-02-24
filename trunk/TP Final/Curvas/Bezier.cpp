@@ -98,8 +98,6 @@ vec3 Bezier::tangente(Flotante x){
 
 }
 
-
-
 int Bezier::cantidadDePuntos(){ return this->cantidadPuntos; }
 int Bezier::cantidadDeTramos(){ return this->cantTramos; }
 
