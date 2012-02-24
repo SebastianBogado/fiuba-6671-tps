@@ -208,12 +208,18 @@ void dibujarPuntosDeControl(Curva* curva){
 		 glPopMatrix();
 	}
 }
-void inicializarBSplineRevol(){
+void inicializarBSplineRevol(){/* Estos puntos son buenos para una superficie que verifique luces
 	vec3 bsplineP1 = vec3(3.0, 0.0, 0.0); 
 	vec3 bsplineP2 = vec3(3.0, 0.0, 3.0);
 	vec3 bsplineP3 = vec3(1.0, 0.0, 4.0);
 	vec3 bsplineP4 = vec3(4.0, 0.0, 5.0);
-	vec3 bsplineP5 = vec3(2.0, 0.0, 6.0);
+	vec3 bsplineP5 = vec3(2.0, 0.0, 6.0);*/
+
+	vec3 bsplineP1 = vec3(-1.0, 0.0, 1.0); 
+	vec3 bsplineP2 = vec3(1.0, 0.0, 1.0);
+	vec3 bsplineP3 = vec3(1.0, 0.0, 2.5);
+	vec3 bsplineP4 = vec3(1.0, 0.0, 4.0); 
+	vec3 bsplineP5 = vec3(-1.0, 0.0, 4.0);
 	bsplineRevol = new BSpline(5);
 	bsplineRevol->incluirPunto(bsplineP1);
 	bsplineRevol->incluirPunto(bsplineP2);
@@ -222,28 +228,7 @@ void inicializarBSplineRevol(){
 	bsplineRevol->incluirPunto(bsplineP5);
 	DL_CURVA_SELECCIONADA = DL_BSPLINE_REVOL;
 }
-void inicializarBezierRevol(){/*
-	vec3 bezierP1 = vec3(0.0, 0.0, 0.0); 
-	vec3 bezierP2 = vec3(0.9, 0.0, -0.1);
-	vec3 bezierP3 = vec3(0.8, 0.0, 0.6);
-	vec3 bezierP4 = vec3(0.6, 0.0, 1.2);
-	vec3 bezierP5 = vec3(0.4, 0.0, 1.8); 
-	vec3 bezierP6 = vec3(0.8, 0.0, 2.2);
-	vec3 bezierP7 = vec3(0.4, 0.0, 2.9);
-	vec3 bezierP8 = vec3(0.0, 0.0, 3.6);
-	vec3 bezierP9 = vec3(0.3, 0.0, 4.0); 
-	vec3 bezierP10 = vec3(0.0, 0.0, 4.0);
-	bezierRevol = new Bezier(3);
-	bezierRevol->incluirPunto(bezierP1);
-	bezierRevol->incluirPunto(bezierP2);
-	bezierRevol->incluirPunto(bezierP3);
-	bezierRevol->incluirPunto(bezierP4);
-	bezierRevol->incluirPunto(bezierP5);
-	bezierRevol->incluirPunto(bezierP6);
-	bezierRevol->incluirPunto(bezierP7);
-	bezierRevol->incluirPunto(bezierP8);
-	bezierRevol->incluirPunto(bezierP9);
-	bezierRevol->incluirPunto(bezierP10);	*/
+void inicializarBezierRevol(){
 	vec3 bezierP1 = vec3(0.0, 0.0, 0.0); 
 	vec3 bezierP2 = vec3(0.9, 0.0, 0.0);
 	vec3 bezierP3 = vec3(0.5, 0.0, 0.4);
@@ -271,6 +256,7 @@ void inicializarBezierRevol(){/*
 	bezierRevol->incluirPunto(bezierP11);
 	bezierRevol->incluirPunto(bezierP12);
 	bezierRevol->incluirPunto(bezierP13);
+
 }
 void inicializarCurvasBarridoBSplineBSpline(){
 	//Curva borde

@@ -75,6 +75,7 @@
     <ClCompile Include="BaseBSpline.cpp" />
     <ClCompile Include="Bezier.cpp" />
     <ClCompile Include="BSpline.cpp" />
+    <ClCompile Include="Circunferencia.cpp" />
     <ClCompile Include="Curva.cpp" />
     <ClCompile Include="Delineador.cpp" />
     <ClCompile Include="Test.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="BaseBSpline.h" />
     <ClInclude Include="Bezier.h" />
     <ClInclude Include="BSpline.h" />
+    <ClInclude Include="Circunferencia.h" />
     <ClInclude Include="Curva.h" />
     <ClInclude Include="Delineador.h" />
     <ClInclude Include="Test.h" />

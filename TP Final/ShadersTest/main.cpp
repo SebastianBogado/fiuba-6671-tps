@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdarg.h>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
@@ -6,10 +7,16 @@
 #include "..\Superficies\SuperficieDeBarrido.h"
 #include "..\Curvas\BSpline.h"
 #include "..\Curvas\Bezier.h"
+#include "..\Curvas\Circunferencia.h"
 #include "..\Superficies\Emparchador.h"
 #include "GLSLProgram.h"
 #include "TextureLoader.h"
 using namespace std;
+
+//Para los FPS. Idea tomada del código de Ali BaderEddin
+int frames = 0; //Número de frames contados
+float fps = 0;
+int tiempoActual = 0, tiempoAnterior = 0; //Para calcular el tiempo que pasó entre un frame y el siguiente
 
 // Variables asociadas a única fuente de luz de la escena
 bool luzPrendida = false;
@@ -36,12 +43,17 @@ SuperficieDeBarrido* superficieCintaTransportadora;
 GLSLProgram* GLSLCintaTransportadora;
 glTexture cintaTransportadora;
 
+BSpline* perfilTanqueDeCoca;
+SuperficieDeRevolucion* superficieTanqueDeCoca;
+GLSLProgram* GLSLTanqueDeCoca;
+
 // Variables de control
 bool view_grid = true;
 bool view_axis = true;
 bool edit_panel = false;
-bool verBotella = true;
+bool verBotella = false;
 bool verCintaTransportadora = false;
+bool verTanqueDeCoca = true;
 bool actualizar = false;
 
 // Handle para el control de las Display Lists
@@ -52,6 +64,7 @@ GLuint dl_handle;
 
 #define DL_BOTELLA (dl_handle+3)
 #define DL_CINTA_TRANSPORTADORA (dl_handle+4)
+#define DL_TANQUE_DE_COCA (dl_handle+5)
 
 GLuint DL_SELECCIONADA;
 
@@ -89,7 +102,6 @@ float norma3(float* p){
 
     return resultado;
 }
-
 void redimensionar(){
 	float norma=norma3(eye);
 
@@ -99,18 +111,30 @@ void redimensionar(){
 
     RadioEsfera=norma;
 }
-
 void redimensionarRadio(){
 	eye[0]=cos(anguloPhi)*cos(anguloTheta)*RadioEsfera;
     eye[1]=cos(anguloPhi)*sin(anguloTheta)*RadioEsfera;
     eye[2]=sin(anguloPhi)*RadioEsfera;
 }
+void calcularFPS(){
+    frames++;
 
+    tiempoActual = glutGet(GLUT_ELAPSED_TIME);
+
+    int deltaTiempo = tiempoActual - tiempoAnterior;
+
+    if(deltaTiempo > 1000){ //Pasó un segundo
+        fps = frames / (deltaTiempo / 1000.0f);
+        tiempoAnterior = tiempoActual;
+        frames = 0;
+		cout << "FPS: " << fps << endl;
+    }
+}
 void OnIdle (void)
-{
+{	
+	calcularFPS();
 	glutPostRedisplay();
 }
-
 void DrawAxis()
 {
 	glDisable(GL_LIGHTING);
@@ -133,7 +157,6 @@ void DrawAxis()
 	glEnd();
 	glEnable(GL_LIGHTING);
 }
-
 void DrawAxis2DTopView()
 {
 	glDisable(GL_LIGHTING);
@@ -155,7 +178,6 @@ void DrawAxis2DTopView()
 
 	glEnable(GL_LIGHTING);
 }
-
 void DrawXYGrid()
 {
 	int i;
@@ -179,7 +201,6 @@ void Set3DEnv()
     glLoadIdentity ();
     gluPerspective(60.0, (GLfloat) W_WIDTH/(GLfloat) W_HEIGHT, 0.10, 100.0);
 }
-
 void SetPanelTopEnv()
 {
 	glViewport (TOP_VIEW_POSX, TOP_VIEW_POSY, (GLsizei) TOP_VIEW_W, (GLsizei) TOP_VIEW_H); 
@@ -258,15 +279,31 @@ void inicializarSuperficieCintaTransportadora(){
 	superficieCintaTransportadora = new SuperficieDeBarrido(formaCintaTransportadora, caminoCintaTransportadora);
 	superficieCintaTransportadora->discretizar(5, 10);
 }
+void inicializarSuperficieTanqueDeCoca(){
+	vec3 bsplineP1 = vec3(-1.0, 0.0, 1.0); 
+	vec3 bsplineP2 = vec3(1.0, 0.0, 1.0);
+	vec3 bsplineP3 = vec3(1.0, 0.0, 2.5);
+	vec3 bsplineP4 = vec3(1.0, 0.0, 4.0); 
+	vec3 bsplineP5 = vec3(-1.0, 0.0, 4.0);
+	BSpline* perfilTanqueDeCoca = new BSpline(5);
+	perfilTanqueDeCoca->incluirPunto(bsplineP1);
+	perfilTanqueDeCoca->incluirPunto(bsplineP2);
+	perfilTanqueDeCoca->incluirPunto(bsplineP3);
+	perfilTanqueDeCoca->incluirPunto(bsplineP4);
+	perfilTanqueDeCoca->incluirPunto(bsplineP5);
+	superficieTanqueDeCoca = new SuperficieDeRevolucion(perfilTanqueDeCoca);
+	superficieTanqueDeCoca->discretizar(30, 36);
+}
 void inicializarSupeficies(){
 	//Superficies
 	inicializarSuperficieBotella();
 	inicializarSuperficieCintaTransportadora();
-	
+	inicializarSuperficieTanqueDeCoca();	
 }
 void inicializarGLSL(){
 	GLSLBotella = new GLSLProgram("botella.vert", "botella.frag");
 	GLSLCintaTransportadora = new GLSLProgram("cintaTransportadora.vert", "cintaTransportadora.frag");
+	//GLSLTanqueDeCoca = new GLSLProgram(".vert", ".frag");
 }
 void incializarTexturas(){
 	texLoader->SetMipMapping(true);
@@ -306,14 +343,13 @@ void dibujarBotella(){
 	GLSLBotella->setUniform("luz.dif", luzDif);
 	GLSLBotella->setUniform("luz.espec", luzEspec);
 
-	Emparchador::emparchar(superficieBotella);
+	glCallList(DL_BOTELLA);
 
 	GLSLBotella->cerrar();
 	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 	//glDepthMask(GL_TRUE);
 }
-
 void dibujarCintaTransportadora(){
 	glDisable(GL_LIGHTING);
 
@@ -336,22 +372,23 @@ void dibujarCintaTransportadora(){
 	GLSLCintaTransportadora->setUniform("luz.amb", luzAmb);
 	GLSLCintaTransportadora->setUniform("luz.dif", luzDif);
 	GLSLCintaTransportadora->setUniform("luz.espec", luzEspec);
-
-	Emparchador::emparchar(superficieCintaTransportadora, 14 );
+	
+	glCallList(DL_CINTA_TRANSPORTADORA);
 
 	GLSLCintaTransportadora->cerrar();
 	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 }
+void dibujarTanqueDeCoca(){
+
+}
 void init(void) 
 {
-	dl_handle = glGenLists(3);
+	dl_handle = glGenLists(6);
 
 	glClearColor (0.02f, 0.02f, 0.04f, 0.0f);
     glShadeModel (GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHTING);
 	
 	inicializarSupeficies();
 	inicializarGLSL();
@@ -367,9 +404,17 @@ void init(void)
 	glNewList(DL_AXIS2D_TOP, GL_COMPILE);
 		DrawAxis2DTopView();
 	glEndList();
+	glNewList(DL_BOTELLA, GL_COMPILE);
+		Emparchador::emparchar(superficieBotella);
+	glEndList();
+	glNewList(DL_CINTA_TRANSPORTADORA, GL_COMPILE);
+		Emparchador::emparchar(superficieCintaTransportadora, 14);
+	glEndList();
+	glNewList(DL_TANQUE_DE_COCA, GL_COMPILE);
+		Emparchador::emparchar(superficieTanqueDeCoca);
+	glEndList();
+
 }
-
-
 
 void display(void)
 {
@@ -397,6 +442,8 @@ void display(void)
 		dibujarBotella();
 	if (verCintaTransportadora)
 		dibujarCintaTransportadora();
+	if (verTanqueDeCoca)
+		dibujarTanqueDeCoca();
 	
 
 	//
@@ -415,8 +462,6 @@ void display(void)
 	}
 	//
 	///////////////////////////////////////////////////
-	
-	
 
 	glutSwapBuffers();
 }
@@ -426,7 +471,6 @@ void reshape (int w, int h)
    	W_WIDTH  = (float)w;
 	W_HEIGHT = (float)h;
 }
-
 void keyboard (unsigned char key, int x, int y)
 {
 	key	= tolower(key);
@@ -498,7 +542,6 @@ void keyboard (unsigned char key, int x, int y)
          break;
    }
 }
-
 void teclasParticulares(int key, int x, int y){
 	switch(key) {
 		case GLUT_KEY_F5 :
@@ -522,7 +565,6 @@ void mouse(int button, int state, int x, int y){
 		}
 	}
 }
-
 void mouseEnMovimiento(int x, int y){
 	if (xOrigen >= 0) {
 		difAnguloX = xOrigen - x;
@@ -537,7 +579,6 @@ void mouseEnMovimiento(int x, int y){
 	anguloPhi += (0.005 * difAnguloY);
 	redimensionar();
 }
-
 void rueditaDelMouse(int button, int dir, int x, int y){
 	if (dir == 0) return;
 	
@@ -560,7 +601,7 @@ int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize (1024, 768); 
+	glutInitWindowSize (800, 640); 
 	glutInitWindowPosition (0, 0);
    
 	glutCreateWindow (argv[0]);

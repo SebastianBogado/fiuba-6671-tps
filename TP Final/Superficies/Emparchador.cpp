@@ -42,7 +42,7 @@ void Emparchador::emparchar(Superficie* superficie, int repeticionesDeLaTexturaS
 				if (t > 1.0) t -= 1.0;
 			}
 		glEnd();
-		t = 0.0; cout << s << endl;
+		t = 0.0;
 		s += pasoTexS; 
 		if (s > 1.0) s -= 1.0;
     }
