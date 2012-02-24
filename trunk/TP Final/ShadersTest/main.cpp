@@ -12,9 +12,11 @@
 using namespace std;
 
 // Variables asociadas a única fuente de luz de la escena
-float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
-float light_position[3] = {10.0f, 10.0f, 8.0f};
-float light_ambient[4] = {0.05f, 0.05f, 0.05f, 1.0f};
+bool luzPrendida = false;
+vec4 luzPosicion = vec4(-3.0, -3.0, 5.0, 1.0);
+vec3 luzAmb = vec3(0.1, 0.1, 0.1);
+vec3 luzDif = vec3(0.9, 0.9, 0.9);
+vec3 luzEspec = vec3(1.0, 1.0, 1.0);
 
 TextureLoader* texLoader = new TextureLoader();
 
@@ -26,16 +28,13 @@ glTexture tapaCoca;
 bool tieneEtiqueta = false;
 bool tieneTapa = false;
 float porcentajeDeLlenado = 0.0;
-bool luzPrendida = false;
-vec4 luzPosicion = vec4(-3.0, -3.0, 5.0, 1.0);
-vec3 luzAmb = vec3(0.1, 0.1, 0.1);
-vec3 luzDif = vec3(0.9, 0.9, 0.9);
-vec3 luzEspec = vec3(1.0, 1.0, 1.0);
+
 
 BSpline* formaCintaTransportadora;
 BSpline* caminoCintaTransportadora;
 SuperficieDeBarrido* superficieCintaTransportadora;
 GLSLProgram* GLSLCintaTransportadora;
+glTexture cintaTransportadora;
 
 // Variables de control
 bool view_grid = true;
@@ -267,11 +266,13 @@ void inicializarSupeficies(){
 }
 void inicializarGLSL(){
 	GLSLBotella = new GLSLProgram("botella.vert", "botella.frag");
+	GLSLCintaTransportadora = new GLSLProgram("cintaTransportadora.vert", "cintaTransportadora.frag");
 }
 void incializarTexturas(){
 	texLoader->SetMipMapping(true);
 	texLoader->LoadTextureFromDisk("etiquetaCoca.bmp", &etiquetaCoca);
 	texLoader->LoadTextureFromDisk("tapaCoca.bmp", &tapaCoca);
+	texLoader->LoadTextureFromDisk("cintaTransportadora.bmp", &cintaTransportadora);
 }
 
 void dibujarBotella(){
@@ -314,7 +315,33 @@ void dibujarBotella(){
 }
 
 void dibujarCintaTransportadora(){
-	Emparchador::emparchar(superficieCintaTransportadora);
+	glDisable(GL_LIGHTING);
+
+	if (actualizar){
+		delete GLSLCintaTransportadora;
+		GLSLCintaTransportadora = new GLSLProgram("cintaTransportadora.vert", "cintaTransportadora.frag");
+		actualizar = false;
+	}
+	
+	if (!GLSLCintaTransportadora->isLinked())
+		GLSLCintaTransportadora->link();
+	GLSLCintaTransportadora->usar();
+	
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, cintaTransportadora.TextureID);
+	
+	GLSLCintaTransportadora->setUniform("cintaText", 0);
+	GLSLCintaTransportadora->setUniform("luzPrendida", luzPrendida);
+	GLSLCintaTransportadora->setUniform("luz.posicion", luzPosicion);
+	GLSLCintaTransportadora->setUniform("luz.amb", luzAmb);
+	GLSLCintaTransportadora->setUniform("luz.dif", luzDif);
+	GLSLCintaTransportadora->setUniform("luz.espec", luzEspec);
+
+	Emparchador::emparchar(superficieCintaTransportadora, 14 );
+
+	GLSLCintaTransportadora->cerrar();
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_LIGHTING);
 }
 void init(void) 
 {
@@ -323,9 +350,6 @@ void init(void)
 	glClearColor (0.02f, 0.02f, 0.04f, 0.0f);
     glShadeModel (GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_color);
-    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);
 	

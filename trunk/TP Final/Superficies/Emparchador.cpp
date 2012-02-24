@@ -5,25 +5,28 @@
 #include <stdio.h>
 using namespace std;
 
-void Emparchador::emparchar(Superficie* superficie){
+void Emparchador::emparchar(Superficie* superficie, int repeticionesDeLaTexturaS, int repeticionesDeLaTexturaT){
     vec3 punto;
     vec3 normal;
 	int I_MAX = superficie->cantidadDePuntosEnAlto() - 1;
 	int J_MAX = superficie->cantidadDePuntosBorde();
 	
-	float pasoTexS = 1.0/J_MAX;
-	float pasoTexT = 1.0/I_MAX;
+	float pasoTexT = repeticionesDeLaTexturaT * (1.0/J_MAX);
+	float pasoTexS = repeticionesDeLaTexturaS * (1.0/I_MAX);
+	float s = 0;
+	float t = 0;
     
 	glEnable(GL_DEPTH_TEST);
 	
     for (int i = 0; i < I_MAX; i++){
-        glBegin(GL_TRIANGLE_STRIP);
+		glBegin(GL_TRIANGLE_STRIP);
             for (int j = 0; j < J_MAX; j++){
+				
                 //Punto inferior
 				punto = superficie->getPunto(j, i);
                 normal = superficie->getNormal(j, i);
 
-				glTexCoord2f(pasoTexT * i, pasoTexS * j);
+				glTexCoord2f(s, t);
 				glNormal3fv(&normal[0]);
                 glVertex3fv(&punto[0]);
 				//cout << "( " << punto[0] << ", " << punto[1] << ", " << punto[2] << " ) con ";
@@ -31,12 +34,16 @@ void Emparchador::emparchar(Superficie* superficie){
 				punto= superficie->getPunto(j, i+1);
                 normal = superficie->getNormal(j, i+1);
                 
-				glTexCoord2f(pasoTexT * (i+1), pasoTexS * j);
+				glTexCoord2f(s + pasoTexS,t);
 				glNormal3fv(&normal[0]);
                 glVertex3fv(&punto[0]);
 				//cout << "( " << punto[0] << ", " << punto[1] << ", " << punto[2] << " ). j = " << j << "; i = " << i << endl;
+				t += pasoTexT;
+				if (t > 1.0) t -= 1.0;
 			}
 		glEnd();
+		s += pasoTexS; t = 0.0;
+		if (s > 1.0) s -= 1.0;
     }
 	glDisable(GL_TEXTURE_2D);
   /*  if (superficie->tieneTapas())

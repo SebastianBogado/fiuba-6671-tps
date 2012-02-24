@@ -42,6 +42,12 @@
     <None Include="tapaCoca256.bmp">
       <Filter>Archivos de recursos</Filter>
     </None>
+    <None Include="cintaTransportadora.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="cintaTransportadora.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextureLoader.cpp">
