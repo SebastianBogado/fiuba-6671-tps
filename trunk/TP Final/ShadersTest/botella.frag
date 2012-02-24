@@ -1,7 +1,8 @@
 uniform sampler2D etiquetaText, tapaText;
-uniform float porcentajeDeLiquido;
+uniform float porcentajeDeLlenado;
 uniform bool tieneEtiqueta;
 uniform bool tieneTapa;
+uniform bool luzPrendida;
 
 varying vec2 vTexCoord;
 varying vec3 normal;
@@ -21,8 +22,18 @@ struct propMaterial{
 	float brillo;
 };
 
-propLuz luz;
+uniform propLuz luz;
 propMaterial material;
+
+vec3 Phong(){
+	vec3 n = normalize(normal);
+	vec3 l = normalize(vec3(luz.posicion) - posicion );
+	vec3 v = normalize(vec3(-posicion));
+	vec3 r = reflect(-l, n);
+	return ((luz.amb * material.colorAmb) +
+		    (luz.dif * material.colorDif * max( dot(l, n), 0.0 )) +
+		    (luz.espec * material.colorEspec * pow(max(dot(r,v),0.0), material.brillo )));
+}
 
 vec3 BlinnPhong(){
 	vec3 n = normalize(normal);
@@ -35,11 +46,11 @@ vec3 BlinnPhong(){
 }
 
 void main (void){
-	vec4 plastico = vec4(0.9, 0.9, 0.9, 0.2);
+	vec4 plastico = vec4(0.65, 0.65, 0.65, 0.2);
 	vec4 liquido = vec4(0.1719, 0.0, 0.0, 0.95);
 	vec4 etiqueta =  texture2D(etiquetaText, vTexCoord);
 	vec4 tapa =  texture2D(tapaText, vTexCoord);
-	if (vTexCoord.t > porcentajeDeLiquido)
+	if (vTexCoord.t > porcentajeDeLlenado)
 		liquido.a = 0.0;
 	vec4 color = mix(plastico, liquido, liquido.a);
 	
@@ -48,19 +59,15 @@ void main (void){
 	
 	if ((tieneTapa) && (tapa.a != 0.0))
 		color = tapa;
-	/*
+
+	if (!luzPrendida)
+		gl_FragColor = color;
+	else{
 	material.colorAmb = color.xyz;
 	material.colorDif = color.xyz;
-	material.colorEspec = color.xyz;
-	material.brillo = 20.0;*/
-	
-	material.colorAmb = vec3(0.0, 0.0, 0.0);
-	material.colorDif = vec3(0.55, 0.55, 0.55);
 	material.colorEspec = vec3(0.7, 0.7, 0.7);
-	material.brillo = 32.0;
-	luz.posicion = vec4(5.0, 5.0, 5.0, 1.0);
-	luz.amb = vec3(1.0, 1.0, 1.0);
-	luz.dif = vec3(1.0, 1.0, 1.0);
-	luz.espec = vec3(1.0, 1.0, 1.0);
+	material.brillo = 4.0;
+	
 	gl_FragColor = vec4(BlinnPhong(), color.a);
+	}
 }

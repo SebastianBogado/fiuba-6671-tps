@@ -25,7 +25,12 @@ glTexture etiquetaCoca;
 glTexture tapaCoca;
 bool tieneEtiqueta = false;
 bool tieneTapa = false;
-float porcentajeDeLlenado;
+float porcentajeDeLlenado = 0.0;
+bool luzPrendida = false;
+vec4 luzPosicion = vec4(-3.0, -3.0, 5.0, 1.0);
+vec3 luzAmb = vec3(0.1, 0.1, 0.1);
+vec3 luzDif = vec3(0.9, 0.9, 0.9);
+vec3 luzEspec = vec3(1.0, 1.0, 1.0);
 
 BSpline* formaCintaTransportadora;
 BSpline* caminoCintaTransportadora;
@@ -214,7 +219,7 @@ void inicializarSuperficieBotella(){
 	perfilBotella->incluirPunto(bezierP12);
 	perfilBotella->incluirPunto(bezierP13);
 	superficieBotella = new SuperficieDeRevolucion(perfilBotella);
-	superficieBotella->discretizar(30, 36);
+	superficieBotella->discretizar(10, 36);
 }
 void inicializarSuperficieCintaTransportadora(){
 	//Curva borde
@@ -291,9 +296,15 @@ void dibujarBotella(){
 	
 	GLSLBotella->setUniform("etiquetaText", 0);
 	GLSLBotella->setUniform("tapaText", 1);
-	GLSLBotella->setUniform("porcentajeDeLiquido", float(0.56));
+	GLSLBotella->setUniform("porcentajeDeLlenado", porcentajeDeLlenado);
 	GLSLBotella->setUniform("tieneEtiqueta", tieneEtiqueta);
 	GLSLBotella->setUniform("tieneTapa", tieneTapa);
+	GLSLBotella->setUniform("luzPrendida", luzPrendida);
+	GLSLBotella->setUniform("luz.posicion", luzPosicion);
+	GLSLBotella->setUniform("luz.amb", luzAmb);
+	GLSLBotella->setUniform("luz.dif", luzDif);
+	GLSLBotella->setUniform("luz.espec", luzEspec);
+
 	Emparchador::emparchar(superficieBotella);
 
 	GLSLBotella->cerrar();
@@ -418,6 +429,12 @@ void keyboard (unsigned char key, int x, int y)
 		  tieneEtiqueta = !tieneEtiqueta; break;
 	  case 'm':
 		  tieneTapa = !tieneTapa; break;
+	  case 'b':
+		  luzPrendida = !luzPrendida; break;
+	  case '+':
+		  porcentajeDeLlenado += 0.05; break;
+	  case '-':
+		  porcentajeDeLlenado -= 0.05; break;
 	  case '2':
 		  eye[0] = 0.0;
 		  eye[1] = 0.0;
