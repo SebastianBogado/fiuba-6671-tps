@@ -6,7 +6,7 @@
 
 class Emparchador{
     public:
-        static void emparchar(Superficie* superficie);
+        static void emparchar(Superficie* superficie, int repeticionesDeLaTexturaS = 1, int repeticionesDeLaTexturaT = 1);
 
 		/* Utilícese el siguiente sólo para debuggear
 		 * Nota: las normales están escaladas al 30% porque en esta aplicación todas las figuras
