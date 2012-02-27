@@ -28,6 +28,8 @@
     <None Include="etiquetaCoca256.bmp" />
     <None Include="prueba.frag" />
     <None Include="prueba.vert" />
+    <None Include="tanqueDeCoca.frag" />
+    <None Include="tanqueDeCoca.vert" />
     <None Include="tapaCoca.bmp" />
     <None Include="tapaCoca256.bmp" />
   </ItemGroup>

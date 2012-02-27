@@ -51,6 +51,12 @@
     <None Include="cintaTransportadora.bmp">
       <Filter>Archivos de recursos</Filter>
     </None>
+    <None Include="tanqueDeCoca.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="tanqueDeCoca.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextureLoader.cpp">

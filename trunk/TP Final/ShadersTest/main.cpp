@@ -45,6 +45,8 @@ glTexture cintaTransportadora;
 
 BSpline* perfilTanqueDeCoca;
 SuperficieDeRevolucion* superficieTanqueDeCoca;
+BSpline* caminoTuboDelTanqueDeCoca;
+SuperficieDeBarrido * superficieTuboDelTanqueDeCoca;
 GLSLProgram* GLSLTanqueDeCoca;
 
 // Variables de control
@@ -65,6 +67,7 @@ GLuint dl_handle;
 #define DL_BOTELLA (dl_handle+3)
 #define DL_CINTA_TRANSPORTADORA (dl_handle+4)
 #define DL_TANQUE_DE_COCA (dl_handle+5)
+#define DL_TUBO_DEL_TANQUE_DE_COCA (dl_handle+6)
 
 GLuint DL_SELECCIONADA;
 
@@ -280,6 +283,7 @@ void inicializarSuperficieCintaTransportadora(){
 	superficieCintaTransportadora->discretizar(5, 10);
 }
 void inicializarSuperficieTanqueDeCoca(){
+	//Cuerpo del tanque
 	vec3 bsplineP1 = vec3(-1.0, 0.0, 1.0); 
 	vec3 bsplineP2 = vec3(1.0, 0.0, 1.0);
 	vec3 bsplineP3 = vec3(1.0, 0.0, 2.5);
@@ -293,6 +297,26 @@ void inicializarSuperficieTanqueDeCoca(){
 	perfilTanqueDeCoca->incluirPunto(bsplineP5);
 	superficieTanqueDeCoca = new SuperficieDeRevolucion(perfilTanqueDeCoca);
 	superficieTanqueDeCoca->discretizar(30, 36);
+	
+	//Tubito que llena las botellas
+	//Curva borde
+	Circunferencia* borde = new Circunferencia(0.1, vec3(0.0, 0.25, 4.5));
+	//Curva camino
+	vec3 caminoP1 = vec3( 0.0,   0.0, 4.5);
+	vec3 caminoP2 = vec3( 0.0,   0.5, 4.5);
+	vec3 caminoP3 = vec3( 0.0,   1.0, 4.5);
+	vec3 caminoP4 = vec3( 0.0,   1.5, 4.5);
+	vec3 caminoP5 = vec3( 0.0,  1.75, 4.25);
+	vec3 caminoP6 = vec3( 0.0,  1.75, 4.0);
+	caminoTuboDelTanqueDeCoca = new BSpline(6);
+	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP1);
+	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP2);
+	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP3);
+	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP4);
+	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP5);
+	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP6);
+	superficieTuboDelTanqueDeCoca = new SuperficieDeBarrido(borde, caminoTuboDelTanqueDeCoca);
+	superficieTuboDelTanqueDeCoca->discretizar(10, 10);
 }
 void inicializarSupeficies(){
 	//Superficies
@@ -303,7 +327,7 @@ void inicializarSupeficies(){
 void inicializarGLSL(){
 	GLSLBotella = new GLSLProgram("botella.vert", "botella.frag");
 	GLSLCintaTransportadora = new GLSLProgram("cintaTransportadora.vert", "cintaTransportadora.frag");
-	//GLSLTanqueDeCoca = new GLSLProgram(".vert", ".frag");
+	GLSLTanqueDeCoca = new GLSLProgram("tanqueDeCoca.vert", "tanqueDeCoca.frag");
 }
 void incializarTexturas(){
 	texLoader->SetMipMapping(true);
@@ -380,11 +404,111 @@ void dibujarCintaTransportadora(){
 	glEnable(GL_LIGHTING);
 }
 void dibujarTanqueDeCoca(){
+	glDisable(GL_LIGHTING);
 
+	if (actualizar){
+		delete GLSLTanqueDeCoca;
+		GLSLTanqueDeCoca = new GLSLProgram("tanqueDeCoca.vert", "tanqueDeCoca.frag");
+		actualizar = false;
+	}
+	
+	if (!GLSLTanqueDeCoca->isLinked())
+		GLSLTanqueDeCoca->link();
+	GLSLTanqueDeCoca->usar();
+
+	GLSLTanqueDeCoca->setUniform("luzPrendida", luzPrendida);
+	GLSLTanqueDeCoca->setUniform("luz.posicion", luzPosicion);
+	GLSLTanqueDeCoca->setUniform("luz.amb", luzAmb);
+	GLSLTanqueDeCoca->setUniform("luz.dif", luzDif);
+	GLSLTanqueDeCoca->setUniform("luz.espec", luzEspec);
+
+	glCallList(DL_TANQUE_DE_COCA);
+
+	GLSLTanqueDeCoca->cerrar();
+
+	glEnable(GL_LIGHTING);
+	glBegin(GL_QUADS);
+		glNormal3f(1.0, 0.0, 0.0);
+		glVertex3f(0.375, -0.375, 0.0);
+		glVertex3f(0.375,  0.375, 0.0);	
+		glVertex3f(0.375,  0.375, 1.25);
+		glVertex3f(0.375, -0.375, 1.25);
+
+		glNormal3f( 0.0,  1.0, 0.0);
+		glVertex3f( 0.375, 0.375, 0.0);
+		glVertex3f(-0.375, 0.375, 0.0);
+		glVertex3f(-0.375, 0.375, 1.25);
+		glVertex3f( 0.375, 0.375, 1.25);
+
+		glNormal3f(-1.0,  0.0,  0.0);
+		glVertex3f(-0.375, 0.375, 0.0);
+		glVertex3f(-0.375, -0.375, 0.0);	
+		glVertex3f(-0.375, -0.375, 1.25);
+		glVertex3f(-0.375, 0.375, 1.25);	
+
+		glNormal3f(0.0,  -1.0,  0.0);
+		glVertex3f(-0.375, -0.375, 0.0);
+		glVertex3f(0.375,  -0.375, 0.0);
+		glVertex3f(0.375,  -0.375, 1.25);
+		glVertex3f(-0.375, -0.375, 1.25);		
+
+	glEnd();
+
+	//Esto se dibuja en momentos distintos porque lo que viene ahora es
+	//el tubo que llena la Coca, que se mueve, mientras el resto del tanque permanece quieto
+
+	GLSLTanqueDeCoca->usar();
+
+	GLSLTanqueDeCoca->setUniform("luzPrendida", luzPrendida);
+	GLSLTanqueDeCoca->setUniform("luz.posicion", luzPosicion);
+	GLSLTanqueDeCoca->setUniform("luz.amb", luzAmb);
+	GLSLTanqueDeCoca->setUniform("luz.dif", luzDif);
+	GLSLTanqueDeCoca->setUniform("luz.espec", luzEspec);
+
+	glCallList(DL_TUBO_DEL_TANQUE_DE_COCA);
+
+	GLSLTanqueDeCoca->cerrar();
+
+	glEnable(GL_LIGHTING);
+	glBegin(GL_QUADS);
+		glNormal3f(1.0, 0.0, 0.0);
+		glVertex3f(0.2, -0.2, 4.0);
+		glVertex3f(0.2,  0.2, 4.0);
+		glVertex3f(0.2,  0.2, 5.0);
+		glVertex3f(0.2, -0.2, 5.0);
+
+		glNormal3f( 0.0,  1.0, 0.0);
+		glVertex3f( 0.2, 0.2, 4.0);
+		glVertex3f(-0.2, 0.2, 4.0);
+		glVertex3f(-0.2, 0.2, 5.0);
+		glVertex3f( 0.2, 0.2, 5.0);
+
+		glNormal3f(-1.0,  0.0,  0.0);
+		glVertex3f(-0.2, 0.2, 4.0);
+		glVertex3f(-0.2, -0.2, 4.0);
+		glVertex3f(-0.2, -0.2, 5.0);
+		glVertex3f(-0.2, 0.2, 5.0);
+
+		glNormal3f(0.0,  -1.0,  0.0);
+		glVertex3f(-0.2, -0.2, 4.0);
+		glVertex3f(0.2,  -0.2, 4.0);
+		glVertex3f(0.2,  -0.2, 5.0);
+		glVertex3f(-0.2, -0.2, 5.0);
+
+		glNormal3f(0.0,   0.0, 1.0);
+		glVertex3f( 0.2, -0.2, 5.0);
+		glVertex3f( 0.2,  0.2, 5.0);
+		glVertex3f(-0.2,   0.2, 5.0);
+		glVertex3f(-0.2,  -0.2, 5.0);
+
+	glEnd();
+	
+
+	
 }
 void init(void) 
 {
-	dl_handle = glGenLists(6);
+	dl_handle = glGenLists(7);
 
 	glClearColor (0.02f, 0.02f, 0.04f, 0.0f);
     glShadeModel (GL_SMOOTH);
@@ -412,6 +536,9 @@ void init(void)
 	glEndList();
 	glNewList(DL_TANQUE_DE_COCA, GL_COMPILE);
 		Emparchador::emparchar(superficieTanqueDeCoca);
+	glEndList();
+	glNewList(DL_TUBO_DEL_TANQUE_DE_COCA, GL_COMPILE);
+		Emparchador::emparchar(superficieTuboDelTanqueDeCoca);
 	glEndList();
 
 }
