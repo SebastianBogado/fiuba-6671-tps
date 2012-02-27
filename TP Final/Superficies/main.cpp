@@ -344,19 +344,21 @@ void inicializarSupBarridoConBezierBezier(){
 }
 void inicializarSupBarridoConBezierBSpline(){
 	//Curva borde
-	Circunferencia* borde = new Circunferencia(0.1);
+	Circunferencia* borde = new Circunferencia(0.1, vec3(0.0, 0.25, 4.5));
 	//Curva camino
-	vec3 caminoP1 = vec3(0.0, 0.0, -1.0);
-	vec3 caminoP2 = vec3(0.0, 0.0, 1.0);
-	vec3 caminoP3 = vec3(0.0, 0.0, 2.0);
-	vec3 caminoP4 = vec3(0.0, 1.0, 2.0);
-	vec3 caminoP5 = vec3(0.0, 10.0, 2.0);
-	BSpline* camino = new BSpline(5);
+	vec3 caminoP1 = vec3( 0.0,   0.0, 4.5);
+	vec3 caminoP2 = vec3( 0.0,   0.5, 4.5);
+	vec3 caminoP3 = vec3( 0.0,   1.0, 4.5);
+	vec3 caminoP4 = vec3( 0.0,   1.5, 4.5);
+	vec3 caminoP5 = vec3( 0.0,  1.75, 4.25);
+	vec3 caminoP6 = vec3( 0.0,  1.75, 4.0);
+	BSpline* camino = new BSpline(6);
 	camino->incluirPunto(caminoP1);
 	camino->incluirPunto(caminoP2);
 	camino->incluirPunto(caminoP3);
 	camino->incluirPunto(caminoP4);
 	camino->incluirPunto(caminoP5);
+	camino->incluirPunto(caminoP6);
 	pruebaBarridoConBezierBSpline = new SuperficieDeBarrido(borde, camino);
 	pruebaBarridoConBezierBSpline->discretizar(30, 30);
 }
