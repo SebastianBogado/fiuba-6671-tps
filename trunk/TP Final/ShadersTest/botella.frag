@@ -2,7 +2,6 @@ uniform sampler2D etiquetaText, tapaText;
 uniform float porcentajeDeLlenado;
 uniform bool tieneEtiqueta;
 uniform bool tieneTapa;
-uniform bool luzPrendida;
 
 varying vec2 vTexCoord;
 varying vec3 normal;
@@ -13,6 +12,7 @@ struct propLuz{
 	vec3 amb;
 	vec3 dif;
 	vec3 espec;
+	bool prendida;
 };
 
 struct propMaterial{
@@ -60,7 +60,7 @@ void main (void){
 	if ((tieneTapa) && (tapa.a != 0.0))
 		color = tapa;
 
-	if (!luzPrendida)
+	if (!luz.prendida)
 		gl_FragColor = color;
 	else{
 	material.colorAmb = color.xyz;

@@ -1,5 +1,4 @@
 uniform sampler2D cintaText;
-uniform bool luzPrendida;
 
 varying vec2 vTexCoord;
 varying vec3 normal;
@@ -10,6 +9,7 @@ struct propLuz{
 	vec3 amb;
 	vec3 dif;
 	vec3 espec;
+	bool prendida;
 };
 
 struct propMaterial{
@@ -47,7 +47,7 @@ void main (void){
 	if (color.a == 0.0)
 		color = vec4(0.2, 0.2, 0.2, 1.0);
 
-	if (!luzPrendida)
+	if (!luz.prendida)
 		gl_FragColor = color;
 	else{
 		material.colorAmb = color.xyz;

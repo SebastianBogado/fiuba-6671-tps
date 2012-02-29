@@ -38,6 +38,7 @@ typedef	struct
 	GLuint		Height;										// Image Height
 	GLuint		Type;										// Image Type (GL_RGB, GL_RGBA)
 	GLuint		Bpp;										// Image Color Depth In Bits Per Pixel
+	GLubyte*	bits;										// La imagen en sí
 } glTexture;
 
 typedef struct {
