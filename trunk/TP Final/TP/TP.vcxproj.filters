@@ -48,6 +48,9 @@
     <Library Include="lib\glew32.lib">
       <Filter>lib</Filter>
     </Library>
+    <Library Include="lib\BulletPhysics.lib">
+      <Filter>lib</Filter>
+    </Library>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -92,6 +95,9 @@
     <ClCompile Include="CintaTransportadora.cpp">
       <Filter>Archivos de código fuente\Objetos\Maquinas</Filter>
     </ClCompile>
+    <ClCompile Include="InterfazMotorDeFisica.cpp">
+      <Filter>Archivos de código fuente\Modelo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h">
@@ -132,6 +138,9 @@
     </ClInclude>
     <ClInclude Include="CintaTransportadora.h">
       <Filter>Archivos de encabezado\Objetos\Maquinas</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfazMotorDeFisica.h">
+      <Filter>Archivos de encabezado\Modelo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
