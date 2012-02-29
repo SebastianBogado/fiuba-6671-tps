@@ -68,6 +68,8 @@
     <Library Include="lib\Curvas.lib" />
     <Library Include="lib\freeglut.lib" />
     <Library Include="lib\glew32.lib" />
+    <Library Include="lib\SOIL.lib" />
+    <Library Include="lib\Superficies.lib" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Botella.cpp" />
