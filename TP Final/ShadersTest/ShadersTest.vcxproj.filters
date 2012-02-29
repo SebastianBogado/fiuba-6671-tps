@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{7f18d0ed-5bdb-4eac-82dd-312317e6f87f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SOIL">
+      <UniqueIdentifier>{bc055c37-1ff3-43bb-bdb1-f05563d74476}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="botella.frag">
@@ -57,6 +60,30 @@
     <None Include="tanqueDeCoca.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Phong.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Phong.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="cubemap_blue_sofa_positive_z.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="cubemap_blue_sofa_negative_x.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="cubemap_blue_sofa_negative_y.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="cubemap_blue_sofa_negative_z.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="cubemap_blue_sofa_positive_x.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="cubemap_blue_sofa_positive_y.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextureLoader.cpp">
@@ -75,6 +102,9 @@
     </ClInclude>
     <ClInclude Include="GLSLProgram.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="SOIL\SOIL.h">
+      <Filter>SOIL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

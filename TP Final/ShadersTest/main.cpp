@@ -11,6 +11,7 @@
 #include "..\Superficies\Emparchador.h"
 #include "GLSLProgram.h"
 #include "TextureLoader.h"
+#include "SOIL\SOIL.h"
 using namespace std;
 
 //Para los FPS. Idea tomada del código de Ali BaderEddin
@@ -19,11 +20,28 @@ float fps = 0;
 int tiempoActual = 0, tiempoAnterior = 0; //Para calcular el tiempo que pasó entre un frame y el siguiente
 
 // Variables asociadas a única fuente de luz de la escena
-bool luzPrendida = false;
-vec4 luzPosicion = vec4(-3.0, -3.0, 5.0, 1.0);
-vec3 luzAmb = vec3(0.1, 0.1, 0.1);
-vec3 luzDif = vec3(0.9, 0.9, 0.9);
-vec3 luzEspec = vec3(1.0, 1.0, 1.0);
+struct propLuz{
+	vec4 posicion;
+	vec3 amb;
+	vec3 dif;
+	vec3 espec;
+	bool prendida;
+};
+
+propLuz luz = { 
+	vec4(-3.0, -3.0, 5.0, 1.0), 
+	vec3(0.1, 0.1, 0.1), 
+	vec3(0.9, 0.9, 0.9),
+	vec3(1.0, 1.0, 1.0),
+	false
+};
+
+struct propMaterial{
+	vec3 colorAmb;
+	vec3 colorDif;
+	vec3 colorEspec;
+	float brillo;
+};
 
 TextureLoader* texLoader = new TextureLoader();
 
@@ -48,6 +66,10 @@ SuperficieDeRevolucion* superficieTanqueDeCoca;
 BSpline* caminoTuboDelTanqueDeCoca;
 SuperficieDeBarrido * superficieTuboDelTanqueDeCoca;
 GLSLProgram* GLSLTanqueDeCoca;
+GLuint skyBox;
+glTexture skyBoxPosX, skyBoxNegX, skyBoxPosY, skyBoxNegY, skyBoxPosZ, skyBoxNegZ;
+
+GLSLProgram* GLSLPhong; //Estos shaders son para los materiales que solamente son iluminados, sin textura ni alguna particularidad.
 
 // Variables de control
 bool view_grid = true;
@@ -300,10 +322,10 @@ void inicializarSuperficieTanqueDeCoca(){
 	
 	//Tubito que llena las botellas
 	//Curva borde
-	Circunferencia* borde = new Circunferencia(0.1, vec3(0.0, 0.25, 4.5));
+	Circunferencia* borde = new Circunferencia(0.1, vec3(0.0, 0.0, 4.5));
 	//Curva camino
-	vec3 caminoP1 = vec3( 0.0,   0.0, 4.5);
-	vec3 caminoP2 = vec3( 0.0,   0.5, 4.5);
+	vec3 caminoP1 = vec3( 0.0,  -0.25, 4.5);
+	vec3 caminoP2 = vec3( 0.0,   0.25, 4.5);
 	vec3 caminoP3 = vec3( 0.0,   1.0, 4.5);
 	vec3 caminoP4 = vec3( 0.0,   1.5, 4.5);
 	vec3 caminoP5 = vec3( 0.0,  1.75, 4.25);
@@ -328,14 +350,38 @@ void inicializarGLSL(){
 	GLSLBotella = new GLSLProgram("botella.vert", "botella.frag");
 	GLSLCintaTransportadora = new GLSLProgram("cintaTransportadora.vert", "cintaTransportadora.frag");
 	GLSLTanqueDeCoca = new GLSLProgram("tanqueDeCoca.vert", "tanqueDeCoca.frag");
+	GLSLPhong = new GLSLProgram("Phong.vert", "Phong.frag");
 }
-void incializarTexturas(){
+void inicializarTexturas(){
 	texLoader->SetMipMapping(true);
 	texLoader->LoadTextureFromDisk("etiquetaCoca.bmp", &etiquetaCoca);
 	texLoader->LoadTextureFromDisk("tapaCoca.bmp", &tapaCoca);
 	texLoader->LoadTextureFromDisk("cintaTransportadora.bmp", &cintaTransportadora);
+	skyBox = SOIL_load_OGL_cubemap("cubemap_blue_sofa_positive_x.bmp",
+								   "cubemap_blue_sofa_negative_x.bmp",
+								   "cubemap_blue_sofa_positive_y.bmp",
+								   "cubemap_blue_sofa_negative_y.bmp", 
+								   "cubemap_blue_sofa_positive_z.bmp",
+								   "cubemap_blue_sofa_negative_z.bmp",
+								   SOIL_LOAD_RGB,
+								   SOIL_CREATE_NEW_ID,
+								   SOIL_FLAG_MIPMAPS);
+	cout << SOIL_last_result() << endl;
 }
 
+void setearLucesUniform(GLSLProgram* GLSLenUso = GLSLPhong){
+	GLSLenUso->setUniform("luz.prendida", luz.prendida);
+	GLSLenUso->setUniform("luz.posicion", luz.posicion);
+	GLSLenUso->setUniform("luz.amb", luz.amb);
+	GLSLenUso->setUniform("luz.dif", luz.dif);
+	GLSLenUso->setUniform("luz.espec", luz.espec);
+}
+void setearMaterial(propMaterial material, GLSLProgram* GLSLenUso = GLSLPhong){
+	GLSLenUso->setUniform("material.colorAmb", material.colorAmb);
+	GLSLenUso->setUniform("material.colorDif", material.colorDif);
+	GLSLenUso->setUniform("material.colorEspec", material.colorEspec);
+	GLSLenUso->setUniform("material.brillo", material.brillo);
+}
 void dibujarBotella(){
 	glDisable(GL_LIGHTING);
 	//glDepthMask(GL_FALSE);
@@ -361,16 +407,13 @@ void dibujarBotella(){
 	GLSLBotella->setUniform("porcentajeDeLlenado", porcentajeDeLlenado);
 	GLSLBotella->setUniform("tieneEtiqueta", tieneEtiqueta);
 	GLSLBotella->setUniform("tieneTapa", tieneTapa);
-	GLSLBotella->setUniform("luzPrendida", luzPrendida);
-	GLSLBotella->setUniform("luz.posicion", luzPosicion);
-	GLSLBotella->setUniform("luz.amb", luzAmb);
-	GLSLBotella->setUniform("luz.dif", luzDif);
-	GLSLBotella->setUniform("luz.espec", luzEspec);
+	setearLucesUniform(GLSLBotella);
 
 	glCallList(DL_BOTELLA);
 
 	GLSLBotella->cerrar();
 	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
 	glEnable(GL_LIGHTING);
 	//glDepthMask(GL_TRUE);
 }
@@ -391,11 +434,7 @@ void dibujarCintaTransportadora(){
 	glBindTexture(GL_TEXTURE_2D, cintaTransportadora.TextureID);
 	
 	GLSLCintaTransportadora->setUniform("cintaText", 0);
-	GLSLCintaTransportadora->setUniform("luzPrendida", luzPrendida);
-	GLSLCintaTransportadora->setUniform("luz.posicion", luzPosicion);
-	GLSLCintaTransportadora->setUniform("luz.amb", luzAmb);
-	GLSLCintaTransportadora->setUniform("luz.dif", luzDif);
-	GLSLCintaTransportadora->setUniform("luz.espec", luzEspec);
+	setearLucesUniform(GLSLCintaTransportadora);
 	
 	glCallList(DL_CINTA_TRANSPORTADORA);
 
@@ -409,6 +448,8 @@ void dibujarTanqueDeCoca(){
 	if (actualizar){
 		delete GLSLTanqueDeCoca;
 		GLSLTanqueDeCoca = new GLSLProgram("tanqueDeCoca.vert", "tanqueDeCoca.frag");
+		delete GLSLPhong;
+		GLSLPhong = new GLSLProgram("Phong.vert", "Phong.frag");
 		actualizar = false;
 	}
 	
@@ -416,17 +457,36 @@ void dibujarTanqueDeCoca(){
 		GLSLTanqueDeCoca->link();
 	GLSLTanqueDeCoca->usar();
 
-	GLSLTanqueDeCoca->setUniform("luzPrendida", luzPrendida);
-	GLSLTanqueDeCoca->setUniform("luz.posicion", luzPosicion);
-	GLSLTanqueDeCoca->setUniform("luz.amb", luzAmb);
-	GLSLTanqueDeCoca->setUniform("luz.dif", luzDif);
-	GLSLTanqueDeCoca->setUniform("luz.espec", luzEspec);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, skyBox);
+	propMaterial tanque = {
+		vec3(0.44, 0.57, 0.75),
+		vec3(0.44, 0.57, 0.75),
+		vec3(0.1, 0.15, 0.2),
+		32.0
+	};
+	setearMaterial(tanque, GLSLTanqueDeCoca);
+	setearLucesUniform(GLSLTanqueDeCoca);
+	GLSLTanqueDeCoca->setUniform("skyBoxTex", 0);
+	GLSLTanqueDeCoca->setUniform("posicionDelOjo", vec3(eye[0], eye[1], eye[2]));
+
 
 	glCallList(DL_TANQUE_DE_COCA);
 
 	GLSLTanqueDeCoca->cerrar();
 
-	glEnable(GL_LIGHTING);
+	if (!GLSLPhong->isLinked())
+		GLSLPhong->link();
+	GLSLPhong->usar();
+	propMaterial material = {
+		vec3(0.3, 0.3, 0.3),
+		vec3(0.3, 0.3, 0.3),
+		vec3(0.1, 0.1, 0.1),
+		1.0
+	};
+	setearLucesUniform();
+	setearMaterial(material);
+
 	glBegin(GL_QUADS);
 		glNormal3f(1.0, 0.0, 0.0);
 		glVertex3f(0.375, -0.375, 0.0);
@@ -454,57 +514,61 @@ void dibujarTanqueDeCoca(){
 
 	glEnd();
 
+	GLSLPhong->cerrar();
 	//Esto se dibuja en momentos distintos porque lo que viene ahora es
 	//el tubo que llena la Coca, que se mueve, mientras el resto del tanque permanece quieto
 
 	GLSLTanqueDeCoca->usar();
-
-	GLSLTanqueDeCoca->setUniform("luzPrendida", luzPrendida);
-	GLSLTanqueDeCoca->setUniform("luz.posicion", luzPosicion);
-	GLSLTanqueDeCoca->setUniform("luz.amb", luzAmb);
-	GLSLTanqueDeCoca->setUniform("luz.dif", luzDif);
-	GLSLTanqueDeCoca->setUniform("luz.espec", luzEspec);
-
+	propMaterial tubo = {
+		vec3(0.9, 0.9, 0.28),
+		vec3(0.9, 0.9, 0.28),
+		vec3(0.3, 0.3, 0.1),
+		32.0
+	};
+	setearMaterial(tubo, GLSLTanqueDeCoca);
+	setearLucesUniform(GLSLTanqueDeCoca);
+	
 	glCallList(DL_TUBO_DEL_TANQUE_DE_COCA);
 
 	GLSLTanqueDeCoca->cerrar();
 
-	glEnable(GL_LIGHTING);
+	GLSLPhong->usar();
+	setearLucesUniform(GLSLTanqueDeCoca);
+	setearMaterial(material);
 	glBegin(GL_QUADS);
 		glNormal3f(1.0, 0.0, 0.0);
-		glVertex3f(0.2, -0.2, 4.0);
-		glVertex3f(0.2,  0.2, 4.0);
-		glVertex3f(0.2,  0.2, 5.0);
-		glVertex3f(0.2, -0.2, 5.0);
+		glVertex3f(0.2, -0.2, 3.75);
+		glVertex3f(0.2,  0.2, 3.75);
+		glVertex3f(0.2,  0.2, 4.75);
+		glVertex3f(0.2, -0.2, 4.75);
 
 		glNormal3f( 0.0,  1.0, 0.0);
-		glVertex3f( 0.2, 0.2, 4.0);
-		glVertex3f(-0.2, 0.2, 4.0);
-		glVertex3f(-0.2, 0.2, 5.0);
-		glVertex3f( 0.2, 0.2, 5.0);
+		glVertex3f( 0.2, 0.2, 3.75);
+		glVertex3f(-0.2, 0.2, 3.75);
+		glVertex3f(-0.2, 0.2, 4.75);
+		glVertex3f( 0.2, 0.2, 4.75);
 
 		glNormal3f(-1.0,  0.0,  0.0);
-		glVertex3f(-0.2, 0.2, 4.0);
-		glVertex3f(-0.2, -0.2, 4.0);
-		glVertex3f(-0.2, -0.2, 5.0);
-		glVertex3f(-0.2, 0.2, 5.0);
+		glVertex3f(-0.2, 0.2, 3.75);
+		glVertex3f(-0.2, -0.2, 3.75);
+		glVertex3f(-0.2, -0.2, 4.75);
+		glVertex3f(-0.2, 0.2, 4.75);
 
 		glNormal3f(0.0,  -1.0,  0.0);
-		glVertex3f(-0.2, -0.2, 4.0);
-		glVertex3f(0.2,  -0.2, 4.0);
-		glVertex3f(0.2,  -0.2, 5.0);
-		glVertex3f(-0.2, -0.2, 5.0);
+		glVertex3f(-0.2, -0.2, 3.75);
+		glVertex3f(0.2,  -0.2, 3.75);
+		glVertex3f(0.2,  -0.2, 4.75);
+		glVertex3f(-0.2, -0.2, 4.75);
 
 		glNormal3f(0.0,   0.0, 1.0);
-		glVertex3f( 0.2, -0.2, 5.0);
-		glVertex3f( 0.2,  0.2, 5.0);
-		glVertex3f(-0.2,   0.2, 5.0);
-		glVertex3f(-0.2,  -0.2, 5.0);
+		glVertex3f( 0.2, -0.2, 4.75);
+		glVertex3f( 0.2,  0.2, 4.75);
+		glVertex3f(-0.2,   0.2, 4.75);
+		glVertex3f(-0.2,  -0.2, 4.75);
 
 	glEnd();
 	
-
-	
+	GLSLPhong->cerrar();	
 }
 void init(void) 
 {
@@ -516,7 +580,7 @@ void init(void)
 	
 	inicializarSupeficies();
 	inicializarGLSL();
-	incializarTexturas();
+	inicializarTexturas();
 
 	// Generación de las Display Lists
 	glNewList(DL_AXIS, GL_COMPILE);
@@ -625,7 +689,7 @@ void keyboard (unsigned char key, int x, int y)
 	  case 'm':
 		  tieneTapa = !tieneTapa; break;
 	  case 'b':
-		  luzPrendida = !luzPrendida; break;
+		  luz.prendida = !luz.prendida; break;
 	  case '+':
 		  porcentajeDeLlenado += 0.05; break;
 	  case '-':
@@ -661,10 +725,16 @@ void keyboard (unsigned char key, int x, int y)
 		  break;
 	  case '4':
 		  verBotella = true;
-		  verCintaTransportadora = false; break;
+		  verCintaTransportadora = false; 
+		  verTanqueDeCoca = false; break;
 	  case '5':
 		  verBotella = false;
-		  verCintaTransportadora = true; break;
+		  verCintaTransportadora = true; 
+		  verTanqueDeCoca = false; break;
+	  case '6':
+		  verBotella = false;
+		  verCintaTransportadora = false; 
+		  verTanqueDeCoca = true; break;
      default:
          break;
    }
@@ -735,6 +805,7 @@ int main(int argc, char** argv)
 	//glutFullScreen();
 	glewInit();
 	init ();
+
 	glutDisplayFunc(display); 
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);

@@ -24,8 +24,16 @@
     <None Include="cintaTransportadora.bmp" />
     <None Include="cintaTransportadora.frag" />
     <None Include="cintaTransportadora.vert" />
+    <None Include="cubemap_blue_sofa_negative_x.bmp" />
+    <None Include="cubemap_blue_sofa_negative_y.bmp" />
+    <None Include="cubemap_blue_sofa_negative_z.bmp" />
+    <None Include="cubemap_blue_sofa_positive_x.bmp" />
+    <None Include="cubemap_blue_sofa_positive_y.bmp" />
+    <None Include="cubemap_blue_sofa_positive_z.bmp" />
     <None Include="etiquetaCoca.bmp" />
     <None Include="etiquetaCoca256.bmp" />
+    <None Include="Phong.frag" />
+    <None Include="Phong.vert" />
     <None Include="prueba.frag" />
     <None Include="prueba.vert" />
     <None Include="tanqueDeCoca.frag" />
@@ -40,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLSLProgram.h" />
+    <ClInclude Include="SOIL\SOIL.h" />
     <ClInclude Include="TextureLoader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -81,7 +90,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;..\TP\lib\glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;..\TP\lib\SOIL.lib;..\TP\lib\glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

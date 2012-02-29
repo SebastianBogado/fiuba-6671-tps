@@ -1,4 +1,3 @@
-varying vec3 posicionSegunEspectador;
 varying vec3 normal;
 varying vec3 posicion;
 
@@ -19,7 +18,6 @@ struct propMaterial{
 
 uniform propLuz luz;
 uniform propMaterial material;
-uniform samplerCube skyBoxTex;
 
 vec3 Phong(){
 	vec3 n = normalize(normal);
@@ -40,12 +38,13 @@ vec3 BlinnPhong(){
 		    (luz.dif * material.colorDif * max( dot(l, n), 0.0 )) +
 		    (luz.espec * material.colorEspec * pow(max(dot(h,n),0.0), material.brillo )));
 }
+
 void main (void){
-	vec3 direccionDeReflejo = reflect( posicionSegunEspectador, normal);
-	vec3 reflejo = textureCube(skyBoxTex, direccionDeReflejo).xyz;
+	vec4 color =  vec4(material.colorAmb, 1.0);
 
 	if (!luz.prendida)
-		gl_FragColor = vec4( mix( material.colorAmb, reflejo, 0.2), 1.0);
+		gl_FragColor = color;
 	else
-		gl_FragColor = vec4( mix( BlinnPhong(), reflejo, 0.2), 1.0);
+		gl_FragColor = vec4(BlinnPhong(), 1.0);
+	
 }

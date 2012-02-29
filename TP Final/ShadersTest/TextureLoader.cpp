@@ -416,6 +416,7 @@ int TextureLoader::BuildTexture(char *szPathName, glTexture *pglTexture)
 	pglTexture->Height = bi.bmiHeader.biHeight;
 	pglTexture->Bpp = bi.bmiHeader.biBitCount;							// Image Color Depth In Bits Per Pixel
 	pglTexture->Type = GL_RGBA;
+	pglTexture->bits = (BYTE *)pBits;
 
 	glGenTextures(1, &pglTexture->TextureID);							// Create The Texture
 
