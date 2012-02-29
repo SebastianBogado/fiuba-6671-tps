@@ -63,6 +63,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Library Include="lib\BulletPhysics.lib" />
     <Library Include="lib\Camara.lib" />
     <Library Include="lib\Curvas.lib" />
     <Library Include="lib\freeglut.lib" />
@@ -74,6 +75,7 @@
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="CuartoDeMaquinas.cpp" />
     <ClCompile Include="EscenaGrafica.cpp" />
+    <ClCompile Include="InterfazMotorDeFisica.cpp" />
     <ClCompile Include="LamparaDeTecho.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MaquinaDeBotellas.cpp" />
@@ -90,6 +92,7 @@
     <ClInclude Include="Control.h" />
     <ClInclude Include="CuartoDeMaquinas.h" />
     <ClInclude Include="EscenaGrafica.h" />
+    <ClInclude Include="InterfazMotorDeFisica.h" />
     <ClInclude Include="LamparaDeTecho.h" />
     <ClInclude Include="MaquinaDeBotellas.h" />
     <ClInclude Include="MaquinaDeLlenado.h" />
