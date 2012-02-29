@@ -1,4 +1,4 @@
-varying vec3 posicionSegunEspectador;
+varying vec3 direccionDeReflejo;
 varying vec3 normal;
 varying vec3 posicion;
 
@@ -40,8 +40,7 @@ vec3 BlinnPhong(){
 		    (luz.dif * material.colorDif * max( dot(l, n), 0.0 )) +
 		    (luz.espec * material.colorEspec * pow(max(dot(h,n),0.0), material.brillo )));
 }
-void main (void){
-	vec3 direccionDeReflejo = reflect( posicionSegunEspectador, normal);
+void main (void){   
 	vec3 reflejo = textureCube(skyBoxTex, direccionDeReflejo).xyz;
 
 	if (!luz.prendida)

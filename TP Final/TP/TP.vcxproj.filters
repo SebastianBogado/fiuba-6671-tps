@@ -51,6 +51,12 @@
     <Library Include="lib\BulletPhysics.lib">
       <Filter>lib</Filter>
     </Library>
+    <Library Include="lib\SOIL.lib">
+      <Filter>lib</Filter>
+    </Library>
+    <Library Include="lib\Superficies.lib">
+      <Filter>lib</Filter>
+    </Library>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
