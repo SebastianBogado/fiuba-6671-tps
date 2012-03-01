@@ -21,6 +21,10 @@ MaquinaEmbaladora::MaquinaEmbaladora(void)
 
 void MaquinaEmbaladora::graficar(){
 
+
+	this->graficarBase();
+
+	/*
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glDisable(GL_LIGHTING);
@@ -64,7 +68,7 @@ void MaquinaEmbaladora::graficar(){
 			//6ta tapa la del piso, no parece necesaria
 
 		glEnd();
-	glPopMatrix();
+	glPopMatrix();*/
 
 }
 

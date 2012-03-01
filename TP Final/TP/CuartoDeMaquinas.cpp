@@ -20,6 +20,9 @@ CuartoDeMaquinas::CuartoDeMaquinas(void)
 
 void CuartoDeMaquinas::graficar(){
 
+	this->graficarBase();
+
+	/*
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glDisable(GL_LIGHTING);
@@ -68,7 +71,7 @@ void CuartoDeMaquinas::graficar(){
 			glVertex3fv(vertices[3]);
 
 		glEnd();
-	glPopMatrix();
+	glPopMatrix();*/
 
 }
 
