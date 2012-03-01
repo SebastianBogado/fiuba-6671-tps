@@ -88,6 +88,7 @@
     <ClCompile Include="ObjetoGrafico.cpp" />
     <ClCompile Include="ObjetoGraficoCubico.cpp" />
     <ClCompile Include="PaqueteDeBotellas.cpp" />
+    <ClCompile Include="RampaDeCajas.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Botella.h" />
@@ -105,6 +106,7 @@
     <ClInclude Include="ObjetoGrafico.h" />
     <ClInclude Include="ObjetoGraficoCubico.h" />
     <ClInclude Include="PaqueteDeBotellas.h" />
+    <ClInclude Include="RampaDeCajas.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Camara\Camara.vcxproj">
