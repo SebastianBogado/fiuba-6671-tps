@@ -8,6 +8,8 @@ public:
 	ObjetoGraficoCubico(void);
 	void definirParametros(float ancho,float largo,float alto);
 
+	void graficarBase();
+
 	float valorAltura();
 	float valorAncho();
 	float valorLargo();

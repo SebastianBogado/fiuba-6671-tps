@@ -104,6 +104,9 @@
     <ClCompile Include="InterfazMotorDeFisica.cpp">
       <Filter>Archivos de código fuente\Modelo</Filter>
     </ClCompile>
+    <ClCompile Include="ManejadorDeCajones.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h">
@@ -147,6 +150,9 @@
     </ClInclude>
     <ClInclude Include="InterfazMotorDeFisica.h">
       <Filter>Archivos de encabezado\Modelo</Filter>
+    </ClInclude>
+    <ClInclude Include="ManejadorDeCajones.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
