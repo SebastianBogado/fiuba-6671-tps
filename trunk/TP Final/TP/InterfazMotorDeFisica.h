@@ -13,6 +13,10 @@ public:
 
 	void definirHabitacion(ObjetoGraficoCubico *habitacion);
 
+	void definirCajonDeBotellas(ObjetoGrafico *cajonBotellas);
+
+	void definirMaquinaEmbaladora(ObjetoGrafico *maquinaEmbaladora);
+
 	void agregarMaquina(ObjetoGrafico *maquina);
 
 
@@ -23,8 +27,9 @@ private:
 	void inicializar();
 	
 
-
-
+	///////////////////////////////////
+	///Atributos del Motor de Fisica///
+	///////////////////////////////////
 	btDiscreteDynamicsWorld* mundoDinamico;
 	btAlignedObjectArray<btCollisionShape*> objetosDeColision;
 	btBroadphaseInterface* faseGeneral;
