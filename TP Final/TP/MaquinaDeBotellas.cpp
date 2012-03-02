@@ -2,18 +2,28 @@
 
 
 MaquinaDeBotellas::MaquinaDeBotellas(void)
-{
+{	
+
 	this->posicionObjeto = new float[3];
 
-	posicionObjeto[0] = 3.0;
-	posicionObjeto[1] = 2.0;
+	posicionObjeto[0] = 4.0;
+	posicionObjeto[1] = 5.0;
 	posicionObjeto[2] = 0.0;
 
-	this->ancho = 2.0;
-	this->largo = 4.0;
-	this->alto = 4.0;
+	this->ancho = 4.0;
+	this->largo = 2.0;
+	this->alto = 5.0;
+
+	this->alturaDeMaquina = alto;
 
 	this->inicializarVertices();
+
+	this->posDeObjetoAnimado = new float[3];
+	this->inicializarVector(this->posDeObjetoAnimado,
+							posicionObjeto[0]+5,
+							posicionObjeto[1],
+							posicionObjeto[2]);
+														
 
 }
 
@@ -23,6 +33,16 @@ MaquinaDeBotellas::MaquinaDeBotellas(void)
 void MaquinaDeBotellas::graficar(){
 
 	this->graficarBase();
+
+	if (this->AnimacionIniciada)
+	{
+		float color[3]={1.0,0.0,0.0};
+		glPushMatrix();
+		glTranslatef(this->posicionObjeto[0],this->posicionObjeto[1],this->posicionObjeto[2]+this->alto);
+		this->dibujarPiramide(color);
+
+		glPopMatrix();
+	}
 
 	/*
 	glMatrixMode(GL_MODELVIEW);
@@ -83,12 +103,42 @@ void MaquinaDeBotellas::detenerShader(){
 
 }
 
-void MaquinaDeBotellas::actualizarAtributos(){ }
+void MaquinaDeBotellas::actualizarAtributos(){
+
+	if (this->AnimacionIniciada)
+	{
+		this->_testAnimacion += this->_pasoTest;
+
+		this->AnimacionIniciada = this->_testAnimacion > 100.0;
+	}
+
+}
+
+
+
+void MaquinaDeBotellas::iniciarAnimacion(Botella* botella)
+{
+	this->AnimacionIniciada = true;
+
+	this->_pasoTest = 1.0;
+	this->_testAnimacion = 0.0;
+
+
+
+}
+
+bool MaquinaDeBotellas::animacionFinalizada()
+{
+
+	return !this->AnimacionIniciada;
+
+}
+
 
 MaquinaDeBotellas::~MaquinaDeBotellas(void)
 {
 
 	delete[] this->posicionObjeto;
-
+	delete[] this->posDeObjetoAnimado;
 
 }

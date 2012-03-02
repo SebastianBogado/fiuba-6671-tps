@@ -80,7 +80,10 @@
     <ClCompile Include="InterfazMotorDeFisica.cpp" />
     <ClCompile Include="LamparaDeTecho.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ManejadorDeBotellas.cpp" />
+    <ClCompile Include="ManejadorDeBotellasEnCinta.cpp" />
     <ClCompile Include="ManejadorDeCajones.cpp" />
+    <ClCompile Include="Maquina.cpp" />
     <ClCompile Include="MaquinaDeBotellas.cpp" />
     <ClCompile Include="MaquinaDeLlenado.cpp" />
     <ClCompile Include="MaquinaEmbaladora.cpp" />
@@ -98,7 +101,10 @@
     <ClInclude Include="EscenaGrafica.h" />
     <ClInclude Include="InterfazMotorDeFisica.h" />
     <ClInclude Include="LamparaDeTecho.h" />
+    <ClInclude Include="ManejadorDeBotellas.h" />
+    <ClInclude Include="ManejadorDeBotellasEnCinta.h" />
     <ClInclude Include="ManejadorDeCajones.h" />
+    <ClInclude Include="Maquina.h" />
     <ClInclude Include="MaquinaDeBotellas.h" />
     <ClInclude Include="MaquinaDeLlenado.h" />
     <ClInclude Include="MaquinaEmbaladora.h" />

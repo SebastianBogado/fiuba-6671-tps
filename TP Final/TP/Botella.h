@@ -22,7 +22,15 @@ public:
 
 	void actualizarAtributos();
 
+
+
+	void reiniciarAtributos();
+
 	virtual ~Botella(void);
+
+
+	//Solo para test de Cinta
+	void cambiarColor(){ this->inicializarVector(_testColor,_testColor[0] + 0.3,_testColor[1] + 0.2, _testColor[2] + 0.1);}
 
 private:
 
@@ -31,6 +39,8 @@ private:
 
 	bool tieneEtiqueta;
 	float porcentajeDeLlenado;
+
+	float _testColor[3];
 
 };
 
