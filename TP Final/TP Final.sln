@@ -28,6 +28,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BulletPhysicsTest", "Bullet
 		{4BB2C543-2D0B-4280-97D0-7C2CAAF7A1A2} = {4BB2C543-2D0B-4280-97D0-7C2CAAF7A1A2}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Reflexiones dinámicas", "Reflexiones dinámicas\Reflexiones dinámicas.vcxproj", "{AC0B4B17-C2EF-4539-8ECB-D20A9EB6274E}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -100,6 +102,12 @@ Global
 		{451B434C-5D51-421C-B386-389C5710E6BD}.Release|Win32.ActiveCfg = Release|Win32
 		{451B434C-5D51-421C-B386-389C5710E6BD}.Release|Win32.Build.0 = Release|Win32
 		{451B434C-5D51-421C-B386-389C5710E6BD}.Release|x64.ActiveCfg = Release|Win32
+		{AC0B4B17-C2EF-4539-8ECB-D20A9EB6274E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AC0B4B17-C2EF-4539-8ECB-D20A9EB6274E}.Debug|Win32.Build.0 = Debug|Win32
+		{AC0B4B17-C2EF-4539-8ECB-D20A9EB6274E}.Debug|x64.ActiveCfg = Debug|Win32
+		{AC0B4B17-C2EF-4539-8ECB-D20A9EB6274E}.Release|Win32.ActiveCfg = Release|Win32
+		{AC0B4B17-C2EF-4539-8ECB-D20A9EB6274E}.Release|Win32.Build.0 = Release|Win32
+		{AC0B4B17-C2EF-4539-8ECB-D20A9EB6274E}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

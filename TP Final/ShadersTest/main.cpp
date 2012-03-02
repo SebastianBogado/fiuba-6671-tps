@@ -367,6 +367,12 @@ void inicializarTexturas(){
 								   SOIL_CREATE_NEW_ID,
 								   SOIL_FLAG_MIPMAPS);
 	cout << SOIL_last_result() << endl;
+	/*glGenTextures(1, &skyBox);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, skyBox);
+	for (int i=0;i<6;++i)
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X+i, 0, GL_RGB, 256, 256, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);*/
 }
 
 void setearLucesUniform(GLSLProgram* GLSLenUso = GLSLPhong){
@@ -442,6 +448,34 @@ void dibujarCintaTransportadora(){
 	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 }
+void actualizarReflexion(){
+
+
+	gluLookAt (0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, -1.0, 0.0);
+	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, 0, 0, 0, 0, 256, 256);
+	
+
+	gluLookAt (0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, -1.0, 0.0);
+	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, 0, 0, 0, 0, 256, 256);
+
+
+	gluLookAt (0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, -1.0);
+	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, 0, 0, 0, 0, 256, 256);
+
+
+	gluLookAt (0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, 1.0);
+	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, 0, 0, 0, 0, 256, 256);
+
+
+	gluLookAt (0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0);
+	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, 0, 0, 0, 0, 256, 256);
+
+
+	gluLookAt (0.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
+	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, 0, 0, 0, 0, 256, 256);
+
+
+}
 void dibujarTanqueDeCoca(){
 	glDisable(GL_LIGHTING);
 
@@ -470,7 +504,7 @@ void dibujarTanqueDeCoca(){
 	GLSLTanqueDeCoca->setUniform("skyBoxTex", 0);
 	GLSLTanqueDeCoca->setUniform("posicionDelOjo", vec3(eye[0], eye[1], eye[2]));
 
-	//glutSolidSphere(6.0, 40, 40);
+	//glutSolidSphere(6.0, 50, 50);
 	glCallList(DL_TANQUE_DE_COCA);
 
 	GLSLTanqueDeCoca->cerrar();
@@ -568,7 +602,8 @@ void dibujarTanqueDeCoca(){
 
 	glEnd();
 	
-	GLSLPhong->cerrar();	
+	GLSLPhong->cerrar();
+	//actualizarReflexion();
 }
 void init(void) 
 {
