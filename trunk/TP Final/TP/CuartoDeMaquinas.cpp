@@ -10,9 +10,9 @@ CuartoDeMaquinas::CuartoDeMaquinas(void)
 	posicionObjeto[1] = 0.0;
 	posicionObjeto[2] = 0.0;
 
-	this->ancho = 10.0;
-	this->largo = 30.0;
-	this->alto = 6.0;
+	this->ancho = 20.0;
+	this->largo = 40.0;
+	this->alto = 10.0;
 
 	this->inicializarVertices();
 

@@ -33,6 +33,8 @@ public:
 
 	inline float* vectorPosicion(){ return posicionObjeto;}
 
+	void* devolverPuntero(){ return (reinterpret_cast<void*>(this));}
+
 	virtual ~ObjetoGrafico(void);
 
 protected:
@@ -50,6 +52,9 @@ protected:
 	*/
 
 	void inicializarVector(float *vector,float x,float y, float z);
+
+
+	void dibujarPiramide(float *color);
 
 	//////////////////////
 	//Atributos de Clase//

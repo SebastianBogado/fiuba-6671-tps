@@ -5,14 +5,15 @@ MaquinaEmbaladora::MaquinaEmbaladora(void)
 {
 
 	this->posicionObjeto = new float[3];
+	this->inicializarVector(posicionObjeto,28.0,5.0,0.0);
 
-	posicionObjeto[0] = 10.0;
-	posicionObjeto[1] = 5.0;
-	posicionObjeto[2] = 0.0;
+	this->posDeObjetoAnimado = new float[3];
+	this->inicializarVector(posDeObjetoAnimado,0.0,0.0,0.0);
+
 
 	this->ancho = 4.0;
 	this->largo = 4.0;
-	this->alto = 3.0;
+	this->alto = 5.0;
 
 	this->inicializarVertices();
 }
@@ -79,6 +80,19 @@ void MaquinaEmbaladora::aplicarShader(){
 }
 
 void MaquinaEmbaladora::detenerShader(){
+}
+
+
+void MaquinaEmbaladora::iniciarAnimacion(Botella* botella)
+{
+
+
+}
+
+bool MaquinaEmbaladora::animacionFinalizada()
+{
+
+	return true;
 }
 
 MaquinaEmbaladora::~MaquinaEmbaladora(void)

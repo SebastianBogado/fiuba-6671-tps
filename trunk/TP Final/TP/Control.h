@@ -4,6 +4,10 @@
 
 #include <GL\freeglut.h>
 #include "EscenaGrafica.h"
+#include "ManejadorDeBotellas.h"
+#include "ManejadorDeBotellasEnCinta.h"
+
+static bool aplicacionCorriendo;
 
 class Control{
 public:
@@ -26,6 +30,18 @@ public:
 private:
 	static Camara* camara;
 	static EscenaGrafica* escena;
+
+
+	void inicializar();
+	static void liberarMemoria();
+
+	ObjetoGrafico** inicializarMaquinas();
+	ObjetoGrafico** inicializarObjetosGraficos();
+	ObjetoGrafico**	inicializarBotellas();
+
+	int cantObjetosTotales,cantMaquinas,cantObjetos,cantBotellas;
+	ObjetoGrafico** objetosGraficos;
+
 	
 	bool debug;
 };

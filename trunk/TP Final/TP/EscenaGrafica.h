@@ -4,13 +4,21 @@
 #include "CuartoDeMaquinas.h"
 #include "MaquinaEmbaladora.h"
 #include "LamparaDeTecho.h"
+#include "CintaTransportadora.h"
+#include "MaquinaDeLlenado.h"
+#include "MaquinaEtiquetadora.h"
+
 
 class EscenaGrafica
 {
 public:
 	EscenaGrafica(void);
 
+	void agregarObjetosGraficos(int cantObjetos,ObjetoGrafico** objetos);
+
 	void graficar();
+
+	void actualizarEscena();
 
 	~EscenaGrafica(void);
 

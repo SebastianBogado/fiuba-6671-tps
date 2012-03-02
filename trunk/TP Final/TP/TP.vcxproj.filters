@@ -110,6 +110,15 @@
     <ClCompile Include="RampaDeCajas.cpp">
       <Filter>Archivos de código fuente\Objetos</Filter>
     </ClCompile>
+    <ClCompile Include="ManejadorDeBotellas.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="ManejadorDeBotellasEnCinta.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="Maquina.cpp">
+      <Filter>Archivos de código fuente\Modelo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h">
@@ -159,6 +168,15 @@
     </ClInclude>
     <ClInclude Include="RampaDeCajas.h">
       <Filter>Archivos de encabezado\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="ManejadorDeBotellas.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ManejadorDeBotellasEnCinta.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Maquina.h">
+      <Filter>Archivos de encabezado\Modelo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

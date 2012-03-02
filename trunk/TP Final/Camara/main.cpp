@@ -196,7 +196,29 @@ void display(void)
 	// Draw here
 	//
 
+	float color[3] = {0.0,1.0,0.0};
 
+	glDisable(GL_LIGHTING);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+		glColor3fv(color);
+
+		glVertex3f(0.0,0.0,3.0);
+
+		glVertex3f(1.0,1.0,0.0);
+		glVertex3f(-1.0,1.0,0.0);
+
+		glVertex3f(-1.0,1.0,0.0);
+		glVertex3f(-1.0,-1.0,0.0);
+
+		glVertex3f(-1.0,-1.0,0.0);
+		glVertex3f(1.0,-1.0,0.0);
+
+		glVertex3f(1.0,-1.0,0.0);
+		glVertex3f(1.0,1.0,0.0);
+
+	glEnd();
 
 
 
