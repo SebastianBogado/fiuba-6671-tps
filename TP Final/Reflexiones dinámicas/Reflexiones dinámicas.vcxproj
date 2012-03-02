@@ -61,19 +61,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GLSLProgram.cpp" />
+    <ClCompile Include="..\ShadersTest\GLSLProgram.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GLSLProgram.h" />
-    <ClInclude Include="SOIL\SOIL.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="tanqueDeCoca.frag" />
-    <None Include="tanqueDeCoca.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <Library Include="SOIL.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ShadersTest\GLSLProgram.h" />
+    <ClInclude Include="..\ShadersTest\SOIL\SOIL.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,7 +8,7 @@ void main(void){
 	normal = normalize(vec3(gl_NormalMatrix * gl_Normal));	//En coordenadas de mundo
 	vec3 posicionSegunEspectador = posicion - posicionDelOjo;	//En coordenadas de mundo, pero centrando el eje en la cámara
 	
-	direccionDeReflejo = reflect( posicionSegunEspectador, normal);
+	direccionDeReflejo = reflect( posicion, normal);
 	direccionDeReflejo = (gl_ModelViewMatrixInverse * vec4(direccionDeReflejo, 0.0)).xyz;
 	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
 }
