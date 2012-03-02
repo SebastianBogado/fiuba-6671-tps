@@ -44,7 +44,7 @@ void main (void){
 	vec3 reflejo = textureCube(skyBoxTex, direccionDeReflejo).xyz;
 
 	if (!luz.prendida)
-		gl_FragColor = vec4( mix( material.colorAmb, reflejo, 0.2), 1.0);
+		gl_FragColor = vec4( mix( material.colorAmb, reflejo, 0.92), 1.0);
 	else
 		gl_FragColor = vec4( mix( BlinnPhong(), reflejo, 0.2), 1.0);
 }
