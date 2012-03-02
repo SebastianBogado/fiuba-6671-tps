@@ -9,8 +9,8 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <math.h>
-#include "GLSLProgram.h"
-#include "SOIL\SOIL.h"
+#include "..\ShadersTest\GLSLProgram.h"
+#include "..\ShadersTest\SOIL\SOIL.h"
 #include <iostream>
 #include <sstream>
 
@@ -214,7 +214,7 @@ void SetPanelTopEnv()
 	gluOrtho2D(-0.10, 1.05, -0.10, 1.05);
 }
 void inicializarGLSL(){
-	GLSLTanqueDeCoca = new GLSLProgram("tanqueDeCoca.vert", "tanqueDeCoca.frag");
+	GLSLTanqueDeCoca = new GLSLProgram("../ShadersTest/tanqueDeCoca.vert", "../ShadersTest/tanqueDeCoca.frag");
 }
 void inicializarTexturas(){
 	glGenTextures(1, &skybox);
