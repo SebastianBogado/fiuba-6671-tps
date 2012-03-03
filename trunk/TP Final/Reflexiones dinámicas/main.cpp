@@ -240,42 +240,61 @@ void setearMaterial(propMaterial material, GLSLProgram* GLSLenUso = GLSLTanqueDe
 	GLSLenUso->setUniform("material.colorEspec", material.colorEspec);
 	GLSLenUso->setUniform("material.brillo", material.brillo);
 }
+float tiempo = 0.0; bool avanzarEnElTiempo = true;
 void dibujarReferencias(){
+	if (view_axis)
+		 glCallList(DL_AXIS);
+	
+	if (view_grid)
+		 glCallList(DL_GRID);
 	glDisable(GL_LIGHTING);
 	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix(); //Plano rojo en la cara X+
-		glTranslatef(15.0, 0.0, 0.0);
-		glColor3f(1.0, 0.0, 0.0);
-		glCallList(DL_REFERENCIA);
+	if (avanzarEnElTiempo)
+		tiempo += 0.05;
+	glPushMatrix();
+		glRotatef (tiempo*20, 0.0, 0.0, 1.0);
+		glPushMatrix(); //Plano rojo en la cara X+
+			glTranslatef(15.0, 0.0, 0.0);
+			glColor3f(1.0, 0.0, 0.0);
+			glCallList(DL_REFERENCIA);
+		glPopMatrix();
+		glPushMatrix(); //Plano verde en la cara X-
+			glTranslatef(-15.0, 0.0, 0.0);
+			glColor3f(0.0, 1.0, 0.0);
+			glCallList(DL_REFERENCIA);
+		glPopMatrix();
 	glPopMatrix();
-	glPushMatrix(); //Plano verde en la cara X-
-		glTranslatef(-15.0, 0.0, 0.0);
-		glColor3f(0.0, 1.0, 0.0);
-		glCallList(DL_REFERENCIA);
+
+	glPushMatrix();
+		glRotatef (tiempo*20, 1.0, 1.0, 0.0);
+		glPushMatrix(); //Plano azul en la cara Y+
+			glTranslatef(0.0, 15.0, 0.0);
+			glRotatef(90, 0.0, 0.0, 1.0);
+			glColor3f(0.0, 0.0, 1.0);
+			glCallList(DL_REFERENCIA);
+		glPopMatrix();
+		glPushMatrix(); //Plano celeste en la cara Y-
+			glTranslatef(0.0, -15.0, 0.0);
+			glRotatef(90, 0.0, 0.0, 1.0);		
+			glColor3f(0.0, 1.0, 1.0);
+			glCallList(DL_REFERENCIA);
+		glPopMatrix();
 	glPopMatrix();
-	glPushMatrix(); //Plano azul en la cara Y+
-		glTranslatef(0.0, 15.0, 0.0);
-		glRotatef(90, 0.0, 0.0, 1.0);
-		glColor3f(0.0, 0.0, 1.0);
-		glCallList(DL_REFERENCIA);
-	glPopMatrix();
-	glPushMatrix(); //Plano celeste en la cara Y-
-		glTranslatef(0.0, -15.0, 0.0);
-		glRotatef(90, 0.0, 0.0, 1.0);		
-		glColor3f(0.0, 1.0, 1.0);
-		glCallList(DL_REFERENCIA);
-	glPopMatrix();
-	glPushMatrix(); //Plano violeta en la cara Z+
-		glTranslatef(0.0, 0.0, 15.0);
-		glRotatef(90, 0.0, 1.0, 0.0);
-		glColor3f(1.0, 0.0, 1.0);
-		glCallList(DL_REFERENCIA);
-	glPopMatrix();
-	glPushMatrix(); //Plano amarillo en la cara Z-
-		glTranslatef(0.0, 0.0, -15.0);
-		glRotatef(90, 0.0, 1.0, 0.0);		
-		glColor3f(1.0, 1.0, 0.0);
-		glCallList(DL_REFERENCIA);
+
+	glPushMatrix();
+		glRotatef(tiempo*20, 0.0, 1.0, 0.0);
+		glPushMatrix(); //Plano violeta en la cara Z+
+			glTranslatef(0.0, 0.0, 15.0);
+			glRotatef(90, 0.0, 1.0, 0.0);
+			glColor3f(1.0, 0.0, 1.0);
+			glCallList(DL_REFERENCIA);
+		glPopMatrix();
+		glPushMatrix(); //Plano amarillo en la cara Z-
+			glTranslatef(0.0, 0.0, -15.0);
+			glRotatef(90, 0.0, 1.0, 0.0);		
+			glColor3f(1.0, 1.0, 0.0);
+			glCallList(DL_REFERENCIA);
+		glPopMatrix();
 	glPopMatrix();
 }
 void actualizarReflexion(){
@@ -290,33 +309,14 @@ void actualizarReflexion(){
 		{	180.0f,		0.0f,	0.0f,	1.0f	},
 	};
 
-	int origenXY[6][2] = {
-		{	(W_HEIGHT - 256)/2,	(W_WIDTH - 256)/2},
-		{	(W_WIDTH - 256)/2,		(W_HEIGHT - 256)/2},
-
-		{	-90,	0},
-		{	90,		0},
-
-		{	-90,	0},
-		{	90,		0},
-	};
 	
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-
-	int origenX = (W_WIDTH - 256)/2;
-	int origenY = (W_HEIGHT - 256)/2;
-	glEnable(GL_SCISSOR_TEST); 
-	glViewport(origenX, origenY, 256, 256);//glViewport(0, 0, W_WIDTH, W_HEIGHT);
-	glScissor(origenX, origenY, 256, 256);
-
+	
+	glViewport(0, 0, 256, 256);
 	gluPerspective (90, 1.0f, 1, 5000);
 
 	glMatrixMode(GL_MODELVIEW);
-	
-	glClearColor (1.0, 0.0, 0.0, 1.0f);	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	glScissor(origenX+1, origenY+1, 256-2, 256-2);
-	glClearColor (0.1, 0.1, 0.1, 1.0f);
 	
 	for(GLuint i = 0; i < 6; i++){
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
@@ -325,11 +325,10 @@ void actualizarReflexion(){
 		if(i == 0  ||  i == 1)		glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
 		dibujarReferencias();
 		glBindTexture(GL_TEXTURE_CUBE_MAP, skybox); 
-		glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X+i, 0, 0, 0, origenX, origenY, 256, 256);
+		glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X+i, 0, 0, 0, 0, 0, 256, 256);
 		glFlush();
 	}
-	glClearColor (0.0, 0.0, 0.0, 1.0f);
-	glDisable(GL_SCISSOR_TEST);
+
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glViewport(0, 0, W_WIDTH, W_HEIGHT);
 
@@ -383,29 +382,19 @@ void verCaraI(int i){
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-	glEnable(GL_SCISSOR_TEST); 
-	int origenX = (W_WIDTH - 256)/2;
-	int origenY = (W_HEIGHT - 256)/2;
-	glViewport(origenX, origenY, 256, 256);
-	glScissor(origenX, origenY, 256, 256);
-	/*glViewport(0, 0, 256, 256);
-	glScissor(0, 0, 256, 256);*/
+	glViewport(0, 0, 256, 256);
 	gluPerspective (90, 1.0f, 1, 5000);
 
 	glMatrixMode(GL_MODELVIEW);
 	
-	glClearColor (1.0, 0.0, 0.0, 1.0f);	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	glScissor(origenX+1, origenY+1, 256-2, 256-2);
-	glClearColor (0.1, 0.1, 0.1, 1.0f);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 	glRotatef(CubeMapRots[i][0], CubeMapRots[i][1], CubeMapRots[i][2], CubeMapRots[i][3]);
 	if(i == 0  ||  i == 1)		glRotatef(180.0f, 0.0f, 0.0f, 1.0f); 
 	dibujarReferencias();
 	glFlush();
-	glClearColor (0.0, 0.0, 0.0, 1.0f);
-	glDisable(GL_SCISSOR_TEST);
 }
+
 void init(void) 
 {
 	dl_handle = glGenLists(4);
@@ -459,12 +448,7 @@ void display(void){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt (eye[0], eye[1], eye[2], at[0], at[1], at[2], up[0], up[1], up[2]);
-   
-	if (view_axis)
-		 glCallList(DL_AXIS);
-	
-	if (view_grid)
-		 glCallList(DL_GRID);
+
 	//
 	///////////////////////////////////////////////////
 
@@ -538,6 +522,8 @@ void keyboard (unsigned char key, int x, int y)
 		  edit_panel = !edit_panel;
 		  glutPostRedisplay();
 		  break;
+	  case 'p':
+		  avanzarEnElTiempo = !avanzarEnElTiempo; break;
 	  case '2':
 		  eye[0] = 0.0;
 		  eye[1] = 0.0;
