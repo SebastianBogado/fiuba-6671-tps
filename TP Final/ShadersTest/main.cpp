@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdarg.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include "..\Superficies\SuperficieDeRevolucion.h"
@@ -21,19 +22,27 @@ int tiempoActual = 0, tiempoAnterior = 0; //Para calcular el tiempo que pasó ent
 
 // Variables asociadas a única fuente de luz de la escena
 struct propLuz{
+	bool prendida;
 	vec4 posicion;
+	vec3 direccion;
+	float angulo;
+	//Constante para calcular el decrecimiento de la intensidad de la luz
+	//según se aleja del centro, como el brillo en un material
+	float k; 
 	vec3 amb;
 	vec3 dif;
 	vec3 espec;
-	bool prendida;
 };
 
 propLuz luz = { 
-	vec4(-3.0, -3.0, 5.0, 1.0), 
+	false,
+	vec4(0.0, 0.0, 5.0, 1.0), 
+	vec3(0.0, 0.0, -1.0),
+	35,
+	10,
 	vec3(0.1, 0.1, 0.1), 
 	vec3(0.9, 0.9, 0.9),
 	vec3(1.0, 1.0, 1.0),
-	false
 };
 
 struct propMaterial{
@@ -69,7 +78,7 @@ GLSLProgram* GLSLTanqueDeCoca;
 GLuint skyBox;
 glTexture skyBoxPosX, skyBoxNegX, skyBoxPosY, skyBoxNegY, skyBoxPosZ, skyBoxNegZ;
 
-GLSLProgram* GLSLPhong; //Estos shaders son para los materiales que solamente son iluminados, sin textura ni alguna particularidad.
+GLSLProgram* GLSLPhongSpot; //Estos shaders son para los materiales que solamente son iluminados, sin textura ni alguna particularidad.
 
 // Variables de control
 bool view_grid = true;
@@ -77,7 +86,8 @@ bool view_axis = true;
 bool edit_panel = false;
 bool verBotella = false;
 bool verCintaTransportadora = false;
-bool verTanqueDeCoca = true;
+bool verTanqueDeCoca = false;
+bool verPruebaSpot = true;
 bool actualizar = false;
 
 // Handle para el control de las Display Lists
@@ -350,7 +360,7 @@ void inicializarGLSL(){
 	GLSLBotella = new GLSLProgram("botella.vert", "botella.frag");
 	GLSLCintaTransportadora = new GLSLProgram("cintaTransportadora.vert", "cintaTransportadora.frag");
 	GLSLTanqueDeCoca = new GLSLProgram("tanqueDeCoca.vert", "tanqueDeCoca.frag");
-	GLSLPhong = new GLSLProgram("Phong.vert", "Phong.frag");
+	GLSLPhongSpot = new GLSLProgram("PhongSpot.vert", "PhongSpot.frag");
 }
 void inicializarTexturas(){
 	texLoader->SetMipMapping(true);
@@ -375,14 +385,22 @@ void inicializarTexturas(){
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);*/
 }
 
-void setearLucesUniform(GLSLProgram* GLSLenUso = GLSLPhong){
+void setearLucesUniform(GLSLProgram* GLSLenUso = GLSLPhongSpot){
+	mat4 matrizDeLaCamara = glm::lookAt(vec3(eye[0], eye[1], eye[2]),
+										vec3(at[0], at[1], at[2]),
+										vec3(up[0], up[1], up[2]));
+	vec4 posicionDeLaLuz = matrizDeLaCamara * luz.posicion;
+	vec4 direccionDeLaLuz = matrizDeLaCamara * vec4(luz.direccion, 0.0);
 	GLSLenUso->setUniform("luz.prendida", luz.prendida);
-	GLSLenUso->setUniform("luz.posicion", luz.posicion);
+	GLSLenUso->setUniform("luzposicion", vec3(posicionDeLaLuz));
 	GLSLenUso->setUniform("luz.amb", luz.amb);
 	GLSLenUso->setUniform("luz.dif", luz.dif);
 	GLSLenUso->setUniform("luz.espec", luz.espec);
+	GLSLenUso->setUniform("luzdireccion", vec3(direccionDeLaLuz));
+	GLSLenUso->setUniform("luz.angulo", luz.angulo);
+	GLSLenUso->setUniform("luz.k", luz.k);
 }
-void setearMaterial(propMaterial material, GLSLProgram* GLSLenUso = GLSLPhong){
+void setearMaterial(propMaterial material, GLSLProgram* GLSLenUso = GLSLPhongSpot){
 	GLSLenUso->setUniform("material.colorAmb", material.colorAmb);
 	GLSLenUso->setUniform("material.colorDif", material.colorDif);
 	GLSLenUso->setUniform("material.colorEspec", material.colorEspec);
@@ -448,42 +466,14 @@ void dibujarCintaTransportadora(){
 	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 }
-void actualizarReflexion(){
-
-
-	gluLookAt (0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, -1.0, 0.0);
-	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, 0, 0, 0, 0, 256, 256);
-	
-
-	gluLookAt (0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, -1.0, 0.0);
-	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, 0, 0, 0, 0, 256, 256);
-
-
-	gluLookAt (0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, -1.0);
-	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, 0, 0, 0, 0, 256, 256);
-
-
-	gluLookAt (0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, 1.0);
-	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, 0, 0, 0, 0, 256, 256);
-
-
-	gluLookAt (0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0);
-	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, 0, 0, 0, 0, 256, 256);
-
-
-	gluLookAt (0.0, 0.0, 0.0, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
-	glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, 0, 0, 0, 0, 256, 256);
-
-
-}
 void dibujarTanqueDeCoca(){
 	glDisable(GL_LIGHTING);
 
 	if (actualizar){
 		delete GLSLTanqueDeCoca;
 		GLSLTanqueDeCoca = new GLSLProgram("tanqueDeCoca.vert", "tanqueDeCoca.frag");
-		delete GLSLPhong;
-		GLSLPhong = new GLSLProgram("Phong.vert", "Phong.frag");
+		delete GLSLPhongSpot;
+		GLSLPhongSpot = new GLSLProgram("PhongSpot.vert", "PhongSpot.frag");
 		actualizar = false;
 	}
 	
@@ -509,9 +499,9 @@ void dibujarTanqueDeCoca(){
 
 	GLSLTanqueDeCoca->cerrar();
 
-	if (!GLSLPhong->isLinked())
-		GLSLPhong->link();
-	GLSLPhong->usar();
+	if (!GLSLPhongSpot->isLinked())
+		GLSLPhongSpot->link();
+	GLSLPhongSpot->usar();
 	propMaterial material = {
 		vec3(0.3, 0.3, 0.3),
 		vec3(0.3, 0.3, 0.3),
@@ -548,7 +538,7 @@ void dibujarTanqueDeCoca(){
 
 	glEnd();
 
-	GLSLPhong->cerrar();
+	GLSLPhongSpot->cerrar();
 	//Esto se dibuja en momentos distintos porque lo que viene ahora es
 	//el tubo que llena la Coca, que se mueve, mientras el resto del tanque permanece quieto
 
@@ -566,7 +556,7 @@ void dibujarTanqueDeCoca(){
 
 	GLSLTanqueDeCoca->cerrar();
 
-	GLSLPhong->usar();
+	GLSLPhongSpot->usar();
 	setearLucesUniform(GLSLTanqueDeCoca);
 	setearMaterial(material);
 	glBegin(GL_QUADS);
@@ -602,8 +592,49 @@ void dibujarTanqueDeCoca(){
 
 	glEnd();
 	
-	GLSLPhong->cerrar();
-	//actualizarReflexion();
+	GLSLPhongSpot->cerrar();
+}
+void dibujarPlanoYToroide(){
+	//Propiedades del material y luces
+	glDisable(GL_LIGHTING);
+	if (actualizar){
+		delete GLSLPhongSpot;
+		GLSLPhongSpot = new GLSLProgram("PhongSpot.vert", "PhongSpot.frag");
+		actualizar = false;
+	}
+	
+	if (!GLSLPhongSpot->isLinked())
+		GLSLPhongSpot->link();
+	GLSLPhongSpot->usar();
+	setearLucesUniform();
+	
+	propMaterial piso = {
+		vec3(0.3, 0.3, 0.3),
+		vec3(0.3, 0.3, 0.3),
+		vec3(0.1, 0.1, 0.1),
+		1.0
+	};
+	propMaterial toroide = {
+		vec3(0.9, 0.9, 0.28),
+		vec3(0.9, 0.9, 0.28),
+		vec3(0.3, 0.3, 0.1),
+		32.0
+	};
+	setearMaterial(piso);
+
+	glBegin(GL_QUADS);
+		glVertex3f(15, -15, 0);
+		glVertex3f(15,  15, 0);
+		glVertex3f(-15, 15, 0);
+		glVertex3f(-15, -15, 0);
+	glEnd();
+	setearMaterial(toroide);
+	glPushMatrix();
+		glTranslatef(2.0, 0.0, 1.0);
+		glutSolidTorus(1.0, 2.5, 30, 36);
+	glPopMatrix();
+
+	GLSLPhongSpot->cerrar();
 }
 void init(void) 
 {
@@ -670,6 +701,8 @@ void display(void)
 		dibujarCintaTransportadora();
 	if (verTanqueDeCoca)
 		dibujarTanqueDeCoca();
+	if (verPruebaSpot)
+		dibujarPlanoYToroide();
 	
 
 	//
@@ -761,15 +794,23 @@ void keyboard (unsigned char key, int x, int y)
 	  case '4':
 		  verBotella = true;
 		  verCintaTransportadora = false; 
-		  verTanqueDeCoca = false; break;
+		  verTanqueDeCoca = false;  
+		  verPruebaSpot = false;break;
 	  case '5':
 		  verBotella = false;
 		  verCintaTransportadora = true; 
-		  verTanqueDeCoca = false; break;
+		  verTanqueDeCoca = false;  
+		  verPruebaSpot = false;break;
 	  case '6':
 		  verBotella = false;
 		  verCintaTransportadora = false; 
-		  verTanqueDeCoca = true; break;
+		  verTanqueDeCoca = true;  
+		  verPruebaSpot = false;break;
+	  case '7':
+		  verBotella = false;
+		  verCintaTransportadora = false; 
+		  verTanqueDeCoca = false; 
+		  verPruebaSpot = true; break;
      default:
          break;
    }

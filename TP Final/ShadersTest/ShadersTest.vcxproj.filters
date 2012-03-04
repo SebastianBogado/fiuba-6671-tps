@@ -60,12 +60,6 @@
     <None Include="tanqueDeCoca.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Phong.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Phong.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="cubemap_blue_sofa_positive_z.bmp">
       <Filter>Archivos de recursos</Filter>
     </None>
@@ -83,6 +77,12 @@
     </None>
     <None Include="cubemap_blue_sofa_positive_y.bmp">
       <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="PhongSpot.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="PhongSpot.vert">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
