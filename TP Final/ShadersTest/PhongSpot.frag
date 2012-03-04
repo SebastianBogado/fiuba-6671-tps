@@ -1,10 +1,11 @@
 varying vec3 normal;
 varying vec3 posicion;
-varying vec3 posicionDeLaLuz;
-varying vec3 direccionDeLaLuz;
+
 
 struct propLuz{
 	bool prendida;
+	vec3 posicion;
+	vec3 direccion;
 	float angulo;
 	float k; 
 	vec3 amb;
@@ -23,8 +24,8 @@ uniform propLuz luz;
 uniform propMaterial material;
 
 vec3 Phong(){
-	vec3 l = normalize(posicion - posicionDeLaLuz);
-	float LdotDirLuz = dot(l, direccionDeLaLuz);
+	vec3 l = normalize(posicion - luz.posicion);
+	float LdotDirLuz = dot(l, normalize( luz.direccion));
 	float angulo = degrees(acos(LdotDirLuz));
 	if (angulo > luz.angulo)
 		return (luz.amb * material.colorAmb);
@@ -41,7 +42,7 @@ vec3 Phong(){
 
 vec3 BlinnPhong(){
 	vec3 n = normalize(normal);
-	vec3 l = normalize(vec3(posicionDeLaLuz) - posicion );
+	vec3 l = normalize(vec3(luz.posicion) - posicion );
 	vec3 v = normalize(vec3(-posicion));
 	vec3 h = normalize(v + l);
 	return ((luz.amb * material.colorAmb) +
