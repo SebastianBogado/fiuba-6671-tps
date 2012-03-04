@@ -24,7 +24,7 @@ int tiempoActual = 0, tiempoAnterior = 0; //Para calcular el tiempo que pasó ent
 struct propLuz{
 	bool prendida;
 	vec4 posicion;
-	vec3 direccion;
+	vec4 direccion;
 	float angulo;
 	//Constante para calcular el decrecimiento de la intensidad de la luz
 	//según se aleja del centro, como el brillo en un material
@@ -37,7 +37,7 @@ struct propLuz{
 propLuz luz = { 
 	false,
 	vec4(0.0, 0.0, 5.0, 1.0), 
-	vec3(0.0, 0.0, -1.0),
+	vec4(0.0, 0.0, -1.0, 0.0),
 	35,
 	10,
 	vec3(0.1, 0.1, 0.1), 
@@ -390,15 +390,15 @@ void setearLucesUniform(GLSLProgram* GLSLenUso = GLSLPhongSpot){
 										vec3(at[0], at[1], at[2]),
 										vec3(up[0], up[1], up[2]));
 	vec4 posicionDeLaLuz = matrizDeLaCamara * luz.posicion;
-	vec4 direccionDeLaLuz = matrizDeLaCamara * vec4(luz.direccion, 0.0);
+	vec4 direccionDeLaLuz = matrizDeLaCamara * luz.direccion;
 	GLSLenUso->setUniform("luz.prendida", luz.prendida);
-	GLSLenUso->setUniform("luzposicion", vec3(posicionDeLaLuz));
+	GLSLenUso->setUniform("luz.posicion", vec3(posicionDeLaLuz));
+	GLSLenUso->setUniform("luz.direccion", vec3(direccionDeLaLuz));
+	GLSLenUso->setUniform("luz.angulo", luz.angulo);
+	GLSLenUso->setUniform("luz.k", luz.k);
 	GLSLenUso->setUniform("luz.amb", luz.amb);
 	GLSLenUso->setUniform("luz.dif", luz.dif);
 	GLSLenUso->setUniform("luz.espec", luz.espec);
-	GLSLenUso->setUniform("luzdireccion", vec3(direccionDeLaLuz));
-	GLSLenUso->setUniform("luz.angulo", luz.angulo);
-	GLSLenUso->setUniform("luz.k", luz.k);
 }
 void setearMaterial(propMaterial material, GLSLProgram* GLSLenUso = GLSLPhongSpot){
 	GLSLenUso->setUniform("material.colorAmb", material.colorAmb);
@@ -623,10 +623,11 @@ void dibujarPlanoYToroide(){
 	setearMaterial(piso);
 
 	glBegin(GL_QUADS);
-		glVertex3f(15, -15, 0);
-		glVertex3f(15,  15, 0);
-		glVertex3f(-15, 15, 0);
-		glVertex3f(-15, -15, 0);
+		glNormal3f(0.0, 0.0, 1.0);
+		glVertex3f(25, -25, 0);
+		glVertex3f(25,  25, 0);
+		glVertex3f(-25, 25, 0);
+		glVertex3f(-25, -25, 0);
 	glEnd();
 	setearMaterial(toroide);
 	glPushMatrix();
