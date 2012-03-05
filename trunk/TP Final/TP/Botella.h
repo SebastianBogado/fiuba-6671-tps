@@ -22,6 +22,13 @@ public:
 
 	void actualizarAtributos();
 
+	////////////////////////////////////////////////
+	//Metodos para cambiar los estados de la botella
+	////////////////////////////////////////////////
+	void etiquetar();
+	void llenar();
+	void tapar();
+	
 
 
 	void reiniciarAtributos();
