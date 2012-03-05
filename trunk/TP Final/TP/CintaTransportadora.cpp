@@ -13,7 +13,7 @@ CintaTransportadora::CintaTransportadora(void)
 
 	//Para probar funcionamiento
 	this->_testLargoCinta = 25.0;
-	this->_pasoTest = 0.01;
+	this->_pasoTest = 0.05;
 	this->_testAnimacion = 3.0;
 
 }

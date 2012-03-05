@@ -90,7 +90,6 @@
     <ClCompile Include="MaquinaEtiquetadora.cpp" />
     <ClCompile Include="ObjetoGrafico.cpp" />
     <ClCompile Include="ObjetoGraficoCubico.cpp" />
-    <ClCompile Include="PaqueteDeBotellas.cpp" />
     <ClCompile Include="RampaDeCajas.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -111,7 +110,6 @@
     <ClInclude Include="MaquinaEtiquetadora.h" />
     <ClInclude Include="ObjetoGrafico.h" />
     <ClInclude Include="ObjetoGraficoCubico.h" />
-    <ClInclude Include="PaqueteDeBotellas.h" />
     <ClInclude Include="RampaDeCajas.h" />
   </ItemGroup>
   <ItemGroup>
