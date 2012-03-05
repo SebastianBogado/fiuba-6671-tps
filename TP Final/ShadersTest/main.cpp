@@ -34,16 +34,8 @@ struct propLuz{
 	vec3 espec;
 };
 
-propLuz luz = { 
-	false,
-	vec4(0.0, 0.0, 5.0, 1.0), 
-	vec4(0.0, 0.0, -1.0, 0.0),
-	35,
-	10,
-	vec3(0.1, 0.1, 0.1), 
-	vec3(0.9, 0.9, 0.9),
-	vec3(1.0, 1.0, 1.0),
-};
+const int cantidadDeLuces = 6;
+propLuz luces[cantidadDeLuces];
 
 struct propMaterial{
 	vec3 colorAmb;
@@ -384,21 +376,51 @@ void inicializarTexturas(){
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);*/
 }
+void inicializarLuces(){
+	propLuz luz = { 
+		true,
+		vec4(0.0, -5.0, 5.0, 1.0), 
+		vec4(0.0, 0.0, -1.0, 0.0),
+		35,
+		10,
+		vec3(0.1, 0.1, 0.1), 
+		vec3(0.9, 0.9, 0.9),
+		vec3(1.0, 1.0, 1.0),
+	};
+
+	for (int i = 0; i < cantidadDeLuces; i++){
+		propLuz luzAux = luz;
+		if (i < cantidadDeLuces/2)
+			luzAux.posicion[1] += 5.0 * i;
+		else{
+			luzAux.posicion[0] += 5.0;
+			luzAux.posicion[1] += 5.0 * (i - cantidadDeLuces/2);
+		}
+		luces[i] = luzAux;
+	}
+}
 
 void setearLucesUniform(GLSLProgram* GLSLenUso = GLSLPhongSpot){
 	mat4 matrizDeLaCamara = glm::lookAt(vec3(eye[0], eye[1], eye[2]),
 										vec3(at[0], at[1], at[2]),
 										vec3(up[0], up[1], up[2]));
-	vec4 posicionDeLaLuz = matrizDeLaCamara * luz.posicion;
-	vec4 direccionDeLaLuz = matrizDeLaCamara * luz.direccion;
-	GLSLenUso->setUniform("luz.prendida", luz.prendida);
-	GLSLenUso->setUniform("luz.posicion", vec3(posicionDeLaLuz));
-	GLSLenUso->setUniform("luz.direccion", vec3(direccionDeLaLuz));
-	GLSLenUso->setUniform("luz.angulo", luz.angulo);
-	GLSLenUso->setUniform("luz.k", luz.k);
-	GLSLenUso->setUniform("luz.amb", luz.amb);
-	GLSLenUso->setUniform("luz.dif", luz.dif);
-	GLSLenUso->setUniform("luz.espec", luz.espec);
+ 
+	string l[] = { "luzCero", "luzUno", "luzDos", "luzTres", "luzCuatro", "luzCinco"};
+	int i= 0;
+	//for (int i = 0; i < cantidadDeLuces; i++){
+		std::string aux = l[i];
+		vec4 posicionDeLaLuz = matrizDeLaCamara * luces[i].posicion;
+		vec4 direccionDeLaLuz = matrizDeLaCamara * luces[i].direccion;
+
+		GLSLenUso->setUniform(aux.append(".prendida").c_str(), luces[i].prendida);			aux = l[i];
+		GLSLenUso->setUniform(aux.append(".posicion").c_str(), vec3(posicionDeLaLuz));		aux = l[i];
+		GLSLenUso->setUniform(aux.append(".direccion").c_str(), vec3(direccionDeLaLuz));	aux = l[i];
+		GLSLenUso->setUniform(aux.append(".angulo").c_str(), luces[i].angulo);				aux = l[i];
+		GLSLenUso->setUniform(aux.append(".k").c_str(), luces[i].k);						aux = l[i];
+		GLSLenUso->setUniform(aux.append(".amb").c_str(), luces[i].amb);					aux = l[i];
+		GLSLenUso->setUniform(aux.append(".dif").c_str(), luces[i].dif);					aux = l[i];
+		GLSLenUso->setUniform(aux.append(".espec").c_str(), luces[i].espec);				
+	//}
 }
 void setearMaterial(propMaterial material, GLSLProgram* GLSLenUso = GLSLPhongSpot){
 	GLSLenUso->setUniform("material.colorAmb", material.colorAmb);
@@ -648,6 +670,7 @@ void init(void)
 	inicializarSupeficies();
 	inicializarGLSL();
 	inicializarTexturas();
+	inicializarLuces();
 
 	// Generación de las Display Lists
 	glNewList(DL_AXIS, GL_COMPILE);
@@ -758,7 +781,9 @@ void keyboard (unsigned char key, int x, int y)
 	  case 'm':
 		  tieneTapa = !tieneTapa; break;
 	  case 'b':
-		  luz.prendida = !luz.prendida; break;
+		  for (int i = 0; i < cantidadDeLuces; i++)
+				luces[i].prendida = !luces[i].prendida; 
+		  break;
 	  case '+':
 		  porcentajeDeLlenado += 0.05; break;
 	  case '-':
