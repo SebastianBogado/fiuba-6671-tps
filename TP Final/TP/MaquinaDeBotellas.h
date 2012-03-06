@@ -21,6 +21,9 @@ public:
 	TipoMaquina tipo(){ return TipoMaquina::Expendedora; }
 
 
+	void definirMateriales();
+
+
 	virtual ~MaquinaDeBotellas(void);
 
 protected:

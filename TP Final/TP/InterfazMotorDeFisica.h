@@ -2,23 +2,26 @@
 
 #include "../BulletPhysics/src/btBulletDynamicsCommon.h"
 #include "ObjetoGraficoCubico.h"
+#include "CajonesDeBotellas.h"
 
 class InterfazMotorDeFisica
 {
 public:
 	InterfazMotorDeFisica(void);
 
+
 	void pasoDeSimulacion();
 
 
 	void definirHabitacion(ObjetoGraficoCubico *habitacion);
 
-	void definirCajonDeBotellas(ObjetoGrafico *cajonBotellas);
+	//void definirCajonesDeBotellas(CajonesDe *cajonBotellas);
 
 	void definirMaquinaEmbaladora(ObjetoGrafico *maquinaEmbaladora);
 
 	void agregarMaquina(ObjetoGrafico *maquina);
 
+	void agregarCuerpoRigido(btRigidBody* cuerpoRigido);
 
 	virtual ~InterfazMotorDeFisica(void);
 
@@ -36,6 +39,12 @@ private:
 	btCollisionDispatcher* despachadorDeColisiones;
 	btConstraintSolver* solucionadorRestricciones;
 	btDefaultCollisionConfiguration* configColision;
+
+
+	///////////////////////
+	//Atributos de Objetos
+	///////////////////////
+	float friccionPiso,fricionCuerpoRigido;
 
 };
 

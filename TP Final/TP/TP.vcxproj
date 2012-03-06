@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Botella.cpp" />
+    <ClCompile Include="CajonesDeBotellas.cpp" />
     <ClCompile Include="CintaTransportadora.cpp" />
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="CuartoDeMaquinas.cpp" />
@@ -94,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Botella.h" />
+    <ClInclude Include="CajonesDeBotellas.h" />
     <ClInclude Include="CintaTransportadora.h" />
     <ClInclude Include="Control.h" />
     <ClInclude Include="CuartoDeMaquinas.h" />

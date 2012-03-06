@@ -3,6 +3,7 @@
 
 ObjetoGraficoCubico::ObjetoGraficoCubico(void)
 {
+	this->discretizacionPorDefecto  = true;
 }
 
 void ObjetoGraficoCubico::graficarBase(){
@@ -93,6 +94,10 @@ float ObjetoGraficoCubico::valorLargo(){ return this->largo; }
 float ObjetoGraficoCubico::valorAncho(){ return this->ancho;}
 
 
+float ObjetoGraficoCubico::valorLargoEnX(){ return this->largo; }
+
+float ObjetoGraficoCubico::valorLargoEnY(){ return this->ancho;}
+
 void ObjetoGraficoCubico::actualizarVertices(){
 
 	this->inicializarVector(vertices[0],0.0,0.0,0.0);
@@ -106,6 +111,176 @@ void ObjetoGraficoCubico::actualizarVertices(){
 	this->inicializarVector(vertices[7],0.0,ancho,alto);
 }
 
+
+void ObjetoGraficoCubico::dibujarPared(float* normal,int v1,int v2,int v3,int v4)
+{	
+	//if(this->discretizacionPorDefecto)
+		pasosDeDiscretizacion = 5;
+	
+	btVector3 x0 = btVector3(vertices[v1][0],vertices[v1][1],vertices[v1][2]);
+	btVector3 x1 = btVector3(vertices[v2][0],vertices[v2][1],vertices[v2][2]);
+
+	btVector3 y0 = btVector3(vertices[v3][0],vertices[v3][1],vertices[v3][2]); 
+	btVector3 y1 = btVector3(vertices[v4][0],vertices[v4][1],vertices[v4][2]);
+
+	//float dAlto = (x0 - y0).length() / pasosDeDiscretizacion; 
+
+	btVector3 dir0 = (y0 - x0);
+	btVector3 dir1 = (y1 - x1);
+	//dir.normalize();
+	dir0 /= pasosDeDiscretizacion;
+	dir1 /= pasosDeDiscretizacion;
+
+	y0 = x0 + dir0;
+	y1 = x1 + dir1;
+	
+
+	for(int i=0; i < pasosDeDiscretizacion  ; i++)
+	{
+		this->dibujarFranja(normal,x0,x1,y0,y1);
+		x0 = y0;
+		x1 = y1;
+
+		y0 += dir0;
+		y1 += dir1;
+
+	}
+
+}
+
+
+void ObjetoGraficoCubico::dibujarParedHueca(float* normal,int v1,int v2,int v3,int v4,float largoHoyo,float anchoHoyo,vec2 posHoyo,float profundidad)
+{
+	
+	
+	btVector3 x0 = btVector3(vertices[v1][0],vertices[v1][1],vertices[v1][2]);
+	btVector3 x1 = btVector3(vertices[v2][0],vertices[v2][1],vertices[v2][2]);
+
+	btVector3 y0 = btVector3(vertices[v3][0],vertices[v3][1],vertices[v3][2]); 
+	btVector3 y1 = btVector3(vertices[v4][0],vertices[v4][1],vertices[v4][2]);
+
+
+	btVector3 centroHoyo = x0 + posHoyo.x * (x1 - x0) + posHoyo.y * (y0 - x0);
+
+	btVector3 dirPlana = x1 - x0; dirPlana /= dirPlana.length();
+	btVector3 dirNoPlana = y0 - x0; dirNoPlana /= dirNoPlana.length();
+
+	anchoHoyo /= 2.0;
+	largoHoyo /= 2.0;
+
+	btVector3 hx0 = centroHoyo - dirPlana * anchoHoyo - dirNoPlana * largoHoyo;
+	btVector3 hx1 = centroHoyo + dirPlana * anchoHoyo - dirNoPlana * largoHoyo;
+
+	btVector3 hy0 = centroHoyo - dirPlana * anchoHoyo + dirNoPlana * largoHoyo;
+	btVector3 hy1 = centroHoyo + dirPlana * anchoHoyo + dirNoPlana * largoHoyo;
+
+
+	this->discretizacionPorDefecto = false;
+
+	pasosDeDiscretizacion = 3;
+	this->dibujarFranja(normal,x0,x1,hx0,hx1);
+
+	this->dibujarFranja(normal,x1,y1,hx1,hy1);
+
+	this->dibujarFranja(normal,hy0,hy1,y0,y1);
+
+	this->dibujarFranja(normal,y0,x0,hy0,hx0);
+
+
+	this->dibujarHoyo(normal,hx0,hx1,hy0,hy1,profundidad);
+
+
+	this->discretizacionPorDefecto = true;
+
+
+}
+
+
+void ObjetoGraficoCubico::dibujarHoyo(float *n,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1,float &profundidad)
+{
+
+	btVector3 normal = btVector3(n[0],n[1],n[2]);
+	normal.normalize();
+
+	normal = - profundidad * normal;
+
+	glBegin(GL_QUADS);
+		
+		glVerticeVec3(x0);
+		glVerticeVec3(x1);
+		glVerticeVec3(x1 + normal);
+		glVerticeVec3(x0 + normal);
+
+
+		glVerticeVec3(x1);
+		glVerticeVec3(y1);
+		glVerticeVec3(y1 + normal);
+		glVerticeVec3(x1 + normal);
+
+
+		glVerticeVec3(y0);
+		glVerticeVec3(y0 + normal);
+		glVerticeVec3(y1 + normal);
+		glVerticeVec3(y1);
+
+		glVerticeVec3(y0);
+		glVerticeVec3(x0);
+		glVerticeVec3(x0 + normal);
+		glVerticeVec3(y0 + normal);
+
+	glEnd();
+
+	glDisable(GL_LIGHTING);
+
+
+	glBegin(GL_QUADS);
+		glColor3f(0.,0.,0.);
+
+		glVerticeVec3(x0 + normal);
+		glVerticeVec3(x1 + normal);
+		glVerticeVec3(y1 + normal);
+		glVerticeVec3(y0 + normal);
+
+	glEnd();
+		
+	glEnable(GL_LIGHTING);
+
+
+}
+
+void ObjetoGraficoCubico::dibujarFranja(float* normal,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1)
+{	
+
+	//if(this->discretizacionPorDefecto)
+		//pasosDeDiscretizacion = 15;
+
+	float dX = (x1 - x0).length() / pasosDeDiscretizacion;
+	float dY = (y1 - y0).length() / pasosDeDiscretizacion;
+
+	btVector3 dirX = (x1 - x0);	dirX /= dirX.length();
+	btVector3 dirY = (y1 - y0);	dirY /= dirY.length();
+
+	btVector3 x = x0;
+	btVector3 y = y0;
+
+	glBegin(GL_TRIANGLE_STRIP);
+
+		for(int i=0 ; i <= pasosDeDiscretizacion; i++)
+		{	
+			glNormal3fv(normal);
+			glVerticeVec3(x); 
+
+			glNormal3fv(normal);
+			glVerticeVec3(y);
+
+			x = x + dX * dirX;
+			y = y + dY * dirY;
+
+		}
+
+	glEnd(); 
+
+}
 
 
 ObjetoGraficoCubico::~ObjetoGraficoCubico(void)
