@@ -1,5 +1,9 @@
 #pragma once
 #include "ObjetoGrafico.h"
+#include <glm\glm.hpp>
+#include "..\BulletPhysics\src\btBulletDynamicsCommon.h"
+
+using namespace glm;
 
 class ObjetoGraficoCubico :
 	public ObjetoGrafico
@@ -14,6 +18,10 @@ public:
 	float valorAncho();
 	float valorLargo();
 
+
+	float valorLargoEnX();
+	float valorLargoEnY();
+
 	virtual ~ObjetoGraficoCubico(void);
 protected:
 	void inicializarVertices();
@@ -22,6 +30,25 @@ protected:
 	float **vertices;
 	float ancho,largo,alto;
 	int cantidadVertices;
+
+	///////////////////////////////////////////////////////////////
+	//Dibuja una pared con triangulos desde los vertices v1...v4,
+	//se interpreta como dos rectas; v1 y v2 es una, y v3 y v4 forma la otra.
+	//A partir de estas dos rectas se grafica un rectangulo.
+	//v1...v4 son los indices de los vertices del cubo base
+	////////////////////////////////////////////////////////////////
+	void dibujarPared(float* normal,int v1,int v2,int v3,int v4);
+	void dibujarParedHueca(float* normal,int v1,int v2,int v3,int v4,float largoHoyo,float anchoHoyo,vec2 posHoyo,float profundidad);
+
+private:
+	
+	void dibujarHoyo(float *n,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1,float &profundidad);
+
+	void dibujarFranja(float* normal,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1);
+	void glVerticeVec3(btVector3 &vrt){ glVertex3f(vrt.m_floats[0],vrt.m_floats[1],vrt.m_floats[2]);}; 
+
+	bool discretizacionPorDefecto;
+	int pasosDeDiscretizacion;	
 
 };
 

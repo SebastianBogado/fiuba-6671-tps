@@ -5,78 +5,79 @@ MaquinaEmbaladora::MaquinaEmbaladora(void)
 {
 
 	this->posicionObjeto = new float[3];
-	this->inicializarVector(posicionObjeto,28.0,5.0,0.0);
+	this->inicializarVector(posicionObjeto,29.0,5.0,0.0);
 
 	this->posDeObjetoAnimado = new float[3];
 	this->inicializarVector(posDeObjetoAnimado,0.0,0.0,0.0);
 
-
 	this->ancho = 4.0;
-	this->largo = 4.0;
-	this->alto = 5.0;
+	this->largo = 6.0;
+	this->alto = 7.0;
 
 	this->inicializarVertices();
+	this->reiniciarContadorBotellas();
+}
+
+void MaquinaEmbaladora::reiniciarContadorBotellas()
+{
+	this->contadorBotellas = 0;
+
 }
 
 
+void MaquinaEmbaladora::definirMateriales(){
+
+
+}
 
 void MaquinaEmbaladora::graficar(){
 
+	float altoHoyoEntrada = 3.0 ,anchoHoyoEntrada = 2.5;
+	float altoHoyoSalida =2.0 , anchoHoyoSalida = 4.5;
 
-	this->graficarBase();
+	vec2 posHent = vec2(0.5,0.3);
+	vec2 posHsal = vec2(0.5,0.7);
 
-	/*
-	glMatrixMode(GL_MODELVIEW);
+
+
+	//this->graficarBase();
+
+	float normal[3];
+
+	this->definirMateriales();
+
 	glPushMatrix();
-	glDisable(GL_LIGHTING);
-		
-		glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
-		
-		glBegin(GL_QUADS);
-			
-			glColor3f(1.0,0.0,0.0);
-			glVertex3fv(vertices[1]);
-			glVertex3fv(vertices[2]);
-			glVertex3fv(vertices[6]);
-			glVertex3fv(vertices[5]);
+	glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
 
-			glColor3f(0.0,1.0,0.0);
-			glVertex3fv(vertices[2]);
-			glVertex3fv(vertices[3]);
-			glVertex3fv(vertices[7]);
-			glVertex3fv(vertices[6]);
+	glEnable(GL_LIGHTING);
 
-			glColor3f(0.0,0.0,1.0);
-			glVertex3fv(vertices[3]);
-			glVertex3fv(vertices[0]);
-			glVertex3fv(vertices[4]);
-			glVertex3fv(vertices[7]);
+		this->inicializarVector(normal,0.0,-1.0,0.0);
+		this->dibujarPared(normal,0,1,4,5);
 
-			//4ta tapa
-			glColor3f(1.0,1.0,0.0);
-			glVertex3fv(vertices[0]);
-			glVertex3fv(vertices[4]);
-			glVertex3fv(vertices[5]);
-			glVertex3fv(vertices[1]);
+		this->inicializarVector(normal,1.0,0.0,0.0);
+		this->dibujarPared(normal,1,2,5,6);
 
-			//5ta tapa
-			glColor3f(1.0,0.0,1.0);
-			glVertex3fv(vertices[6]);
-			glVertex3fv(vertices[7]);
-			glVertex3fv(vertices[4]);
-			glVertex3fv(vertices[5]);
 
-			//6ta tapa la del piso, no parece necesaria
+		this->inicializarVector(normal,0.0,1.0,0.0);
+		this->dibujarParedHueca(normal,2,3,6,7,altoHoyoSalida,anchoHoyoSalida,vec2(0.5,0.8),0.8);
+	//	this->dibujarPared(normal,2,3,6,7);
 
-		glEnd();
-	glPopMatrix();*/
+		this->inicializarVector(normal,-1.0,0.0,0.0);
+		this->dibujarParedHueca(normal,3,0,7,4,altoHoyoEntrada,anchoHoyoEntrada,vec2(0.5,0.4),0.8);
+		//this->dibujarPared(normal,3,0,7,4);
+
+		this->inicializarVector(normal,0.0,0.0,1.0);
+		this->dibujarPared(normal,4,5,7,6);
+
+
+	glPopMatrix();
 
 }
 
 void MaquinaEmbaladora::actualizarAtributos(){ }
 
 void MaquinaEmbaladora::aplicarShader(){
-
+	
 }
 
 void MaquinaEmbaladora::detenerShader(){
@@ -85,13 +86,12 @@ void MaquinaEmbaladora::detenerShader(){
 
 void MaquinaEmbaladora::iniciarAnimacion(Botella* botella)
 {
-
+	this->contadorBotellas++;
 
 }
 
 bool MaquinaEmbaladora::animacionFinalizada()
 {
-
 	return true;
 }
 
