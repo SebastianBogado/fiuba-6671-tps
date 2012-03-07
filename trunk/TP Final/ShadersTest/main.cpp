@@ -54,6 +54,8 @@ BSpline* caminoCintaTransportadora;
 SuperficieDeBarrido* superficieCintaTransportadora;
 GLSLProgram* GLSLCintaTransportadora;
 glTexture cintaTransportadora;
+float desplazamientCinta = 0.0;
+
 
 BSpline* perfilTanqueDeCoca;
 SuperficieDeRevolucion* superficieTanqueDeCoca;
@@ -153,6 +155,12 @@ void calcularFPS(){
 void OnIdle (void)
 {	
 	calcularFPS();
+
+	desplazamientCinta +=  0.01;
+
+	if ( desplazamientCinta > 20.0)
+		desplazamientCinta = 0.0;
+
 	glutPostRedisplay();
 }
 void DrawAxis()
@@ -508,10 +516,26 @@ void dibujarCintaTransportadora(){
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, cintaTransportadora.TextureID);
 	
+	
+
 	GLSLCintaTransportadora->setUniform("cintaText", 0);
+	GLSLCintaTransportadora->setUniform("desplazamientCinta", desplazamientCinta);
 	setearLucesUniform(GLSLCintaTransportadora);
+
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+
+	//glMatrixMode(GL_TEXTURE);
+	//glTranslatef(desplazamientCinta,desplazamientCinta,desplazamientCinta);
+	//glScalef(desplazamientCinta,desplazamientCinta,desplazamientCinta);
+	//glPushMatrix();
+	
+
+	//	Emparchador::emparchar(superficieCintaTransportadora->discretizar(5, 10), 14);
 	
 	glCallList(DL_CINTA_TRANSPORTADORA);
+
+	//glPopMatrix();
 
 	GLSLCintaTransportadora->cerrar();
 	glDisable(GL_TEXTURE_2D);
@@ -715,7 +739,9 @@ void init(void)
 		Emparchador::emparchar(superficieBotella->discretizar(10, 36));
 	glEndList();
 	glNewList(DL_CINTA_TRANSPORTADORA, GL_COMPILE);
+
 		Emparchador::emparchar(superficieCintaTransportadora->discretizar(5, 10), 14);
+
 	glEndList();
 	glNewList(DL_TANQUE_DE_COCA, GL_COMPILE);
 		Emparchador::emparchar(superficieTanqueDeCoca->discretizar(30, 36));
@@ -750,8 +776,12 @@ void display(void)
 	//
 	if (verBotella)
 		dibujarBotella();
-	if (verCintaTransportadora)
+	if (verCintaTransportadora){
+
+
 		dibujarCintaTransportadora();
+
+	}
 	if (verTanqueDeCoca)
 		dibujarTanqueDeCoca();
 	if (verPruebaSpot)
