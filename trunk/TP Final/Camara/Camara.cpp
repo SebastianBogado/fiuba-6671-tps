@@ -380,6 +380,9 @@ void Camara::proyectarDireccionPlana(float *proyeccion){
 
 }
 
+vec3 Camara::eye(){ return vec3(ojoCamara[0], ojoCamara[1], ojoCamara[2]); }
+vec3 Camara::at(){ return vec3(atCamara[0], atCamara[1], atCamara[2]); }
+vec3 Camara::up(){ return vec3(vectorArriba[0], vectorArriba[1], vectorArriba[2]); }
 
 Camara::~Camara()
 {

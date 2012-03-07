@@ -17,7 +17,7 @@ class Superficie{
         virtual ~Superficie();
 
 		//El segundo parámetro se refiere al paso de la revolución o el barrido; no se me ocurrió nombre mejor
-		virtual void discretizar(int discretizacionBorde, int discretizacionAvance) = 0;
+		virtual SuperficieDiscretizada* discretizar(int discretizacionBorde, int discretizacionAvance) = 0;
 
         vec3 getPunto(int Xn, int Yn);		
         vec3 getNormal(int Xn, int Yn);
@@ -35,6 +35,8 @@ class Superficie{
         Curva* curvaBorde;
 		SuperficieDiscretizada* miDiscretizacion;
 		bool discretizada;
+		int discretizacionBordeActual;
+		int discretizacionAvanceActual;
 
         /*bool tengoTapas;
         virtual void construir() = 0;

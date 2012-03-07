@@ -72,12 +72,14 @@
     <Library Include="lib\Superficies.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\ShadersTest\GLSLProgram.cpp" />
     <ClCompile Include="Botella.cpp" />
     <ClCompile Include="CajonesDeBotellas.cpp" />
     <ClCompile Include="CintaTransportadora.cpp" />
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="CuartoDeMaquinas.cpp" />
     <ClCompile Include="EscenaGrafica.cpp" />
+    <ClCompile Include="Iluminacion.cpp" />
     <ClCompile Include="InterfazMotorDeFisica.cpp" />
     <ClCompile Include="LamparaDeTecho.cpp" />
     <ClCompile Include="main.cpp" />
@@ -94,12 +96,15 @@
     <ClCompile Include="RampaDeCajas.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ShadersTest\GLSLProgram.h" />
+    <ClInclude Include="..\ShadersTest\SOIL\SOIL.h" />
     <ClInclude Include="Botella.h" />
     <ClInclude Include="CajonesDeBotellas.h" />
     <ClInclude Include="CintaTransportadora.h" />
     <ClInclude Include="Control.h" />
     <ClInclude Include="CuartoDeMaquinas.h" />
     <ClInclude Include="EscenaGrafica.h" />
+    <ClInclude Include="Iluminacion.h" />
     <ClInclude Include="InterfazMotorDeFisica.h" />
     <ClInclude Include="LamparaDeTecho.h" />
     <ClInclude Include="ManejadorDeBotellas.h" />
@@ -112,6 +117,7 @@
     <ClInclude Include="MaquinaEtiquetadora.h" />
     <ClInclude Include="ObjetoGrafico.h" />
     <ClInclude Include="ObjetoGraficoCubico.h" />
+    <ClInclude Include="propMaterial.h" />
     <ClInclude Include="RampaDeCajas.h" />
   </ItemGroup>
   <ItemGroup>

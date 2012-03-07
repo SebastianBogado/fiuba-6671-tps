@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ObjetoGrafico.h"
 #include "..\Camara\Camara.h"
 
 #include <GL\freeglut.h>
@@ -26,7 +27,6 @@ public:
 	static float posicionPorDefecto[3];
 	static float upPorDefecto[3];
 
-	
 private:
 	static Camara* camara;
 	static EscenaGrafica* escena;

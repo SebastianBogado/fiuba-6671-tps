@@ -201,6 +201,29 @@ void GLSLProgram::setUniform(const char *name, bool val ){
 		cout << "No existe el parametro " << name << " como variable uniforme." << endl;
 }
 
+void GLSLProgram::setLuces(Iluminacion* iluminacion){
+	string l[] = { "luzCero", "luzUno", "luzDos", "luzTres", "luzCuatro", "luzCinco"};
+	int i= 0;
+	//for (int i = 0; i < iluminacion->cantidadDeLuces(); i++){
+		std::string aux = l[i];
+
+		this->setUniform(aux.append(".prendida").c_str(), iluminacion->luz(i).prendida);			aux = l[i];
+		this->setUniform(aux.append(".posicion").c_str(), vec3(iluminacion->luz(i).posicion));		aux = l[i];
+		this->setUniform(aux.append(".direccion").c_str(), vec3(iluminacion->luz(i).direccion));	aux = l[i];
+		this->setUniform(aux.append(".angulo").c_str(), iluminacion->luz(i).angulo);				aux = l[i];
+		this->setUniform(aux.append(".k").c_str(), iluminacion->luz(i).k);							aux = l[i];
+		this->setUniform(aux.append(".amb").c_str(), iluminacion->luz(i).amb);						aux = l[i];
+		this->setUniform(aux.append(".dif").c_str(), iluminacion->luz(i).dif);						aux = l[i];
+		this->setUniform(aux.append(".espec").c_str(), iluminacion->luz(i).espec);				
+	//}
+}
+
+void GLSLProgram::setMaterial(propMaterial material){
+	this->setUniform("material.colorAmb", material.colorAmb);
+	this->setUniform("material.colorDif", material.colorDif);
+	this->setUniform("material.colorEspec", material.colorEspec);
+	this->setUniform("material.brillo", material.brillo);
+}
 void GLSLProgram::printActiveUniforms(){
 	//implementar si se necesita debuggear
 }

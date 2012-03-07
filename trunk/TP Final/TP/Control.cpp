@@ -77,7 +77,7 @@ void Control::dibujarEscena(){
 
 
 void Control::inicializar(){
-
+	glewInit();
 	this->cantObjetosTotales = 0;
 
 	ObjetoGrafico** objetos = this->inicializarObjetosGraficos();

@@ -5,7 +5,7 @@
 #include <stdio.h>
 using namespace std;
 
-void Emparchador::emparchar(Superficie* superficie, int repeticionesDeLaTexturaS, int repeticionesDeLaTexturaT){
+void Emparchador::emparchar(SuperficieDiscretizada* superficie, int repeticionesDeLaTexturaS, int repeticionesDeLaTexturaT){
     vec3 punto;
     vec3 normal;
 	int I_MAX = superficie->cantidadDePuntosEnAlto() - 1;
@@ -51,7 +51,7 @@ void Emparchador::emparchar(Superficie* superficie, int repeticionesDeLaTexturaS
         this->emparcharTapas(superficie);*/
 }
 
-void Emparchador::verNormales(Superficie* superficie){
+void Emparchador::verNormales(SuperficieDiscretizada* superficie){
 	vec3 punto;
     vec3 normal;
 	int I_MAX = superficie->cantidadDePuntosEnAlto();
@@ -73,7 +73,7 @@ void Emparchador::verNormales(Superficie* superficie){
 	glLineWidth(1.0);
 }
 
-void Emparchador::emparcharTapas(Superficie* superficie){/**
+void Emparchador::emparcharTapas(SuperficieDiscretizada* superficie){/**
     float* centroTapa;
     float* puntoBorde;
    // float* ultimoPuntoBorde;

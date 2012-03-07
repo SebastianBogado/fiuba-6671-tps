@@ -161,7 +161,6 @@ int main(int argc, char** argv){
 		glutInitDisplayMode (GLUT_SINGLE | GLUT_RGBA | GLUT_DEPTH); //La placa Intel de la notebook no soporta double buffering
 		
 	    
-	
 
 	init();
 	glutDisplayFunc(escena); 
@@ -172,7 +171,6 @@ int main(int argc, char** argv){
 	glutMotionFunc(control->mouseMov);
 	//glutMouseWheelFunc(rueditaDelMouse);
 	glutIdleFunc(control->actualizarDatos);
-	glewInit();
 	glutMainLoop();
     return 0;
 }
