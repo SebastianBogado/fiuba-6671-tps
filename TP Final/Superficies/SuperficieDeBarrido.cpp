@@ -10,9 +10,12 @@ SuperficieDeBarrido::~SuperficieDeBarrido(void){
 	delete curvaCamino;
 }
 
-void SuperficieDeBarrido::discretizar(int discretizacionBorde, int discretizacionAvance){
+SuperficieDiscretizada* SuperficieDeBarrido::discretizar(int discretizacionBorde, int discretizacionAvance){
 	if (discretizada)
-		delete miDiscretizacion;
+		if ( (discretizacionBordeActual == discretizacionBorde) && (discretizacionAvanceActual == discretizacionAvance) )
+			return miDiscretizacion;
+		else
+			delete miDiscretizacion;
 
 	int puntosBorde = this->curvaBorde->cantidadDeTramos() * discretizacionBorde +1;
 	int puntosEnAlto = this->curvaCamino->cantidadDeTramos() * discretizacionAvance +1;
@@ -52,6 +55,7 @@ void SuperficieDeBarrido::discretizar(int discretizacionBorde, int discretizacio
 	}
 
 	this->discretizada = true;
+	return miDiscretizacion;
 }
 
 mat4 SuperficieDeBarrido::calcularRealineacion(float t){

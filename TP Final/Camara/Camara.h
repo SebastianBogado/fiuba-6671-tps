@@ -1,6 +1,8 @@
 #ifndef CAMARA_H
 #define CAMARA_H
 
+#include <glm\glm.hpp>
+using glm::vec3;
 #include <math.h>
 #include <gl/glut.h>
 #include "VectoresCamara.h"
@@ -37,6 +39,11 @@ class Camara
 
                 void controladorBotonesMouse(int button, int state, int x, int y);
                 void controladorMovMouse(int x, int y);
+
+				//Los siguientes tres métodos retornan la dónde mira (eye), qué mira (at), y cómo lo mira (up)
+				vec3 eye();
+				vec3 at();
+				vec3 up();
 
                 virtual ~Camara();
         private:

@@ -8,9 +8,12 @@ SuperficieDeRevolucion::SuperficieDeRevolucion(Curva* curvaBorde,
 	this->ejeDeRotacion = ejeDeRotacion;
 }
 
-void SuperficieDeRevolucion::discretizar(int discretizacionBorde, int discretizacionAvance){
+SuperficieDiscretizada* SuperficieDeRevolucion::discretizar(int discretizacionBorde, int discretizacionAvance){
 	if (discretizada)
-		delete miDiscretizacion;
+		if ( (discretizacionBordeActual == discretizacionBorde) && (discretizacionAvanceActual == discretizacionAvance) )
+			return miDiscretizacion;
+		else
+			delete miDiscretizacion;
 
 	int tramos = this->curvaBorde->cantidadDeTramos();
 	int puntosBorde = tramos * discretizacionBorde +1;
@@ -49,6 +52,7 @@ void SuperficieDeRevolucion::discretizar(int discretizacionBorde, int discretiza
 	}
 
 	this->discretizada = true;
+	return miDiscretizacion;
 }
 
 bool SuperficieDeRevolucion::invertirEjeDeRotacionParaLaNormal(vec3 v, vec3 tg){

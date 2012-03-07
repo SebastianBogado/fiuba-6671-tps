@@ -1,8 +1,11 @@
 #include "ObjetoGrafico.h"
 
 
-ObjetoGrafico::ObjetoGrafico(void)
-{
+GLSLProgram* ObjetoGrafico::phong = NULL;
+
+ObjetoGrafico::ObjetoGrafico(void){
+	if (! phong)
+		phong = new GLSLProgram( "..\\ShadersTest\\PhongSpot.vert", "..\\ShadersTest\\PhongSpot.frag");
 }
 
 
@@ -56,7 +59,24 @@ void ObjetoGrafico::dibujarPiramide(float *color){
 	glEnd();
 }
 
+void ObjetoGrafico::aplicarShader(){
+	if (!shaders->isLinked())
+		shaders->link();
+	shaders->usar();
+}
+void ObjetoGrafico::detenerShader(){
+	shaders->cerrar();
+}
+void ObjetoGrafico::aplicarPhong(){
+	if (!phong->isLinked())
+		phong->link();
+	phong->usar();
+}
+void ObjetoGrafico::detenerPhong(){
+	phong->cerrar();
+}
 
-ObjetoGrafico::~ObjetoGrafico(void)
-{
+ObjetoGrafico::~ObjetoGrafico(void){
+	delete phong;
+	delete shaders;
 }

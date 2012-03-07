@@ -186,6 +186,10 @@ void LamparaDeTecho::aplicarShader(){}
 
 void LamparaDeTecho::detenerShader(){}
 
+void getPosicion(){
+
+}
+
 LamparaDeTecho::~LamparaDeTecho(void)
 {
 	for (int i=0;i<this->cantVertices ; i++)

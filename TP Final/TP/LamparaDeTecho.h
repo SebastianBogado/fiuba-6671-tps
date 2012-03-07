@@ -13,7 +13,8 @@ public:
 	void definirHabitacion(ObjetoGraficoCubico *habitacion);
 
 	void actualizarAtributos();
-
+	
+	void getPosicion();
 	virtual ~LamparaDeTecho(void);
 
 private:

@@ -1,9 +1,20 @@
 #pragma once
 
-#include <GL\freeglut.h>
 #include <iostream>
-
 using namespace std;
+#include <glm\glm.hpp>
+using glm::vec3;
+#include "..\ShadersTest\SOIL\SOIL.h"
+#include "..\ShadersTest\GLSLProgram.h"
+#include "propMaterial.h"
+#include "..\Superficies\SuperficieDeRevolucion.h"
+#include "..\Superficies\SuperficieDeBarrido.h"
+#include "..\Superficies\Emparchador.h"
+#include "..\Curvas\BSpline.h"
+#include "..\Curvas\Bezier.h"
+#include "..\Curvas\Circunferencia.h"
+#include <GL\freeglut.h>
+
 
 class ObjetoGrafico
 {
@@ -42,8 +53,11 @@ protected:
 	/*
 		Funciones para el manejo de shader del objeto
 	*/
-	virtual void aplicarShader()=0;
-	virtual void detenerShader()=0;
+	virtual void aplicarShader();
+	virtual void detenerShader();
+	void aplicarPhong();
+	void detenerPhong();
+
 
 	
 
@@ -63,6 +77,10 @@ protected:
 	float *posicionObjeto;
 	string rutaTextura;
 	string rutaShaderDeVertices,rutaShaderDeFragmentos;
-	
+
+	GLSLProgram* shaders;
+	//Para los materiales que no tienen ninguna particularidad, se usa un phong genérico
+	static GLSLProgram* phong; 
+	propMaterial material;
 };
 

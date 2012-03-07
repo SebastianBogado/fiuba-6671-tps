@@ -211,7 +211,6 @@ void inicializarSupRevolucionConBSpline(){/* Estos puntos son buenos para una su
 	bsplinePrueba->incluirPunto(bsplineP4);
 	bsplinePrueba->incluirPunto(bsplineP5);
 	pruebaRevolucionConBSpline = new SuperficieDeRevolucion(bsplinePrueba);
-	pruebaRevolucionConBSpline->discretizar(30, 36);
 	DL_SUP_SELECCIONADA = DL_VER_SUPERFICIE_REVOL_BSPLINE;
 }
 void inicializarSupRevolucionConBezier(){
@@ -243,7 +242,6 @@ void inicializarSupRevolucionConBezier(){
 	bezierPrueba->incluirPunto(bezierP12);
 	bezierPrueba->incluirPunto(bezierP13);
 	pruebaRevolucionConBezier = new SuperficieDeRevolucion(bezierPrueba);
-	pruebaRevolucionConBezier->discretizar(30, 36);
 }
 void inicializarSupBarridoConBSplineBSpline(){
 	//Curva borde
@@ -281,7 +279,6 @@ void inicializarSupBarridoConBSplineBSpline(){
 	camino->incluirPunto(caminoP7);
 	camino->incluirPunto(caminoP8);
 	pruebaBarridoConBSplineBSpline = new SuperficieDeBarrido(borde, camino);
-	pruebaBarridoConBSplineBSpline->discretizar(30, 30);
 }
 void inicializarSupBarridoConBSplineBezier(){
 	//Curva borde
@@ -303,7 +300,6 @@ void inicializarSupBarridoConBSplineBezier(){
 	camino->incluirPunto(caminoP3);
 	camino->incluirPunto(caminoP4);
 	pruebaBarridoConBSplineBezier= new SuperficieDeBarrido(borde, camino);
-	pruebaBarridoConBSplineBezier->discretizar(30, 30);
 }
 void inicializarSupBarridoConBezierBezier(){
 	//Curva borde
@@ -340,7 +336,6 @@ void inicializarSupBarridoConBezierBezier(){
 	camino->incluirPunto(caminoP7);
 	
 	pruebaBarridoConBezierBezier = new SuperficieDeBarrido(borde, camino);
-	pruebaBarridoConBezierBezier->discretizar(30, 30);
 }
 void inicializarSupBarridoConBezierBSpline(){
 	//Curva borde
@@ -360,7 +355,6 @@ void inicializarSupBarridoConBezierBSpline(){
 	camino->incluirPunto(caminoP5);
 	camino->incluirPunto(caminoP6);
 	pruebaBarridoConBezierBSpline = new SuperficieDeBarrido(borde, camino);
-	pruebaBarridoConBezierBSpline->discretizar(30, 30);
 }
 void inicializarSuperficies(){
 	inicializarSupRevolucionConBSpline();
@@ -400,46 +394,46 @@ void init(void)
 
 	//Superficies de revolución
 	glNewList(DL_VER_SUPERFICIE_REVOL_BSPLINE, GL_COMPILE);
-		Emparchador::emparchar(pruebaRevolucionConBSpline);
+		Emparchador::emparchar(pruebaRevolucionConBSpline->discretizar(30, 36));
 	glEndList();
 	glNewList(DL_VER_NORMALES_REVOL_BSPLINE, GL_COMPILE);
-		Emparchador::verNormales(pruebaRevolucionConBSpline);
+		Emparchador::verNormales(pruebaRevolucionConBSpline->discretizar(30, 36));
 	glEndList();
 	glNewList(DL_VER_SUPERFICIE_REVOL_BEZIER, GL_COMPILE);
-		Emparchador::emparchar(pruebaRevolucionConBezier);
+		Emparchador::emparchar(pruebaRevolucionConBezier->discretizar(30, 36));
 	glEndList();
 	glNewList(DL_VER_NORMALES_REVOL_BEZIER, GL_COMPILE);
-		Emparchador::verNormales(pruebaRevolucionConBezier);
+		Emparchador::verNormales(pruebaRevolucionConBezier->discretizar(30, 36));
 	glEndList();
 
 
 	//Superficies de barrido
 	glNewList(DL_VER_SUPERFICIE_BARRIDO_BSPLINE_BSPLINE, GL_COMPILE);
-		Emparchador::emparchar(pruebaBarridoConBSplineBSpline);
+		Emparchador::emparchar(pruebaBarridoConBSplineBSpline->discretizar(30, 30));
 	glEndList();
 	glNewList(DL_VER_NORMALES_BARRIDO_BSPLINE_BSPLINE, GL_COMPILE);
-		Emparchador::verNormales(pruebaBarridoConBSplineBSpline);
+		Emparchador::verNormales(pruebaBarridoConBSplineBSpline->discretizar(30, 30));
 	glEndList();
 
 	glNewList(DL_VER_SUPERFICIE_BARRIDO_BSPLINE_BEZIER, GL_COMPILE);
-		Emparchador::emparchar(pruebaBarridoConBSplineBezier);
+		Emparchador::emparchar(pruebaBarridoConBSplineBezier->discretizar(30, 30));
 	glEndList();
 	glNewList(DL_VER_NORMALES_BARRIDO_BSPLINE_BEZIER, GL_COMPILE);
-		Emparchador::verNormales(pruebaBarridoConBSplineBezier);
+		Emparchador::verNormales(pruebaBarridoConBSplineBezier->discretizar(30, 30));
 	glEndList();
 
 	glNewList(DL_VER_SUPERFICIE_BARRIDO_BEZIER_BEZIER, GL_COMPILE);
-		Emparchador::emparchar(pruebaBarridoConBezierBezier);
+		Emparchador::emparchar(pruebaBarridoConBezierBezier->discretizar(30, 30));
 	glEndList();
 	glNewList(DL_VER_NORMALES_BARRIDO_BEZIER_BEZIER, GL_COMPILE);
-		Emparchador::verNormales(pruebaBarridoConBezierBezier);
+		Emparchador::verNormales(pruebaBarridoConBezierBezier->discretizar(30, 30));
 	glEndList();
 
 	glNewList(DL_VER_SUPERFICIE_BARRIDO_BEZIER_BSPLINE, GL_COMPILE);
-		Emparchador::emparchar(pruebaBarridoConBezierBSpline);
+		Emparchador::emparchar(pruebaBarridoConBezierBSpline->discretizar(30, 30));
 	glEndList();
 	glNewList(DL_VER_NORMALES_BARRIDO_BEZIER_BSPLINE, GL_COMPILE);
-		Emparchador::verNormales(pruebaBarridoConBezierBSpline);
+		Emparchador::verNormales(pruebaBarridoConBezierBSpline->discretizar(30, 30));
 	glEndList();
 }
 

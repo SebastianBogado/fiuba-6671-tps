@@ -20,7 +20,7 @@ int frames = 0; //Número de frames contados
 float fps = 0;
 int tiempoActual = 0, tiempoAnterior = 0; //Para calcular el tiempo que pasó entre un frame y el siguiente
 
-// Variables asociadas a única fuente de luz de la escena
+
 struct propLuz{
 	bool prendida;
 	vec4 posicion;
@@ -36,13 +36,6 @@ struct propLuz{
 
 const int cantidadDeLuces = 6;
 propLuz luces[cantidadDeLuces];
-
-struct propMaterial{
-	vec3 colorAmb;
-	vec3 colorDif;
-	vec3 colorEspec;
-	float brillo;
-};
 
 TextureLoader* texLoader = new TextureLoader();
 
@@ -266,7 +259,6 @@ void inicializarSuperficieBotella(){
 	perfilBotella->incluirPunto(bezierP12);
 	perfilBotella->incluirPunto(bezierP13);
 	superficieBotella = new SuperficieDeRevolucion(perfilBotella);
-	superficieBotella->discretizar(10, 36);
 }
 void inicializarSuperficieCintaTransportadora(){
 	//Curva borde
@@ -304,7 +296,6 @@ void inicializarSuperficieCintaTransportadora(){
 	caminoCintaTransportadora->incluirPunto(caminoP7);
 	caminoCintaTransportadora->incluirPunto(caminoP8);
 	superficieCintaTransportadora = new SuperficieDeBarrido(formaCintaTransportadora, caminoCintaTransportadora);
-	superficieCintaTransportadora->discretizar(5, 10);
 }
 void inicializarSuperficieTanqueDeCoca(){
 	//Cuerpo del tanque
@@ -320,7 +311,6 @@ void inicializarSuperficieTanqueDeCoca(){
 	perfilTanqueDeCoca->incluirPunto(bsplineP4);
 	perfilTanqueDeCoca->incluirPunto(bsplineP5);
 	superficieTanqueDeCoca = new SuperficieDeRevolucion(perfilTanqueDeCoca);
-	superficieTanqueDeCoca->discretizar(30, 36);
 	
 	//Tubito que llena las botellas
 	//Curva borde
@@ -340,7 +330,6 @@ void inicializarSuperficieTanqueDeCoca(){
 	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP5);
 	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP6);
 	superficieTuboDelTanqueDeCoca = new SuperficieDeBarrido(borde, caminoTuboDelTanqueDeCoca);
-	superficieTuboDelTanqueDeCoca->discretizar(10, 10);
 }
 void inicializarSupeficies(){
 	//Superficies
@@ -683,16 +672,16 @@ void init(void)
 		DrawAxis2DTopView();
 	glEndList();
 	glNewList(DL_BOTELLA, GL_COMPILE);
-		Emparchador::emparchar(superficieBotella);
+		Emparchador::emparchar(superficieBotella->discretizar(10, 36));
 	glEndList();
 	glNewList(DL_CINTA_TRANSPORTADORA, GL_COMPILE);
-		Emparchador::emparchar(superficieCintaTransportadora, 14);
+		Emparchador::emparchar(superficieCintaTransportadora->discretizar(5, 10), 14);
 	glEndList();
 	glNewList(DL_TANQUE_DE_COCA, GL_COMPILE);
-		Emparchador::emparchar(superficieTanqueDeCoca);
+		Emparchador::emparchar(superficieTanqueDeCoca->discretizar(30, 36));
 	glEndList();
 	glNewList(DL_TUBO_DEL_TANQUE_DE_COCA, GL_COMPILE);
-		Emparchador::emparchar(superficieTuboDelTanqueDeCoca);
+		Emparchador::emparchar(	superficieTuboDelTanqueDeCoca->discretizar(10, 10));
 	glEndList();
 
 }

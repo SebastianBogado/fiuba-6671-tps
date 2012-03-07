@@ -5,7 +5,7 @@ public:
 	SuperficieDeBarrido(Curva* curvaBorde, Curva* curvaCamino);
 	~SuperficieDeBarrido(void);
 
-	void discretizar(int discretizacionBorde, int discretizacionAvance);
+	SuperficieDiscretizada* discretizar(int discretizacionBorde, int discretizacionAvance);
 private:
 	Curva* curvaCamino;
 	mat4 calcularRealineacion(float t);
