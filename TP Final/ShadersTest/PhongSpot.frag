@@ -43,7 +43,7 @@ vec3 Phong(){
 	vec3 v = normalize(-posicion);
 	vec3 resultante = vec3(0.0, 0.0, 0.0);
 	int i= 0;
-//	for (int i = 0; i < 6; i++){
+	for (int i = 0; i < 6; i++){
 		resultante += luces[i].amb * material.colorAmb;
 		if (luces[i].prendida){
 			vec3 l = normalize(posicion - luces[i].posicion);
@@ -57,7 +57,7 @@ vec3 Phong(){
 								   (luces[i].espec * material.colorEspec * pow(max(dot(r,v),0.0), material.brillo )));
 			}
 		}
-	//}
+	}
 	return resultante;
 }
 */
