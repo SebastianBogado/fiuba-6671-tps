@@ -12,6 +12,7 @@ public:
 	Botella(void);
 
 	void graficar();
+	void graficar(GLSLProgram* shaderss);
 
 	/*
 	*	Desplaza a la Botella un cierta posicion
@@ -42,22 +43,9 @@ public:
 
 private:
 
-	void aplicarShader();
-	void detenerShader();
-
-	void inicializarEstaticos();
-
 	bool tieneEtiqueta;
 	bool tieneTapa;
 	float porcentajeDeLlenado;
-
-	static string rutaTexturaEtiqueta;
-	static string rutaTexturaTapa;
-	static string rutaShaderDeVertices,rutaShaderDeFragmentos;
-	static GLSLProgram* shaderss;
-	static GLuint etiquetaCoca, tapaCoca;
-	static GLuint DL_BOTELLA;
-	static bool inicializada;
 
 	float _testColor[3]; 
 

@@ -53,8 +53,8 @@ protected:
 	/*
 		Funciones para el manejo de shader del objeto
 	*/
-	virtual void aplicarShader();
-	virtual void detenerShader();
+	void aplicarShader();
+	void detenerShader();
 	void aplicarPhong();
 	void detenerPhong();
 
@@ -76,7 +76,9 @@ protected:
 
 	float *posicionObjeto;
 	string rutaTextura;
+	GLuint texturaID;
 	string rutaShaderDeVertices,rutaShaderDeFragmentos;
+	GLuint dl_handle;
 
 	GLSLProgram* shaders;
 	//Para los materiales que no tienen ninguna particularidad, se usa un phong genérico
