@@ -13,13 +13,13 @@
 #include "GLSLProgram.h"
 #include "TextureLoader.h"
 #include "SOIL\SOIL.h"
+#include "..\TP\propMaterial.h"
 using namespace std;
 
 //Para los FPS. Idea tomada del código de Ali BaderEddin
 int frames = 0; //Número de frames contados
 float fps = 0;
 int tiempoActual = 0, tiempoAnterior = 0; //Para calcular el tiempo que pasó entre un frame y el siguiente
-
 
 struct propLuz{
 	bool prendida;
@@ -393,7 +393,7 @@ void setearLucesUniform(GLSLProgram* GLSLenUso = GLSLPhongSpot){
 	mat4 matrizDeLaCamara = glm::lookAt(vec3(eye[0], eye[1], eye[2]),
 										vec3(at[0], at[1], at[2]),
 										vec3(up[0], up[1], up[2]));
- 
+ /*
 	string l[] = { "luzCero", "luzUno", "luzDos", "luzTres", "luzCuatro", "luzCinco"};
 	int i= 0;
 	//for (int i = 0; i < cantidadDeLuces; i++){
@@ -409,13 +409,53 @@ void setearLucesUniform(GLSLProgram* GLSLenUso = GLSLPhongSpot){
 		GLSLenUso->setUniform(aux.append(".amb").c_str(), luces[i].amb);					aux = l[i];
 		GLSLenUso->setUniform(aux.append(".dif").c_str(), luces[i].dif);					aux = l[i];
 		GLSLenUso->setUniform(aux.append(".espec").c_str(), luces[i].espec);				
-	//}
+	//}*/
+
+	vec4 posicionDeLaLuz = matrizDeLaCamara * luces[0].posicion;
+	vec4 direccionDeLaLuz = matrizDeLaCamara * luces[0].direccion;
+	GLSLenUso->setUniform("luzE1.posicion", vec3(posicionDeLaLuz));
+	GLSLenUso->setUniform("luzE1.direccion", vec3(direccionDeLaLuz));
+	GLSLenUso->setUniform("luzE1.prendida", luces[0].prendida);
+	
+	posicionDeLaLuz = matrizDeLaCamara * luces[1].posicion;
+	direccionDeLaLuz = matrizDeLaCamara * luces[1].direccion;
+	GLSLenUso->setUniform("luzE2.posicion", vec3(posicionDeLaLuz));
+	GLSLenUso->setUniform("luzE2.direccion", vec3(direccionDeLaLuz));
+	GLSLenUso->setUniform("luzE2.prendida", luces[1].prendida);
+
+	posicionDeLaLuz = matrizDeLaCamara * luces[2].posicion;
+	direccionDeLaLuz = matrizDeLaCamara * luces[2].direccion;
+	GLSLenUso->setUniform("luzE3.posicion", vec3(posicionDeLaLuz));
+	GLSLenUso->setUniform("luzE3.direccion", vec3(direccionDeLaLuz));
+	GLSLenUso->setUniform("luzE3.prendida", luces[2].prendida);
+
+	posicionDeLaLuz = matrizDeLaCamara * luces[3].posicion;
+	direccionDeLaLuz = matrizDeLaCamara * luces[3].direccion;
+	GLSLenUso->setUniform("luzE4.posicion", vec3(posicionDeLaLuz));
+	GLSLenUso->setUniform("luzE4.direccion", vec3(direccionDeLaLuz));
+	GLSLenUso->setUniform("luzE4.prendida", luces[3].prendida);
+
+	posicionDeLaLuz = matrizDeLaCamara * luces[4].posicion;
+	direccionDeLaLuz = matrizDeLaCamara * luces[4].direccion;
+	GLSLenUso->setUniform("luzE5.posicion", vec3(posicionDeLaLuz));
+	GLSLenUso->setUniform("luzE5.direccion", vec3(direccionDeLaLuz));
+	GLSLenUso->setUniform("luzE5.prendida", luces[4].prendida);
+
+	posicionDeLaLuz = matrizDeLaCamara * luces[5].posicion;
+	direccionDeLaLuz = matrizDeLaCamara * luces[5].direccion;
+	GLSLenUso->setUniform("luzE6.posicion", vec3(posicionDeLaLuz));
+	GLSLenUso->setUniform("luzE6.direccion", vec3(direccionDeLaLuz));
+	GLSLenUso->setUniform("luzE6.prendida", luces[5].prendida);
 }
 void setearMaterial(propMaterial material, GLSLProgram* GLSLenUso = GLSLPhongSpot){
 	GLSLenUso->setUniform("material.colorAmb", material.colorAmb);
 	GLSLenUso->setUniform("material.colorDif", material.colorDif);
 	GLSLenUso->setUniform("material.colorEspec", material.colorEspec);
 	GLSLenUso->setUniform("material.brillo", material.brillo);
+	/*GLSLenUso->setUniform("material.colorAmb", vec3(0.3, 0.3, 0.3));
+	GLSLenUso->setUniform("material.colorDif", vec3(0.3, 0.3, 0.3));
+	GLSLenUso->setUniform("material.colorEspec", vec3(0.1, 0.1, 0.1));
+	GLSLenUso->setUniform("material.brillo", float(1));*/
 }
 void dibujarBotella(){
 	glDisable(GL_LIGHTING);
@@ -769,10 +809,18 @@ void keyboard (unsigned char key, int x, int y)
 		  tieneEtiqueta = !tieneEtiqueta; break;
 	  case 'm':
 		  tieneTapa = !tieneTapa; break;
+	  case '<':
+		  luces[0].prendida = !luces[0].prendida; break;
+	  case 'z':
+		  luces[1].prendida = !luces[1].prendida; break;
+	  case 'x':
+		  luces[2].prendida = !luces[2].prendida; break;
+	  case 'c':
+		  luces[3].prendida = !luces[3].prendida; break;
+	  case 'v':
+		  luces[4].prendida = !luces[4].prendida; break;
 	  case 'b':
-		  for (int i = 0; i < cantidadDeLuces; i++)
-				luces[i].prendida = !luces[i].prendida; 
-		  break;
+		  luces[5].prendida = !luces[5].prendida; break;
 	  case '+':
 		  porcentajeDeLlenado += 0.05; break;
 	  case '-':
