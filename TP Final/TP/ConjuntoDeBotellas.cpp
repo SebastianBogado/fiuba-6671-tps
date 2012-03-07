@@ -23,8 +23,8 @@ void ConjuntoDeBotellas::inicializar()
 	
 	//Mover los archivos de texturas al TP raíz, y que los demás proyectos referencien sus direcciones a él
 	//Rutas de archivos
-	rutaTextura = "..\\ShadersTest\\etiquetaCoca.bmp";
-	rutaTexturaTapa = "..\\ShadersTest\\tapaCoca.bmp";
+	rutaTextura = "..\\ShadersTest\\etiquetaCoca.png";
+	rutaTexturaTapa = "..\\ShadersTest\\tapaCoca.png";
 	rutaShaderDeVertices = "..\\ShadersTest\\botella.vert";
 	rutaShaderDeFragmentos = "..\\ShadersTest\\botella.frag";
 	
@@ -32,13 +32,13 @@ void ConjuntoDeBotellas::inicializar()
 	shaders = new GLSLProgram(rutaShaderDeVertices.c_str(), rutaShaderDeFragmentos.c_str());
 	
 	//Texturas
-	texturaID = SOIL_load_OGL_texture(rutaTextura.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
-										SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+	texturaID = SOIL_load_OGL_texture(rutaTextura.c_str(), SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
+										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
 	if (! texturaID)
 		cout << SOIL_last_result() << endl;
 
 	tapaCoca = SOIL_load_OGL_texture(rutaTexturaTapa.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
-										SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
 	if (! tapaCoca)
 		cout << SOIL_last_result() << endl;
 	
