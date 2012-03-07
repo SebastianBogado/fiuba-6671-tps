@@ -131,7 +131,17 @@ void Botella::graficar(){
 }
 
 void Botella::actualizarAtributos(){
+	
+}
 
+void Botella::etiquetar()
+{
+	this->tieneEtiqueta = true;
+}
+
+void Botella::tapar()
+{
+	this->tapaCoca = true;
 }
 
 
@@ -145,9 +155,13 @@ void Botella::desplazar(vec3 direccion){
 
 void Botella::reiniciarAtributos(){
 
+	this->tieneEtiqueta = false;
+	this->tieneTapa = false;
+
+	this->porcentajeDeLlenado = 0.0;
 
 	//Solo para test
-	this->inicializarVector(this->_testColor,0.1,0.1,0.3);
+	//this->inicializarVector(this->_testColor,0.1,0.1,0.3);
 
 }
 

@@ -168,22 +168,24 @@ ObjetoGrafico** Control::inicializarObjetosGraficos()
 
 ObjetoGrafico** Control::inicializarBotellas()
 {
+	this->cantObjetosTotales++;
+	this->cantBotellas = 3;
 
-	this->cantBotellas = 6;
-	this->cantObjetosTotales += this->cantBotellas;
+	ObjetoGrafico** botellas = new ObjetoGrafico*;
 
-	ObjetoGrafico** botellas = new ObjetoGrafico*[this->cantBotellas];
+	ConjuntoDeBotellas *conjunBotellas = new ConjuntoDeBotellas(this->cantBotellas);
+	botellas[0] = conjunBotellas;
 
-	for (int i=0; i < this->cantBotellas; i++)
-		botellas[i] = new Botella();
+//	for (int i=0; i < this->cantBotellas; i++)
+//		botellas[i] = new Botella();
 
 
-	Botella** _botellas = new Botella*[this->cantBotellas];
+//	Botella** _botellas = new Botella*[this->cantBotellas];
 	
-	for (int i = 0; i < this->cantBotellas ; i++ )
-		_botellas[i] = (Botella*)botellas[i];
+//	for (int i = 0; i < this->cantBotellas ; i++ )
+//		_botellas[i] = (Botella*)botellas[i];
 
-	manejadorBotellas->agregarBotellas(this->cantBotellas,_botellas);
+	manejadorBotellas->agregarBotellas(conjunBotellas->cantidadDeBotellas(),conjunBotellas->devolverBotellas());
 
 
 	return botellas;
