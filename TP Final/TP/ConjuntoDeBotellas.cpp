@@ -20,19 +20,102 @@ void ConjuntoDeBotellas::inicializar()
 	
 	for (int i=0 ; i < cantBotellas ; i++)
 		this->botellas[i] = new Botella();
+	
+	//Mover los archivos de texturas al TP raíz, y que los demás proyectos referencien sus direcciones a él
+	//Rutas de archivos
+	rutaTextura = "..\\ShadersTest\\etiquetaCoca.bmp";
+	rutaTexturaTapa = "..\\ShadersTest\\tapaCoca.bmp";
+	rutaShaderDeVertices = "..\\ShadersTest\\botella.vert";
+	rutaShaderDeFragmentos = "..\\ShadersTest\\botella.frag";
+	
+	//GLSL
+	shaders = new GLSLProgram(rutaShaderDeVertices.c_str(), rutaShaderDeFragmentos.c_str());
+	
+	//Texturas
+	texturaID = SOIL_load_OGL_texture(rutaTextura.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
+										SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+	if (! texturaID)
+		cout << SOIL_last_result() << endl;
 
+	tapaCoca = SOIL_load_OGL_texture(rutaTexturaTapa.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
+										SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+	if (! tapaCoca)
+		cout << SOIL_last_result() << endl;
+	
+	//Superficie
+	vec3 bezierP1 = vec3(0.0, 0.0, 0.0); 
+	vec3 bezierP2 = vec3(0.9, 0.0, 0.0);
+	vec3 bezierP3 = vec3(0.5, 0.0, 0.4);
+	vec3 bezierP4 = vec3(0.5, 0.0, 1.0);
+	vec3 bezierP5 = vec3(0.5, 0.0, 1.6); 
+	vec3 bezierP6 = vec3(0.6, 0.0, 1.8);
+	vec3 bezierP7 = vec3(0.4, 0.0, 2.2);
+	vec3 bezierP8 = vec3(0.2, 0.0, 2.6);
+	vec3 bezierP9 = vec3(0.2, 0.0, 2.8); 
+	vec3 bezierP10 = vec3(0.2, 0.0, 3.0); 
+	vec3 bezierP11 = vec3(0.2, 0.0, 3.2); 
+	vec3 bezierP12 = vec3(0.2, 0.0, 3.2); 
+	vec3 bezierP13 = vec3(0.0, 0.0, 3.2);
+	Bezier* perfilBotella = new Bezier(4);
+	perfilBotella->incluirPunto(bezierP1);
+	perfilBotella->incluirPunto(bezierP2);
+	perfilBotella->incluirPunto(bezierP3);
+	perfilBotella->incluirPunto(bezierP4);
+	perfilBotella->incluirPunto(bezierP5);
+	perfilBotella->incluirPunto(bezierP6);
+	perfilBotella->incluirPunto(bezierP7);
+	perfilBotella->incluirPunto(bezierP8);
+	perfilBotella->incluirPunto(bezierP9);
+	perfilBotella->incluirPunto(bezierP10);
+	perfilBotella->incluirPunto(bezierP11);
+	perfilBotella->incluirPunto(bezierP12);
+	perfilBotella->incluirPunto(bezierP13);
+	SuperficieDeRevolucion* superficieBotella = new SuperficieDeRevolucion(perfilBotella);
+	
+	//Display list
+	dl_handle = glGenLists(1);
+	glNewList(dl_handle, GL_COMPILE);
+		Emparchador::emparchar(superficieBotella->discretizar(10, 36));
+	glEndList();
 }
 
 
 void ConjuntoDeBotellas::graficar()
 {
-
-	//aqui es donde se Enciende el manejo de Shaders
 	this->aplicarShader();
+	glDisable(GL_LIGHTING);
+	glEnable(GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texturaID);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, tapaCoca);
+	
+	shaders->setUniform("etiquetaText", 0);
+	shaders->setUniform("tapaText", 1);
+	//shaders->setLuces(iluminacion);
+	//Por ahora, uso estas variables forzadas
+	//Como la clase iluminacion devuelve las posiciones y dirección como deben,
+	//no será necesaria esta tramoya de la cámara. Además, sólo funciona en la posición por defecto
+		
+	mat4 matrizDeLaCamara = glm::lookAt(vec3(15, 15, 5), vec3(0,0,0),vec3(0,0,1));
+	vec4 posicionDeLaLuz = matrizDeLaCamara * vec4(0.0, 0.0, 10.0, 1.0);
+	vec4 direccionDeLaLuz = matrizDeLaCamara * vec4(0.0, 0.0, -1.0, 0.0);
 
-	for (int i=0; i < this->cantBotellas ; i++)
-	{
-		this->botellas[i]->graficar();
+	shaders->setUniform("luz.prendida", true);
+	shaders->setUniform("luz.posicion", vec3(posicionDeLaLuz));
+	shaders->setUniform("luz.direccion", vec3(direccionDeLaLuz));
+	shaders->setUniform("luz.angulo", 35);
+	shaders->setUniform("luz.k", 10);
+	shaders->setUniform("luz.amb", vec3(0.1, 0.1, 0.1));
+	shaders->setUniform("luz.dif", vec3(0.9, 0.9, 0.9));
+	shaders->setUniform("luz.espec", vec3(1.0, 1.0, 1.0));		
+	
+	for (int i=0; i < this->cantBotellas ; i++){
+		glPushMatrix();
+			this->botellas[i]->graficar(shaders);
+			glCallList(dl_handle);
+		glPopMatrix();
 	}
 
 	this->detenerShader();
@@ -40,17 +123,6 @@ void ConjuntoDeBotellas::graficar()
 }
 
 
-void ConjuntoDeBotellas::aplicarShader()
-{
-
-
-}
-
-void ConjuntoDeBotellas::detenerShader()
-{
-
-
-}
 
 
 void ConjuntoDeBotellas::actualizarAtributos()

@@ -21,13 +21,14 @@ public:
 
 	
 private:
-	void aplicarShader();
-	void detenerShader();
 
 	void inicializar();
 
 	Botella** botellas;
 	int cantBotellas;
+
+	string rutaTexturaTapa;
+	GLuint tapaCoca;
 
 };
 
