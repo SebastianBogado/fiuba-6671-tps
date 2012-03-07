@@ -17,8 +17,6 @@ public:
 
 	void actualizarAtributos();
 
-	
-
 	////////////////////////
 	//Interfaz de Maquina//
 	///////////////////////
@@ -50,10 +48,13 @@ private:
 	void aplicarShader();
 	void detenerShader();
 
+	void graficarCinta();
+
 	void inicializarAtributos();
 	void inicializarCurvas();
 
 	float pasoDeDiscretizacionGeneral;
+	float desplazamientoDeCinta;
 	bool cintaEnMovimiento;
 
 
@@ -63,6 +64,9 @@ private:
 	GLSLProgram* GLSLCintaTransportadora;
 	glTexture cintaTransportadora;
 
+	GLuint DL_CINTA_TRANSPORTADORA;
+	
+	vec3 posicionInicialEnCinta;
 
 	float _testLargoCinta;
 
