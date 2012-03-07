@@ -98,6 +98,15 @@ float ObjetoGraficoCubico::valorLargoEnX(){ return this->largo; }
 
 float ObjetoGraficoCubico::valorLargoEnY(){ return this->ancho;}
 
+
+void ObjetoGraficoCubico::posicionarObjeto()
+{
+	glTranslatef(	this->posicionObjeto[0] - this->valorLargoEnX() / 2.0, 
+					this->posicionObjeto[1] - this->valorLargoEnY() / 2.0,
+					this->posicionObjeto[2] );
+
+}
+
 void ObjetoGraficoCubico::actualizarVertices(){
 
 	this->inicializarVector(vertices[0],0.0,0.0,0.0);

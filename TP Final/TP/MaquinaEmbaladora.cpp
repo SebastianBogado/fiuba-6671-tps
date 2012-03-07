@@ -2,17 +2,17 @@
 
 
 MaquinaEmbaladora::MaquinaEmbaladora(void)
-{
+{	
+
+	this->ancho = 4.0;
+	this->largo = 6.0;
+	this->alto = 7.0;
 
 	this->posicionObjeto = new float[3];
 	this->inicializarVector(posicionObjeto,29.0,5.0,0.0);
 
 	this->posDeObjetoAnimado = new float[3];
 	this->inicializarVector(posDeObjetoAnimado,0.0,0.0,0.0);
-
-	this->ancho = 4.0;
-	this->largo = 6.0;
-	this->alto = 7.0;
 
 	this->inicializarVertices();
 	this->reiniciarContadorBotellas();
@@ -47,7 +47,8 @@ void MaquinaEmbaladora::graficar(){
 	this->definirMateriales();
 
 	glPushMatrix();
-	glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
+	//glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
+	this->posicionarObjeto(); 
 
 	glEnable(GL_LIGHTING);
 

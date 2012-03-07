@@ -19,7 +19,7 @@ public:
 	TipoMaquina tipo(){ return TipoMaquina::Etiquetadora; }
 
 	virtual ~MaquinaEtiquetadora(void);
-
+	
 private:
 	
 	void aplicarShader();

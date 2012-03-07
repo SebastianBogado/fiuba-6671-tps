@@ -42,7 +42,7 @@ void LamparaDeTecho::graficar(){
 		for (float i=1.0; i <= 3.1; i=i+1){
 			glPushMatrix();
 
-			glTranslatef(i*ladoMayorCuarto / 4.0 , ladoMenorCuarto / 4.0,cuarto->valorAltura());	
+			glTranslatef(i*ladoMayorCuarto / 4.0 , ladoMenorCuarto / 3.0,cuarto->valorAltura());	
 			this->graficarLamparaSimple();
 		
 			glTranslatef(0.0,ladoMenorCuarto / 3.0 ,0.0);	
@@ -58,7 +58,7 @@ void LamparaDeTecho::graficar(){
 
 void LamparaDeTecho::inicializarVertices(){
 
-	this->largo = 1.5;
+	this->largo = 1.3;
 	this->ancho = 0.5;
 	this->alturaCampana = 0.5;
 	this->grosor = 0.2;

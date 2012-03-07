@@ -26,6 +26,8 @@ public:
 protected:
 	void inicializarVertices();
 	void actualizarVertices();
+	
+	void posicionarObjeto();
 
 	float **vertices;
 	float ancho,largo,alto;

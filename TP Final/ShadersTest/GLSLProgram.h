@@ -10,7 +10,8 @@ using glm::mat3;
 using glm::mat4;
 #include <fstream>
 #include <iostream>
-#include <dirent.h>
+//#include <dirent.h>
+#include <direct.h>
 using namespace std;
 #include "..\TP\Iluminacion.h"
 #include "..\TP\propMaterial.h"

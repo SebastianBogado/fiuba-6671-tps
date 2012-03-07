@@ -64,7 +64,8 @@ void MaquinaEtiquetadora::detenerShader(){ }
 
 void MaquinaEtiquetadora::iniciarAnimacion(Botella* botella){
 
-	botella->cambiarColor();
+	//botella->cambiarColor();
+	botella->etiquetar();
 
 	this->AnimacionIniciada = true;
 

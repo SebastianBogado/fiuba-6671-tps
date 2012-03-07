@@ -1,6 +1,8 @@
 #pragma once
 #include "objetografico.h"
 #include "Maquina.h"
+#include "../ShadersTest/TextureLoader.h"
+
 class CintaTransportadora :
 	public ObjetoGrafico,
 	public Maquina
@@ -32,6 +34,10 @@ public:
 	void desplazarCinta();
 	void detenerCinta();
 
+
+	void aumentarDiscretizacionDeCinta();
+	void disminuirDiscretizacionDeCinta();
+
 	bool cintaActiva(){ return this->cintaEnMovimiento; }
 
 	float nuevaPosicionDeTramo(float posicion);
@@ -44,8 +50,19 @@ private:
 	void aplicarShader();
 	void detenerShader();
 
+	void inicializarAtributos();
+	void inicializarCurvas();
+
 	float pasoDeDiscretizacionGeneral;
 	bool cintaEnMovimiento;
+
+
+	BSpline* formaCintaTransportadora;
+	BSpline* caminoCintaTransportadora;
+	SuperficieDeBarrido* superficieCintaTransportadora;
+	GLSLProgram* GLSLCintaTransportadora;
+	glTexture cintaTransportadora;
+
 
 	float _testLargoCinta;
 

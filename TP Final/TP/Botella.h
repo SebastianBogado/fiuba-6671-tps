@@ -37,7 +37,8 @@ public:
 
 
 	//Solo para test de Cinta
-	void cambiarColor(){ this->inicializarVector(_testColor,_testColor[0] + 0.3,_testColor[1] + 0.2, _testColor[2] + 0.1);}
+	void cambiarColor(){ //this->inicializarVector(_testColor,_testColor[0] + 0.3,_testColor[1] + 0.2, _testColor[2] + 0.1);
+						}
 
 private:
 
@@ -58,7 +59,7 @@ private:
 	static GLuint DL_BOTELLA;
 	static bool inicializada;
 
-	float _testColor[3];
+	float _testColor[3]; 
 
 };
 
