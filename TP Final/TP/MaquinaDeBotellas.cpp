@@ -41,7 +41,8 @@ void MaquinaDeBotellas::graficar(){
 	this->definirMateriales();
 
 	glPushMatrix();
-	glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
+	//glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
+	this->posicionarObjeto();
 
 		this->inicializarVector(normal,0.0,-1.0,0.0);
 		this->dibujarPared(normal,0,1,4,5);
