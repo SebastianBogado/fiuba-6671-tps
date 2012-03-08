@@ -1,10 +1,11 @@
 #pragma once
-#include "ObjetoGrafico.h"
+#include "ObjetoGraficoCubico.h"
 #include"Maquina.h"
 
 class MaquinaEtiquetadora :
-	public ObjetoGrafico,
+	public ObjetoGraficoCubico,
 	public Maquina
+
 {
 public:
 	MaquinaEtiquetadora(void);
@@ -18,6 +19,9 @@ public:
 	bool animacionFinalizada();
 	TipoMaquina tipo(){ return TipoMaquina::Etiquetadora; }
 
+	//Metodos Particulares
+	void definirMateriales();
+
 	virtual ~MaquinaEtiquetadora(void);
 	
 private:
@@ -25,6 +29,8 @@ private:
 	void aplicarShader();
 	void detenerShader();
 
-	
+	void dibujarBrazoMovil();
+	 
+	float desplazamientoBrazoMovil;
 };
 
