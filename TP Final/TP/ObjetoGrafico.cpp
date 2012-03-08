@@ -2,16 +2,23 @@
 
 
 GLSLProgram* ObjetoGrafico::phong = NULL;
-TextureLoader* ObjetoGrafico::cargadorDeTexturas = NULL;
 
 ObjetoGrafico::ObjetoGrafico(void){
 	if (! phong)
 		phong = new GLSLProgram( "..\\ShadersTest\\PhongSpot.vert", "..\\ShadersTest\\PhongSpot.frag");
-	if(! cargadorDeTexturas)
-		cargadorDeTexturas = new TextureLoader();
-
 }
 
+void ObjetoGrafico::ini(){
+	//GLSL
+	shaders = new GLSLProgram(rutaShaderDeVertices, rutaShaderDeFragmentos);
+	//Textura
+	texturaID = SOIL_load_OGL_texture(rutaTextura, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
+										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+	if (! texturaID)
+		cout << SOIL_last_result() << endl;
+	//DL
+	dl_handle = glGenLists(1);
+}
 
 void ObjetoGrafico::posicionar(float *nuevaPosicion){
 

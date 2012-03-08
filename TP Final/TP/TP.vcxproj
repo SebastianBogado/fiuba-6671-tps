@@ -95,7 +95,6 @@
     <ClCompile Include="ObjetoGrafico.cpp" />
     <ClCompile Include="ObjetoGraficoCubico.cpp" />
     <ClCompile Include="RampaDeCajas.cpp" />
-    <ClCompile Include="TextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ShadersTest\GLSLProgram.h" />
@@ -122,7 +121,6 @@
     <ClInclude Include="ObjetoGraficoCubico.h" />
     <ClInclude Include="propMaterial.h" />
     <ClInclude Include="RampaDeCajas.h" />
-    <ClInclude Include="TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Camara\Camara.vcxproj">

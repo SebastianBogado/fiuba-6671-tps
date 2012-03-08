@@ -27,22 +27,8 @@ void ConjuntoDeBotellas::inicializar()
 	rutaTexturaTapa = "..\\ShadersTest\\tapaCoca.png";
 	rutaShaderDeVertices = "..\\ShadersTest\\botella.vert";
 	rutaShaderDeFragmentos = "..\\ShadersTest\\botella.frag";
-	
-	//GLSL
-	shaders = new GLSLProgram(rutaShaderDeVertices, rutaShaderDeFragmentos);
-	
-	//Texturas
-//<<<<<<< .mine
-//	texturaID = SOIL_load_OGL_texture(rutaTextura, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
-//										SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
-//=======
-	texturaID = SOIL_load_OGL_texture(rutaTextura, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
-										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
-//>>>>>>> .r173
-	if (! texturaID)
-		cout << SOIL_last_result() << endl;
-
-	tapaCoca = SOIL_load_OGL_texture(rutaTexturaTapa.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
+	ini();
+	tapaCoca = SOIL_load_OGL_texture(rutaTexturaTapa.c_str(), SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
 										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
 	if (! tapaCoca)
 		cout << SOIL_last_result() << endl;
@@ -79,7 +65,6 @@ void ConjuntoDeBotellas::inicializar()
 	
 	//Display list
 	float escalado = 0.5;
-	dl_handle = glGenLists(1);
 	glNewList(dl_handle, GL_COMPILE);
 		glScalef(escalado,escalado,escalado);
 		Emparchador::emparchar(superficieBotella->discretizar(10, 36));
