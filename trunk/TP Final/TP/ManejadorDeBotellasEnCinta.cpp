@@ -6,6 +6,17 @@ ManejadorDeBotellasEnCinta::ManejadorDeBotellasEnCinta(void)
 	this->inicializar();
 }
 
+void ManejadorDeBotellasEnCinta::inicializar()
+{
+
+	this->botellasAgregadas = false;
+	//this->cintaEnMovimiento = false;
+	this->distanciaMinimaEntreBotellas = 0.5;
+
+	this->cinta = NULL;
+
+}
+
 void ManejadorDeBotellasEnCinta::agregarBotellas(vector<Botella*> &botellas)
 {
 
@@ -51,16 +62,7 @@ void ManejadorDeBotellasEnCinta::definirCintaTransportadora(CintaTransportadora*
 
 }
 
-void ManejadorDeBotellasEnCinta::inicializar()
-{
 
-	this->botellasAgregadas = false;
-	//this->cintaEnMovimiento = false;
-	this->distanciaMinimaEntreBotellas = 3.0;
-
-	this->cinta = NULL;
-
-}
 
 void ManejadorDeBotellasEnCinta::actualizarPosicionesDeBotellas()
 {

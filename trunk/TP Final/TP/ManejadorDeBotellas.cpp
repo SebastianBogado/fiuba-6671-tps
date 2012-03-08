@@ -25,7 +25,7 @@ void ManejadorDeBotellas::inicializar()
 	this->maquinas.clear();
 
 
-	this->distanciaMaximaParaAnimacion = 1.0;
+	this->distanciaMaximaParaAnimacion = 0.1;
 
 	this->manejadorDeCinta = new ManejadorDeBotellasEnCinta();
 

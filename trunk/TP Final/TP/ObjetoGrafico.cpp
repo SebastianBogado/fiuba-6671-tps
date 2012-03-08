@@ -2,10 +2,14 @@
 
 
 GLSLProgram* ObjetoGrafico::phong = NULL;
+TextureLoader* ObjetoGrafico::cargadorDeTexturas = NULL;
 
 ObjetoGrafico::ObjetoGrafico(void){
 	if (! phong)
 		phong = new GLSLProgram( "..\\ShadersTest\\PhongSpot.vert", "..\\ShadersTest\\PhongSpot.frag");
+	if(! cargadorDeTexturas)
+		cargadorDeTexturas = new TextureLoader();
+
 }
 
 

@@ -9,7 +9,7 @@ MaquinaEmbaladora::MaquinaEmbaladora(void)
 	this->alto = 7.0;
 
 	this->posicionObjeto = new float[3];
-	this->inicializarVector(posicionObjeto,29.0,5.0,0.0);
+	this->inicializarVector(posicionObjeto,5.0,29.0,0.0);
 
 	this->posDeObjetoAnimado = new float[3];
 	this->inicializarVector(posDeObjetoAnimado,0.0,0.0,0.0);
@@ -86,7 +86,8 @@ void MaquinaEmbaladora::detenerShader(){
 
 
 void MaquinaEmbaladora::iniciarAnimacion(Botella* botella)
-{
+{	
+	botella->etiquetar();
 	this->contadorBotellas++;
 
 }

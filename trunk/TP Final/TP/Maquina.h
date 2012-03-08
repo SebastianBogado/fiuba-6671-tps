@@ -24,12 +24,15 @@ public:
 
 	float* posicionPlanaDeObjetoAnimado(){ return posDeObjetoAnimado; };
 
+	float posicionTramoEnCinta(){ return this->posTramoEnCinta; }
+
 	inline float altura(){ return alturaDeMaquina;}
 
 	~Maquina(void);
 protected:
 	float alturaDeMaquina;
 	float* posDeObjetoAnimado;
+	float posTramoEnCinta;
 
 	bool AnimacionIniciada;
 	float _testAnimacion,_pasoTest;

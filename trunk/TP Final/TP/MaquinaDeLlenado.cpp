@@ -8,7 +8,7 @@ MaquinaDeLlenado::MaquinaDeLlenado(void)
 	this->_pasoTest = 0.01;
 
 	this->posicionObjeto = new float[3];
-	this->inicializarVector(posicionObjeto,22.0,2.0,0.0);
+	this->inicializarVector(posicionObjeto,2.0,22.0,0.0);
 
 	this->posDeObjetoAnimado = new float [3];
 	this->inicializarVector(posDeObjetoAnimado,23.0,6.5,0.0);
@@ -77,7 +77,7 @@ void MaquinaDeLlenado::iniciarAnimacion(Botella* botella)
 
 
 	//Solo para test
-	botella->cambiarColor();
+	botella->etiquetar();
 
 	this->AnimacionIniciada = true;
 
