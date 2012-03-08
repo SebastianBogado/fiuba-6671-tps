@@ -92,6 +92,7 @@
     <ClCompile Include="MaquinaDeLlenado.cpp" />
     <ClCompile Include="MaquinaEmbaladora.cpp" />
     <ClCompile Include="MaquinaEtiquetadora.cpp" />
+    <ClCompile Include="MaquinaTapadora.cpp" />
     <ClCompile Include="ObjetoGrafico.cpp" />
     <ClCompile Include="ObjetoGraficoCubico.cpp" />
     <ClCompile Include="RampaDeCajas.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="MaquinaDeLlenado.h" />
     <ClInclude Include="MaquinaEmbaladora.h" />
     <ClInclude Include="MaquinaEtiquetadora.h" />
+    <ClInclude Include="MaquinaTapadora.h" />
     <ClInclude Include="ObjetoGrafico.h" />
     <ClInclude Include="ObjetoGraficoCubico.h" />
     <ClInclude Include="propMaterial.h" />
