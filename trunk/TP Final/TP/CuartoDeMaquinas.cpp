@@ -12,7 +12,7 @@ CuartoDeMaquinas::CuartoDeMaquinas(void)
 
 	this->ancho = 40.0;
 	this->largo = 20.0;
-	this->alto = 10.0;
+	this->alto = 12.0;
 
 	this->inicializarVertices();
 
