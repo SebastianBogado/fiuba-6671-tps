@@ -13,6 +13,7 @@ using glm::vec3;
 #include "..\Curvas\BSpline.h"
 #include "..\Curvas\Bezier.h"
 #include "..\Curvas\Circunferencia.h"
+#include "..\BulletPhysics\src\btBulletDynamicsCommon.h"
 #include <GL\freeglut.h>
 
 
@@ -45,6 +46,9 @@ public:
 	void posicionar(const float& x,const float& y,const float& z);
 
 	inline float* vectorPosicion(){ return posicionObjeto;}
+
+	void glVerticeVec3(vec3 v){ glVertex3d(v.x,v.y,v.z); }
+	void glVerticeVec3(btVector3 &vrt){ glVertex3f(vrt.m_floats[0],vrt.m_floats[1],vrt.m_floats[2]);}; 
 
 	void* devolverPuntero(){ return (reinterpret_cast<void*>(this));}
 
