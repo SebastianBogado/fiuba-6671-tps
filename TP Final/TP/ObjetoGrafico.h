@@ -13,6 +13,7 @@ using glm::vec3;
 #include "..\Curvas\BSpline.h"
 #include "..\Curvas\Bezier.h"
 #include "..\Curvas\Circunferencia.h"
+#include "TextureLoader.h"
 #include <GL\freeglut.h>
 
 
@@ -75,14 +76,21 @@ protected:
 	//////////////////////
 
 	float *posicionObjeto;
-	string rutaTextura;
+//<<<<<<< .mine
+	char* rutaTextura;
+	char* rutaShaderDeVertices, *rutaShaderDeFragmentos;
+	
+//=======
+//	string rutaTextura;
 	GLuint texturaID;
-	string rutaShaderDeVertices,rutaShaderDeFragmentos;
+//	string rutaShaderDeVertices,rutaShaderDeFragmentos;
 	GLuint dl_handle;
 
+//>>>>>>> .r172
 	GLSLProgram* shaders;
 	//Para los materiales que no tienen ninguna particularidad, se usa un phong genérico
-	static GLSLProgram* phong; 
+	static GLSLProgram* phong;
+	static TextureLoader* cargadorDeTexturas;
 	propMaterial material;
 };
 

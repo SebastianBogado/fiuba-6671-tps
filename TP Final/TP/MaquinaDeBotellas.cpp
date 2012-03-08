@@ -149,6 +149,9 @@ void MaquinaDeBotellas::iniciarAnimacion(Botella* botella)
 {
 	this->AnimacionIniciada = true;
 
+
+	botella->etiquetar();
+
 	this->_pasoTest = 1.0;
 	this->_testAnimacion = 0.0;
 

@@ -8,7 +8,7 @@ MaquinaEtiquetadora::MaquinaEtiquetadora(void)
 	this->_pasoTest = 0.01;
 
 	this->posicionObjeto = new float[3];
-	this->inicializarVector(posicionObjeto,15.0,2.0,0.0);
+	this->inicializarVector(posicionObjeto,2.0,15.0,0.0);
 
 	this->posDeObjetoAnimado = new float [3];
 	this->inicializarVector(posDeObjetoAnimado,16.0,6.5,0.0);

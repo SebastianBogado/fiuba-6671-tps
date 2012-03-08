@@ -29,11 +29,16 @@ void ConjuntoDeBotellas::inicializar()
 	rutaShaderDeFragmentos = "..\\ShadersTest\\botella.frag";
 	
 	//GLSL
-	shaders = new GLSLProgram(rutaShaderDeVertices.c_str(), rutaShaderDeFragmentos.c_str());
+	shaders = new GLSLProgram(rutaShaderDeVertices, rutaShaderDeFragmentos);
 	
 	//Texturas
-	texturaID = SOIL_load_OGL_texture(rutaTextura.c_str(), SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
+//<<<<<<< .mine
+//	texturaID = SOIL_load_OGL_texture(rutaTextura, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
+//										SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+//=======
+	texturaID = SOIL_load_OGL_texture(rutaTextura, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
 										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+//>>>>>>> .r173
 	if (! texturaID)
 		cout << SOIL_last_result() << endl;
 
@@ -73,15 +78,20 @@ void ConjuntoDeBotellas::inicializar()
 	SuperficieDeRevolucion* superficieBotella = new SuperficieDeRevolucion(perfilBotella);
 	
 	//Display list
+	float escalado = 0.5;
 	dl_handle = glGenLists(1);
 	glNewList(dl_handle, GL_COMPILE);
+		glScalef(escalado,escalado,escalado);
 		Emparchador::emparchar(superficieBotella->discretizar(10, 36));
 	glEndList();
 }
 
 
 void ConjuntoDeBotellas::graficar()
-{
+{	
+
+	
+
 	this->aplicarShader();
 	glDisable(GL_LIGHTING);
 	glEnable(GL_BLEND);
@@ -111,6 +121,10 @@ void ConjuntoDeBotellas::graficar()
 	shaders->setUniform("luz.dif", vec3(0.9, 0.9, 0.9));
 	shaders->setUniform("luz.espec", vec3(1.0, 1.0, 1.0));		
 	
+	//glPushMatrix();
+	//glScalef(escalado,escalado,escalado);
+
+
 	for (int i=0; i < this->cantBotellas ; i++){
 		glPushMatrix();
 			this->botellas[i]->graficar(shaders);
@@ -118,6 +132,7 @@ void ConjuntoDeBotellas::graficar()
 		glPopMatrix();
 	}
 
+	//glPopMatrix();
 	this->detenerShader();
 	
 }

@@ -29,6 +29,8 @@ private:
 	
 	void comprobarAnimaciones();
 
+	void inicializarPosicionesDeAnimacion();
+
 	void asignarProximaBotella(int numMaquina);
 
 	float calcularDistanciaPlana(float* pos1,float* pos2);

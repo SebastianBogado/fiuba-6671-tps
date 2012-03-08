@@ -106,7 +106,7 @@ void Control::inicializar(){
 
 ObjetoGrafico** Control::inicializarMaquinas()
 {
-	this->cantMaquinas = 5;
+	this->cantMaquinas = 1;//5;
 	this->cantObjetosTotales += this->cantMaquinas;
 
 	ObjetoGrafico** maquinas= new ObjetoGrafico*[this->cantMaquinas];
@@ -116,14 +116,16 @@ ObjetoGrafico** Control::inicializarMaquinas()
 	///Instanciacion de Maquinas///
 	///////////////////////////////
 	
-	MaquinaDeBotellas *p1 = new MaquinaDeBotellas();
+
+	CintaTransportadora *p1 = new CintaTransportadora();
 	maquinas[0] = p1;
 	_maquinas[0] = p1;
-
-
-	CintaTransportadora *p2 = new CintaTransportadora();
+/*
+	MaquinaDeBotellas *p2 = new MaquinaDeBotellas();
 	maquinas[1] = p2;
 	_maquinas[1] = p2;
+
+	
 
 	MaquinaEtiquetadora *p3 = new MaquinaEtiquetadora();
 	maquinas[2] = p3;
@@ -139,11 +141,11 @@ ObjetoGrafico** Control::inicializarMaquinas()
 	_maquinas[4] = p5;
 
 	/*
-	for (int i=0; i < this->cantMaquinas ; i++)
-		_maquinas[i] =  reinterpret_cast<Maquina*>(maquinas[i]->devolverPuntero());
+//	for (int i=0; i < this->cantMaquinas ; i++)
+	//	_maquinas[i] =  reinterpret_cast<Maquina*>(maquinas[i]->devolverPuntero());
 		//_maquinas[i] = (Maquina*) maquinas[i];
-		*/
-
+		
+	*/
 	manejadorBotellas->agregarMaquinas(this->cantMaquinas,_maquinas);
 
 	return maquinas;
@@ -169,7 +171,7 @@ ObjetoGrafico** Control::inicializarObjetosGraficos()
 ObjetoGrafico** Control::inicializarBotellas()
 {
 	this->cantObjetosTotales++;
-	this->cantBotellas = 3;
+	this->cantBotellas = 6;
 
 	ObjetoGrafico** botellas = new ObjetoGrafico*;
 

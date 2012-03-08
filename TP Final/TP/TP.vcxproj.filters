@@ -34,6 +34,12 @@
     <Filter Include="Archivos de encabezado\Objetos\Maquinas">
       <UniqueIdentifier>{2bb7d46a-5166-4ffc-8be4-b03c24a94909}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de código fuente\Manejadores">
+      <UniqueIdentifier>{03e19d49-1227-4e26-a85e-e15357e11622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Manejadores">
+      <UniqueIdentifier>{d9f2e829-1440-4be3-af8b-1b751bcbe22a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\freeglut.lib">
@@ -101,17 +107,8 @@
     <ClCompile Include="InterfazMotorDeFisica.cpp">
       <Filter>Archivos de código fuente\Modelo</Filter>
     </ClCompile>
-    <ClCompile Include="ManejadorDeCajones.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="RampaDeCajas.cpp">
       <Filter>Archivos de código fuente\Objetos</Filter>
-    </ClCompile>
-    <ClCompile Include="ManejadorDeBotellas.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="ManejadorDeBotellasEnCinta.cpp">
-      <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="Maquina.cpp">
       <Filter>Archivos de código fuente\Modelo</Filter>
@@ -126,6 +123,18 @@
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
     <ClCompile Include="ConjuntoDeBotellas.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="ManejadorDeBotellas.cpp">
+      <Filter>Archivos de código fuente\Manejadores</Filter>
+    </ClCompile>
+    <ClCompile Include="ManejadorDeBotellasEnCinta.cpp">
+      <Filter>Archivos de código fuente\Manejadores</Filter>
+    </ClCompile>
+    <ClCompile Include="ManejadorDeCajones.cpp">
+      <Filter>Archivos de código fuente\Manejadores</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLoader.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
@@ -169,17 +178,8 @@
     <ClInclude Include="InterfazMotorDeFisica.h">
       <Filter>Archivos de encabezado\Modelo</Filter>
     </ClInclude>
-    <ClInclude Include="ManejadorDeCajones.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="RampaDeCajas.h">
       <Filter>Archivos de encabezado\Objetos</Filter>
-    </ClInclude>
-    <ClInclude Include="ManejadorDeBotellas.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ManejadorDeBotellasEnCinta.h">
-      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Maquina.h">
       <Filter>Archivos de encabezado\Modelo</Filter>
@@ -200,6 +200,18 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="ConjuntoDeBotellas.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="ManejadorDeBotellas.h">
+      <Filter>Archivos de encabezado\Manejadores</Filter>
+    </ClInclude>
+    <ClInclude Include="ManejadorDeCajones.h">
+      <Filter>Archivos de encabezado\Manejadores</Filter>
+    </ClInclude>
+    <ClInclude Include="ManejadorDeBotellasEnCinta.h">
+      <Filter>Archivos de encabezado\Manejadores</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLoader.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
