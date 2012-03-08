@@ -41,13 +41,14 @@ protected:
 	////////////////////////////////////////////////////////////////
 	void dibujarPared(float* normal,int v1,int v2,int v3,int v4);
 	void dibujarParedHueca(float* normal,int v1,int v2,int v3,int v4,float largoHoyo,float anchoHoyo,vec2 posHoyo,float profundidad);
+	
 
 private:
 	
 	void dibujarHoyo(float *n,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1,float &profundidad);
 
 	void dibujarFranja(float* normal,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1);
-	void glVerticeVec3(btVector3 &vrt){ glVertex3f(vrt.m_floats[0],vrt.m_floats[1],vrt.m_floats[2]);}; 
+	
 
 	bool discretizacionPorDefecto;
 	int pasosDeDiscretizacion;	
