@@ -40,8 +40,8 @@ void MovimientoCamaraMouse::movimientoMouse(int x,int y){
 
         //DEbug
 
-        cout<<"x: "<<x<<"       Xant:"<<xAnterior<<"    dX:"<<dX<<endl;
-        cout<<"y: "<<x<<"       Yant:"<<xAnterior<<"    dy:"<<dY<<endl<<endl;
+     //   cout<<"x: "<<x<<"       Xant:"<<xAnterior<<"    dX:"<<dX<<endl;
+      //  cout<<"y: "<<x<<"       Yant:"<<xAnterior<<"    dy:"<<dY<<endl<<endl;
 
 
 
