@@ -134,9 +134,6 @@
     <ClCompile Include="ManejadorDeCajones.cpp">
       <Filter>Archivos de código fuente\Manejadores</Filter>
     </ClCompile>
-    <ClCompile Include="TextureLoader.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h">
@@ -210,9 +207,6 @@
     </ClInclude>
     <ClInclude Include="ManejadorDeBotellasEnCinta.h">
       <Filter>Archivos de encabezado\Manejadores</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureLoader.h">
-      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,8 +1,5 @@
 uniform sampler2D cintaText;
 
-//agregada por Migue
-uniform float desplazamientoDeCinta;
-
 varying vec2 vTexCoord;
 varying vec3 normal;
 varying vec3 posicion;
@@ -63,13 +60,11 @@ vec3 BlinnPhong(){
 }
 
 void main (void){
-	//Agregado por Migue
-	vTexCoord.x += desplazamientoDeCinta;
-
 	vec4 color =  texture2D(cintaText, vTexCoord);
-	if (color.a == 0.0)
-		color = vec4(0.2, 0.2, 0.2, 1.0);
+	//Mientras no haya luces...
+	gl_FragColor = color;
 
+	/*
 	if (!luz.prendida)
 		gl_FragColor = color;
 	else{
@@ -79,5 +74,5 @@ void main (void){
 		material.brillo =2.0;
 	
 		gl_FragColor = vec4(BlinnPhong(), 1.0);
-	}
+	}*/
 }

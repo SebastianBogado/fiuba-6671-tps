@@ -1,7 +1,6 @@
 #pragma once
 #include "objetografico.h"
 #include "Maquina.h"
-#include "../ShadersTest/TextureLoader.h"
 
 class CintaTransportadora :
 	public ObjetoGrafico,
@@ -45,9 +44,6 @@ public:
 
 private:
 
-	void aplicarShader();
-	void detenerShader();
-
 	void graficarCinta();
 
 	void inicializarAtributos();
@@ -61,11 +57,7 @@ private:
 	BSpline* formaCintaTransportadora;
 	BSpline* caminoCintaTransportadora;
 	SuperficieDeBarrido* superficieCintaTransportadora;
-	GLSLProgram* GLSLCintaTransportadora;
-	glTexture cintaTransportadora;
 
-	GLuint DL_CINTA_TRANSPORTADORA;
-	
 	int discretAvance,discretBorde;
 
 	vec3 posicionInicialEnCinta;

@@ -3,11 +3,10 @@
 
 CintaTransportadora::CintaTransportadora(void)
 {	
-
 	this->rutaShaderDeFragmentos = "..\\ShadersTest\\cintaTransportadora.frag";
 	this->rutaShaderDeVertices = "..\\ShadersTest\\cintaTransportadora.vert";
 	this->rutaTextura = "..\\ShadersTest\\cintaTransportadora.bmp";
-
+	ini();
 
 	this->discretBorde = 5;
 	this->discretAvance = 10;
@@ -34,9 +33,6 @@ CintaTransportadora::CintaTransportadora(void)
 	this->posicionInicialEnCinta.y = this->posicionObjeto[1];
 	this->posicionInicialEnCinta.z = 0.0;
 	//this->posicionInicialEnCinta.z += this->posicionObjeto[2] - 2;
-
-
-	
 
 }
 
@@ -111,19 +107,11 @@ void CintaTransportadora::graficar(){
 void CintaTransportadora::inicializarAtributos()
 {
 	this->inicializarCurvas();
-
-	DL_CINTA_TRANSPORTADORA = glGenLists(1);
-	glNewList(DL_CINTA_TRANSPORTADORA, GL_COMPILE);
+	
+	glNewList(dl_handle, GL_COMPILE);
 		Emparchador::emparchar(superficieCintaTransportadora->discretizar(discretBorde, discretAvance), 15);
 	glEndList();
 
-
-	//this->shaders =  new GLSLProgram("cintaTransportadora.vert", "cintaTransportadora.frag");
-	this->shaders =  new GLSLProgram(rutaShaderDeVertices,rutaShaderDeFragmentos);
-
-	//texLoader->LoadTextureFromDisk("cintaTransportadora.bmp", &cintaTransportadora);
-	cargadorDeTexturas->LoadTextureFromDisk(this->rutaTextura, &this->cintaTransportadora);
-	
 }
 
 
@@ -142,17 +130,14 @@ void CintaTransportadora::graficarCinta()
 	this->aplicarShader();
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, cintaTransportadora.TextureID);
+	glBindTexture(GL_TEXTURE_2D, texturaID);
 	
 	shaders->setUniform("cintaText", 0);
 	shaders->setUniform("desplazamientoDeCinta",desplazamientoDeCinta);
 
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
-
 	//Emparchador::emparchar(superficieCintaTransportadora->discretizar(discretBorde, discretAvance), 15);
 	
-	glCallList(DL_CINTA_TRANSPORTADORA);
+	glCallList(dl_handle);
 	
 	this->detenerShader();
 
@@ -210,9 +195,9 @@ void CintaTransportadora::actualizarAtributos(){
 
 	if (this->cintaEnMovimiento)
 	{	
-		this->desplazamientoDeCinta -= this->pasoDeDiscretizacionGeneral;
+		this->desplazamientoDeCinta -= 0.003;
 
-		if(this->desplazamientoDeCinta < -20.0)
+		if(this->desplazamientoDeCinta < -1.0)
 			this->desplazamientoDeCinta = 0.0;
 
 		//this->_testAnimacion += this->_pasoTest;
@@ -266,20 +251,6 @@ void CintaTransportadora::detenerCinta()
 {
 	this->cintaEnMovimiento = false;
 
-}
-
-void CintaTransportadora::aplicarShader(){
-
-	if (!shaders->isLinked())
-		shaders->link();
-	shaders->usar();
-	
-
-
-}
-
-void CintaTransportadora::detenerShader(){
-	this->shaders->cerrar();
 }
 
 CintaTransportadora::~CintaTransportadora(void)
