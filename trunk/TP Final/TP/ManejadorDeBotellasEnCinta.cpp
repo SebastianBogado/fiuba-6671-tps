@@ -36,6 +36,14 @@ void ManejadorDeBotellasEnCinta::agregarBotellas(vector<Botella*> &botellas)
 	}
 }
 
+void ManejadorDeBotellasEnCinta::iniciarlizarPosicionDeAnimacion(Maquina* maquina)
+{
+	float *posAnimacion = maquina->posicionPlanaDeObjetoAnimado();
+	
+	this->cinta->nuevaPosicion(cinta->definirPosicionEnTramos(maquina->posicionTramoEnCinta()) ,posAnimacion);
+
+}
+
 void ManejadorDeBotellasEnCinta::inicializarPoscionesDeBotellas()
 {
 

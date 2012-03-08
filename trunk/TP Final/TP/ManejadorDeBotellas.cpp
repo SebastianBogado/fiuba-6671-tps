@@ -31,6 +31,16 @@ void ManejadorDeBotellas::inicializar()
 
 }
 
+void ManejadorDeBotellas::inicializarPosicionesDeAnimacion()
+{
+
+	for (int i=0; i < this->maquinas.size() ; i++)
+	{ 
+
+		this->manejadorDeCinta->iniciarlizarPosicionDeAnimacion(maquinas[i]);
+	}
+}
+
 
 void ManejadorDeBotellas::agregarBotellas(int cantBotellas,Botella** botellas)
 {
@@ -69,6 +79,8 @@ void ManejadorDeBotellas::agregarMaquinas(int cantMaquinas,Maquina** maquinas)
 		}		
 
 		this->maquinasAgregadas = true;
+
+		this->inicializarPosicionesDeAnimacion();
 	}
 
 
