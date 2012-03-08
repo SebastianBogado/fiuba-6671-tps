@@ -30,7 +30,12 @@ private:
 	void detenerShader();
 
 	void dibujarBrazoMovil();
-	 
+	Circunferencia* curvaPiezaBrazoMovil;
+
+	bool sentidoDeBrazoMovilCambiado;
 	float desplazamientoBrazoMovil;
+	float pasoDesplazamientoDeBrazo;
+	Botella* botellaActual;
+	
 };
 
