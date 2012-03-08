@@ -134,6 +134,9 @@
     <ClCompile Include="ManejadorDeCajones.cpp">
       <Filter>Archivos de código fuente\Manejadores</Filter>
     </ClCompile>
+    <ClCompile Include="MaquinaTapadora.cpp">
+      <Filter>Archivos de código fuente\Objetos\Maquinas</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h">
@@ -207,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="ManejadorDeBotellasEnCinta.h">
       <Filter>Archivos de encabezado\Manejadores</Filter>
+    </ClInclude>
+    <ClInclude Include="MaquinaTapadora.h">
+      <Filter>Archivos de encabezado\Objetos\Maquinas</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
