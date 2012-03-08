@@ -25,12 +25,15 @@ public:
 
 	void actualizarPosicionesDeBotellas();
 
+	void iniciarlizarPosicionDeAnimacion(Maquina* maquina);
+
 	~ManejadorDeBotellasEnCinta(void);
 
 private:
 
 
 	void inicializar();
+
 	void inicializarPoscionesDeBotellas();
 
 	float calcularDistancia(float p1, float p2);
