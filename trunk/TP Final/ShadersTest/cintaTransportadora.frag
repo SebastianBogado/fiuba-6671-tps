@@ -1,7 +1,7 @@
 uniform sampler2D cintaText;
 
 //agregada por Migue
-uniform float desplazamientCinta;
+uniform float desplazamientoDeCinta;
 
 varying vec2 vTexCoord;
 varying vec3 normal;
@@ -64,7 +64,7 @@ vec3 BlinnPhong(){
 
 void main (void){
 	//Agregado por Migue
-	vTexCoord.x += desplazamientCinta;
+	vTexCoord.x += desplazamientoDeCinta;
 
 	vec4 color =  texture2D(cintaText, vTexCoord);
 	if (color.a == 0.0)
