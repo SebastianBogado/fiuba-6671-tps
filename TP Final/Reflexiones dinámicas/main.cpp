@@ -11,6 +11,7 @@
 #include <math.h>
 #include "..\ShadersTest\GLSLProgram.h"
 #include "..\ShadersTest\SOIL\SOIL.h"
+#include "..\TP\propMaterial.h"
 #include <iostream>
 #include <sstream>
 
@@ -36,13 +37,6 @@ propLuz luz = {
 	vec3(0.9, 0.9, 0.9),
 	vec3(1.0, 1.0, 1.0),
 	false
-};
-
-struct propMaterial{
-	vec3 colorAmb;
-	vec3 colorDif;
-	vec3 colorEspec;
-	float brillo;
 };
 
 
@@ -323,6 +317,8 @@ void actualizarReflexion(){
 		glLoadIdentity();
 		glRotatef(CubeMapRots[i][0], CubeMapRots[i][1], CubeMapRots[i][2], CubeMapRots[i][3]);
 		if(i == 0  ||  i == 1)		glRotatef(180.0f, 0.0f, 0.0f, 1.0f);
+
+		glTranslatef(-3*sin(tiempo), -3*cos(tiempo), -3*sin(tiempo));
 		dibujarReferencias();
 		glBindTexture(GL_TEXTURE_CUBE_MAP, skybox); 
 		glCopyTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X+i, 0, 0, 0, 0, 0, 256, 256);
@@ -358,12 +354,15 @@ void dibujarMaterialReflectivo(){
 	setearMaterial(tanque, GLSLTanqueDeCoca);
 	setearLucesUniform(GLSLTanqueDeCoca);
 	GLSLTanqueDeCoca->setUniform("skyBoxTex", 0);
-	GLSLTanqueDeCoca->setUniform("posicionDelOjo", vec3(eye[0], eye[1], eye[2]));
-
-	if (verEsfera)
-		glutSolidSphere(5.0, 50, 50);
-	else
-		glutSolidCube(5.0);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+		glTranslatef(3*sin(tiempo), 3*cos(tiempo), 3*sin(tiempo));
+		if (verEsfera)
+			glutSolidSphere(5.0, 50, 50);
+		else
+			glutSolidCube(5.0);
+	glPopMatrix();
 
 	GLSLTanqueDeCoca->cerrar();
 }

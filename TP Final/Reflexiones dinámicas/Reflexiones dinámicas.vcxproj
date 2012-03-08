@@ -62,6 +62,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\ShadersTest\GLSLProgram.cpp" />
+    <ClCompile Include="..\TP\Iluminacion.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +71,12 @@
   <ItemGroup>
     <ClInclude Include="..\ShadersTest\GLSLProgram.h" />
     <ClInclude Include="..\ShadersTest\SOIL\SOIL.h" />
+    <ClInclude Include="..\TP\Iluminacion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Camara\Camara.vcxproj">
+      <Project>{eb125aba-c868-4c60-aa51-61df55e45438}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
