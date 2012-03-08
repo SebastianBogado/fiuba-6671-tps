@@ -54,7 +54,7 @@ BSpline* caminoCintaTransportadora;
 SuperficieDeBarrido* superficieCintaTransportadora;
 GLSLProgram* GLSLCintaTransportadora;
 glTexture cintaTransportadora;
-float desplazamientCinta = 0.0;
+float desplazamientoDeCinta = 0.0;
 
 
 BSpline* perfilTanqueDeCoca;
@@ -156,10 +156,10 @@ void OnIdle (void)
 {	
 	calcularFPS();
 
-	desplazamientCinta +=  0.01;
+	desplazamientoDeCinta +=  0.01;
 
-	if ( desplazamientCinta > 20.0)
-		desplazamientCinta = 0.0;
+	if ( desplazamientoDeCinta > 20.0)
+		desplazamientoDeCinta = 0.0;
 
 	glutPostRedisplay();
 }
@@ -519,7 +519,7 @@ void dibujarCintaTransportadora(){
 	
 
 	GLSLCintaTransportadora->setUniform("cintaText", 0);
-	GLSLCintaTransportadora->setUniform("desplazamientCinta", desplazamientCinta);
+	GLSLCintaTransportadora->setUniform("desplazamientoDeCinta", desplazamientoDeCinta);
 	setearLucesUniform(GLSLCintaTransportadora);
 
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
