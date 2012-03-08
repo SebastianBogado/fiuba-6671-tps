@@ -9,9 +9,12 @@ CintaTransportadora::CintaTransportadora(void)
 	this->rutaTextura = "..\\ShadersTest\\cintaTransportadora.bmp";
 
 
+	this->discretBorde = 5;
+	this->discretAvance = 10;
+
 	this->alturaDeMaquina = 1.0;
 	this->posicionObjeto = new float[3];
-	this->inicializarVector(posicionObjeto,10.0,10.0,0.0);
+	this->inicializarVector(posicionObjeto,8.0,8.0,0.0);
 //	this->inicializarVector(posicionObjeto,0.0,0.0,0.0);
 
 	this->cintaEnMovimiento = true;
@@ -37,6 +40,26 @@ CintaTransportadora::CintaTransportadora(void)
 
 }
 
+
+void CintaTransportadora::aumentarDiscretizacionDeCinta()
+{
+
+	if (this->discretAvance < 25)
+		this->discretAvance++;
+
+	if (this->discretBorde < 20)
+		this->discretBorde++;
+}
+
+void CintaTransportadora::disminuirDiscretizacionDeCinta()
+{
+	if (this->discretAvance > 1)
+		this->discretAvance--;
+
+	if(this->discretBorde > 1)
+		this->discretBorde--;
+
+}
 
 void CintaTransportadora::graficar(){
 
@@ -91,7 +114,7 @@ void CintaTransportadora::inicializarAtributos()
 
 	DL_CINTA_TRANSPORTADORA = glGenLists(1);
 	glNewList(DL_CINTA_TRANSPORTADORA, GL_COMPILE);
-		Emparchador::emparchar(superficieCintaTransportadora->discretizar(5, 10), 14);
+		Emparchador::emparchar(superficieCintaTransportadora->discretizar(discretBorde, discretAvance), 15);
 	glEndList();
 
 
@@ -127,10 +150,10 @@ void CintaTransportadora::graficarCinta()
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
 
-	//Emparchador::emparchar(superficieCintaTransportadora->discretizar(5, 10), 14);
+	//Emparchador::emparchar(superficieCintaTransportadora->discretizar(discretBorde, discretAvance), 15);
 	
 	glCallList(DL_CINTA_TRANSPORTADORA);
-
+	
 	this->detenerShader();
 
 	glDisable(GL_TEXTURE_2D);

@@ -66,6 +66,8 @@ private:
 
 	GLuint DL_CINTA_TRANSPORTADORA;
 	
+	int discretAvance,discretBorde;
+
 	vec3 posicionInicialEnCinta;
 
 	float _testLargoCinta;

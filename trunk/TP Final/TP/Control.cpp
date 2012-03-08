@@ -11,6 +11,8 @@ EscenaGrafica* Control::escena = new EscenaGrafica();
 
 ManejadorDeBotellas *manejadorBotellas = new ManejadorDeBotellas();
 
+CintaTransportadora *cintaTransportadora;
+
 Control::Control(bool debug){
 	this->debug = debug;
 
@@ -34,6 +36,14 @@ void Control::teclado(unsigned char tecla, int x, int y){
 	case 'q':	//liberarMemoria();
 				exit(0); 
 				break;
+
+	case 'm':
+		cintaTransportadora->aumentarDiscretizacionDeCinta(); 
+		break;
+	case 'n':
+		cintaTransportadora->disminuirDiscretizacionDeCinta();
+		break;
+
 	default: break;
 	}
 
@@ -106,7 +116,7 @@ void Control::inicializar(){
 
 ObjetoGrafico** Control::inicializarMaquinas()
 {
-	this->cantMaquinas = 1;//5;
+	this->cantMaquinas = 3;//5;
 	this->cantObjetosTotales += this->cantMaquinas;
 
 	ObjetoGrafico** maquinas= new ObjetoGrafico*[this->cantMaquinas];
@@ -120,21 +130,24 @@ ObjetoGrafico** Control::inicializarMaquinas()
 	CintaTransportadora *p1 = new CintaTransportadora();
 	maquinas[0] = p1;
 	_maquinas[0] = p1;
-/*
+	cintaTransportadora = p1;
+
 	MaquinaDeBotellas *p2 = new MaquinaDeBotellas();
 	maquinas[1] = p2;
 	_maquinas[1] = p2;
 
-	
-
-	MaquinaEtiquetadora *p3 = new MaquinaEtiquetadora();
+	MaquinaEmbaladora *p3 = new MaquinaEmbaladora();
 	maquinas[2] = p3;
 	_maquinas[2] = p3;
 
+	/*
 
-	MaquinaEmbaladora *p4 = new MaquinaEmbaladora();
+	MaquinaEtiquetadora *p4 = new MaquinaEtiquetadora();
 	maquinas[3] = p4;
 	_maquinas[3] = p4;
+
+
+	
 
 	MaquinaDeLlenado *p5 = new MaquinaDeLlenado();
 	maquinas[4] = p5;
