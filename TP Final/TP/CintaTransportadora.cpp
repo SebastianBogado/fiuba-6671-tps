@@ -36,6 +36,13 @@ CintaTransportadora::CintaTransportadora(void)
 
 }
 
+float CintaTransportadora::definirPosicionEnTramos(float posicionRelativa)
+{
+
+	return this->caminoCintaTransportadora->cantidadDeTramos() * posicionRelativa;
+
+}
+
 
 void CintaTransportadora::aumentarDiscretizacionDeCinta()
 {
