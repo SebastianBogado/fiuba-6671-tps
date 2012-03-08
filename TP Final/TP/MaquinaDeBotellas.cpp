@@ -4,9 +4,12 @@
 MaquinaDeBotellas::MaquinaDeBotellas(void)
 {	
 
+	this->posTramoEnCinta = -1.0;
+
 	this->posicionObjeto = new float[3];
 
 	this->inicializarVector(posicionObjeto,13.5,6.,0.);
+
 	this->ancho = 6.0;
 	this->largo = 4.0;
 	this->alto = 5.0;
@@ -16,10 +19,7 @@ MaquinaDeBotellas::MaquinaDeBotellas(void)
 	this->inicializarVertices();
 
 	this->posDeObjetoAnimado = new float[3];
-	this->inicializarVector(this->posDeObjetoAnimado,
-							posicionObjeto[0]+5,
-							posicionObjeto[1],
-							posicionObjeto[2]);
+	//this->inicializarVector(this->posDeObjetoAnimado,posicionObjeto[0]+5,posicionObjeto[1],posicionObjeto[2]);
 														
 
 }
@@ -151,7 +151,7 @@ void MaquinaDeBotellas::iniciarAnimacion(Botella* botella)
 	this->AnimacionIniciada = true;
 
 
-	botella->etiquetar();
+	//botella->etiquetar();
 
 	this->_pasoTest = 1.0;
 	this->_testAnimacion = 0.0;
@@ -163,7 +163,8 @@ void MaquinaDeBotellas::iniciarAnimacion(Botella* botella)
 bool MaquinaDeBotellas::animacionFinalizada()
 {
 
-	return !this->AnimacionIniciada;
+	//return !this->AnimacionIniciada;
+	return true;
 
 }
 
