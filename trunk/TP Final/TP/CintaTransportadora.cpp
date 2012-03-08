@@ -158,6 +158,7 @@ void CintaTransportadora::inicializarCurvas()
 	formaCintaTransportadora->incluirPunto(bordeP6);
 	formaCintaTransportadora->incluirPunto(bordeP7);
 	//Curva camino
+	//vec3 caminoP0 = vec3(5.5, -4.5, 2.0);
 	vec3 caminoP1 = vec3(5.5, -1.5, 2.0);
 	vec3 caminoP2 = vec3(5.5, 1.5, 2.0);
 	vec3 caminoP3 = vec3(5.5, 4.5, 2.0);
@@ -166,7 +167,9 @@ void CintaTransportadora::inicializarCurvas()
 	vec3 caminoP6 = vec3(-0.5, 7.5, 2.0);
 	vec3 caminoP7 = vec3(-0.5, 10.5, 2.0);
 	vec3 caminoP8 = vec3(-0.5, 13.5, 2.0);
-	caminoCintaTransportadora = new BSpline(8);
+	vec3 caminoP9 = vec3(-0.5, 15.5, 2.0);
+	caminoCintaTransportadora = new BSpline(9);
+	//caminoCintaTransportadora->incluirPunto(caminoP0);
 	caminoCintaTransportadora->incluirPunto(caminoP1);
 	caminoCintaTransportadora->incluirPunto(caminoP2);
 	caminoCintaTransportadora->incluirPunto(caminoP3);
@@ -175,6 +178,7 @@ void CintaTransportadora::inicializarCurvas()
 	caminoCintaTransportadora->incluirPunto(caminoP6);
 	caminoCintaTransportadora->incluirPunto(caminoP7);
 	caminoCintaTransportadora->incluirPunto(caminoP8);
+	caminoCintaTransportadora->incluirPunto(caminoP9);
 	superficieCintaTransportadora = new SuperficieDeBarrido(formaCintaTransportadora, caminoCintaTransportadora);
 
 }
