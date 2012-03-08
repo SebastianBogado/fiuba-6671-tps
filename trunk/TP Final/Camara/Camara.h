@@ -14,8 +14,8 @@ const float anguloRotacionVertical = 0.1;
 const float pasoDeDesplazamiento = 0.5;
 const float pasoDeZoom = 0.5;
 
-static float centroEscenaPanoramica[3] = {5.0,5.0,0.0};
-static float posicionInicialEspectador[3] = {15.0,15.0,3.0};
+static float centroEscenaPanoramica[3] = {17.0,28.0,5.5};
+static float posicionInicialEspectador[3] = {2.0,15.0,4.0};
 
 const char teclaAdelante = 'w';
 const char teclaAtras = 's';
