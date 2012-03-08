@@ -1,47 +1,47 @@
-#include "MaquinaEtiquetadora.h"
+#include "MaquinaTapadora.h"
 
 
-MaquinaEtiquetadora::MaquinaEtiquetadora(void)
-{	
+MaquinaTapadora::MaquinaTapadora(void)
+{
+	this->posTramoEnCinta = 0.872;
 
-	this->posTramoEnCinta = 0.395;
+	this->curvaPiezaBrazoMovil = new Circunferencia(0.25);
 
-	this->curvaPiezaBrazoMovil = new Circunferencia(0.42);
-
-	this->ancho = 2.5;
+	this->ancho = 1.5;
 	this->largo = 1.5;
 	this->alto = 5.0;
 
 	this->alturaDeMaquina = alto;
 
 	this->posicionObjeto = new float[3];
-	this->inicializarVector(posicionObjeto,10.,10.1,0.0);
+	this->inicializarVector(posicionObjeto,5.5,21.5,0.0);
 
 	this->posDeObjetoAnimado = new float[3];
 	this->pasoDeAnimacion = 0.1;
 	this->acumuladorEnAnimacion = 0.0;
 	this->desplazamientoBrazoMovil = 0.0;
-	this->tiempoMaximoDeAnimacion = 4.0;
-	this->pasoDesplazamientoDeBrazo = 0.07;
+	this->tiempoMaximoDeAnimacion = 3.5;
+	this->pasoDesplazamientoDeBrazo = 0.065;
 
 	this->botellaActual = NULL;
 
 	this->sentidoDeBrazoMovilCambiado = false;
 
 	this->inicializarVertices();
-
 }
 
-void MaquinaEtiquetadora::definirMateriales()
+
+void MaquinaTapadora::definirMateriales()
 {
 
 
 }
 
-void MaquinaEtiquetadora::graficar(){
+void MaquinaTapadora::graficar()
+{
 
-	float anchoHoyo = 0.6,altoHoyo = 2.3;
-	vec2 posHoyo(0.5,0.75);
+	float anchoHoyo = 0.6,altoHoyo = 2.0;
+	vec2 posHoyo(0.5,0.78);
 
 
 	float normal[3];
@@ -50,6 +50,7 @@ void MaquinaEtiquetadora::graficar(){
 	glPushMatrix();
 	//glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
 	this->posicionarObjeto(); 
+	glRotatef(-90.0,0.0,0.0,1.0);
 
 	glEnable(GL_LIGHTING);
 
@@ -78,29 +79,57 @@ void MaquinaEtiquetadora::graficar(){
 	glPopMatrix();
 
 
-	/*
-	//Solo para test
-	float color[3] = {0.1,0.3,0.9};
+}
 
-	glPushMatrix();
-		glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
-		//glPushMatrix();
-			glScalef(1.3,1.0,2.0);	
-			this->dibujarPiramide(color);
+void MaquinaTapadora::actualizarAtributos()
+{
+	if (this->AnimacionIniciada)
+	{
 
+		this->acumuladorEnAnimacion += this->pasoDeAnimacion;
 
-		//glPopMatrix();
-		glTranslatef(0.0,0.0,3.0);
-		glRotatef(180,0.0,1.0,0.0);
-		this->dibujarPiramide(color);
+		this->desplazamientoBrazoMovil += this->pasoDesplazamientoDeBrazo;
+
+		//Seria como el tiempo de animacion
+		if(acumuladorEnAnimacion > tiempoMaximoDeAnimacion)
+		{
+			this->AnimacionIniciada = false;
+			this->acumuladorEnAnimacion = 0.0;
+			this->sentidoDeBrazoMovilCambiado = false;
+			this->pasoDesplazamientoDeBrazo =-this->pasoDesplazamientoDeBrazo;
+			this->desplazamientoBrazoMovil = 0.0;
+
+		}else if (this->acumuladorEnAnimacion >= tiempoMaximoDeAnimacion / 2.0 && !this->sentidoDeBrazoMovilCambiado){
+			this->sentidoDeBrazoMovilCambiado = true;
+			this->pasoDesplazamientoDeBrazo = -this->pasoDesplazamientoDeBrazo;
+			if(this->botellaActual)
+				this->botellaActual->tapar();
+		}
 			
-	glPopMatrix();*/
+
+	}
 
 }
 
+void MaquinaTapadora::iniciarAnimacion(Botella *botella)
+{
+	this->botellaActual = botella;
 
-void MaquinaEtiquetadora::dibujarBrazoMovil(){
+	this->AnimacionIniciada = true;
 
+	this->acumuladorEnAnimacion = 0.0;
+
+}
+
+bool MaquinaTapadora::animacionFinalizada()
+{
+	return !this->AnimacionIniciada;
+
+}
+
+void MaquinaTapadora::dibujarBrazoMovil()
+{
+	
 	glTranslatef(	this->valorLargoEnX() /2.0,
 					this->valorLargoEnY() * 0.9,
 					0.9 * this->alturaDeMaquina - this->desplazamientoBrazoMovil);
@@ -127,13 +156,13 @@ void MaquinaEtiquetadora::dibujarBrazoMovil(){
 
 	glEnd();
 
-	float largoCilindro = 0.9;
+	float largoCilindro = 0.7;
 
 	glTranslatef(0.0,largo,-largoCilindro /2.0);
 	glRotatef(90,1.0,0.0,0.0);
 
 	int cantTramos = this->curvaPiezaBrazoMovil->cantidadDeTramos();
-	int cantDiscret = 16;
+	int cantDiscret = 8;
 
 	vec3 altura(0.0,largoCilindro,0.0);
 
@@ -155,8 +184,8 @@ void MaquinaEtiquetadora::dibujarBrazoMovil(){
 
 
 	//Se dibujan los dos cilindros el chico y el grande, uno dentro del otro
-	for (int j=0; j < 2 ; j++)
-	{	
+//	for (int j=0; j < 2 ; j++)
+//	{	
 		glBegin(GL_TRIANGLE_STRIP);
 		for (int i=0; i <= cantDiscret; i++)
 		{
@@ -167,78 +196,14 @@ void MaquinaEtiquetadora::dibujarBrazoMovil(){
 		}
 		glEnd();
 
-		glTranslatef(0.0,-largoCilindro /2.0 ,0.0);
-		glScalef(0.8,1.1,0.8);
+//		glTranslatef(0.0,-largoCilindro /2.0 ,0.0);
+//		glScalef(0.8,1.1,0.8);
 		
-	}
-	
-
-
-
-	
-
+//	}
 
 }
 
-void MaquinaEtiquetadora::actualizarAtributos(){ 
-
-
-	if (this->AnimacionIniciada)
-	{
-
-		this->acumuladorEnAnimacion += this->pasoDeAnimacion;
-
-		this->desplazamientoBrazoMovil += this->pasoDesplazamientoDeBrazo;
-
-		//Seria como el tiempo de animacion
-		if(acumuladorEnAnimacion > tiempoMaximoDeAnimacion)
-		{
-			this->AnimacionIniciada = false;
-			this->acumuladorEnAnimacion = 0.0;
-			this->sentidoDeBrazoMovilCambiado = false;
-			this->pasoDesplazamientoDeBrazo =-this->pasoDesplazamientoDeBrazo;
-			this->desplazamientoBrazoMovil = 0.0;
-
-		}else if (this->acumuladorEnAnimacion >= tiempoMaximoDeAnimacion / 2.0 && !this->sentidoDeBrazoMovilCambiado){
-			this->sentidoDeBrazoMovilCambiado = true;
-			this->pasoDesplazamientoDeBrazo = -this->pasoDesplazamientoDeBrazo;
-			if(this->botellaActual)
-				this->botellaActual->etiquetar();
-		}
-			
-
-	}
-	
-}
-
-void MaquinaEtiquetadora::aplicarShader(){ }
-
-void MaquinaEtiquetadora::detenerShader(){ }
-
-
-void MaquinaEtiquetadora::iniciarAnimacion(Botella* botella){
-
-	//botella->cambiarColor();
-	//botella->etiquetar();
-	this->botellaActual = botella;
-
-	this->AnimacionIniciada = true;
-
-	this->acumuladorEnAnimacion = 0.0;
-
-	//this->_testAnimacion = 0.0;
-	
-}
-
-
-bool MaquinaEtiquetadora::animacionFinalizada()
-{
-	return !(this->AnimacionIniciada);
-
-}
-
-
-MaquinaEtiquetadora::~MaquinaEtiquetadora(void)
+MaquinaTapadora::~MaquinaTapadora(void)
 {
 	delete[] this->posDeObjetoAnimado;
 	delete this->curvaPiezaBrazoMovil;

@@ -116,7 +116,7 @@ void Control::inicializar(){
 
 ObjetoGrafico** Control::inicializarMaquinas()
 {
-	this->cantMaquinas = 4;//5;
+	this->cantMaquinas = 5;//5;
 	this->cantObjetosTotales += this->cantMaquinas;
 
 	ObjetoGrafico** maquinas= new ObjetoGrafico*[this->cantMaquinas];
@@ -145,11 +145,11 @@ ObjetoGrafico** Control::inicializarMaquinas()
 	MaquinaEtiquetadora *p4 = new MaquinaEtiquetadora();
 	maquinas[3] = p4;
 	_maquinas[3] = p4;
-	/*
+	
 
 	
 
-	MaquinaDeLlenado *p5 = new MaquinaDeLlenado();
+	MaquinaTapadora *p5 = new MaquinaTapadora();
 	maquinas[4] = p5;
 	_maquinas[4] = p5;
 
@@ -184,7 +184,7 @@ ObjetoGrafico** Control::inicializarObjetosGraficos()
 ObjetoGrafico** Control::inicializarBotellas()
 {
 	this->cantObjetosTotales++;
-	this->cantBotellas = 6;
+	this->cantBotellas = 9;
 
 	ObjetoGrafico** botellas = new ObjetoGrafico*;
 

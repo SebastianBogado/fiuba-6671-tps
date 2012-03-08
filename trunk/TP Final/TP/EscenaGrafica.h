@@ -7,6 +7,7 @@
 #include "CintaTransportadora.h"
 #include "MaquinaDeLlenado.h"
 #include "MaquinaEtiquetadora.h"
+#include "MaquinaTapadora.h"
 
 
 class EscenaGrafica
