@@ -4,6 +4,9 @@
 MaquinaEmbaladora::MaquinaEmbaladora(void)
 {	
 
+	// quiere decir que la animacion se realizara al final de la cinta
+	this->posTramoEnCinta = 1.0;
+
 	this->ancho = 6.0;
 	this->largo = 4.0;
 	this->alto = 9.0;

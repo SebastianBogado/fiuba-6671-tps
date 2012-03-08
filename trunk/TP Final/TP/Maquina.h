@@ -33,7 +33,9 @@ protected:
 	float alturaDeMaquina;
 	float* posDeObjetoAnimado;
 	float posTramoEnCinta;
-
+	
+	float acumuladorEnAnimacion;
+	float pasoDeAnimacion;
 	bool AnimacionIniciada;
 	float _testAnimacion,_pasoTest;
 
