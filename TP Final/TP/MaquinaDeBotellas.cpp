@@ -6,9 +6,9 @@ MaquinaDeBotellas::MaquinaDeBotellas(void)
 
 	this->posicionObjeto = new float[3];
 
-	this->inicializarVector(posicionObjeto,1.,5.,0.);
-	this->ancho = 4.0;
-	this->largo = 5.0;
+	this->inicializarVector(posicionObjeto,13.5,6.,0.);
+	this->ancho = 6.0;
+	this->largo = 4.0;
 	this->alto = 5.0;
 
 	this->alturaDeMaquina = alto;
@@ -48,12 +48,12 @@ void MaquinaDeBotellas::graficar(){
 		this->dibujarPared(normal,0,1,4,5);
 
 		this->inicializarVector(normal,1.0,0.0,0.0);
-	//	this->dibujarPared(normal,1,2,5,6);
-		this->dibujarParedHueca(normal,1,2,5,6,1.6,2.2,vec2(0.5,0.5),0.8);
+		this->dibujarPared(normal,1,2,5,6);
+	//	this->dibujarParedHueca(normal,1,2,5,6,1.6,2.2,vec2(0.5,0.5),0.8);
 
 		this->inicializarVector(normal,0.0,1.0,0.0);
-	//	this->dibujarPeredHueca(normal,2,3,6,7,1,1.5,vec2(0.5,0.5),0.8);
-		this->dibujarPared(normal,2,3,6,7);
+		this->dibujarParedHueca(normal,2,3,6,7,2.5,2.0,vec2(0.5,0.6),0.5);
+	//	this->dibujarPared(normal,2,3,6,7);
 
 		this->inicializarVector(normal,-1.0,0.0,0.0);
 	//	this->dibujarPeredHueca(normal,3,0,7,4,1.6,2.2,vec2(0.5,0.5),0.8);
