@@ -32,6 +32,8 @@ public:
 	void detenerCinta();
 
 
+	float definirPosicionEnTramos(float posicionRelativa);
+
 	void aumentarDiscretizacionDeCinta();
 	void disminuirDiscretizacionDeCinta();
 
