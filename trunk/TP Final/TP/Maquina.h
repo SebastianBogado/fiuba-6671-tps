@@ -7,7 +7,8 @@ enum TipoMaquina
 	Llenado,
 	Expendedora,
 	Etiquetadora,
-	Transportadora
+	Transportadora,
+	Tapadora
 
 };
 
@@ -35,6 +36,7 @@ protected:
 	float posTramoEnCinta;
 	
 	float acumuladorEnAnimacion;
+	float tiempoMaximoDeAnimacion;
 	float pasoDeAnimacion;
 	bool AnimacionIniciada;
 	float _testAnimacion,_pasoTest;
