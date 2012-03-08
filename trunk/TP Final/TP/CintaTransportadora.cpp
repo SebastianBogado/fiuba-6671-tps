@@ -6,7 +6,7 @@ CintaTransportadora::CintaTransportadora(void)
 	this->rutaShaderDeFragmentos = "..\\ShadersTest\\cintaTransportadora.frag";
 	this->rutaShaderDeVertices = "..\\ShadersTest\\cintaTransportadora.vert";
 	this->rutaTextura = "..\\ShadersTest\\cintaTransportadora.bmp";
-	ini();
+	//ini();
 
 	this->discretBorde = 5;
 	this->discretAvance = 10;
@@ -119,6 +119,12 @@ void CintaTransportadora::inicializarAtributos()
 		Emparchador::emparchar(superficieCintaTransportadora->discretizar(discretBorde, discretAvance), 15);
 	glEndList();
 
+	this->shaders = new GLSLProgram(rutaShaderDeVertices,rutaShaderDeFragmentos);
+
+	texturaID = SOIL_load_OGL_texture(rutaTextura, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
+										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+
+
 }
 
 
@@ -141,6 +147,9 @@ void CintaTransportadora::graficarCinta()
 	
 	shaders->setUniform("cintaText", 0);
 	shaders->setUniform("desplazamientoDeCinta",desplazamientoDeCinta);
+
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
 
 	//Emparchador::emparchar(superficieCintaTransportadora->discretizar(discretBorde, discretAvance), 15);
 	
@@ -202,7 +211,7 @@ void CintaTransportadora::actualizarAtributos(){
 
 	if (this->cintaEnMovimiento)
 	{	
-		this->desplazamientoDeCinta -= 0.003;
+		this->desplazamientoDeCinta -= this->pasoDeDiscretizacionGeneral;
 
 		if(this->desplazamientoDeCinta < -1.0)
 			this->desplazamientoDeCinta = 0.0;
