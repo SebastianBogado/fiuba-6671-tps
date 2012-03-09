@@ -186,9 +186,56 @@ void LamparaDeTecho::aplicarShader(){}
 
 void LamparaDeTecho::detenerShader(){}
 
-void getPosicion(){
+vec3 LamparaDeTecho::posicionDeLuz(int indice)
+{
+	vec3 res(	cuarto->vectorPosicion()[0],
+				cuarto->vectorPosicion()[1],
+				cuarto->vectorPosicion()[2] + cuarto->valorAltura() - this->largo);
+
+	vec3 parcial;
+
+	if (rotarCamaras)
+	{
+
+		if ( indice < 3)
+		{
+			parcial = vec3 (cuarto->valorLargoEnX() / 3.0 ,	(indice + 1.0 ) * cuarto->valorLargoEnY() / 4.0 ,	0.0);
+			
+		}
+		else if(indice < 6) 
+		{
+			parcial = vec3 (cuarto->valorLargoEnX()* 2.0 / 3.0 , (indice + - 2.0 ) * cuarto->valorLargoEnY() / 4.0 ,	0.0);
+		}
+
+	}
+	else
+	{
+		if ( indice < 3)
+		{
+			parcial = vec3 ((indice + 1.0 ) * cuarto->valorLargoEnX() / 4.0 , cuarto->valorLargoEnY() / 3.0 ,	0.0);
+		}
+		else if(indice < 6) 
+		{
+			parcial = vec3 ((indice - 2.0 ) * cuarto->valorLargoEnX() / 4.0 , cuarto->valorLargoEnY() * 2.0/ 3.0 ,	0.0);
+		}
+
+
+	}
+
+	res +=parcial;
+
+
+	return res;	
+
+	
 
 }
+
+int LamparaDeTecho::cantidadDeLuces()
+{
+	return 6;
+}
+
 
 LamparaDeTecho::~LamparaDeTecho(void)
 {

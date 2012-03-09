@@ -23,7 +23,7 @@ void ManejadorDeCajones::inicializar()
 {
 	this->maqAgregada = false;
 	this->cajonesAgregados = false;	
-	this->impulsoInicialCajon = btVector3(100.,0.,0.);
+	this->impulsoInicialCajon = btVector3(150.,0.,0.);
 
 }
 
