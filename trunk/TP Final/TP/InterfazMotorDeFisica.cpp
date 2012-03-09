@@ -1,6 +1,7 @@
 #include "InterfazMotorDeFisica.h"
 
 
+
 InterfazMotorDeFisica::InterfazMotorDeFisica(void)
 {
 	this->inicializar();
@@ -49,7 +50,13 @@ void InterfazMotorDeFisica::pasoDeSimulacion()
 
 
 void InterfazMotorDeFisica::definirHabitacion(ObjetoGraficoCubico* habitacion)
-{
+{	
+
+
+	btRigidBody *cuerpoRigidoDeHabitacion =((CuartoDeMaquinas*)habitacion)->cuerpoRigido();
+
+	this->mundoDinamico->addRigidBody(cuerpoRigidoDeHabitacion);
+	/*
 	float *posPiso = habitacion->vectorPosicion();
 	float largoX = habitacion->valorLargoEnX();
 	float largoY = habitacion->valorLargoEnY();
@@ -82,7 +89,7 @@ void InterfazMotorDeFisica::definirHabitacion(ObjetoGraficoCubico* habitacion)
 	cuerpoRigidoPiso->setFriction(1.);
 
 	this->mundoDinamico->addRigidBody(cuerpoRigidoPiso);
-	*/
+	
 
 		//btCollisionShape* formaDelPiso = new btBoxShape(btVector3(50.,50.,1.));
 	btCollisionShape* formaDelPiso = new btStaticPlaneShape(btVector3(0,0,1),btScalar(0.));
@@ -126,9 +133,10 @@ void InterfazMotorDeFisica::definirHabitacion(ObjetoGraficoCubico* habitacion)
 	btRigidBody *cuerpoRigidoDelPiso = new btRigidBody(infoCuerpoRigido);
 
 	cuerpoRigidoDelPiso->setFriction(btScalar(0.5));
+	*/
 
+	
 
-	this->mundoDinamico->addRigidBody(cuerpoRigidoDelPiso);
 
 }
 
