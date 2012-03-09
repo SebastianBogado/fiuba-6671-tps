@@ -392,6 +392,7 @@ void verCaraI(int i){
 	glLoadIdentity();
 	glRotatef(CubeMapRots[i][0], CubeMapRots[i][1], CubeMapRots[i][2], CubeMapRots[i][3]);
 	if(i == 0  ||  i == 1)		glRotatef(180.0f, 0.0f, 0.0f, 1.0f); 
+	glTranslatef(-3*sin(tiempo), -3*cos(tiempo), -3*sin(tiempo));
 	dibujarReferencias();
 	glFlush();
 }
