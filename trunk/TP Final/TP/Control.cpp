@@ -188,6 +188,11 @@ ObjetoGrafico** Control::inicializarObjetosGraficos()
 
 	objetos[1] = new LamparaDeTecho((CuartoDeMaquinas*)objetos[0]);
 
+	//Para Testear las posiciones de las Luces
+	/*
+	for (int i=0; i < 6 ; i++)
+		vec3 posicion = ((LamparaDeTecho*)objetos[1])->posicionDeLuz(i);
+	*/
 
 	return objetos;
 

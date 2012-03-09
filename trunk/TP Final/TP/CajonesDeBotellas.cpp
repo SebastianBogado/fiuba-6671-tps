@@ -12,7 +12,7 @@ CajonesDeBotellas::CajonesDeBotellas(void)
 	this->botellas = new ConjuntoDeBotellas(this->cantBotellasEnCajon);
 
 	this->cantCajones = 0;
-	this->distanciaEntreBotellas = 1.0;
+	this->distanciaEntreBotellas = 3.0;
 
 }
 
@@ -84,12 +84,12 @@ void CajonesDeBotellas::graficarCajon(){
 
 	//this->botellas->graficar();
 	
-
+	
 	glPushMatrix();
 		glScaled(2.0*dimensionesFormaCajon.x(),2.0*dimensionesFormaCajon.y(),2.0*dimensionesFormaCajon.z());
 		this->dibujarCuboUnitario();
 	glPopMatrix();
-
+	
 }
 
 

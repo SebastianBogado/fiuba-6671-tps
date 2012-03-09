@@ -71,8 +71,6 @@ btRigidBody* CuartoDeMaquinas::cuerpoRigido()
 
 
 
-
-
 	btScalar masa(0.);
 
 	btVector3 inerciaLocal(0,0,0);
@@ -84,7 +82,7 @@ btRigidBody* CuartoDeMaquinas::cuerpoRigido()
 
 	btRigidBody *cuerpoRigidoDeHabitacion = new btRigidBody(infoCuerpoRigido);
 
-	cuerpoRigidoDeHabitacion->setFriction(btScalar(0.5));
+	cuerpoRigidoDeHabitacion->setFriction(btScalar(0.35));
 
 	return cuerpoRigidoDeHabitacion;
 

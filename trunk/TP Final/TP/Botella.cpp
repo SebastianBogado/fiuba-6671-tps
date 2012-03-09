@@ -90,7 +90,7 @@ float abs(float &x){
 void Botella::actualizarAtributos(){
 
 	//Para depurar
-
+	/*
 	static float posAnt[3]={posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]};
 	
 	float error = 0.1;
@@ -103,7 +103,7 @@ void Botella::actualizarAtributos(){
 			errorEncontrado = true;
 	
 
-
+	*/
 	
 
 	
