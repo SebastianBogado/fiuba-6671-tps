@@ -75,6 +75,7 @@ protected:
 
 
 	void dibujarPiramide(float *color);
+	void dibujarCuboUnitario();
 
 	//////////////////////
 	//Atributos de Clase//

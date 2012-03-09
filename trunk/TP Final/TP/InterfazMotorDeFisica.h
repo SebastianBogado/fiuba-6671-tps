@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../BulletPhysics/src/btBulletDynamicsCommon.h"
-#include "ObjetoGraficoCubico.h"
+#include "MaquinaEmbaladora.h"
 #include "CajonesDeBotellas.h"
 
 class InterfazMotorDeFisica
@@ -17,7 +17,7 @@ public:
 
 	//void definirCajonesDeBotellas(CajonesDe *cajonBotellas);
 
-	void definirMaquinaEmbaladora(ObjetoGrafico *maquinaEmbaladora);
+	void definirMaquinaEmbaladora(MaquinaEmbaladora *maquinaEmbaladora);
 
 	void agregarMaquina(ObjetoGrafico *maquina);
 

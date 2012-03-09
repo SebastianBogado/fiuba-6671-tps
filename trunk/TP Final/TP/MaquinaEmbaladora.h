@@ -25,7 +25,9 @@ public:
 
 	int cantBotellas(){ return contadorBotellas; }
 	void reiniciarContadorBotellas();
+
 	btRigidBody* cuerpoRigidoRampa();
+	btRigidBody* cuerpoRigidoMaquina();
 	btVector3 posicionInicialCajon();
 
 	~MaquinaEmbaladora(void);
@@ -34,9 +36,21 @@ private:
 	void aplicarShader();
 	void detenerShader();
 
-	void graficarRampa();
+	void dibujarRampa();
 
 	int contadorBotellas;
+
+
+	float altoHoyoEntrada ,anchoHoyoEntrada;
+	float altoHoyoSalida , anchoHoyoSalida;
+
+	vec2 posHent;
+	vec2 posHsal;
+
+	float distanciaDeRampaPlana;
+
+	btRigidBody* crRampa;
+	btVector3 dimensionDeRampa;
 
 };
 

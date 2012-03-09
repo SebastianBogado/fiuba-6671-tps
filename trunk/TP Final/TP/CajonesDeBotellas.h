@@ -1,5 +1,5 @@
 #pragma once
-#include "objetografico.h"
+#include "ConjuntoDeBotellas.h"
 #include "InterfazMotorDeFisica.h"
 
 class CajonesDeBotellas :
@@ -24,11 +24,18 @@ private:
 	
 	void graficarCajon();
 
+	void inicializarPosicionesDeBotellas();
+
 	void aplicarShader();
 	void detenerShader();
 
+
+	ConjuntoDeBotellas* botellas;
+
 	int cantBotellasEnCajon;
 	int cantCajones;
+
+	float distanciaEntreBotellas;
 
 	//Atributos de Motor De Fisica
 	btAlignedObjectArray<btRigidBody*> cajones;

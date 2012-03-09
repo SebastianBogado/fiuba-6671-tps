@@ -7,10 +7,12 @@ CajonesDeBotellas::CajonesDeBotellas(void)
 	cajones.clear();
 	this->cantBotellasEnCajon = 4;
 	this->masaCajon = 1.0;
-	this->dimensionesFormaCajon = btVector3(1,2,1);
+	this->dimensionesFormaCajon = btVector3(1.,0.75,0.5);
 
+	this->botellas = new ConjuntoDeBotellas(this->cantBotellasEnCajon);
 
 	this->cantCajones = 0;
+	this->distanciaEntreBotellas = 1.0;
 
 }
 
@@ -20,6 +22,24 @@ void CajonesDeBotellas::actualizarAtributos()
 
 }
 
+
+void CajonesDeBotellas::inicializarPosicionesDeBotellas()
+{
+
+	Botella** _botellas = this->botellas->devolverBotellas();
+
+	for (int i=0; i < this->cantBotellasEnCajon ; i++)
+		_botellas[i]->botellaTerminada();
+
+	if(this->botellas->cantidadDeBotellas()>= this->cantBotellasEnCajon ){
+
+		_botellas[0]->posicionar(distanciaEntreBotellas / 2.0, distanciaEntreBotellas / 2.0 , 0.0);
+		_botellas[1]->posicionar(-distanciaEntreBotellas / 2.0, distanciaEntreBotellas / 2.0 , 0.0);
+		_botellas[2]->posicionar(distanciaEntreBotellas / 2.0, -distanciaEntreBotellas / 2.0 , 0.0);
+		_botellas[3]->posicionar(-distanciaEntreBotellas / 2.0, -distanciaEntreBotellas / 2.0 , 0.0);
+
+	}
+}
 
 void CajonesDeBotellas::graficar()
 {
@@ -62,6 +82,13 @@ void CajonesDeBotellas::graficar()
 
 void CajonesDeBotellas::graficarCajon(){
 
+	//this->botellas->graficar();
+	
+
+	glPushMatrix();
+		glScaled(2.0*dimensionesFormaCajon.x(),2.0*dimensionesFormaCajon.y(),2.0*dimensionesFormaCajon.z());
+		this->dibujarCuboUnitario();
+	glPopMatrix();
 
 }
 
@@ -122,4 +149,6 @@ CajonesDeBotellas::~CajonesDeBotellas(void)
 		//delete cr;
 	}
 
+
+	delete this->botellas;
 }

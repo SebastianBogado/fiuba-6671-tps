@@ -91,3 +91,58 @@ ObjetoGrafico::~ObjetoGrafico(void){
 	delete phong;
 	delete shaders;
 }
+
+
+void ObjetoGrafico::dibujarCuboUnitario()
+{
+
+	glBegin(GL_TRIANGLE_STRIP);
+		
+		glColor3f(1.0,0.0,0.0);
+		glVertex3f(0.5,0.5,0.5);
+		glVertex3f(0.5,0.5,-0.5);
+
+		glColor3f(0.0,1.0,0.0);
+		glVertex3f(-0.5,0.5,0.5);
+		glVertex3f(-0.5,0.5,-0.5);
+
+		glColor3f(0.0,0.0,1.0);
+		glVertex3f(-0.5,-0.5,0.5);
+		glVertex3f(-0.5,-0.5,-0.5);
+
+		glColor3f(1.0,1.0,0.0);
+		glVertex3f(0.5,-0.5,0.5);
+		glVertex3f(0.5,-0.5,-0.5);
+
+		glColor3f(0.0,1.0,1.0);
+		glVertex3f(0.5,0.5,0.5);
+		glVertex3f(0.5,0.5,-0.5);
+
+	glEnd();
+
+
+	glBegin(GL_TRIANGLE_STRIP);
+		
+		glColor3f(0.0,0.0,0.0);
+		glVertex3f(0.5,0.5,0.5);
+		glVertex3f(-0.5,0.5,0.5);
+
+		glColor3f(1.0,1.0,1.0);
+		glVertex3f(0.5,-0.5,0.5);
+		glVertex3f(-0.5,-0.5,0.5);
+
+	glEnd();
+
+	glBegin(GL_TRIANGLE_STRIP);
+		
+		glColor3f(0.0,0.0,0.0);
+		glVertex3f(0.5,0.5,-0.5);
+		glVertex3f(-0.5,0.5,-0.5);
+
+		glColor3f(1.0,0.0,1.0);
+		glVertex3f(0.5,-0.5,-0.5);
+		glVertex3f(-0.5,-0.5,-0.5);
+
+	glEnd();
+
+}

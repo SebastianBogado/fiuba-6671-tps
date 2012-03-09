@@ -13,6 +13,11 @@ ManejadorDeBotellas *manejadorBotellas = new ManejadorDeBotellas();
 
 CintaTransportadora *cintaTransportadora;
 
+ManejadorDeCajones *manejadorCajones = new ManejadorDeCajones();
+
+InterfazMotorDeFisica *motorFisica = new InterfazMotorDeFisica();
+
+
 Control::Control(bool debug){
 	this->debug = debug;
 
@@ -72,6 +77,10 @@ void Control::actualizarDatos(){
 
 		escena->actualizarEscena();
 		manejadorBotellas->comprobarEstadoDeBotellas();
+
+		manejadorCajones->comprobarCajones();
+		motorFisica->pasoDeSimulacion();
+		//motorFisica->
 		glutPostRedisplay();	
 	}
 }
@@ -139,15 +148,16 @@ ObjetoGrafico** Control::inicializarMaquinas()
 	MaquinaEmbaladora *p3 = new MaquinaEmbaladora();
 	maquinas[2] = p3;
 	_maquinas[2] = p3;
-
+	//SE AGREGA LA MAQUINA AL CAJON
+	manejadorCajones->definirMaquina(p3);
+	motorFisica->definirMaquinaEmbaladora(p3);
 	
 
 	MaquinaEtiquetadora *p4 = new MaquinaEtiquetadora();
 	maquinas[3] = p4;
 	_maquinas[3] = p4;
 	
-
-	
+		
 
 	MaquinaTapadora *p5 = new MaquinaTapadora();
 	maquinas[4] = p5;
@@ -174,6 +184,8 @@ ObjetoGrafico** Control::inicializarObjetosGraficos()
 
 
 	objetos[0] = new CuartoDeMaquinas;
+	motorFisica->definirHabitacion((CuartoDeMaquinas*)objetos[0]);
+
 	objetos[1] = new LamparaDeTecho((CuartoDeMaquinas*)objetos[0]);
 
 
@@ -183,13 +195,21 @@ ObjetoGrafico** Control::inicializarObjetosGraficos()
 
 ObjetoGrafico** Control::inicializarBotellas()
 {
-	this->cantObjetosTotales++;
+	this->cantObjetosTotales += 2;
 	this->cantBotellas = 9;
 
-	ObjetoGrafico** botellas = new ObjetoGrafico*;
+	ObjetoGrafico** botellas = new ObjetoGrafico*[2];
 
 	ConjuntoDeBotellas *conjunBotellas = new ConjuntoDeBotellas(this->cantBotellas);
 	botellas[0] = conjunBotellas;
+
+	CajonesDeBotellas *cajones = new CajonesDeBotellas();
+	botellas[1] = cajones;
+
+	manejadorCajones->definirCajones(cajones);
+	manejadorCajones->definirInterfaz(motorFisica);
+	
+	
 
 //	for (int i=0; i < this->cantBotellas; i++)
 //		botellas[i] = new Botella();

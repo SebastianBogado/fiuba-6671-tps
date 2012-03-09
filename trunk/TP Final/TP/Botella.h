@@ -33,6 +33,7 @@ public:
 
 
 	void reiniciarAtributos();
+	void botellaTerminada();
 
 	virtual ~Botella(void);
 
