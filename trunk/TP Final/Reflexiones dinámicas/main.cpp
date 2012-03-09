@@ -52,6 +52,7 @@ bool verYPos = false;
 bool verYNeg = false;
 bool verZPos = false;
 bool verZNeg = false;
+float tiempo = 0.0; bool avanzarEnElTiempo = true;
 
 
 GLSLProgram* GLSLTanqueDeCoca;
@@ -131,7 +132,9 @@ void calcularFPS(){
 }
 void OnIdle (void)
 {	
-	calcularFPS();
+	calcularFPS();	
+	if (avanzarEnElTiempo)
+		tiempo += 0.05;
 	glutPostRedisplay();
 }
 void DrawAxis()
@@ -234,7 +237,7 @@ void setearMaterial(propMaterial material, GLSLProgram* GLSLenUso = GLSLTanqueDe
 	GLSLenUso->setUniform("material.colorEspec", material.colorEspec);
 	GLSLenUso->setUniform("material.brillo", material.brillo);
 }
-float tiempo = 0.0; bool avanzarEnElTiempo = true;
+
 void dibujarReferencias(){
 	if (view_axis)
 		 glCallList(DL_AXIS);
@@ -243,8 +246,7 @@ void dibujarReferencias(){
 		 glCallList(DL_GRID);
 	glDisable(GL_LIGHTING);
 	glMatrixMode(GL_MODELVIEW);
-	if (avanzarEnElTiempo)
-		tiempo += 0.05;
+
 	glPushMatrix();
 		glRotatef (tiempo*20, 0.0, 0.0, 1.0);
 		glPushMatrix(); //Plano rojo en la cara X+
@@ -456,8 +458,8 @@ void display(void){
 	// Draw here
 	//
 	if (!(verXPos || verXNeg || verYPos || verYNeg || verZPos || verZNeg)){
-		dibujarMaterialReflectivo();
 		dibujarReferencias();
+		dibujarMaterialReflectivo();
 	}
 	else{
 		if (verXPos)	verCaraI(0);
