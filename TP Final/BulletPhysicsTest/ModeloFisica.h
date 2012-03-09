@@ -13,6 +13,8 @@ public:
 
 	void dibujar();
 
+	void agregarCaja();
+
 	void dibujarCubo();
 
 	void reiniciar();
@@ -40,13 +42,14 @@ private:
 
 	btDiscreteDynamicsWorld *mundoDinamico;
 
-	btAlignedObjectArray<btCollisionShape*> objetosDeColision;
+	//btAlignedObjectArray<btCollisionShape*> objetosDeColision;
 
 	btBroadphaseInterface* faseGeneral;
 
 	btCollisionDispatcher* despachadorDeColisiones;
 
 	btConstraintSolver *solucionadorRestricciones;
+
 
 	btDefaultCollisionConfiguration* configColision;
 
