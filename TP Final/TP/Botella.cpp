@@ -11,6 +11,7 @@ Botella::Botella(void){
 	porcentajeDeLlenado = 0.0;
 }
 
+
 void Botella::graficar(){}
 void Botella::graficar(GLSLProgram* shaderss){
 	glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
@@ -131,6 +132,14 @@ void Botella::reiniciarAtributos(){
 	//Solo para test
 	//this->inicializarVector(this->_testColor,0.1,0.1,0.3);
 
+}
+
+void Botella::botellaTerminada()
+{
+	this->tieneEtiqueta = true;
+	this->tieneTapa = true;
+
+	this->porcentajeDeLlenado = 90.0;
 }
 
 

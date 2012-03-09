@@ -7,6 +7,7 @@
 #include "EscenaGrafica.h"
 #include "ManejadorDeBotellas.h"
 #include "ManejadorDeBotellasEnCinta.h"
+#include "ManejadorDeCajones.h"
 #include "ConjuntoDeBotellas.h"
 
 static bool aplicacionCorriendo;

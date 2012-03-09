@@ -16,7 +16,10 @@ void ObjetoGraficoCubico::graficarBase(){
 		
 		glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
 		
-		glBegin(GL_QUADS);
+	//	if(dibujarLineas)
+			glBegin(GL_LINES);
+//		else
+	//		glBegin(GL_QUADS);
 			
 			glColor3f(1.0,0.0,0.0);
 			glVertex3fv(vertices[1]);

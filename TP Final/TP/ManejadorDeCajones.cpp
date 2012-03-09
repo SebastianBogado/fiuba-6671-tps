@@ -23,7 +23,7 @@ void ManejadorDeCajones::inicializar()
 {
 	this->maqAgregada = false;
 	this->cajonesAgregados = false;	
-	this->impulsoInicialCajon = btVector3(0.,10,0);
+	this->impulsoInicialCajon = btVector3(100.,0.,0.);
 
 }
 
@@ -57,6 +57,8 @@ void ManejadorDeCajones::definirMaquina(MaquinaEmbaladora* maquina){
 
 		this->maqAgregada = true;
 
+		this->posicionInicialCajon = this->maqEmbaladora->posicionInicialCajon();
+		//this->posicionInicialCajon = btVector3(15,20,9.0);
 	}
 
 }
@@ -87,8 +89,12 @@ void ManejadorDeCajones::comprobarEstadoDeMaquina()
 void ManejadorDeCajones::agregarNuevoCajon(btRigidBody *nuevoCajon)
 {
 
-	nuevoCajon->applyForce(this->impulsoInicialCajon,btVector3(0.,0.,0.));
+	//Aqui se coloca la posicion inicial tambien
+
+	//nuevoCajon->translate(this->maqEmbaladora->posicionInicialCajon());
+
 	this->motorFisica->agregarCuerpoRigido(nuevoCajon);
+	nuevoCajon->applyForce(this->impulsoInicialCajon,btVector3(0.,0.,0.));
 
 }
 
