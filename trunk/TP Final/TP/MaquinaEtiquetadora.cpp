@@ -219,7 +219,7 @@ void MaquinaEtiquetadora::detenerShader(){ }
 void MaquinaEtiquetadora::iniciarAnimacion(Botella* botella){
 
 	//botella->cambiarColor();
-	//botella->etiquetar();
+	//botella->botellaTerminada();
 	this->botellaActual = botella;
 
 	this->AnimacionIniciada = true;

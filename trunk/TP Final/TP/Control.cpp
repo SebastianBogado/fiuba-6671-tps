@@ -208,7 +208,7 @@ ObjetoGrafico** Control::inicializarBotellas()
 	ConjuntoDeBotellas *conjunBotellas = new ConjuntoDeBotellas(this->cantBotellas);
 	botellas[0] = conjunBotellas;
 
-	CajonesDeBotellas *cajones = new CajonesDeBotellas();
+	CajonesDeBotellas *cajones = new CajonesDeBotellas(conjunBotellas);
 	botellas[1] = cajones;
 
 	manejadorCajones->definirCajones(cajones);

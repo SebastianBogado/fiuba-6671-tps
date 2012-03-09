@@ -13,6 +13,7 @@ public:
 
 	void graficar();
 	void graficar(GLSLProgram* shaderss);
+	void graficarEnCajon(GLSLProgram* shaderss);
 
 	/*
 	*	Desplaza a la Botella un cierta posicion

@@ -6,7 +6,7 @@ class CajonesDeBotellas :
 	public ObjetoGrafico
 {
 public:
-	CajonesDeBotellas(void);
+	CajonesDeBotellas(ConjuntoDeBotellas* conjBotellas);
 
 	void graficar();
 
@@ -23,6 +23,8 @@ public:
 private:
 	
 	void graficarCajon();
+	void dibujarCajonDePlastico();
+	void dibujarCuerpoRigido();
 
 	void inicializarPosicionesDeBotellas();
 
@@ -36,6 +38,7 @@ private:
 	int cantCajones;
 
 	float distanciaEntreBotellas;
+	float posZdeBotellas;
 
 	//Atributos de Motor De Fisica
 	btAlignedObjectArray<btRigidBody*> cajones;
