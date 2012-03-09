@@ -19,6 +19,15 @@ void Botella::graficar(GLSLProgram* shaderss){
 	shaderss->setUniform("tieneEtiqueta", tieneEtiqueta);
 	shaderss->setUniform("tieneTapa", tieneTapa);
 }
+
+void Botella::graficarEnCajon(GLSLProgram* shaderss){
+	//glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
+	shaderss->setUniform("porcentajeDeLlenado", porcentajeDeLlenado);
+	shaderss->setUniform("tieneEtiqueta", tieneEtiqueta);
+	shaderss->setUniform("tieneTapa", tieneTapa);
+}
+
+
 /*
 //<<<<<<< .mine
 void Botella::graficar(){
@@ -139,7 +148,7 @@ void Botella::botellaTerminada()
 	this->tieneEtiqueta = true;
 	this->tieneTapa = true;
 
-	this->porcentajeDeLlenado = 90.0;
+	this->porcentajeDeLlenado = 0.65;
 }
 
 

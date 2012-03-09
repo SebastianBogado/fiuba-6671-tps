@@ -146,3 +146,39 @@ void ObjetoGrafico::dibujarCuboUnitario()
 	glEnd();
 
 }
+
+
+void ObjetoGrafico::dibujarAristasCuboUnitario()
+{
+
+	for (int i=0; i < 2 ; i++){
+		glBegin(GL_LINE_STRIP);
+		
+			glColor3f(1.0,0.0,0.0);
+			glVertex3f(0.5,-0.5,-0.5);//0
+			glVertex3f(0.5,-0.5,0.5);//0,1
+
+			glColor3f(0.0,1.0,0.0);
+			glVertex3f(0.5,0.5,0.5);//1,2
+			glVertex3f(0.5,0.5,-0.5);//2,3
+
+			glColor3f(0.0,0.0,1.0);
+			glVertex3f(-0.5,0.5,-0.5);//3,4
+			glVertex3f(-0.5,0.5,0.5);//4,5
+
+			glColor3f(1.0,1.0,0.0);
+			glVertex3f(0.5,0.5,0.5);//5,6
+			glVertex3f(0.5,0.5,-0.5);//6,7
+
+			glColor3f(0.0,1.0,1.0);
+			glVertex3f(0.5,-0.5,-0.5);//7,8
+			//glVertex3f(0.5,0.5,-0.5);//8,9
+
+		glEnd();
+
+		glRotatef(180.0,0.,0.,1.);
+
+	}
+
+
+}

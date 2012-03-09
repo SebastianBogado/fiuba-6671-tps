@@ -14,12 +14,30 @@ ConjuntoDeBotellas::ConjuntoDeBotellas(int cantidadBotellas)
 	this->inicializar();
 }
 
+int ConjuntoDeBotellas::cantidadDeBotellasEnCajon()
+{
+	return this->cantBotellasEnCajon;
+}
+
+Botella** ConjuntoDeBotellas::devolverBotellasDeCajon()
+{ 
+	return this->botellasDeCajon;
+}
 void ConjuntoDeBotellas::inicializar()
 {
 	this->botellas = new Botella*[cantBotellas];
 	
 	for (int i=0 ; i < cantBotellas ; i++)
 		this->botellas[i] = new Botella();
+
+	//Se instancian las botellas para el cajon
+
+	this->cantBotellasEnCajon = 4;
+
+	this->botellasDeCajon = new Botella*[this->cantBotellasEnCajon];
+
+	for(int i=0; i < this->cantBotellasEnCajon ; i++)
+		this->botellasDeCajon[i] = new Botella();
 	
 	//Mover los archivos de texturas al TP raíz, y que los demás proyectos referencien sus direcciones a él
 	//Rutas de archivos
@@ -124,11 +142,63 @@ void ConjuntoDeBotellas::graficar()
 
 
 
+void ConjuntoDeBotellas::graficarCajon()
+{
+	//Para graficar el cajon se implementa de la misma forma que el graficar normal, pero solo temporalmente
+	
+	this->aplicarShader();
+	glDisable(GL_LIGHTING);
+	glEnable(GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texturaID);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, tapaCoca);
+	
+	shaders->setUniform("etiquetaText", 0);
+	shaders->setUniform("tapaText", 1);
+	//shaders->setLuces(iluminacion);
+	//Por ahora, uso estas variables forzadas
+	//Como la clase iluminacion devuelve las posiciones y dirección como deben,
+	//no será necesaria esta tramoya de la cámara. Además, sólo funciona en la posición por defecto
+		
+	mat4 matrizDeLaCamara = glm::lookAt(vec3(15, 15, 5), vec3(0,0,0),vec3(0,0,1));
+	vec4 posicionDeLaLuz = matrizDeLaCamara * vec4(0.0, 0.0, 10.0, 1.0);
+	vec4 direccionDeLaLuz = matrizDeLaCamara * vec4(0.0, 0.0, -1.0, 0.0);
+
+	shaders->setUniform("luz.prendida", true);
+	shaders->setUniform("luz.posicion", vec3(posicionDeLaLuz));
+	shaders->setUniform("luz.direccion", vec3(direccionDeLaLuz));
+	shaders->setUniform("luz.angulo", 35);
+	shaders->setUniform("luz.k", 10);
+	shaders->setUniform("luz.amb", vec3(0.1, 0.1, 0.1));
+	shaders->setUniform("luz.dif", vec3(0.9, 0.9, 0.9));
+	shaders->setUniform("luz.espec", vec3(1.0, 1.0, 1.0));		
+	
+	//glPushMatrix();
+	//glScalef(escalado,escalado,escalado);
+
+
+	for (int i=0; i < this->cantBotellasEnCajon ; i++){
+		glPushMatrix();
+			this->botellasDeCajon[i]->graficar(shaders);
+			glCallList(dl_handle);
+		glPopMatrix();
+	}
+
+	//glPopMatrix();
+	this->detenerShader();
+
+}
+
 
 void ConjuntoDeBotellas::actualizarAtributos()
 {
 	for (int i=0; i < this->cantBotellas ; i++)
 		this->botellas[i]->actualizarAtributos();
+
+	for(int i=0; i <this->cantBotellasEnCajon ; i++)
+		this->botellasDeCajon[i]->actualizarAtributos();
 }
 
 
@@ -152,4 +222,10 @@ ConjuntoDeBotellas::~ConjuntoDeBotellas(void)
 		delete this->botellas[i];
 
 	delete[] this->botellas;
+
+
+	for(int i=0; i < cantBotellasEnCajon ; i ++)
+		delete this->botellasDeCajon[i];
+
+	delete[] this->botellasDeCajon;
 }

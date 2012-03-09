@@ -10,6 +10,13 @@ public:
 
 
 	void graficar();
+
+	void graficarCajon();
+
+	Botella** devolverBotellasDeCajon();
+
+	int cantidadDeBotellasEnCajon();
+
 	
 	void actualizarAtributos();
 
@@ -26,6 +33,9 @@ private:
 
 	Botella** botellas;
 	int cantBotellas;
+
+	int cantBotellasEnCajon;
+	Botella** botellasDeCajon;
 
 	string rutaTexturaTapa;
 	GLuint tapaCoca;
