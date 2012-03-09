@@ -1,6 +1,7 @@
 #pragma once
 #include "ObjetoGraficoCubico.h"
 
+
 class CuartoDeMaquinas :
 	public ObjetoGraficoCubico
 {
@@ -10,6 +11,8 @@ public:
 	void graficar();
 
 	void actualizarAtributos();
+
+	btRigidBody* cuerpoRigido();
 
 	~CuartoDeMaquinas(void);
 

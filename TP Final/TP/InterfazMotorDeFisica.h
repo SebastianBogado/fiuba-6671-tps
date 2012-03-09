@@ -3,6 +3,7 @@
 #include "../BulletPhysics/src/btBulletDynamicsCommon.h"
 #include "MaquinaEmbaladora.h"
 #include "CajonesDeBotellas.h"
+#include "CuartoDeMaquinas.h"
 
 class InterfazMotorDeFisica
 {
@@ -13,7 +14,7 @@ public:
 	void pasoDeSimulacion();
 
 
-	void definirHabitacion(ObjetoGraficoCubico *habitacion);
+	void definirHabitacion(ObjetoGraficoCubico* habitacion);
 
 	//void definirCajonesDeBotellas(CajonesDe *cajonBotellas);
 
