@@ -268,6 +268,11 @@ void keyboard (unsigned char key, int x, int y)
 	  case 'r':
 		  modBullet->reiniciar();
          break;
+
+	case 'i':
+		modBullet->agregarCaja();
+         break;
+
 	  case 'g':
 		  view_grid = !view_grid;
 		  glutPostRedisplay();

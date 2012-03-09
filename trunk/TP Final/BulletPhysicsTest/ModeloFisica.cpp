@@ -33,7 +33,7 @@ void ModeloFisica::inicializar(){
 	btCollisionShape* formaDelPiso = new btStaticPlaneShape(btVector3(0,0,1),btScalar(0.));
 
 
-	this->objetosDeColision.push_back(formaDelPiso);
+//	this->objetosDeColision.push_back(formaDelPiso);
 
 	btTransform pisoTransformador;
 
@@ -54,6 +54,7 @@ void ModeloFisica::inicializar(){
 
 
 	this->mundoDinamico->addRigidBody(cuerpoRigidoDelPiso);
+	
 
 	this->inicializarRampa();
 	//Se cre el cubo...
@@ -70,7 +71,7 @@ void ModeloFisica::inicializarRampa()
 	btCollisionShape* formaDeRampa = new btStaticPlaneShape(btVector3(-1,0,1),btScalar(0.));
 
 
-	this->objetosDeColision.push_back(formaDeRampa);
+//	this->objetosDeColision.push_back(formaDeRampa);
 
 	btTransform Transformador;
 
@@ -106,37 +107,84 @@ void ModeloFisica::inicializarCubo(){
 
 	for(int i=0; i< cantCubos; i++,origen+=despl)
 	{
+		btCollisionShape* formaDeCubo = new btBoxShape(btVector3(1,1,1));
+
+		//this->objetosDeColision.push_back(formaDeCubo);
+
+		btScalar masaCubo(0.5f);
+
+		btVector3 inerciaLocalCubo(1,1,10);
+
+		formaDeCubo->calculateLocalInertia(masaCubo,inerciaLocalCubo);
+
+		btTransform transformador;
+
+		transformador.setIdentity();
+
+		transformador.setOrigin(origen);
+
+		//btQuaternion rotacion(btVector3(0,1,0),45);
+		//transformador.setRotation(rotacion);
+
+		btDefaultMotionState* estadoMovimientoCubo= new btDefaultMotionState(transformador);
+
+		btRigidBody::btRigidBodyConstructionInfo infoCubo(masaCubo,estadoMovimientoCubo,formaDeCubo,inerciaLocalCubo);
+
+		this->cubo[i] = new btRigidBody(infoCubo);
+		this->cubo[i]->setFriction(btScalar(.5));
+
+		this->mundoDinamico->addRigidBody(this->cubo[i]);
+		this->cubo[i]->applyForce(btVector3(0,0,5),btVector3(0,0,0));
+	}
+	//this->cubo[i]->applyForce(btVector3(-1,-1,-1),btVector3(0,0,-1));
+
+
+}
+
+void ModeloFisica::agregarCaja(){
+
+	btRigidBody** nuevoVector = new btRigidBody*[cantCubos+1]; 
+
+	for (int i=0; i < cantCubos ;i ++)
+		nuevoVector[i] = this->cubo[i];
+
+	delete[] this->cubo;
+
+	this->cubo = nuevoVector;
+
+	//Se instancia el nuevo Cubo
+
+
+
 	btCollisionShape* formaDeCubo = new btBoxShape(btVector3(1,1,1));
 
-	this->objetosDeColision.push_back(formaDeCubo);
+		//this->objetosDeColision.push_back(formaDeCubo);
 
-	btScalar masaCubo(0.5f);
+		btScalar masaCubo(0.5f);
 
-	btVector3 inerciaLocalCubo(0,0,0);
+		btVector3 inerciaLocalCubo(1,1,10);
 
-	formaDeCubo->calculateLocalInertia(masaCubo,inerciaLocalCubo);
+		formaDeCubo->calculateLocalInertia(masaCubo,inerciaLocalCubo);
 
-	btTransform transformador;
+		btTransform transformador;
 
-	transformador.setIdentity();
+		transformador.setIdentity();
 
-	transformador.setOrigin(origen);
+		transformador.setOrigin(btVector3(0,0,10));
 
-	//btQuaternion rotacion(btVector3(0,1,0),45);
-	//transformador.setRotation(rotacion);
+		//btQuaternion rotacion(btVector3(0,1,0),45);
+		//transformador.setRotation(rotacion);
 
-	btDefaultMotionState* estadoMovimientoCubo= new btDefaultMotionState(transformador);
+		btDefaultMotionState* estadoMovimientoCubo= new btDefaultMotionState(transformador);
 
-	btRigidBody::btRigidBodyConstructionInfo infoCubo(masaCubo,estadoMovimientoCubo,formaDeCubo,inerciaLocalCubo);
+		btRigidBody::btRigidBodyConstructionInfo infoCubo(masaCubo,estadoMovimientoCubo,formaDeCubo,inerciaLocalCubo);
 
-	this->cubo[i] = new btRigidBody(infoCubo);
-	this->cubo[i]->setFriction(btScalar(0.1));
+		this->cubo[cantCubos] = new btRigidBody(infoCubo);
+		this->cubo[cantCubos]->setFriction(btScalar(.5));
 
-	this->mundoDinamico->addRigidBody(this->cubo[i]);
-
-	}
-	//this->cubo->applyForce(btVector3(-1,-1,-1),btVector3(0,0,-1));
-
+		this->mundoDinamico->addRigidBody(this->cubo[this->cantCubos]);
+	
+		this->cantCubos++;
 
 }
 
@@ -181,7 +229,7 @@ void ModeloFisica::pasoDeSimulacion(){
 
 	float ms = 16666.;
 
-	this->mundoDinamico->stepSimulation(ms / 10000000.f);
+	this->mundoDinamico->stepSimulation(ms / 100000.f);
 
 }
 
@@ -321,15 +369,15 @@ void ModeloFisica::liberarMemoriaMundo(){
 	}
 
 
-	for (int j=0; j < this->objetosDeColision.size() ; j++)
-	{
+//	for (int j=0; j < this->objetosDeColision.size() ; j++)
+//	{
 
-		btCollisionShape* shape = this->objetosDeColision[j];
-		delete shape;
-	}
+	//	btCollisionShape* shape = this->objetosDeColision[j];
+	//	delete shape;
+//	}
 
 
-	this->objetosDeColision.clear();
+//	this->objetosDeColision.clear();
 
 	delete this->mundoDinamico;
 
