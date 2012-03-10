@@ -28,13 +28,11 @@ void EscenaGrafica::agregarObjetosGraficos(int cantObjetos,ObjetoGrafico** objet
 	}
 }
 
-
 void EscenaGrafica::graficar(){
 
 
 	for (int i=0; i < this->cantidadObjetos; i++)
 		this->objetos[i]->graficar();
-
 }
 
 
@@ -46,10 +44,11 @@ void EscenaGrafica::actualizarEscena()
 
 }
 
-void EscenaGrafica::posicionarLucesEnIluminacion(ObjetoGrafico* lamparas){
+void EscenaGrafica::posicionarLucesEnIluminacion(LamparaDeTecho* lamparas){
 	vec3 aux;
 	for (int j = 0; j < iluminacion->cantidadDeLuces(); j++){
-		aux = ((LamparaDeTecho*)lamparas)->posicionDeLuz(j);
+		aux = lamparas->posicionDeLuz(j);
+		aux.z -= 0.5;
 		iluminacion->setPosicionDeLasLuces(j, aux);
 	}
 }

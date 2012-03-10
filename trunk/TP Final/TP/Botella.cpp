@@ -28,66 +28,6 @@ void Botella::graficarEnCajon(GLSLProgram* shaderss){
 }
 
 
-/*
-//<<<<<<< .mine
-void Botella::graficar(){
-
-	//float colorBotella[3] = { 0.8, 0.8, 0.8};
-
-	float escalado = 0.5;
-
-	glPushMatrix();
-		glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
-		glDisable(GL_LIGHTING);
-		glEnable(GL_BLEND);
-		glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		
-		aplicarShader();
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, etiquetaCoca);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, tapaCoca);
-	
-		shaderss->setUniform("etiquetaText", 0);
-		shaderss->setUniform("tapaText", 1);
-		shaderss->setUniform("porcentajeDeLlenado", porcentajeDeLlenado);
-		shaderss->setUniform("tieneEtiqueta", tieneEtiqueta);
-		shaderss->setUniform("tieneTapa", tieneTapa);
-		//shaders->setLuces(iluminacion);
-		//Por ahora, uso estas variables forzadas
-		//Como la clase iluminacion devuelve las posiciones y dirección como deben,
-		//no será necesaria esta tramoya de la cámara. Además, sólo funciona en la posición por defecto
-		
-		mat4 matrizDeLaCamara = glm::lookAt(vec3(15, 15, 5), vec3(0,0,0),vec3(0,0,1));
-		vec4 posicionDeLaLuz = matrizDeLaCamara * vec4(0.0, 0.0, 10.0, 1.0);
-		vec4 direccionDeLaLuz = matrizDeLaCamara * vec4(0.0, 0.0, -1.0, 0.0);
-
-		shaderss->setUniform("luz.prendida", true);
-		shaderss->setUniform("luz.posicion", vec3(posicionDeLaLuz));
-		shaderss->setUniform("luz.direccion", vec3(direccionDeLaLuz));
-		shaderss->setUniform("luz.angulo", 35);
-		shaderss->setUniform("luz.k", 10);
-		shaderss->setUniform("luz.amb", vec3(0.1, 0.1, 0.1));
-		shaderss->setUniform("luz.dif", vec3(0.9, 0.9, 0.9));
-		shaderss->setUniform("luz.espec", vec3(1.0, 1.0, 1.0));			
-
-		
-
-		glScalef(escalado,escalado,escalado);
-
-		glCallList(DL_BOTELLA);
-		
-
-		detenerShader();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-		glEnable(GL_LIGHTING);
-	glPopMatrix();
-}
-
-//=======
-//>>>>>>> .r172*/
-
 float abs(float &x){
 
 	if (x < 0)

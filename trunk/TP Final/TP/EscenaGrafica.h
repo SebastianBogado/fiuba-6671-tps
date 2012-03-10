@@ -20,8 +20,7 @@ public:
 
 	void actualizarEscena();
 
-	//El parámetro i debe ser el que contiene al objeto LamparaDeTecho
-	void posicionarLucesEnIluminacion(ObjetoGrafico* lamparas);
+	void posicionarLucesEnIluminacion(LamparaDeTecho* lamparas);
 
 	~EscenaGrafica(void);
 
