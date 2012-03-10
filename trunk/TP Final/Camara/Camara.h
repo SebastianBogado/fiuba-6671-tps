@@ -30,8 +30,8 @@ const char teclaZoomMenos = '-';
 
 class Camara
 {
-        public:
-                Camara(float *atCamara,float * ojoCamara,float *vectorArriba);
+		public:
+				static Camara* getInstancia();
 
                 void controladorDeTeclado(char caracter);
 
@@ -97,6 +97,14 @@ class Camara
 
                 Rotador rotador;
 
+                 ///////////////
+                // Singleton //
+               ///////////////
+				static Camara* instancia;
+				Camara();
+				static float posicionPorDefecto[3];
+				static float atPorDefecto[3];
+				static float upPorDefecto[3]; 
 };
 
 #endif // CAMARA_H

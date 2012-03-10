@@ -1,5 +1,6 @@
 #include "EscenaGrafica.h"
 
+Iluminacion* EscenaGrafica::iluminacion = Iluminacion::getInstancia();
 
 EscenaGrafica::EscenaGrafica(void)
 {
@@ -45,6 +46,13 @@ void EscenaGrafica::actualizarEscena()
 
 }
 
+void EscenaGrafica::posicionarLucesEnIluminacion(ObjetoGrafico* lamparas){
+	vec3 aux;
+	for (int j = 0; j < iluminacion->cantidadDeLuces(); j++){
+		aux = ((LamparaDeTecho*)lamparas)->posicionDeLuz(j);
+		iluminacion->setPosicionDeLasLuces(j, aux);
+	}
+}
 
 EscenaGrafica::~EscenaGrafica(void)
 {

@@ -1,6 +1,5 @@
 #include "LamparaDeTecho.h"
 
-
 LamparaDeTecho::LamparaDeTecho(void)
 {
 	//this->posicionObjeto = new float[3];
@@ -17,7 +16,6 @@ LamparaDeTecho::LamparaDeTecho(ObjetoGraficoCubico *habitacion)
 	this->definirHabitacion(habitacion);
 	
 	this->inicializarVertices();
-
 }
 
 void LamparaDeTecho::graficar(){

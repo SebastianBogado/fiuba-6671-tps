@@ -1,11 +1,6 @@
 #include "Control.h"
 
-
-float Control::posicionPorDefecto[3] = {15.0, 15.0, 5.0};
-float Control::atPorDefecto[3] = { 0.0,  0.0, 0.0};
-float Control::upPorDefecto[3] = { 0.0,  0.0, 1.0}; 
-
-Camara* Control::camara = new Camara(&atPorDefecto[0], &posicionPorDefecto[0], &upPorDefecto[0]);
+Camara* Control::camara = Camara::getInstancia();
 
 EscenaGrafica* Control::escena = new EscenaGrafica();
 
@@ -87,7 +82,11 @@ void Control::actualizarDatos(){
 
 
 void Control::dibujarEscena(){
-
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt (camara->eye()[0], camara->eye()[1], camara->eye()[2],
+			   camara->at()[0], camara->at()[1], camara->at()[2],
+			   camara->up()[0], camara->up()[1], camara->up()[2]);
 
 	if(aplicacionCorriendo)
 		escena->graficar();
@@ -187,6 +186,7 @@ ObjetoGrafico** Control::inicializarObjetosGraficos()
 	motorFisica->definirHabitacion((CuartoDeMaquinas*)objetos[0]);
 
 	objetos[1] = new LamparaDeTecho((CuartoDeMaquinas*)objetos[0]);
+	escena->posicionarLucesEnIluminacion(objetos[1]);
 
 	//Para Testear las posiciones de las Luces
 	/*
@@ -201,7 +201,7 @@ ObjetoGrafico** Control::inicializarObjetosGraficos()
 ObjetoGrafico** Control::inicializarBotellas()
 {
 	this->cantObjetosTotales += 2;
-	this->cantBotellas = 9;
+	this->cantBotellas = 7;
 
 	ObjetoGrafico** botellas = new ObjetoGrafico*[2];
 

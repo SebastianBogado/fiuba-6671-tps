@@ -10,12 +10,10 @@ using glm::mat3;
 using glm::mat4;
 #include <fstream>
 #include <iostream>
-//#include <dirent.h>
 #include <direct.h>
 using namespace std;
-#include "..\TP\Iluminacion.h"
 #include "..\TP\propMaterial.h"
-
+#include "..\TP\Iluminacion.h"
 
 enum GLSLShaderType {
 	VERTEX, 
@@ -51,7 +49,7 @@ public:
 	void setUniform(const char *name, float val );
 	void setUniform(const char *name, int val );
 	void setUniform(const char *name, bool val );
-	void setLuces(Iluminacion* iluminacion);
+	void setLuces();
 	void setMaterial(propMaterial material);
 	void printActiveUniforms();
 	void printActiveAttribs();
@@ -65,4 +63,5 @@ private:
 	//Devuelve una cadena con todo el contenido del archivo
 	char* cargarArchivo(string fileName);
 	static const string tiposDeShaders[];
+	static Iluminacion* iluminacion;
 };

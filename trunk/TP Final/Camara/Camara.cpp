@@ -2,8 +2,17 @@
 #include <iostream>
 
 using namespace std;
+float Camara::posicionPorDefecto[3] = {15.0, 15.0, 5.0};
+float Camara::atPorDefecto[3] = { 0.0,  0.0, 0.0};
+float Camara::upPorDefecto[3] = { 0.0,  0.0, 1.0}; 
+Camara* Camara::instancia = NULL;
 
-Camara::Camara(float *atCamara,float * ojoCamara,float *vectorArriba)
+Camara* Camara::getInstancia(){
+	if (! instancia)
+		Camara::instancia = new Camara();
+	return Camara::instancia;
+}
+Camara::Camara()
 {
 
                 this->modoEspectador = false;
@@ -11,9 +20,9 @@ Camara::Camara(float *atCamara,float * ojoCamara,float *vectorArriba)
 
                 this->actual=this->panorama;
 
-                this->atCamara = atCamara ;
-                this->ojoCamara = ojoCamara;
-                this->vectorArriba = vectorArriba;
+                this->atCamara = atPorDefecto ;
+                this->ojoCamara = posicionPorDefecto;
+                this->vectorArriba = upPorDefecto;
 
 
                 this->actualizarVectores();
@@ -112,9 +121,39 @@ void Camara::actualizarVectores(){
 
 
 void Camara::controladorDeTeclado(char caracter){
+    caracter = tolower( caracter);
+	switch (caracter){
+	  case '2':
+		  ojoCamara[0] = 0.0;
+		  ojoCamara[1] = 0.0;
+		  ojoCamara[2] = 15.0;
 
+		  atCamara[0] = 0.0;
+		  atCamara[1] = 0.0;
+		  atCamara[2] = 0.0;
 
-        caracter = tolower( caracter);
+		  vectorArriba[0] = 0.0;
+		  vectorArriba[1] = 1.0;
+		  vectorArriba[2] = 0.0;
+		  glutPostRedisplay();
+		  break;
+
+	  case '3':
+		  ojoCamara[0] = 15.0;
+		  ojoCamara[1] = 15.0;
+		  ojoCamara[2] = 5.0;
+
+		  atCamara[0] = 0.0;
+		  atCamara[1] = 0.0;
+		  atCamara[2] = 0.0;
+
+		  vectorArriba[0] = 0.0;
+		  vectorArriba[1] = 0.0;
+		  vectorArriba[2] = 1.0;
+		  glutPostRedisplay();
+		  break;
+	  default: break;
+	}
 
         if ( caracter == teclaCambioModo){
 

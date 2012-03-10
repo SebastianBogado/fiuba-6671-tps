@@ -18,10 +18,6 @@
 Camara *contrloadorCamara;
 
 
-// Variables que controlan la ubicación de la cámara en la Escena 3D
-float eye[3] = {15.0, 15.0, 5.0};
-float at[3]  = { 0.0,  0.0, 0.0};
-float up[3]  = { 0.0,  0.0, 1.0};
 
 // Variables asociadas a única fuente de luz de la escena
 float light_color[4] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -168,7 +164,7 @@ void init(void)
 
 
 
-        contrloadorCamara = new Camara(&at[0],&eye[0],&up[0]);
+	contrloadorCamara = Camara::getInstancia();
 }
 
 
@@ -181,7 +177,9 @@ void display(void)
 	Set3DEnv();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt (eye[0], eye[1], eye[2], at[0], at[1], at[2], up[0], up[1], up[2]);
+	gluLookAt (contrloadorCamara->eye()[0], contrloadorCamara->eye()[1], contrloadorCamara->eye()[2],
+			   contrloadorCamara->at()[0], contrloadorCamara->at()[1], contrloadorCamara->at()[2],
+			   contrloadorCamara->up()[0], contrloadorCamara->up()[1], contrloadorCamara->up()[2]);
 
 	if (view_axis)
 		 glCallList(DL_AXIS);
@@ -273,35 +271,6 @@ void keyboard (unsigned char key, int x, int y)
 		  glutPostRedisplay();
 		  break;
 
-	  case '2':
-		  eye[0] = 0.0;
-		  eye[1] = 0.0;
-		  eye[2] = 15.0;
-
-		  at[0] = 0.0;
-		  at[1] = 0.0;
-		  at[2] = 0.0;
-
-		  up[0] = 0.0;
-		  up[1] = 1.0;
-		  up[2] = 0.0;
-		  glutPostRedisplay();
-		  break;
-
-	  case '3':
-		  eye[0] = 15.0;
-		  eye[1] = 15.0;
-		  eye[2] = 5.0;
-
-		  at[0] = 0.0;
-		  at[1] = 0.0;
-		  at[2] = 0.0;
-
-		  up[0] = 0.0;
-		  up[1] = 0.0;
-		  up[2] = 1.0;
-		  glutPostRedisplay();
-		  break;
      default: contrloadorCamara->controladorDeTeclado(key);
          break;
    }

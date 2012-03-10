@@ -24,11 +24,11 @@ public:
 	
 	//Suplantaria a la funcion OnIdle
 	static void actualizarDatos();
-
+	/*
 	static float atPorDefecto[3];
 	static float posicionPorDefecto[3];
 	static float upPorDefecto[3];
-
+	*/
 private:
 	static Camara* camara;
 	static EscenaGrafica* escena;

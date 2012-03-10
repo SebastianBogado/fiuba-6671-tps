@@ -9,7 +9,6 @@
 #include "MaquinaEtiquetadora.h"
 #include "MaquinaTapadora.h"
 
-
 class EscenaGrafica
 {
 public:
@@ -21,11 +20,14 @@ public:
 
 	void actualizarEscena();
 
+	//El parámetro i debe ser el que contiene al objeto LamparaDeTecho
+	void posicionarLucesEnIluminacion(ObjetoGrafico* lamparas);
+
 	~EscenaGrafica(void);
 
 private:
 	ObjetoGrafico **objetos;
 	int cantidadObjetos;
-
+	static Iluminacion* iluminacion;
 };
 

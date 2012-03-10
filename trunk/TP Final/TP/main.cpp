@@ -122,11 +122,6 @@ void escena(void)
 {
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	Set3DEnv();
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt (Control::posicionPorDefecto[0], Control::posicionPorDefecto[1], Control::posicionPorDefecto[2],
-			   Control::atPorDefecto[0], Control::atPorDefecto[1], Control::atPorDefecto[2],
-			   Control::upPorDefecto[0], Control::upPorDefecto[1], Control::upPorDefecto[2]);
 	
 	control->dibujarEscena();
 
