@@ -12,11 +12,15 @@ ManejadorDeCajones *manejadorCajones = new ManejadorDeCajones();
 
 InterfazMotorDeFisica *motorFisica = new InterfazMotorDeFisica();
 
+vec2 Control::tamañoVentana = vec2(0.0);
 
-Control::Control(bool debug){
+
+Control::Control(bool debug, vec2& tamañoVentana){
 	this->debug = debug;
 
 	aplicacionCorriendo = true;
+
+	this->tamañoVentana = tamañoVentana;
 
 	this->inicializar();
 	escena->agregarObjetosGraficos(this->cantObjetosTotales,this->objetosGraficos);
@@ -43,7 +47,8 @@ void Control::teclado(unsigned char tecla, int x, int y){
 	case 'n':
 		cintaTransportadora->disminuirDiscretizacionDeCinta();
 		break;
-
+	case 'r':
+		escena->cambiarActualizarReflexion(); break;
 	default: break;
 	}
 
@@ -124,7 +129,7 @@ void Control::inicializar(){
 
 ObjetoGrafico** Control::inicializarMaquinas()
 {
-	this->cantMaquinas = 5;//5;
+	this->cantMaquinas = 6;
 	this->cantObjetosTotales += this->cantMaquinas;
 
 	ObjetoGrafico** maquinas= new ObjetoGrafico*[this->cantMaquinas];
@@ -162,6 +167,10 @@ ObjetoGrafico** Control::inicializarMaquinas()
 	maquinas[4] = p5;
 	_maquinas[4] = p5;
 
+	MaquinaDeLlenado *p6 = new MaquinaDeLlenado();
+	maquinas[5] = p6;
+	_maquinas[5] = p6;
+	escena->fijarObjetosReflectivos(p6);
 	/*
 //	for (int i=0; i < this->cantMaquinas ; i++)
 	//	_maquinas[i] =  reinterpret_cast<Maquina*>(maquinas[i]->devolverPuntero());
@@ -241,3 +250,5 @@ void Control::liberarMemoria()
 	delete camara;
 
 }
+
+vec2 Control::getTamañoVentana(){ return tamañoVentana; }

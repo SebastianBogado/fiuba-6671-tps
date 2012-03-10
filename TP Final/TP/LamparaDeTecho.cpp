@@ -240,7 +240,7 @@ LamparaDeTecho::~LamparaDeTecho(void)
 
 }
 
-void LamparaDeTecho::definirMaterial(){
+void LamparaDeTecho::definirMateriales(){
 	material.colorAmb = vec3(0.8, 0.8, 0.8);		
 	material.colorDif = vec3(0.8, 0.8, 0.8);
 	material.colorEspec = vec3(0.2, 0.2, 0.2);

@@ -266,4 +266,4 @@ CintaTransportadora::~CintaTransportadora(void)
 {
 }
 
-void CintaTransportadora::definirMaterial(){}
+void CintaTransportadora::definirMateriales(){}

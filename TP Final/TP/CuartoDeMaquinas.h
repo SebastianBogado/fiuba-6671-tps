@@ -18,7 +18,7 @@ public:
 
 private:
 
-	void definirMaterial();
+	void definirMateriales();
 
 };
 

@@ -20,7 +20,7 @@ public:
 	TipoMaquina tipo(){ return TipoMaquina::Etiquetadora; }
 
 	//Metodos Particulares
-	void definirMaterial();
+	void definirMateriales();
 
 	virtual ~MaquinaEtiquetadora(void);
 	

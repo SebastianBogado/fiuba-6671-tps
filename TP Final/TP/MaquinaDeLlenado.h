@@ -2,6 +2,7 @@
 #include "objetografico.h"
 #include "Maquina.h"
 
+class EscenaGrafica;
 
 class MaquinaDeLlenado :
 	public ObjetoGrafico,
@@ -9,9 +10,10 @@ class MaquinaDeLlenado :
 {
 public:
 	MaquinaDeLlenado(void);
+	void ini();
 
 	//Interfaz de ObjetoGrafico
-	void graficar();
+	void graficar(); //No grafica el tanque, centro de reflexión.
 	void actualizarAtributos();
 
 
@@ -20,12 +22,22 @@ public:
 	bool animacionFinalizada();
 	TipoMaquina tipo(){ return TipoMaquina::Llenado; }
 
-
+	//Interfaz de MaterialReflectivo, si existiera :P
+	void actualizarReflexion(EscenaGrafica* escena);
+	void graficarParteReflectiva();
+	
 	virtual ~MaquinaDeLlenado(void);
 
 private:
+	//Materiales
+	void definirMateriales();
+	propMaterial materialTubito;
+	propMaterial materialBase;
 
-	void aplicarShader();
-	void detenerShader();
+	//DL
+	GLuint DL_TANQUE, DL_BASE, DL_SOPORTE_DEL_TUBITO, DL_TUBITO;
+
+	float alturaDelCentro;
+	GLuint ladoTextura;
 };
 

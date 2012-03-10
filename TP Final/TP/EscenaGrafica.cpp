@@ -16,6 +16,7 @@ EscenaGrafica::EscenaGrafica(void)
 	this->objetos[2] = new MaquinaEmbaladora();
 	this->objetos[3] = new LamparaDeTecho(cuarto);
 	*/
+	actualizarReflexion = false;
 }
 
 void EscenaGrafica::agregarObjetosGraficos(int cantObjetos,ObjetoGrafico** objetos)
@@ -28,20 +29,22 @@ void EscenaGrafica::agregarObjetosGraficos(int cantObjetos,ObjetoGrafico** objet
 	}
 }
 
-void EscenaGrafica::graficar(){
-
-
+void EscenaGrafica::graficarParaReflexion(){
 	for (int i=0; i < this->cantidadObjetos; i++)
 		this->objetos[i]->graficar();
 }
 
+void EscenaGrafica::graficar(){
+	graficarParaReflexion();
+	tanque->graficarParteReflectiva();
+}
 
 void EscenaGrafica::actualizarEscena()
 {
-
 	for (int i=0; i < this->cantidadObjetos ; i++)
 		this->objetos[i]->actualizarAtributos();
-
+	if (actualizarReflexion)
+		tanque->actualizarReflexion(this);
 }
 
 void EscenaGrafica::posicionarLucesEnIluminacion(LamparaDeTecho* lamparas){
@@ -60,4 +63,12 @@ EscenaGrafica::~EscenaGrafica(void)
 
 	delete[] this->objetos;
 
+}
+
+void EscenaGrafica::cambiarActualizarReflexion(){
+	actualizarReflexion = !actualizarReflexion;
+}
+
+void EscenaGrafica::fijarObjetosReflectivos(MaquinaDeLlenado* tanque){
+	this->tanque = tanque;
 }

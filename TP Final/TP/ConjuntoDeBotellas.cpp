@@ -212,4 +212,4 @@ ConjuntoDeBotellas::~ConjuntoDeBotellas(void)
 	delete[] this->botellasDeCajon;
 }
 
-void ConjuntoDeBotellas::definirMaterial(){}
+void ConjuntoDeBotellas::definirMateriales(){}

@@ -189,4 +189,4 @@ CajonesDeBotellas::~CajonesDeBotellas(void)
 	delete this->botellas;
 }
 
-void CajonesDeBotellas::definirMaterial(){}
+void CajonesDeBotellas::definirMateriales(){}

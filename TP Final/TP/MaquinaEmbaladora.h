@@ -31,7 +31,7 @@ public:
 	~MaquinaEmbaladora(void);
 
 private:
-	void definirMaterial();
+	void definirMateriales();
 	
 	void dibujarRampa();
 

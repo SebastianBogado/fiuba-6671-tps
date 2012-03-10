@@ -23,7 +23,7 @@ public:
 	ObjetoGrafico(void);
 
 	//Para inicializar atributos en general
-	void ini();
+	virtual void ini();
 
 	/*
 		Metodo que dibuja al objeto en la escena
@@ -91,6 +91,6 @@ protected:
 	//Para los materiales que no tienen ninguna particularidad, se usa un phong genérico
 	static GLSLProgram* phong;
 	propMaterial material;
-	virtual void definirMaterial() = 0;
+	virtual void definirMateriales() = 0;
 };
 

@@ -16,11 +16,18 @@ public:
 
 	void agregarObjetosGraficos(int cantObjetos,ObjetoGrafico** objetos);
 
+	//Grafica toda la escena
 	void graficar();
+	//Grafica sin los materiales reflectivos
+	void graficarParaReflexion();
 
 	void actualizarEscena();
 
 	void posicionarLucesEnIluminacion(LamparaDeTecho* lamparas);
+	void fijarObjetosReflectivos(MaquinaDeLlenado* tanque);
+
+	//Niega el booleano actualizarReflexion
+	void cambiarActualizarReflexion();
 
 	~EscenaGrafica(void);
 
@@ -28,5 +35,8 @@ private:
 	ObjetoGrafico **objetos;
 	int cantidadObjetos;
 	static Iluminacion* iluminacion;
+
+	bool actualizarReflexion;
+	MaquinaDeLlenado* tanque;
 };
 

@@ -28,11 +28,11 @@ MaquinaTapadora::MaquinaTapadora(void)
 	this->sentidoDeBrazoMovilCambiado = false;
 
 	this->inicializarVertices();
-	this->definirMaterial();
+	this->definirMateriales();
 }
 
 
-void MaquinaTapadora::definirMaterial(){
+void MaquinaTapadora::definirMateriales(){
 	material.colorAmb = vec3(0.3, 0.3, 0.3);		
 	material.colorDif = vec3(0.3, 0.3, 0.3);
 	material.colorEspec = vec3(0.1, 0.1, 0.1);

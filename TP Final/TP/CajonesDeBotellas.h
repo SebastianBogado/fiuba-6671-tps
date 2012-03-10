@@ -28,7 +28,7 @@ private:
 
 	void inicializarPosicionesDeBotellas();
 
-	void definirMaterial();
+	void definirMateriales();
 
 
 	ConjuntoDeBotellas* botellas;
