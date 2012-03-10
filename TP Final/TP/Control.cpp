@@ -186,7 +186,7 @@ ObjetoGrafico** Control::inicializarObjetosGraficos()
 	motorFisica->definirHabitacion((CuartoDeMaquinas*)objetos[0]);
 
 	objetos[1] = new LamparaDeTecho((CuartoDeMaquinas*)objetos[0]);
-	escena->posicionarLucesEnIluminacion(objetos[1]);
+	escena->posicionarLucesEnIluminacion((LamparaDeTecho*)objetos[1]);
 
 	//Para Testear las posiciones de las Luces
 	/*

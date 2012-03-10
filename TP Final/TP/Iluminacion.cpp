@@ -34,11 +34,14 @@ void Iluminacion::setPosicionDeLasLuces(int i, vec3 posicion){
 int Iluminacion::cantidadDeLuces(){ return cantDeLuces; }
 
 Iluminacion::propLuz Iluminacion::luz(int i){ 
+	propLuz luzSolicitada;
+	luzSolicitada.prendida = luces[i].prendida;
+
 	mat4 matrizDeLaCamara = glm::lookAt(camara->eye(),
 										camara->at(),
 										camara->up());	
-	luces[i].posicion = matrizDeLaCamara * luces[i].posicion;
-	luces[i].direccion = matrizDeLaCamara * luces[i].direccion;
+	luzSolicitada.posicion = matrizDeLaCamara * luces[i].posicion;
+	luzSolicitada.direccion = matrizDeLaCamara * luces[i].direccion;
 
-	return luces[i];
+	return luzSolicitada;
 }
