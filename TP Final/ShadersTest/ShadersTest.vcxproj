@@ -35,6 +35,8 @@
     <None Include="cubemap_blue_sofa_positive_z.bmp" />
     <None Include="etiquetaCoca.bmp" />
     <None Include="etiquetaCoca.png" />
+    <None Include="ObjetoTexturado.frag" />
+    <None Include="ObjetoTexturado.vert" />
     <None Include="PhongSpot.frag" />
     <None Include="PhongSpot.vert" />
     <None Include="prueba.frag" />
