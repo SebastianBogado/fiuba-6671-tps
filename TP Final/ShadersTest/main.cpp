@@ -524,9 +524,7 @@ void dibujarTanqueDeCoca(){
 	setearMaterial(tanque, GLSLTanqueDeCoca);
 	setearLucesUniform(GLSLTanqueDeCoca);
 	GLSLTanqueDeCoca->setUniform("skyBoxTex", 0);
-	GLSLTanqueDeCoca->setUniform("posicionDelOjo", vec3(eye[0], eye[1], eye[2]));
 
-	//glutSolidSphere(6.0, 50, 50);
 	glCallList(DL_TANQUE_DE_COCA);
 
 	GLSLTanqueDeCoca->cerrar();

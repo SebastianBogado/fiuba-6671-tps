@@ -1,6 +1,7 @@
 #include "GLSLProgram.h"
 
 const string GLSLProgram::tiposDeShaders[5] = {"Vertex", "Fragment", "Geometry", "Tess control", "Tess evaluation"};
+Iluminacion* GLSLProgram::iluminacion = Iluminacion::getInstancia();
 
 GLSLProgram::GLSLProgram(){
 	this->linked = false;
@@ -201,21 +202,16 @@ void GLSLProgram::setUniform(const char *name, bool val ){
 		cout << "No existe el parametro " << name << " como variable uniforme." << endl;
 }
 
-void GLSLProgram::setLuces(Iluminacion* iluminacion){
-	string l[] = { "luzCero", "luzUno", "luzDos", "luzTres", "luzCuatro", "luzCinco"};
+void GLSLProgram::setLuces(){ 
+	string l[] = { "luzE1", "luzE2", "luzE3", "luzE4", "luzE5", "luzE6"};
 	int i= 0;
-	//for (int i = 0; i < iluminacion->cantidadDeLuces(); i++){
+	for (int i = 0; i < iluminacion->cantidadDeLuces(); i++){
 		std::string aux = l[i];
 
 		this->setUniform(aux.append(".prendida").c_str(), iluminacion->luz(i).prendida);			aux = l[i];
 		this->setUniform(aux.append(".posicion").c_str(), vec3(iluminacion->luz(i).posicion));		aux = l[i];
-		this->setUniform(aux.append(".direccion").c_str(), vec3(iluminacion->luz(i).direccion));	aux = l[i];
-		this->setUniform(aux.append(".angulo").c_str(), iluminacion->luz(i).angulo);				aux = l[i];
-		this->setUniform(aux.append(".k").c_str(), iluminacion->luz(i).k);							aux = l[i];
-		this->setUniform(aux.append(".amb").c_str(), iluminacion->luz(i).amb);						aux = l[i];
-		this->setUniform(aux.append(".dif").c_str(), iluminacion->luz(i).dif);						aux = l[i];
-		this->setUniform(aux.append(".espec").c_str(), iluminacion->luz(i).espec);				
-	//}
+		this->setUniform(aux.append(".direccion").c_str(), vec3(iluminacion->luz(i).direccion));
+	}
 }
 
 void GLSLProgram::setMaterial(propMaterial material){
