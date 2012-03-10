@@ -21,8 +21,6 @@ public:
 
 	//Metodos particulares
 
-	void definirMateriales();
-
 	int cantBotellas(){ return contadorBotellas; }
 	void reiniciarContadorBotellas();
 
@@ -33,9 +31,8 @@ public:
 	~MaquinaEmbaladora(void);
 
 private:
-	void aplicarShader();
-	void detenerShader();
-
+	void definirMaterial();
+	
 	void dibujarRampa();
 
 	int contadorBotellas;

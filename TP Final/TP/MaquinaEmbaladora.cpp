@@ -30,6 +30,7 @@ MaquinaEmbaladora::MaquinaEmbaladora(void)
 
 	this->inicializarVertices();
 	this->reiniciarContadorBotellas();
+	this->definirMaterial();
 }
 
 void MaquinaEmbaladora::reiniciarContadorBotellas()
@@ -39,9 +40,11 @@ void MaquinaEmbaladora::reiniciarContadorBotellas()
 }
 
 
-void MaquinaEmbaladora::definirMateriales(){
-
-
+void MaquinaEmbaladora::definirMaterial(){
+	material.colorAmb = vec3(0.44, 0.57, 0.75);		
+	material.colorDif = vec3(0.44, 0.57, 0.75);
+	material.colorEspec = vec3(0.1, 0.15, 0.2);
+	material.brillo = 4.0;
 }
 
 void MaquinaEmbaladora::graficar(){
@@ -58,14 +61,13 @@ void MaquinaEmbaladora::graficar(){
 	//this->graficarBase();
 
 	float normal[3];
-
-	this->definirMateriales();
-
+	
 	glPushMatrix();
 	//glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
 	this->posicionarObjeto(); 
 
-	glEnable(GL_LIGHTING);
+	glDisable(GL_LIGHTING);
+	aplicarPhong();
 
 		this->inicializarVector(normal,0.0,-1.0,0.0);
 	//	this->dibujarPared(normal,0,1,4,5);
@@ -90,7 +92,7 @@ void MaquinaEmbaladora::graficar(){
 		this->dibujarRampa();
 
 	glPopMatrix();
-
+	detenerPhong();
 
 	////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////
@@ -281,14 +283,6 @@ btVector3 MaquinaEmbaladora::posicionInicialCajon()
 }
 
 void MaquinaEmbaladora::actualizarAtributos(){ }
-
-void MaquinaEmbaladora::aplicarShader(){
-	
-}
-
-void MaquinaEmbaladora::detenerShader(){
-}
-
 
 void MaquinaEmbaladora::iniciarAnimacion(Botella* botella)
 {	

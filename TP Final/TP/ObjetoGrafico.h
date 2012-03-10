@@ -91,5 +91,6 @@ protected:
 	//Para los materiales que no tienen ninguna particularidad, se usa un phong genérico
 	static GLSLProgram* phong;
 	propMaterial material;
+	virtual void definirMaterial() = 0;
 };
 

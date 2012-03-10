@@ -21,7 +21,7 @@ LamparaDeTecho::LamparaDeTecho(ObjetoGraficoCubico *habitacion)
 void LamparaDeTecho::graficar(){
 
 
-
+	aplicarPhong();
 
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
@@ -180,10 +180,6 @@ void LamparaDeTecho::graficarLamparaSimple(){
 
 void LamparaDeTecho::actualizarAtributos(){ }
 
-void LamparaDeTecho::aplicarShader(){}
-
-void LamparaDeTecho::detenerShader(){}
-
 vec3 LamparaDeTecho::posicionDeLuz(int indice)
 {
 	vec3 res(	cuarto->vectorPosicion()[0],
@@ -242,4 +238,11 @@ LamparaDeTecho::~LamparaDeTecho(void)
 
 	delete[] vertices;
 
+}
+
+void LamparaDeTecho::definirMaterial(){
+	material.colorAmb = vec3(0.8, 0.8, 0.8);		
+	material.colorDif = vec3(0.8, 0.8, 0.8);
+	material.colorEspec = vec3(0.2, 0.2, 0.2);
+	material.brillo = 4.0;
 }

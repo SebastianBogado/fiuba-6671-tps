@@ -30,6 +30,7 @@ public:
 private:
 
 	void inicializar();
+	void definirMaterial();
 
 	Botella** botellas;
 	int cantBotellas;

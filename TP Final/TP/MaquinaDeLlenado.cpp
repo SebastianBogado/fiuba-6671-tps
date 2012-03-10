@@ -30,6 +30,8 @@ void MaquinaDeLlenado::graficar()
 {
 	float color[3] = {0.6,0.3,0.1};
 
+	glDisable(GL_LIGHTING);
+	aplicarPhong();
 	glPushMatrix();
 		glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
 		//glPushMatrix();
@@ -42,6 +44,7 @@ void MaquinaDeLlenado::graficar()
 			
 	glPopMatrix();
 
+	detenerPhong();
 }
 
 void MaquinaDeLlenado::actualizarAtributos()

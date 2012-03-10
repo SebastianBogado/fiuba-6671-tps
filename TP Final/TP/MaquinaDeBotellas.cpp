@@ -17,6 +17,7 @@ MaquinaDeBotellas::MaquinaDeBotellas(void)
 	this->alturaDeMaquina = alto;
 
 	this->inicializarVertices();
+	this->definirMaterial();
 
 	this->posDeObjetoAnimado = new float[3];
 	//this->inicializarVector(this->posDeObjetoAnimado,posicionObjeto[0]+5,posicionObjeto[1],posicionObjeto[2]);
@@ -24,10 +25,11 @@ MaquinaDeBotellas::MaquinaDeBotellas(void)
 
 }
 
-void MaquinaDeBotellas::definirMateriales()
-{
-
-
+void MaquinaDeBotellas::definirMaterial(){
+	material.colorAmb = vec3(0.44, 0.57, 0.75);		
+	material.colorDif = vec3(0.44, 0.57, 0.75);
+	material.colorEspec = vec3(0.1, 0.15, 0.2);
+	material.brillo = 4.0;
 }
 
 
@@ -38,7 +40,8 @@ void MaquinaDeBotellas::graficar(){
 
 	float normal[3];
 
-	this->definirMateriales();
+	glDisable(GL_LIGHTING);
+	aplicarPhong();
 
 	glPushMatrix();
 	//glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
@@ -74,6 +77,7 @@ void MaquinaDeBotellas::graficar(){
 		glPopMatrix();
 	}
 
+	detenerPhong();
 	/*
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
@@ -122,16 +126,6 @@ void MaquinaDeBotellas::graficar(){
 
 }
 
-void MaquinaDeBotellas::aplicarShader(){
-
-
-}
-
-void MaquinaDeBotellas::detenerShader(){
-
-
-
-}
 
 void MaquinaDeBotellas::actualizarAtributos(){
 

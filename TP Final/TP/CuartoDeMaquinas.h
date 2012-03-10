@@ -18,8 +18,7 @@ public:
 
 private:
 
-	void aplicarShader();
-	void detenerShader();
+	void definirMaterial();
 
 };
 
