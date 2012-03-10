@@ -14,7 +14,7 @@ static bool aplicacionCorriendo;
 
 class Control{
 public:
-	Control(bool debug);
+	Control(bool debug, vec2& tamañoVentana);
 	~Control();
 	static void teclado(unsigned char tecla, int x, int y);
 	static void mouse(int button, int state, int x, int y);
@@ -24,11 +24,8 @@ public:
 	
 	//Suplantaria a la funcion OnIdle
 	static void actualizarDatos();
-	/*
-	static float atPorDefecto[3];
-	static float posicionPorDefecto[3];
-	static float upPorDefecto[3];
-	*/
+	
+	static vec2 getTamañoVentana();
 private:
 	static Camara* camara;
 	static EscenaGrafica* escena;
@@ -44,6 +41,6 @@ private:
 	int cantObjetosTotales,cantMaquinas,cantObjetos,cantBotellas;
 	ObjetoGrafico** objetosGraficos;
 
-	
+	static vec2 tamañoVentana;
 	bool debug;
 };

@@ -27,7 +27,7 @@ private:
 	void inicializarVertices();
 	void actualizarVertices();
 	
-	void definirMaterial();
+	void definirMateriales();
 
 	ObjetoGraficoCubico *cuarto;
 	float ladoMayorCuarto,ladoMenorCuarto;

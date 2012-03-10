@@ -30,7 +30,7 @@ MaquinaEmbaladora::MaquinaEmbaladora(void)
 
 	this->inicializarVertices();
 	this->reiniciarContadorBotellas();
-	this->definirMaterial();
+	this->definirMateriales();
 }
 
 void MaquinaEmbaladora::reiniciarContadorBotellas()
@@ -40,7 +40,7 @@ void MaquinaEmbaladora::reiniciarContadorBotellas()
 }
 
 
-void MaquinaEmbaladora::definirMaterial(){
+void MaquinaEmbaladora::definirMateriales(){
 	material.colorAmb = vec3(0.44, 0.57, 0.75);		
 	material.colorDif = vec3(0.44, 0.57, 0.75);
 	material.colorEspec = vec3(0.1, 0.15, 0.2);

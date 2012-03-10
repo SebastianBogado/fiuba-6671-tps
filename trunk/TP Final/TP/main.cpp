@@ -113,7 +113,7 @@ void init(void)
 		DrawXYGrid();
 	glEndList();
 
-	control = new Control(debug);
+	control = new Control(debug, vec2(W_WIDTH, W_HEIGHT));
 }
 
 

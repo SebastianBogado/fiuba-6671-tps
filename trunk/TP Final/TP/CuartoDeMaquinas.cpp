@@ -27,7 +27,7 @@ void CuartoDeMaquinas::graficar(){
 
 void CuartoDeMaquinas::actualizarAtributos(){ }
 
-void CuartoDeMaquinas::definirMaterial(){}
+void CuartoDeMaquinas::definirMateriales(){}
 
 btRigidBody* CuartoDeMaquinas::cuerpoRigido()
 {

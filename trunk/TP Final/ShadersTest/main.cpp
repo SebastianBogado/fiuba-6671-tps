@@ -25,13 +25,6 @@ struct propLuz{
 	bool prendida;
 	vec4 posicion;
 	vec4 direccion;
-	float angulo;
-	//Constante para calcular el decrecimiento de la intensidad de la luz
-	//según se aleja del centro, como el brillo en un material
-	float k; 
-	vec3 amb;
-	vec3 dif;
-	vec3 espec;
 };
 
 const int cantidadDeLuces = 6;
@@ -381,11 +374,6 @@ void inicializarLuces(){
 		true,
 		vec4(0.0, -5.0, 5.0, 1.0), 
 		vec4(0.0, 0.0, -1.0, 0.0),
-		35,
-		10,
-		vec3(0.1, 0.1, 0.1), 
-		vec3(0.9, 0.9, 0.9),
-		vec3(1.0, 1.0, 1.0),
 	};
 
 	for (int i = 0; i < cantidadDeLuces; i++){

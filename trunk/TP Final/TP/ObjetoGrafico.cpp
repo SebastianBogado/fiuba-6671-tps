@@ -19,7 +19,7 @@ void ObjetoGrafico::ini(){
 	//DL
 	dl_handle = glGenLists(1);
 	//Material
-	definirMaterial();
+	definirMateriales();
 }
 
 void ObjetoGrafico::posicionar(float *nuevaPosicion){

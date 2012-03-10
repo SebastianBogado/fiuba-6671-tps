@@ -29,11 +29,11 @@ MaquinaEtiquetadora::MaquinaEtiquetadora(void)
 	this->sentidoDeBrazoMovilCambiado = false;
 
 	this->inicializarVertices();
-	this->definirMaterial();
+	this->definirMateriales();
 
 }
 
-void MaquinaEtiquetadora::definirMaterial(){
+void MaquinaEtiquetadora::definirMateriales(){
 	material.colorAmb = vec3(0.3, 0.3, 0.3);		
 	material.colorDif = vec3(0.3, 0.3, 0.3);
 	material.colorEspec = vec3(0.1, 0.1, 0.1);

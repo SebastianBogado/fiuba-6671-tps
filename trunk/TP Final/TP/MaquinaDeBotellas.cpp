@@ -17,7 +17,7 @@ MaquinaDeBotellas::MaquinaDeBotellas(void)
 	this->alturaDeMaquina = alto;
 
 	this->inicializarVertices();
-	this->definirMaterial();
+	this->definirMateriales();
 
 	this->posDeObjetoAnimado = new float[3];
 	//this->inicializarVector(this->posDeObjetoAnimado,posicionObjeto[0]+5,posicionObjeto[1],posicionObjeto[2]);
@@ -25,7 +25,7 @@ MaquinaDeBotellas::MaquinaDeBotellas(void)
 
 }
 
-void MaquinaDeBotellas::definirMaterial(){
+void MaquinaDeBotellas::definirMateriales(){
 	material.colorAmb = vec3(0.44, 0.57, 0.75);		
 	material.colorDif = vec3(0.44, 0.57, 0.75);
 	material.colorEspec = vec3(0.1, 0.15, 0.2);
