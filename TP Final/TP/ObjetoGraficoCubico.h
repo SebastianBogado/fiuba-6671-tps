@@ -43,15 +43,20 @@ protected:
 	void dibujarParedHueca(float* normal,int v1,int v2,int v3,int v4,float largoHoyo,float anchoHoyo,vec2 posHoyo,float profundidad);
 	
 
+	void definirCoordTextura(vec2 v1,vec2 v2,vec2 v3,vec2 v4);
+	void dibujarParedTexturada(float* normal,int v1,int v2,int v3,int v4);
+
 private:
 	
 	void dibujarHoyo(float *n,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1,float &profundidad);
 
 	void dibujarFranja(float* normal,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1);
-	
+	void dibujarFranjaTexturada(float* normal,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1);
 
 	bool discretizacionPorDefecto;
 	int pasosDeDiscretizacion;	
+
+	static vec2 vText[4];
 
 };
 

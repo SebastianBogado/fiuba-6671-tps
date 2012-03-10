@@ -12,7 +12,10 @@ ManejadorDeCajones *manejadorCajones = new ManejadorDeCajones();
 
 InterfazMotorDeFisica *motorFisica = new InterfazMotorDeFisica();
 
+static Control* instancia;
+
 vec2 Control::tamañoVentana = vec2(0.0);
+
 
 
 Control::Control(bool debug, vec2& tamañoVentana){
@@ -23,8 +26,8 @@ Control::Control(bool debug, vec2& tamañoVentana){
 	this->tamañoVentana = tamañoVentana;
 
 	this->inicializar();
-	escena->agregarObjetosGraficos(this->cantObjetosTotales,this->objetosGraficos);
-
+	
+	instancia = this;
 
 }
 Control::~Control(){
@@ -47,8 +50,15 @@ void Control::teclado(unsigned char tecla, int x, int y){
 	case 'n':
 		cintaTransportadora->disminuirDiscretizacionDeCinta();
 		break;
+
+//	case 'r':
+//		reiniciarAplicacion();
+//		break;
+
+
 	case 'r':
 		escena->cambiarActualizarReflexion(); break;
+
 	default: break;
 	}
 
@@ -123,6 +133,9 @@ void Control::inicializar(){
 	for (int i = 0; i < this->cantBotellas ; i++)
 		this->objetosGraficos[indice + i] = botellas[i];
 
+
+	//Se Agregan los objetos
+	escena->agregarObjetosGraficos(this->cantObjetosTotales,this->objetosGraficos);
 
 }
 
@@ -247,8 +260,33 @@ void Control::liberarMemoria()
 
 	delete escena;
 	delete manejadorBotellas;
-	delete camara;
+	delete manejadorCajones;
+	delete motorFisica;
+	//delete camara;
 
 }
+
+
+void Control::reiniciarAplicacion()
+{
+	instancia->liberarMemoria();
+
+
+
+	//Se intancia todo nuevamente
+
+	Control::escena = new EscenaGrafica();
+
+	manejadorBotellas = new ManejadorDeBotellas();
+
+	manejadorCajones = new ManejadorDeCajones();
+
+	motorFisica = new InterfazMotorDeFisica();
+
+	aplicacionCorriendo = true;
+	instancia->inicializar();
+
+}
+
 
 vec2 Control::getTamañoVentana(){ return tamañoVentana; }

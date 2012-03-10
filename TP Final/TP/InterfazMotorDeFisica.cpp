@@ -29,7 +29,7 @@ void InterfazMotorDeFisica::inicializar()
 														this->configColision);
 
 
-	this->mundoDinamico->setGravity(btVector3(0.,0.,-5.));
+	this->mundoDinamico->setGravity(btVector3(0.,0.,-10.));
 	//this->mundoDinamico->setGravity(btVector3(0.,0.,0.));
 	//////////////////
 	//

@@ -1,6 +1,9 @@
 #include "ObjetoGraficoCubico.h"
 
 
+vec2 ObjetoGraficoCubico::vText[4];
+
+
 ObjetoGraficoCubico::ObjetoGraficoCubico(void)
 {
 	this->discretizacionPorDefecto  = true;
@@ -145,7 +148,7 @@ void ObjetoGraficoCubico::dibujarPared(float* normal,int v1,int v2,int v3,int v4
 
 	y0 = x0 + dir0;
 	y1 = x1 + dir1;
-	
+		
 
 	for(int i=0; i < pasosDeDiscretizacion  ; i++)
 	{
@@ -160,6 +163,75 @@ void ObjetoGraficoCubico::dibujarPared(float* normal,int v1,int v2,int v3,int v4
 
 }
 
+void ObjetoGraficoCubico::definirCoordTextura(vec2 v1,vec2 v2,vec2 v3,vec2 v4)
+{
+	vText[0] = v1;
+	vText[1] = v2;
+	vText[2] = v3;
+	vText[3] = v4;
+	
+}
+
+void ObjetoGraficoCubico::dibujarParedTexturada(float* normal,int v1,int v2,int v3,int v4)
+{
+	glBegin(GL_TRIANGLE_STRIP);
+		
+		glTexturaVec2(vText[0]);
+		//glTexCoord2f(0.,0.);
+		glVertex3fv(vertices[v1]);
+
+		glTexturaVec2(vText[1]);
+		//glTexCoord2f(1.,0.);
+		glVertex3fv(vertices[v2]);
+
+		glTexturaVec2(vText[2]);
+		//glTexCoord2f(0.,1.);
+		glVertex3fv(vertices[v3]);
+
+		glTexturaVec2(vText[3]);
+		//glTexCoord2f(1.,1.);
+		glVertex3fv(vertices[v4]);
+
+	glEnd();
+
+	/*
+	pasosDeDiscretizacion = 5;
+	
+	btVector3 x0 = btVector3(vertices[v1][0],vertices[v1][1],vertices[v1][2]);
+	btVector3 x1 = btVector3(vertices[v2][0],vertices[v2][1],vertices[v2][2]);
+
+	btVector3 y0 = btVector3(vertices[v3][0],vertices[v3][1],vertices[v3][2]); 
+	btVector3 y1 = btVector3(vertices[v4][0],vertices[v4][1],vertices[v4][2]);
+
+
+	btVector3 dir0 = (y0 - x0);
+	btVector3 dir1 = (y1 - x1);
+
+
+	vec2 dirTex0 = (vText[2] - vText[0]);
+	vec2 ditTex1 = (vText[3] - vText[1]);
+	
+
+	dir0 /= pasosDeDiscretizacion;
+	dir1 /= pasosDeDiscretizacion;
+
+	y0 = x0 + dir0;
+	y1 = x1 + dir1;
+		
+
+	for(int i=0; i < pasosDeDiscretizacion  ; i++)
+	{	
+		//cambiar a dibujarFranjaTexturada
+		//this->dibujarFranja(normal,x0,x1,y0,y1);
+		x0 = y0;
+		x1 = y1;
+
+		y0 += dir0;
+		y1 += dir1;
+
+	}
+	*/
+}
 
 void ObjetoGraficoCubico::dibujarParedHueca(float* normal,int v1,int v2,int v3,int v4,float largoHoyo,float anchoHoyo,vec2 posHoyo,float profundidad)
 {
@@ -257,6 +329,12 @@ void ObjetoGraficoCubico::dibujarHoyo(float *n,btVector3 &x0,btVector3 &x1,btVec
 		
 	glEnable(GL_LIGHTING);
 
+
+}
+
+
+void ObjetoGraficoCubico::dibujarFranjaTexturada(float* normal,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1)
+{
 
 }
 
