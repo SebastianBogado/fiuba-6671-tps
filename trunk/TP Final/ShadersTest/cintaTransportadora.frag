@@ -48,6 +48,8 @@ vec3 Phong(){
 	vec3 luzEspec = luzI.espec * material.colorEspec;
 	float k, LdotDirLuz, angulo; 
 	vec3 n = normalize(normal);
+	if (! gl_FrontFacing)
+		n = -n;
 	vec3 v = normalize(-posicion);
 	vec3 r, l;
 
@@ -151,6 +153,8 @@ vec3 BlinnPhong(){
 	vec3 luzEspec = luzI.espec * material.colorEspec;
 	float k, LdotDirLuz, angulo; 
 	vec3 n = normalize(normal);
+	if (! gl_FrontFacing)
+		n = -n;
 	vec3 v = normalize(-posicion);
 	vec3 h, l;
 
