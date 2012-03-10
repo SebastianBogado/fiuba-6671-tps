@@ -47,8 +47,9 @@ public:
 
 	inline float* vectorPosicion(){ return posicionObjeto;}
 
-	void glVerticeVec3(vec3 v){ glVertex3d(v.x,v.y,v.z); }
+	void glVerticeVec3(vec3 &v){ glVertex3d(v.x,v.y,v.z); }
 	void glVerticeVec3(btVector3 &vrt){ glVertex3f(vrt.m_floats[0],vrt.m_floats[1],vrt.m_floats[2]);}; 
+	void glTexturaVec2(vec2 &v){ glTexCoord2f(v.s, v.t ); } 
 
 	void* devolverPuntero(){ return (reinterpret_cast<void*>(this));}
 

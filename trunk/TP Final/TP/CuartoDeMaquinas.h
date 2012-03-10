@@ -2,6 +2,7 @@
 #include "ObjetoGraficoCubico.h"
 
 
+
 class CuartoDeMaquinas :
 	public ObjetoGraficoCubico
 {
@@ -19,6 +20,10 @@ public:
 private:
 
 	void definirMateriales();
+
+	GLuint texturaIDPared;
+
+
 
 };
 

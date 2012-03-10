@@ -32,6 +32,7 @@ private:
 
 
 	void inicializar();
+	static void reiniciarAplicacion();
 	static void liberarMemoria();
 
 	ObjetoGrafico** inicializarMaquinas();

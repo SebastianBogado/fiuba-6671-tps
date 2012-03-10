@@ -16,12 +16,83 @@ CuartoDeMaquinas::CuartoDeMaquinas(void)
 
 	this->inicializarVertices();
 
+	//this->rutaTextura = "..\\ShadersTest\\etiquetaCoca.png";
+	this->rutaTextura = ".\\Recursos\\Piso.jpg";
+
+	
+	this->rutaShaderDeVertices = "..\\ShadersTest\\ObjetoTexturado.vert";
+	this->rutaShaderDeFragmentos = "..\\ShadersTest\\ObjetoTexturado.frag";
+
+	this->ini();
+
+
+	char* rutaTexturaPared = ".\\Recursos\\Pared.jpg";
+
+	texturaIDPared = SOIL_load_OGL_texture(rutaTexturaPared, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
+										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT | SOIL_FLAG_TEXTURE_REPEATS);
+
+	if (! texturaIDPared)
+		cout << SOIL_last_result() << endl;
+
+	
+
 }
 
 void CuartoDeMaquinas::graficar(){
 
-	this->graficarBase();
+	//this->graficarBase();
 
+	this->aplicarShader();
+
+	float normal[3] = { 0.,1.,0.};
+
+	//glEnable(GL_TEXTURE_2D);
+	glDisable(GL_LIGHTING);
+	glEnable(GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texturaID);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texturaIDPared);
+
+
+	this->shaders->setUniform("textura",0);
+	this->shaders->setUniform("texturaPared",1);
+
+	
+	this->shaders->setUniform("esPiso",true);
+
+	this->definirCoordTextura(vec2(0.0,0.0),vec2(2.0,0.0),vec2(0.0,2.0),vec2(2.0,2.0));
+	this->dibujarParedTexturada(normal,0,1,3,2);
+
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, texturaIDPared);
+
+	//this->shaders->setUniform("textura",0);
+
+	this->shaders->setUniform("textura",1);
+
+	//Pared 0
+	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
+	this->dibujarParedTexturada(normal,0,1,4,5);
+
+	//Pared 1
+	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
+	this->dibujarParedTexturada(normal,1,2,5,6);
+
+	
+	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
+	this->dibujarParedTexturada(normal,2,3,6,7);
+	
+	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
+	this->dibujarParedTexturada(normal,3,0,7,4);
+	
+	
+	
+
+
+	this->detenerShader();
 }
 
 

@@ -135,6 +135,11 @@
       <Project>{48ce121e-087d-41a2-9848-dce4b30835f0}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Recursos\cajaCoca.png" />
+    <None Include="Recursos\Pared.jpg" />
+    <None Include="Recursos\Piso.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
