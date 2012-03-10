@@ -28,7 +28,7 @@ private:
 
 	void inicializarAtributos();
 	
-	void definirMateriales();
+	void definirMaterial();
 
 	//void inicializarCurvas();
 

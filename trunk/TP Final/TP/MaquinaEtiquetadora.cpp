@@ -29,13 +29,15 @@ MaquinaEtiquetadora::MaquinaEtiquetadora(void)
 	this->sentidoDeBrazoMovilCambiado = false;
 
 	this->inicializarVertices();
+	this->definirMaterial();
 
 }
 
-void MaquinaEtiquetadora::definirMateriales()
-{
-
-
+void MaquinaEtiquetadora::definirMaterial(){
+	material.colorAmb = vec3(0.3, 0.3, 0.3);		
+	material.colorDif = vec3(0.3, 0.3, 0.3);
+	material.colorEspec = vec3(0.1, 0.1, 0.1);
+	material.brillo = 1.0;
 }
 
 void MaquinaEtiquetadora::graficar(){
@@ -45,7 +47,9 @@ void MaquinaEtiquetadora::graficar(){
 
 
 	float normal[3];
-	this->definirMateriales();
+	
+	glDisable(GL_LIGHTING);
+	aplicarPhong();
 
 	glPushMatrix();
 	//glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
@@ -72,11 +76,19 @@ void MaquinaEtiquetadora::graficar(){
 
 		this->inicializarVector(normal,0.0,0.0,1.0);
 		this->dibujarPared(normal,4,5,7,6);
-
+			
+		propMaterial materialBrazo = {
+			vec3(0.9, 0.9, 0.28),
+			vec3(0.9, 0.9, 0.28),
+			vec3(0.3, 0.3, 0.1),
+			32.0
+		};
+		phong->setMaterial(materialBrazo);
 		this->dibujarBrazoMovil();
 
 	glPopMatrix();
 
+	detenerPhong();
 
 	/*
 	//Solo para test
@@ -210,11 +222,6 @@ void MaquinaEtiquetadora::actualizarAtributos(){
 	}
 	
 }
-
-void MaquinaEtiquetadora::aplicarShader(){ }
-
-void MaquinaEtiquetadora::detenerShader(){ }
-
 
 void MaquinaEtiquetadora::iniciarAnimacion(Botella* botella){
 

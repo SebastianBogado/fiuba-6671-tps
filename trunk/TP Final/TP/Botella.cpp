@@ -96,3 +96,5 @@ Botella::~Botella(void)
 {
 	delete[] posicionObjeto;
 }
+
+void Botella::definirMaterial(){}

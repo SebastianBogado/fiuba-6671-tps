@@ -106,8 +106,6 @@ void ConjuntoDeBotellas::graficar()
 	
 	shaders->setUniform("etiquetaText", 0);
 	shaders->setUniform("tapaText", 1);
-	shaders->setLuces();
-	
 	//glPushMatrix();
 	//glScalef(escalado,escalado,escalado);
 
@@ -213,3 +211,5 @@ ConjuntoDeBotellas::~ConjuntoDeBotellas(void)
 
 	delete[] this->botellasDeCajon;
 }
+
+void ConjuntoDeBotellas::definirMaterial(){}

@@ -45,7 +45,7 @@ public:
 	virtual ~CintaTransportadora(void);
 
 private:
-
+	void definirMaterial();
 	void graficarCinta();
 
 	void inicializarAtributos();

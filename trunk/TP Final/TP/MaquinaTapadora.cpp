@@ -28,13 +28,15 @@ MaquinaTapadora::MaquinaTapadora(void)
 	this->sentidoDeBrazoMovilCambiado = false;
 
 	this->inicializarVertices();
+	this->definirMaterial();
 }
 
 
-void MaquinaTapadora::definirMateriales()
-{
-
-
+void MaquinaTapadora::definirMaterial(){
+	material.colorAmb = vec3(0.3, 0.3, 0.3);		
+	material.colorDif = vec3(0.3, 0.3, 0.3);
+	material.colorEspec = vec3(0.1, 0.1, 0.1);
+	material.brillo = 1.0;
 }
 
 void MaquinaTapadora::graficar()
@@ -45,7 +47,8 @@ void MaquinaTapadora::graficar()
 
 
 	float normal[3];
-	this->definirMateriales();
+	glDisable(GL_LIGHTING);
+	aplicarPhong();
 
 	glPushMatrix();
 	//glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
@@ -73,12 +76,19 @@ void MaquinaTapadora::graficar()
 
 		this->inicializarVector(normal,0.0,0.0,1.0);
 		this->dibujarPared(normal,4,5,7,6);
-
+		
+		propMaterial materialBrazo = {
+			vec3(0.9, 0.9, 0.28),
+			vec3(0.9, 0.9, 0.28),
+			vec3(0.3, 0.3, 0.1),
+			32.0
+		};
+		phong->setMaterial(materialBrazo);
 		this->dibujarBrazoMovil();
 
 	glPopMatrix();
 
-
+	detenerPhong();
 }
 
 void MaquinaTapadora::actualizarAtributos()

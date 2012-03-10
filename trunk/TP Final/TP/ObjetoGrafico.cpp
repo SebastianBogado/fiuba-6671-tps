@@ -18,6 +18,8 @@ void ObjetoGrafico::ini(){
 		cout << SOIL_last_result() << endl;
 	//DL
 	dl_handle = glGenLists(1);
+	//Material
+	definirMaterial();
 }
 
 void ObjetoGrafico::posicionar(float *nuevaPosicion){
@@ -74,6 +76,7 @@ void ObjetoGrafico::aplicarShader(){
 	if (!shaders->isLinked())
 		shaders->link();
 	shaders->usar();
+	shaders->setLuces();
 }
 void ObjetoGrafico::detenerShader(){
 	shaders->cerrar();
@@ -82,6 +85,8 @@ void ObjetoGrafico::aplicarPhong(){
 	if (!phong->isLinked())
 		phong->link();
 	phong->usar();
+	phong->setLuces();
+	phong->setMaterial(material);
 }
 void ObjetoGrafico::detenerPhong(){
 	phong->cerrar();

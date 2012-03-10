@@ -165,16 +165,10 @@ btRigidBody* CajonesDeBotellas::nuevoCuerpoRigidoCajon(btVector3 &posicionInicia
 }
 
 
-void CajonesDeBotellas::aplicarShader()
-{
-}
+
 
 int CajonesDeBotellas::botellasPorCajon(){
 	return this->cantBotellasEnCajon;
-}
-
-void CajonesDeBotellas::detenerShader()
-{
 }
 
 CajonesDeBotellas::~CajonesDeBotellas(void)
@@ -194,3 +188,5 @@ CajonesDeBotellas::~CajonesDeBotellas(void)
 
 	delete this->botellas;
 }
+
+void CajonesDeBotellas::definirMaterial(){}

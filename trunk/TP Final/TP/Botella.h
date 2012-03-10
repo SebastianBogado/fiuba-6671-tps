@@ -51,6 +51,7 @@ private:
 
 	float _testColor[3]; 
 
+	void definirMaterial();
 };
 
 

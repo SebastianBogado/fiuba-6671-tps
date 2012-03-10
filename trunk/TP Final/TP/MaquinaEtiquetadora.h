@@ -20,15 +20,12 @@ public:
 	TipoMaquina tipo(){ return TipoMaquina::Etiquetadora; }
 
 	//Metodos Particulares
-	void definirMateriales();
+	void definirMaterial();
 
 	virtual ~MaquinaEtiquetadora(void);
 	
 private:
 	
-	void aplicarShader();
-	void detenerShader();
-
 	void dibujarBrazoMovil();
 	Circunferencia* curvaPiezaBrazoMovil;
 

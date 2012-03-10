@@ -28,8 +28,7 @@ private:
 
 	void inicializarPosicionesDeBotellas();
 
-	void aplicarShader();
-	void detenerShader();
+	void definirMaterial();
 
 
 	ConjuntoDeBotellas* botellas;

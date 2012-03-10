@@ -27,10 +27,7 @@ void CuartoDeMaquinas::graficar(){
 
 void CuartoDeMaquinas::actualizarAtributos(){ }
 
-void CuartoDeMaquinas::aplicarShader(){ }
-
-void CuartoDeMaquinas::detenerShader(){ }
-
+void CuartoDeMaquinas::definirMaterial(){}
 
 btRigidBody* CuartoDeMaquinas::cuerpoRigido()
 {
