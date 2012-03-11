@@ -132,14 +132,8 @@ void ObjetoGraficoCubico::dibujarPared(float* normal,int v1,int v2,int v3,int v4
 	glBegin(GL_TRIANGLE_STRIP);
 		glNormal3fv(normal);
 		glVertex3fv(vertices[v1]);
-
-		glNormal3fv(normal);
 		glVertex3fv(vertices[v2]);
-
-		glNormal3fv(normal);
 		glVertex3fv(vertices[v3]);
-
-		glNormal3fv(normal);
 		glVertex3fv(vertices[v4]);
 
 	glEnd();
@@ -308,24 +302,25 @@ void ObjetoGraficoCubico::dibujarHoyo(float *n,btVector3 &x0,btVector3 &x1,btVec
 	normal = - profundidad * normal;
 
 	glBegin(GL_QUADS);
-		
+		glNormal3f(0.0, 0.0, 1.0);
 		glVerticeVec3(x0);
 		glVerticeVec3(x1);
 		glVerticeVec3(x1 + normal);
 		glVerticeVec3(x0 + normal);
 
-
+		glNormal3f(1.0, 0.0, 0.0);
 		glVerticeVec3(x1);
 		glVerticeVec3(y1);
 		glVerticeVec3(y1 + normal);
 		glVerticeVec3(x1 + normal);
 
-
+		glNormal3f(0.0, 0.0, -1.0);
 		glVerticeVec3(y0);
 		glVerticeVec3(y0 + normal);
 		glVerticeVec3(y1 + normal);
 		glVerticeVec3(y1);
 
+		glNormal3f(-1.0, 0.0, 0.0);
 		glVerticeVec3(y0);
 		glVerticeVec3(x0);
 		glVerticeVec3(x0 + normal);
@@ -338,7 +333,7 @@ void ObjetoGraficoCubico::dibujarHoyo(float *n,btVector3 &x0,btVector3 &x1,btVec
 
 	glBegin(GL_QUADS);
 		glColor3f(0.,0.,0.);
-
+		glNormal3f(0.0, 1.0, 0.0);
 		glVerticeVec3(x0 + normal);
 		glVerticeVec3(x1 + normal);
 		glVerticeVec3(y1 + normal);
@@ -363,14 +358,8 @@ void ObjetoGraficoCubico::dibujarFranja(float* normal,btVector3 &x0,btVector3 &x
 	glBegin(GL_TRIANGLE_STRIP);
 			glNormal3fv(normal);
 			glVerticeVec3(x0); 
-
-			glNormal3fv(normal);
 			glVerticeVec3(x1);
-
-			glNormal3fv(normal);
 			glVerticeVec3(y0);
-
-			glNormal3fv(normal);
 			glVerticeVec3(y1);
 
 	glEnd();
