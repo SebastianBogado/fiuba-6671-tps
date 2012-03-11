@@ -138,6 +138,7 @@
   <ItemGroup>
     <None Include="Recursos\cajaCoca.png" />
     <None Include="Recursos\Pared.jpg" />
+    <None Include="Recursos\Piso normalmap.jpg" />
     <None Include="Recursos\Piso.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

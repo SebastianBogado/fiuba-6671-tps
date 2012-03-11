@@ -21,9 +21,7 @@ private:
 
 	void definirMateriales();
 
-	GLuint texturaIDPared,texturaIDTecho;
-
-
+	GLuint texturaIDPared, pisoNormalMap, texturaIDTecho;
 
 };
 

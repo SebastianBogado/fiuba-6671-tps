@@ -32,14 +32,15 @@ uniform propExternasLuz luzE5;
 uniform propExternasLuz luzE6;
 
 propInternasLuz luzI = propInternasLuz( 
-		40.0,
+		70.0,
 		10.0,
-		vec3(0.05, 0.05, 0.05), 
-		vec3(0.6, 0.6, 0.6),
-		vec3(0.8, 0.8, 0.8)
+		vec3(0.1, 0.1, 0.1), 
+		vec3(0.8, 0.8, 0.8),
+		vec3(0.9, 0.9, 0.9)
 	);
 uniform propMaterial material;
 uniform sampler2D textura;
+uniform sampler2D normalMap;
 uniform bool texturado;
 vec3 colorTextura;
 
@@ -169,6 +170,7 @@ vec3 BlinnPhong(){
 	vec3 luzEspec = luzI.espec * material.colorEspec;
 	float k, LdotDirLuz, angulo; 
 	vec3 n = normalize(normal);
+	//vec3 n = texture2D(normalMap, vTexCoord).xyz; -> para ver los normal maps
 	if (! gl_FrontFacing)
 		n = -n;
 	vec3 v = normalize(-posicion);
@@ -265,5 +267,5 @@ vec3 BlinnPhong(){
 
 void main (void){
 	colorTextura = texture2D(textura, vTexCoord).xyz;
-	gl_FragColor = vec4(Phong(), 1.0);
+	gl_FragColor = vec4(BlinnPhong(), 1.0);
 }
