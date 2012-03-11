@@ -2,6 +2,7 @@
 #include "ObjetoGrafico.h"
 #include <glm\glm.hpp>
 #include "..\BulletPhysics\src\btBulletDynamicsCommon.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 using namespace glm;
 
@@ -30,6 +31,7 @@ protected:
 	void posicionarObjeto();
 
 	void definirMaterialAux();
+	propMaterial materialAux;
 
 	float **vertices;
 	float ancho,largo,alto;
@@ -60,7 +62,7 @@ private:
 
 	static vec2 vText[4];
 
-	propMaterial materialAux;
+	mat4 calcularRealineacion(vec3 n);
 
 };
 

@@ -88,6 +88,7 @@ void ObjetoGrafico::aplicarPhong(){
 	phong->setLuces();
 	phong->setMaterial(material);
 	phong->setUniform("texturado", false);
+	phong->setUniform("tieneNormalMap", false);
 }
 void ObjetoGrafico::detenerPhong(){
 	phong->cerrar();
@@ -100,6 +101,7 @@ void ObjetoGrafico::aplicarPhongTexturado(){
 	phong->setMaterial(material);
 	phong->setUniform("texturado", true);
 	phong->setUniform("textura", 0);
+	phong->setUniform("tieneNormalMap", false);
 }
 void ObjetoGrafico::detenerPhongTexturado(){
 	phong->cerrar();

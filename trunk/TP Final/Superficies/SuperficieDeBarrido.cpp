@@ -69,6 +69,6 @@ mat4 SuperficieDeBarrido::calcularRealineacion(float t){
 	tgPrimera = normalize(tgPrimera);
 
 	float angulo = acos(dot(tgPrimera, tgActual));
-	//cout << "Realineacion: " << degrees(angulo) << "; t = " << t << endl;
+
 	return rotate(I, degrees(angulo), ejeDeRotacion);
 }

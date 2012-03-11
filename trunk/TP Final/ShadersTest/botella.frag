@@ -48,7 +48,7 @@ propMaterial material;
 
 vec3 Phong(){
 	vec3 color = vec3(0.0);
-	vec3 luzAmb =  (luzI.amb * material.colorAmb);
+	vec3 luzAmb = luzI.amb * material.colorAmb;
 	vec3 luzDif = luzI.dif * material.colorDif;
 	vec3 luzEspec = luzI.espec * material.colorEspec;
 	float k, LdotDirLuz, angulo; 
@@ -153,7 +153,7 @@ vec3 Phong(){
 
 vec3 BlinnPhong(){
 	vec3 color = vec3(0.0);
-	vec3 luzAmb =  (luzI.amb * material.colorAmb);
+	vec3 luzAmb = luzI.amb * material.colorAmb;
 	vec3 luzDif = luzI.dif * material.colorDif;
 	vec3 luzEspec = luzI.espec * material.colorEspec;
 	float k, LdotDirLuz, angulo; 
@@ -253,8 +253,8 @@ vec3 BlinnPhong(){
 void main (void){
 	vec4 plastico = vec4(0.65, 0.65, 0.65, 0.2);
 	vec4 liquido = vec4(0.1719, 0.0, 0.0, 0.95);
-	vec4 etiqueta =  texture2D(etiquetaText, vTexCoord);
-	vec4 tapa =  texture2D(tapaText, vTexCoord);
+	vec4 etiqueta =  texture2D( etiquetaText, vTexCoord );
+	vec4 tapa =  texture2D( tapaText, vTexCoord );
 	if (vTexCoord.t > porcentajeDeLlenado)
 		liquido.a = 0.0;
 	vec4 color = mix(plastico, liquido, liquido.a);

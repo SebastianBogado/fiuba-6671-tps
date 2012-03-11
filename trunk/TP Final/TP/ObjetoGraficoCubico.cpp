@@ -292,35 +292,63 @@ void ObjetoGraficoCubico::dibujarParedHueca(float* normal,int v1,int v2,int v3,i
 
 }
 
+mat4 ObjetoGraficoCubico::calcularRealineacion(vec3 n){
+	vec3 y = vec3(0.0, 1.0, 0.0);
+	vec3 ejeDeRotacion = cross(n, y);
+	mat4 I = mat4(1.0f);
+	if ((ejeDeRotacion.x == 0) && (ejeDeRotacion.y == 0) && (ejeDeRotacion.z == 0))
+		if (n == -y)
+			return rotate(I, float(180), vec3(0.0, 0.0, 1.0));
+		return I;
+	n = normalize(n);
 
+	float angulo = acos(dot(n, y));
+
+	return rotate(I, degrees(angulo), ejeDeRotacion);
+}
 void ObjetoGraficoCubico::dibujarHoyo(float *n,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1,float &profundidad)
 {
-
+	//Estas normales pertenecen a un hoyo cuyo hueco apunta hacia +Y, y puede que necesiten ser rotadas
+	//En la máquina que arma los cajones, estas normales no sirven, hay que rotarlas
+	vec4 normales[5] = {			
+		vec4(  0.0,  0.0,  1.0,  0.0 ),
+		vec4(  1.0,  0.0,  0.0,  0.0 ),
+		vec4(  0.0,  0.0, -1.0,  0.0 ),
+		vec4( -1.0,  0.0,  0.0,  0.0 ),
+		vec4(  0.0,  1.0,  0.0,  0.0 )
+	};
+	mat4 rotadora = calcularRealineacion(vec3(n[0], n[1], n[2]));
+	for (int i = 0; i < 5; i++)
+		normales[i] = rotadora * normales[i];
 	btVector3 normal = btVector3(n[0],n[1],n[2]);
 	normal.normalize();
 
 	normal = - profundidad * normal;
 
 	glBegin(GL_QUADS);
-		glNormal3f(0.0, 0.0, 1.0);
+		//Base
+		glNormal3fv(&(vec3(normales[0])[0]));
 		glVerticeVec3(x0);
 		glVerticeVec3(x1);
 		glVerticeVec3(x1 + normal);
 		glVerticeVec3(x0 + normal);
 
-		glNormal3f(1.0, 0.0, 0.0);
+		//Pared de la derecha mirando de frente al hueco
+		glNormal3fv(&(vec3(normales[1])[0]));
 		glVerticeVec3(x1);
 		glVerticeVec3(y1);
 		glVerticeVec3(y1 + normal);
 		glVerticeVec3(x1 + normal);
 
-		glNormal3f(0.0, 0.0, -1.0);
+		//Techo
+		glNormal3fv(&(vec3(normales[2])[0]));
 		glVerticeVec3(y0);
 		glVerticeVec3(y0 + normal);
 		glVerticeVec3(y1 + normal);
 		glVerticeVec3(y1);
 
-		glNormal3f(-1.0, 0.0, 0.0);
+		//Pared de la izquierda mirando de frente al hueco
+		glNormal3fv(&(vec3(normales[3])[0]));
 		glVerticeVec3(y0);
 		glVerticeVec3(x0);
 		glVerticeVec3(x0 + normal);
@@ -332,8 +360,9 @@ void ObjetoGraficoCubico::dibujarHoyo(float *n,btVector3 &x0,btVector3 &x1,btVec
 
 
 	glBegin(GL_QUADS);
+		//Fondo
 		glColor3f(0.,0.,0.);
-		glNormal3f(0.0, 1.0, 0.0);
+		glNormal3fv(&(vec3(normales[4])[0]));
 		glVerticeVec3(x0 + normal);
 		glVerticeVec3(x1 + normal);
 		glVerticeVec3(y1 + normal);
@@ -412,6 +441,6 @@ void ObjetoGraficoCubico::definirMaterialAux()
 	materialAux.colorAmb = vec3(0.044, 0.057, 0.075);		
 	materialAux.colorDif = vec3(0.044, 0.057, 0.075);
 	materialAux.colorEspec = vec3(0.01, 0.015, 0.02);
-	materialAux.brillo = 0.4;
+	materialAux.brillo = 2.0;
 
 }
