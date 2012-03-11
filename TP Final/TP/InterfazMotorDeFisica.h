@@ -47,5 +47,8 @@ private:
 	///////////////////////
 	float friccionPiso,fricionCuerpoRigido;
 
+	bool ultimoPasoHecho,simulacionIniciada;
+
+	float ms;
 };
 
