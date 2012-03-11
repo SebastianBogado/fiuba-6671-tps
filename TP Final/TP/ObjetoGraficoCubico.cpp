@@ -7,6 +7,8 @@ vec2 ObjetoGraficoCubico::vText[4];
 ObjetoGraficoCubico::ObjetoGraficoCubico(void)
 {
 	this->discretizacionPorDefecto  = true;
+
+	this->definirMaterialAux();
 }
 
 void ObjetoGraficoCubico::graficarBase(){
@@ -358,6 +360,7 @@ void ObjetoGraficoCubico::dibujarHoyo(float *n,btVector3 &x0,btVector3 &x1,btVec
 
 	glDisable(GL_LIGHTING);
 
+	this->phong->setMaterial(this->materialAux);
 
 	glBegin(GL_QUADS);
 		//Fondo
@@ -370,6 +373,8 @@ void ObjetoGraficoCubico::dibujarHoyo(float *n,btVector3 &x0,btVector3 &x1,btVec
 
 	glEnd();
 		
+	this->phong->setMaterial(this->material);
+	
 	glEnable(GL_LIGHTING);
 
 
