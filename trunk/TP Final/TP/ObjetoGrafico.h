@@ -64,7 +64,8 @@ protected:
 	void detenerShader();
 	void aplicarPhong();
 	void detenerPhong();
-
+	void aplicarPhongTexturado();
+	void detenerPhongTexturado();
 
 	
 

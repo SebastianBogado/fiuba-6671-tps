@@ -42,36 +42,19 @@ void CuartoDeMaquinas::graficar(){
 
 	//this->graficarBase();
 
-	this->aplicarShader();
+	this->aplicarPhongTexturado();
 
 	float normal[3] = { 0.,1.,0.};
 
-	//glEnable(GL_TEXTURE_2D);
 	glDisable(GL_LIGHTING);
-	glEnable(GL_BLEND);
-	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturaID);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, texturaIDPared);
-
-
-	this->shaders->setUniform("textura",0);
-	this->shaders->setUniform("texturaPared",1);
-
-	
-	this->shaders->setUniform("esPiso",true);
 
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(2.0,0.0),vec2(0.0,2.0),vec2(2.0,2.0));
 	this->dibujarParedTexturada(normal,0,1,3,2);
 
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, texturaIDPared);
-
-	//this->shaders->setUniform("textura",0);
-
-	this->shaders->setUniform("textura",1);
+	glBindTexture(GL_TEXTURE_2D, texturaIDPared);
 
 	//Pared 0
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
@@ -87,18 +70,19 @@ void CuartoDeMaquinas::graficar(){
 	
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
 	this->dibujarParedTexturada(normal,3,0,7,4);
-	
-	
-	
 
-
-	this->detenerShader();
+	this->detenerPhongTexturado();
 }
 
 
 void CuartoDeMaquinas::actualizarAtributos(){ }
 
-void CuartoDeMaquinas::definirMateriales(){}
+void CuartoDeMaquinas::definirMateriales(){
+	material.colorAmb = vec3(0.0);
+	material.colorDif = vec3(0.0);
+	material.colorEspec = vec3(0.2, 0.2, 0.2);
+	material.brillo = 2.0;
+}
 
 btRigidBody* CuartoDeMaquinas::cuerpoRigido()
 {
