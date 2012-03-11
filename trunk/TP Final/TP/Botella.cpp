@@ -6,6 +6,9 @@ Botella::Botella(void){
 	this->inicializarVector(posicionObjeto,0.0,0.0,0.0);
 	this->inicializarVector(_testColor,0.1,0.1,0.3);
 	
+	this->porcentajeDeBotellaLlena = 0.62;
+	this->pasoDeLlenado = 0.05;
+
 	tieneEtiqueta = false;
 	tieneTapa = false;
 	porcentajeDeLlenado = 0.0;
@@ -28,32 +31,9 @@ void Botella::graficarEnCajon(GLSLProgram* shaderss){
 }
 
 
-float abs(float &x){
-
-	if (x < 0)
-		return -x;
-	else
-		return x;
-}
-
 void Botella::actualizarAtributos(){
 
-	//Para depurar
-	/*
-	static float posAnt[3]={posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]};
-	
-	float error = 0.1;
-	bool errorEncontrado = false;
 
-
-	if (	abs(posAnt[0] - posicionObjeto[0]) < error &&
-			abs(posAnt[1] - posicionObjeto[1]) < error &&
-			abs(posAnt[2] - posicionObjeto[2]) < error )
-			errorEncontrado = true;
-	
-
-	*/
-	
 
 	
 }
@@ -62,6 +42,18 @@ void Botella::etiquetar(){ this->tieneEtiqueta = true; }
 
 void Botella::tapar(){ this->tieneTapa = true; }
 
+void Botella::llenar()
+{
+	this->porcentajeDeLlenado += this->pasoDeLlenado;
+
+	if (this->porcentajeDeLlenado >= this->porcentajeDeBotellaLlena)
+		this->porcentajeDeLlenado = this->porcentajeDeBotellaLlena;
+}
+
+bool Botella::llenada()
+{
+	return (this->porcentajeDeLlenado >= this->porcentajeDeBotellaLlena);
+}
 
 void Botella::desplazar(vec3 direccion){
 
@@ -78,8 +70,6 @@ void Botella::reiniciarAtributos(){
 
 	this->porcentajeDeLlenado = 0.0;
 
-	//Solo para test
-	//this->inicializarVector(this->_testColor,0.1,0.1,0.3);
 
 }
 
@@ -88,7 +78,7 @@ void Botella::botellaTerminada()
 	this->tieneEtiqueta = true;
 	this->tieneTapa = true;
 
-	this->porcentajeDeLlenado = 0.65;
+	this->porcentajeDeLlenado =this->porcentajeDeBotellaLlena;
 }
 
 

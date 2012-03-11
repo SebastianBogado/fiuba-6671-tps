@@ -18,7 +18,7 @@ CintaTransportadora::CintaTransportadora(void)
 
 	this->cintaEnMovimiento = true;
 	this->desplazamientoDeCinta = 0.0;
-	this->pasoDeDiscretizacionGeneral = 0.09;
+	this->pasoDeDiscretizacionGeneral = 0.15;
 
 	//Para probar funcionamiento
 	/*

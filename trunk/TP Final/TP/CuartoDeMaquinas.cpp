@@ -35,6 +35,7 @@ CuartoDeMaquinas::CuartoDeMaquinas(void)
 
 
 	char* rutaTexturaPared = ".\\Recursos\\Pared.jpg";
+	//char* rutaTexturaPared = ".\\Recursos\\cajaCoca.png";
 
 	texturaIDPared = SOIL_load_OGL_texture(rutaTexturaPared, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
 										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT | SOIL_FLAG_TEXTURE_REPEATS);
@@ -94,8 +95,9 @@ void CuartoDeMaquinas::graficar(){
 
 
 	glBindTexture(GL_TEXTURE_2D, texturaIDTecho);
+
 	normal = vec3(0.0, 0.0, -1.0);
-	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
+	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,3.0),vec2(1.5,3.0));
 	this->dibujarParedTexturada(&normal[0],4,5,7,6);
 
 

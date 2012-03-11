@@ -21,8 +21,10 @@ MaquinaEtiquetadora::MaquinaEtiquetadora(void)
 	this->pasoDeAnimacion = 0.1;
 	this->acumuladorEnAnimacion = 0.0;
 	this->desplazamientoBrazoMovil = 0.0;
-	this->tiempoMaximoDeAnimacion = 4.0;
-	this->pasoDesplazamientoDeBrazo = 0.07;
+	this->tiempoMaximoDeAnimacion = 0.9;
+	this->pasoDesplazamientoDeBrazo = 0.28;
+
+	this->AnimacionIniciada = false;
 
 	this->botellaActual = NULL;
 

@@ -129,6 +129,23 @@ void ObjetoGraficoCubico::actualizarVertices(){
 
 void ObjetoGraficoCubico::dibujarPared(float* normal,int v1,int v2,int v3,int v4)
 {	
+	glBegin(GL_TRIANGLE_STRIP);
+		glNormal3fv(normal);
+		glVertex3fv(vertices[v1]);
+
+		glNormal3fv(normal);
+		glVertex3fv(vertices[v2]);
+
+		glNormal3fv(normal);
+		glVertex3fv(vertices[v3]);
+
+		glNormal3fv(normal);
+		glVertex3fv(vertices[v4]);
+
+	glEnd();
+
+
+	/*
 	//if(this->discretizacionPorDefecto)
 		pasosDeDiscretizacion = 5;
 	
@@ -160,6 +177,8 @@ void ObjetoGraficoCubico::dibujarPared(float* normal,int v1,int v2,int v3,int v4
 		y1 += dir1;
 
 	}
+
+	*/
 
 }
 
@@ -341,9 +360,24 @@ void ObjetoGraficoCubico::dibujarFranjaTexturada(float* normal,btVector3 &x0,btV
 void ObjetoGraficoCubico::dibujarFranja(float* normal,btVector3 &x0,btVector3 &x1,btVector3 &y0,btVector3 &y1)
 {	
 
+	glBegin(GL_TRIANGLE_STRIP);
+			glNormal3fv(normal);
+			glVerticeVec3(x0); 
+
+			glNormal3fv(normal);
+			glVerticeVec3(x1);
+
+			glNormal3fv(normal);
+			glVerticeVec3(y0);
+
+			glNormal3fv(normal);
+			glVerticeVec3(y1);
+
+	glEnd();
+
 	//if(this->discretizacionPorDefecto)
 		//pasosDeDiscretizacion = 15;
-
+	/*
 	float dX = (x1 - x0).length() / pasosDeDiscretizacion;
 	float dY = (y1 - y0).length() / pasosDeDiscretizacion;
 
@@ -368,7 +402,7 @@ void ObjetoGraficoCubico::dibujarFranja(float* normal,btVector3 &x0,btVector3 &x
 
 		}
 
-	glEnd(); 
+	glEnd(); */
 
 }
 
@@ -379,5 +413,16 @@ ObjetoGraficoCubico::~ObjetoGraficoCubico(void)
 		delete[] this->vertices[i];
 
 	delete[] this->vertices;
+
+}
+
+
+void ObjetoGraficoCubico::definirMaterialAux()
+{
+
+	materialAux.colorAmb = vec3(0.044, 0.057, 0.075);		
+	materialAux.colorDif = vec3(0.044, 0.057, 0.075);
+	materialAux.colorEspec = vec3(0.01, 0.015, 0.02);
+	materialAux.brillo = 0.4;
 
 }

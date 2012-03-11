@@ -4,6 +4,14 @@
 
 class EscenaGrafica;
 
+enum EstadoLiquido {
+
+	iniciando,
+	intermedio,
+	terminando
+
+};
+
 class MaquinaDeLlenado :
 	public ObjetoGrafico,
 	public Maquina
@@ -34,8 +42,15 @@ private:
 	propMaterial materialTubito;
 	propMaterial materialBase;
 
+	//Grafica el liquido... no es necesario mas explicacion..
+	void dibujarLiquido();
+	float nivSupLiquido,nivInfLiquido,pasoNivLiquido;
+	EstadoLiquido estLiquido;
+
+	Botella* botellaActual;
+
 	//DL
-	GLuint DL_TANQUE, DL_BASE, DL_SOPORTE_DEL_TUBITO, DL_TUBITO;
+	GLuint DL_TANQUE, DL_BASE, DL_SOPORTE_DEL_TUBITO, DL_TUBITO,DL_LIQUIDO;
 
 	float alturaDelCentro; //Para tomar como centro de reflexión
 	GLuint ladoTextura; //Son cuadradas, ancho y alto son iguales
