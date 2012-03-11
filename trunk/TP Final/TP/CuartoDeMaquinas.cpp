@@ -23,6 +23,17 @@ CuartoDeMaquinas::CuartoDeMaquinas(void)
 	this->rutaShaderDeVertices = "..\\ShadersTest\\ObjetoTexturado.vert";
 	this->rutaShaderDeFragmentos = "..\\ShadersTest\\ObjetoTexturado.frag";
 
+
+	char* rutaTexturaTecho = ".\\Recursos\\Techo.jpg";
+
+	texturaIDTecho = SOIL_load_OGL_texture(rutaTexturaTecho, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
+										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT | SOIL_FLAG_TEXTURE_REPEATS);
+
+	if (! texturaIDTecho)
+		cout << SOIL_last_result() << endl;
+
+
+
 	this->ini();
 
 
@@ -33,6 +44,8 @@ CuartoDeMaquinas::CuartoDeMaquinas(void)
 
 	if (! texturaIDPared)
 		cout << SOIL_last_result() << endl;
+
+
 
 	
 
@@ -51,10 +64,15 @@ void CuartoDeMaquinas::graficar(){
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturaID);
 
-	this->definirCoordTextura(vec2(0.0,0.0),vec2(2.0,0.0),vec2(0.0,2.0),vec2(2.0,2.0));
+	this->definirCoordTextura(vec2(0.0,0.0),vec2(2.0,0.0),vec2(0.0,2.5),vec2(2.0,2.5));
 	this->dibujarParedTexturada(normal,0,1,3,2);
 
+
+
+
+
 	glBindTexture(GL_TEXTURE_2D, texturaIDPared);
+
 
 	//Pared 0
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
@@ -71,7 +89,14 @@ void CuartoDeMaquinas::graficar(){
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
 	this->dibujarParedTexturada(normal,3,0,7,4);
 
+	glBindTexture(GL_TEXTURE_2D, texturaIDTecho);
+
+	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
+	this->dibujarParedTexturada(normal,4,5,7,6);
+
+
 	this->detenerPhongTexturado();
+
 }
 
 

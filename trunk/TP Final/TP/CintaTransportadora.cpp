@@ -9,7 +9,7 @@ CintaTransportadora::CintaTransportadora(void)
 	ini();
 
 	this->discretBorde = 5;
-	this->discretAvance = 10;
+	this->discretAvance = 5;
 
 	this->alturaDeMaquina = 1.0;
 	this->posicionObjeto = new float[3];
@@ -206,13 +206,10 @@ void CintaTransportadora::actualizarAtributos(){
 	{	
 		this->desplazamientoDeCinta -= this->pasoDeDiscretizacionGeneral;
 
-		if(this->desplazamientoDeCinta < -1.0)
+		if(this->desplazamientoDeCinta < -10.0)
 			this->desplazamientoDeCinta = 0.0;
 
-		//this->_testAnimacion += this->_pasoTest;
 
-		//if(_testAnimacion >= this->_testLargoCinta)
-			//this->_testAnimacion = 0.0;
 	}
 }
 

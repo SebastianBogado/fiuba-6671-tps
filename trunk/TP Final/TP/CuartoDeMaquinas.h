@@ -21,7 +21,7 @@ private:
 
 	void definirMateriales();
 
-	GLuint texturaIDPared;
+	GLuint texturaIDPared,texturaIDTecho;
 
 
 

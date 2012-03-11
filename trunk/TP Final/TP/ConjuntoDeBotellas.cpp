@@ -85,7 +85,8 @@ void ConjuntoDeBotellas::inicializar()
 	float escalado = 0.5;
 	glNewList(dl_handle, GL_COMPILE);
 		glScalef(escalado,escalado,escalado);
-		Emparchador::emparchar(superficieBotella->discretizar(10, 36));
+		//Emparchador::emparchar(superficieBotella->discretizar(10, 36)); es la original
+		Emparchador::emparchar(superficieBotella->discretizar(5, 18));
 	glEndList();
 }
 
