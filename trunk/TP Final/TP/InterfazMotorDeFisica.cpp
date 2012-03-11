@@ -5,7 +5,10 @@
 InterfazMotorDeFisica::InterfazMotorDeFisica(void)
 {
 	this->inicializar();
+	this->ultimoPasoHecho = false;
+	this->simulacionIniciada = false;
 
+	ms = 16666.;
 }
 
 
@@ -43,9 +46,15 @@ void InterfazMotorDeFisica::inicializar()
 void InterfazMotorDeFisica::pasoDeSimulacion()
 {
 
-	float ms = 16666.;
-
-	this->mundoDinamico->stepSimulation(ms / 100000.f);
+	//if (!this->ultimoPasoHecho && this->simulacionIniciada)
+	//{
+		this->mundoDinamico->stepSimulation(ms / 1000.f);
+	//	this->ultimoPasoHecho = true;
+	//}
+	//else
+	//{
+	//	this->ultimoPasoHecho = false;
+	//}
 }
 
 
@@ -69,6 +78,7 @@ void InterfazMotorDeFisica::agregarCuerpoRigido(btRigidBody* cuerpoRigido){
 		//cuerpoRigido->setFriction(this->fricionCuerpoRigido);
 		this->mundoDinamico->addRigidBody(cuerpoRigido);
 
+		this->simulacionIniciada = true;
 	}
 
 
