@@ -35,8 +35,8 @@ void EscenaGrafica::graficarParaReflexion(){
 }
 
 void EscenaGrafica::graficar(){
-	graficarParaReflexion();
 	tanque->graficarParteReflectiva();
+	graficarParaReflexion();
 }
 
 void EscenaGrafica::actualizarEscena()
