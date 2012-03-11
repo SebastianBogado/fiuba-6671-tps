@@ -140,6 +140,7 @@
     <None Include="Recursos\Pared.jpg" />
     <None Include="Recursos\Piso normalmap.jpg" />
     <None Include="Recursos\Piso.jpg" />
+    <None Include="Recursos\Techo.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

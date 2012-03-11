@@ -228,5 +228,8 @@
     <None Include="Recursos\Piso normalmap.jpg">
       <Filter>Archivos de recursos</Filter>
     </None>
+    <None Include="Recursos\Techo.jpg">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
 </Project>
