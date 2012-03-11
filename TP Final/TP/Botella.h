@@ -31,7 +31,7 @@ public:
 	void llenar();
 	void tapar();
 	
-
+	bool llenada();
 
 	void reiniciarAtributos();
 	void botellaTerminada();
@@ -48,6 +48,9 @@ private:
 	bool tieneEtiqueta;
 	bool tieneTapa;
 	float porcentajeDeLlenado;
+
+	float porcentajeDeBotellaLlena;
+	float pasoDeLlenado;
 
 	float _testColor[3]; 
 

@@ -29,6 +29,8 @@ protected:
 	
 	void posicionarObjeto();
 
+	void definirMaterialAux();
+
 	float **vertices;
 	float ancho,largo,alto;
 	int cantidadVertices;
@@ -57,6 +59,8 @@ private:
 	int pasosDeDiscretizacion;	
 
 	static vec2 vText[4];
+
+	propMaterial materialAux;
 
 };
 

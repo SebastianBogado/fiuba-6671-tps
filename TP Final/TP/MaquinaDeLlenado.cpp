@@ -5,8 +5,18 @@
 MaquinaDeLlenado::MaquinaDeLlenado(void)
 {
 
-		///solo para test
-	this->_pasoTest = 0.01;
+	this->posTramoEnCinta = 0.655;
+
+
+	this->pasoDeAnimacion = 0.1;
+	this->acumuladorEnAnimacion = 0.0;
+	this->tiempoMaximoDeAnimacion = 2.0;
+
+	//atributos de liquido
+	this->estLiquido = EstadoLiquido::iniciando;
+	this->nivSupLiquido = 1.0;
+	this->nivInfLiquido = 0.0;
+	this->pasoNivLiquido = 0.15;
 
 	this->posicionObjeto = new float[3];
 	this->inicializarVector(posicionObjeto,5.5,15.5,0.0);
@@ -81,11 +91,12 @@ void MaquinaDeLlenado::ini(){
 	SuperficieDeBarrido* superficieTuboDelTanqueDeCoca = new SuperficieDeBarrido(borde, caminoTuboDelTanqueDeCoca);
 
 	//DL
-	dl_handle = glGenLists(4);
+	dl_handle = glGenLists(5);
 	DL_TANQUE = dl_handle;
 	DL_BASE = dl_handle+1;
 	DL_SOPORTE_DEL_TUBITO = dl_handle+2;
 	DL_TUBITO = dl_handle+3;
+	DL_LIQUIDO = dl_handle+4;
 
 	glNewList(DL_TANQUE, GL_COMPILE);
 		//Emparchador::emparchar(superficieTanqueDeCoca->discretizar(30, 36)); original
@@ -172,6 +183,11 @@ void MaquinaDeLlenado::ini(){
 			glVertex3f(-0.2,  -0.2, 3.75);
 		glEnd();
 	glEndList();
+
+
+	glNewList(DL_LIQUIDO, GL_COMPILE);
+		this->dibujarLiquido();
+	glEndList();
 }
 
 void MaquinaDeLlenado::definirMateriales(){
@@ -202,16 +218,24 @@ MaquinaDeLlenado::~MaquinaDeLlenado(void)
 void MaquinaDeLlenado::graficar()
 {
 	glDisable(GL_LIGHTING);
-	aplicarPhong();
+	
 	glPushMatrix();
-		glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
-		glRotatef(-90.0, 0.0, 0.0, 1.0);
+		
+	glTranslatef(posicionObjeto[0],posicionObjeto[1],posicionObjeto[2]);
+	glRotatef(-90.0, 0.0, 0.0, 1.0);
+	//this->dibujarLiquido();
+
+		aplicarPhong();
+		
 		phong->setMaterial(materialBase);
 		//Parte fija, la base
+		
 		glCallList(DL_BASE);
 
 		//Parte móvil, el soporte del tubito y el tubito mismo
 		//O sea, acá va un glTranslate según la animación
+		//this->dibujarLiquido();
+		
 		glCallList(DL_SOPORTE_DEL_TUBITO);
 		detenerPhong();
 
@@ -222,9 +246,17 @@ void MaquinaDeLlenado::graficar()
 		shaders->setUniform("skyBoxTex", 0);
 		glCallList(DL_TUBITO);
 
+
+		detenerShader();
+
+		this->dibujarLiquido();
+		//glCallList(DL_LIQUIDO);
+
 	glPopMatrix();
 
-	detenerShader();
+	//glScalef(20.,20.,20.);
+	//this->dibujarCuboUnitario();
+	
 }
 
 void MaquinaDeLlenado::actualizarAtributos()
@@ -233,11 +265,44 @@ void MaquinaDeLlenado::actualizarAtributos()
 
 	if (this->AnimacionIniciada)
 	{
-		this->_testAnimacion += this->_pasoTest;
+		
+		if (estLiquido == EstadoLiquido::iniciando)
+		{
 
-		//Seria como el tiempo de animacion
+			nivInfLiquido += pasoNivLiquido;
 
-		this->AnimacionIniciada = _testAnimacion < 1.0;
+			if (nivInfLiquido >= 1.0)
+			{	
+				nivInfLiquido = 1.0;
+				estLiquido = EstadoLiquido::intermedio;
+			}
+
+		}
+		else if (estLiquido == EstadoLiquido::intermedio)
+		{	
+
+			this->botellaActual->llenar();
+
+			if (this->botellaActual->llenada())
+			{
+				estLiquido = EstadoLiquido::terminando;
+			}
+
+		}
+		else if (estLiquido == EstadoLiquido::terminando)
+		{
+
+			nivSupLiquido -= 2.0*pasoNivLiquido;
+
+			if (nivSupLiquido <= 0.0 )
+			{	
+				this->AnimacionIniciada = false;
+				estLiquido = EstadoLiquido::iniciando;
+				nivSupLiquido = 1.0;
+				nivInfLiquido = 0.0;
+			}
+
+		}
 
 	}
 
@@ -247,13 +312,16 @@ void MaquinaDeLlenado::actualizarAtributos()
 void MaquinaDeLlenado::iniciarAnimacion(Botella* botella)
 {	
 
-
-	//Solo para test
-	botella->etiquetar();
-
 	this->AnimacionIniciada = true;
 
-	this->_testAnimacion = 0.0;
+	//Solo para test
+	//botella->etiquetar();
+	this->botellaActual = botella;  
+	
+	this->estLiquido = EstadoLiquido::iniciando;
+	this->acumuladorEnAnimacion = 0.0;
+
+	//this->_testAnimacion = 0.0;
 	
 }
 
@@ -320,4 +388,56 @@ void MaquinaDeLlenado::graficarParteReflectiva(){
 	glPopMatrix();
 
 	detenerShader();
+}
+
+
+void MaquinaDeLlenado::dibujarLiquido()
+{	
+
+
+	if (!this->AnimacionIniciada)
+		return;
+	
+	float color[3] = {0.1719, 0.0, 0.0,};
+
+	float alturaLiquido = 2.0;
+	float lado = 0.1;
+
+	btVector3 v1(0.0 , 0.0 , 0.0);
+	btVector3 v2(lado , 0.0 , 0.0);
+	btVector3 v3(0.0 , lado , 0.0);
+
+	btVector3 altoLiquido(0.0,0.0,alturaLiquido);
+
+	btVector3 nSup =  ( nivSupLiquido - 1.0) * altoLiquido ;
+
+	btVector3 nInf = nivInfLiquido *(- altoLiquido );
+
+	//Aqui se tralada hasta la punta de
+	glTranslatef(0.0 - lado /3.0,2.0 - lado / 3.0,4.1);
+	
+	glBegin(GL_TRIANGLE_STRIP);
+		
+		//glVertex3f(0.,0.,0.);
+		//glVertex3f(10.,0.,0.);
+		//glVertex3f(0.,10.,0.);
+
+		glColor3fv(color);
+		glVerticeVec3(v1 + nSup);
+		glVerticeVec3(v1 + nInf);
+		
+		glVerticeVec3(v2 + nSup);
+		glVerticeVec3(v2 + nInf);
+
+		glVerticeVec3(v3 + nSup);
+		glVerticeVec3(v3 + nInf);
+
+		glVerticeVec3(v1 + nSup);
+		glVerticeVec3(v1 + nInf);
+
+	glEnd();
+	
+	//this->dibujarCuboUnitario();
+	//glScalef(10.,10.,10.);
+	//this->dibujarCuboUnitario();
 }

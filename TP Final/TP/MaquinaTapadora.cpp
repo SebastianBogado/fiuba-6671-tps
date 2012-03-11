@@ -20,8 +20,10 @@ MaquinaTapadora::MaquinaTapadora(void)
 	this->pasoDeAnimacion = 0.1;
 	this->acumuladorEnAnimacion = 0.0;
 	this->desplazamientoBrazoMovil = 0.0;
-	this->tiempoMaximoDeAnimacion = 3.5;
-	this->pasoDesplazamientoDeBrazo = 0.065;
+	this->tiempoMaximoDeAnimacion = 1.75;
+	this->pasoDesplazamientoDeBrazo = 0.13;
+
+	this->AnimacionIniciada = false;
 
 	this->botellaActual = NULL;
 
