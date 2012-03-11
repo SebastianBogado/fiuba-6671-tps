@@ -30,6 +30,7 @@ void MaquinaDeBotellas::definirMateriales(){
 	material.colorDif = vec3(0.44, 0.57, 0.75);
 	material.colorEspec = vec3(0.1, 0.15, 0.2);
 	material.brillo = 4.0;
+	definirMaterialAux();
 }
 
 
@@ -64,6 +65,7 @@ void MaquinaDeBotellas::graficar(){
 
 		this->inicializarVector(normal,0.0,0.0,1.0);
 		this->dibujarPared(normal,4,5,7,6);
+
 
 	glPopMatrix();
 

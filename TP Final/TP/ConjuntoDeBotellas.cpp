@@ -47,7 +47,7 @@ void ConjuntoDeBotellas::inicializar()
 	rutaShaderDeFragmentos = "..\\ShadersTest\\botella.frag";
 	ini();
 	tapaCoca = SOIL_load_OGL_texture(rutaTexturaTapa.c_str(), SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
-										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
+										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB );
 	if (! tapaCoca)
 		cout << SOIL_last_result() << endl;
 	

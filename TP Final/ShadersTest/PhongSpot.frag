@@ -42,11 +42,18 @@ uniform propMaterial material;
 uniform sampler2D textura;
 uniform sampler2D normalMap;
 uniform bool texturado;
+uniform bool tieneNormalMap;
 vec3 colorTextura;
 
 vec3 Phong(){
 	vec3 color = vec3(0.0);
-	vec3 luzAmb, luzDif;
+	vec3 luzAmb, luzDif, n;
+
+	if (tieneNormalMap)
+		n = texture2D(normalMap, vTexCoord).xyz;
+	else
+		n = normalize(normal);
+
 	if (texturado){
 		luzAmb = luzI.amb * colorTextura;
 		luzDif = luzI.dif * colorTextura;
@@ -57,7 +64,7 @@ vec3 Phong(){
 	}	
 	vec3 luzEspec = luzI.espec * material.colorEspec;
 	float k, LdotDirLuz, angulo;
-	vec3 n = normalize(normal); 
+
 	if (! gl_FrontFacing)
 		n = -n;
 	vec3 v = normalize(-posicion);
@@ -158,7 +165,13 @@ vec3 Phong(){
 
 vec3 BlinnPhong(){
 	vec3 color = vec3(0.0);
-	vec3 luzAmb, luzDif;
+	vec3 luzAmb, luzDif, n;
+
+	if (tieneNormalMap)
+		n = texture2D(normalMap, vTexCoord).xyz;
+	else
+		n = normalize(normal);
+
 	if (texturado){
 		luzAmb = luzI.amb * colorTextura;
 		luzDif = luzI.dif * colorTextura;
@@ -169,8 +182,8 @@ vec3 BlinnPhong(){
 	}	
 	vec3 luzEspec = luzI.espec * material.colorEspec;
 	float k, LdotDirLuz, angulo; 
-	vec3 n = normalize(normal);
-	//vec3 n = texture2D(normalMap, vTexCoord).xyz; -> para ver los normal maps
+
+	
 	if (! gl_FrontFacing)
 		n = -n;
 	vec3 v = normalize(-posicion);

@@ -18,12 +18,13 @@ CajonesDeBotellas::CajonesDeBotellas(ConjuntoDeBotellas* conjBotellas)
 
 	this->inicializarPosicionesDeBotellas();
 
+	this->rutaShaderDeFragmentos = "";
+	this->rutaShaderDeVertices= "";
 	this->rutaTextura = ".\\Recursos\\cajaCoca.png";
 	//rutaTextura = "..\\ShadersTest\\etiquetaCoca.png";
-	texturaID = SOIL_load_OGL_texture(rutaTextura, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT | SOIL_FLAG_TEXTURE_REPEATS);
-	if (! texturaID)
-		cout << SOIL_last_result() << endl;
+	ini();
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
 	
 
 }
@@ -264,4 +265,7 @@ CajonesDeBotellas::~CajonesDeBotellas(void)
 	delete this->botellas;
 }
 
-void CajonesDeBotellas::definirMateriales(){}
+void CajonesDeBotellas::definirMateriales(){
+	material.colorEspec = vec3(0.3);
+	material.brillo = 4.0;
+}

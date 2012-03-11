@@ -66,13 +66,16 @@ void CuartoDeMaquinas::graficar(){
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, pisoNormalMap);
 	phong->setUniform("normalMap", 1);
+	phong->setUniform("tieneNormalMap", true);
 
-	this->definirCoordTextura(vec2(0.0,0.0),vec2(2.0,0.0),vec2(0.0,2.5),vec2(2.0,2.5));
+	//this->definirCoordTextura(vec2(0.0,0.0),vec2(2.0,0.0),vec2(0.0,2.5),vec2(2.0,2.5));
+	this->definirCoordTextura(vec2(0.0,0.0),vec2(4.0,0.0),vec2(0.0,5),vec2(4,5));
 	this->dibujarParedTexturada(&normal[0],0,1,3,2);
 
 	glActiveTexture(GL_TEXTURE0);
 
 	glBindTexture(GL_TEXTURE_2D, texturaIDPared);
+	phong->setUniform("tieneNormalMap", false);
 
 
 	//Pared 0
