@@ -70,6 +70,7 @@ void LamparaDeTecho::inicializarVertices(){
 
 	this->actualizarVertices();
 
+	this->definirMateriales();
 }
 
 void LamparaDeTecho::actualizarVertices(){

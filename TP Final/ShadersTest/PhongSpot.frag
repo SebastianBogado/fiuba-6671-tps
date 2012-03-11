@@ -1,5 +1,6 @@
 varying vec3 normal;
 varying vec3 posicion;
+varying vec2 vTexCoord;
 
 
 struct propExternasLuz{
@@ -38,11 +39,21 @@ propInternasLuz luzI = propInternasLuz(
 		vec3(0.8, 0.8, 0.8)
 	);
 uniform propMaterial material;
+uniform sampler2D textura;
+uniform bool texturado;
+vec3 colorTextura;
 
 vec3 Phong(){
 	vec3 color = vec3(0.0);
-	vec3 luzAmb =  (luzI.amb * material.colorAmb);
-	vec3 luzDif = luzI.dif * material.colorDif;
+	vec3 luzAmb, luzDif;
+	if (texturado){
+		luzAmb = luzI.amb * colorTextura;
+		luzDif = luzI.dif * colorTextura;
+	}
+	else{
+		luzAmb = luzI.amb * material.colorAmb;
+		luzDif = luzI.dif * material.colorDif;	
+	}	
 	vec3 luzEspec = luzI.espec * material.colorEspec;
 	float k, LdotDirLuz, angulo;
 	vec3 n = normalize(normal); 
@@ -146,8 +157,15 @@ vec3 Phong(){
 
 vec3 BlinnPhong(){
 	vec3 color = vec3(0.0);
-	vec3 luzAmb =  (luzI.amb * material.colorAmb);
-	vec3 luzDif = luzI.dif * material.colorDif;
+	vec3 luzAmb, luzDif;
+	if (texturado){
+		luzAmb = luzI.amb * colorTextura;
+		luzDif = luzI.dif * colorTextura;
+	}
+	else{
+		luzAmb = luzI.amb * material.colorAmb;
+		luzDif = luzI.dif * material.colorDif;	
+	}	
 	vec3 luzEspec = luzI.espec * material.colorEspec;
 	float k, LdotDirLuz, angulo; 
 	vec3 n = normalize(normal);
@@ -246,5 +264,6 @@ vec3 BlinnPhong(){
 }
 
 void main (void){
+	colorTextura = texture2D(textura, vTexCoord).xyz;
 	gl_FragColor = vec4(Phong(), 1.0);
 }

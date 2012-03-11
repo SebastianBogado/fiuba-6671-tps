@@ -87,8 +87,21 @@ void ObjetoGrafico::aplicarPhong(){
 	phong->usar();
 	phong->setLuces();
 	phong->setMaterial(material);
+	phong->setUniform("texturado", false);
 }
 void ObjetoGrafico::detenerPhong(){
+	phong->cerrar();
+}
+void ObjetoGrafico::aplicarPhongTexturado(){
+	if (!phong->isLinked())
+		phong->link();
+	phong->usar();
+	phong->setLuces();
+	phong->setMaterial(material);
+	phong->setUniform("texturado", true);
+	phong->setUniform("textura", 0);
+}
+void ObjetoGrafico::detenerPhongTexturado(){
 	phong->cerrar();
 }
 

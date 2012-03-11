@@ -37,7 +37,7 @@ private:
 	//DL
 	GLuint DL_TANQUE, DL_BASE, DL_SOPORTE_DEL_TUBITO, DL_TUBITO;
 
-	float alturaDelCentro;
-	GLuint ladoTextura;
+	float alturaDelCentro; //Para tomar como centro de reflexión
+	GLuint ladoTextura; //Son cuadradas, ancho y alto son iguales
 };
 
