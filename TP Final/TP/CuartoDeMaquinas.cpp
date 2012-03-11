@@ -16,19 +16,16 @@ CuartoDeMaquinas::CuartoDeMaquinas(void)
 
 	this->inicializarVertices();
 
-	//this->rutaTextura = "..\\ShadersTest\\etiquetaCoca.png";
 	this->rutaTextura = ".\\Recursos\\Piso.jpg";
-
 	
-	this->rutaShaderDeVertices = "..\\ShadersTest\\ObjetoTexturado.vert";
-	this->rutaShaderDeFragmentos = "..\\ShadersTest\\ObjetoTexturado.frag";
+	this->rutaShaderDeVertices = "";
+	this->rutaShaderDeFragmentos = "";
 
 
 	char* rutaTexturaTecho = ".\\Recursos\\Techo.jpg";
 
 	texturaIDTecho = SOIL_load_OGL_texture(rutaTexturaTecho, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
 										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT | SOIL_FLAG_TEXTURE_REPEATS);
-
 	if (! texturaIDTecho)
 		cout << SOIL_last_result() << endl;
 
@@ -41,13 +38,15 @@ CuartoDeMaquinas::CuartoDeMaquinas(void)
 
 	texturaIDPared = SOIL_load_OGL_texture(rutaTexturaPared, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
 										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT | SOIL_FLAG_TEXTURE_REPEATS);
-
 	if (! texturaIDPared)
 		cout << SOIL_last_result() << endl;
 
-
-
-	
+	char* rutaPisoNormalMap = ".\\Recursos\\Piso normalmap.jpg";
+	pisoNormalMap = SOIL_load_OGL_texture(rutaPisoNormalMap, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
+										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT | SOIL_FLAG_TEXTURE_REPEATS);
+	if (! pisoNormalMap)
+		cout << SOIL_last_result() << endl;
+	 
 
 }
 
@@ -57,42 +56,47 @@ void CuartoDeMaquinas::graficar(){
 
 	this->aplicarPhongTexturado();
 
-	float normal[3] = { 0.,1.,0.};
+	vec3 normal = vec3(0.0, 0.0, 1.0);
 
 	glDisable(GL_LIGHTING);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturaID);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, pisoNormalMap);
+	phong->setUniform("normalMap", 1);
 
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(2.0,0.0),vec2(0.0,2.5),vec2(2.0,2.5));
-	this->dibujarParedTexturada(normal,0,1,3,2);
+	this->dibujarParedTexturada(&normal[0],0,1,3,2);
 
-
-
-
+	glActiveTexture(GL_TEXTURE0);
 
 	glBindTexture(GL_TEXTURE_2D, texturaIDPared);
 
 
 	//Pared 0
+	normal = vec3(0.0, 1.0, 0.0);
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
-	this->dibujarParedTexturada(normal,0,1,4,5);
+	this->dibujarParedTexturada(&normal[0],0,1,4,5);
 
 	//Pared 1
+	normal = vec3(1.0, 0.0, 0.0);
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
-	this->dibujarParedTexturada(normal,1,2,5,6);
+	this->dibujarParedTexturada(&normal[0],1,2,5,6);
 
-	
+	normal = vec3(0.0, -1.0, 0.0);
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
-	this->dibujarParedTexturada(normal,2,3,6,7);
+	this->dibujarParedTexturada(&normal[0],2,3,6,7);
 	
+	normal = vec3(-1.0, 0.0, 0.0);
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
-	this->dibujarParedTexturada(normal,3,0,7,4);
+	this->dibujarParedTexturada(&normal[0],3,0,7,4);
+
 
 	glBindTexture(GL_TEXTURE_2D, texturaIDTecho);
-
+	normal = vec3(0.0, 0.0, -1.0);
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(1.5,0.0),vec2(0.0,1.0),vec2(1.5,1.0));
-	this->dibujarParedTexturada(normal,4,5,7,6);
+	this->dibujarParedTexturada(&normal[0],4,5,7,6);
 
 
 	this->detenerPhongTexturado();

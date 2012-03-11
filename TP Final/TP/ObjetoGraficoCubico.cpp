@@ -175,7 +175,7 @@ void ObjetoGraficoCubico::definirCoordTextura(vec2 v1,vec2 v2,vec2 v3,vec2 v4)
 void ObjetoGraficoCubico::dibujarParedTexturada(float* normal,int v1,int v2,int v3,int v4)
 {
 	glBegin(GL_TRIANGLE_STRIP);
-		
+		glNormal3fv(normal);
 		glTexturaVec2(vText[0]);
 		//glTexCoord2f(0.,0.);
 		glVertex3fv(vertices[v1]);
