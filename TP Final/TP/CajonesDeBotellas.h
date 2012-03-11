@@ -23,6 +23,8 @@ public:
 private:
 	
 	void graficarCajon();
+
+
 	void dibujarCajonDePlastico();
 	void dibujarCuerpoRigido();
 

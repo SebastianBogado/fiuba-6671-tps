@@ -123,12 +123,8 @@ void ConjuntoDeBotellas::graficar()
 	
 }
 
-
-
-void ConjuntoDeBotellas::graficarCajon()
+void ConjuntoDeBotellas::aplicarShaderParaBotellas()
 {
-	//Para graficar el cajon se implementa de la misma forma que el graficar normal, pero solo temporalmente
-	
 	this->aplicarShader();
 	glDisable(GL_LIGHTING);
 	glEnable(GL_BLEND);
@@ -140,10 +136,17 @@ void ConjuntoDeBotellas::graficarCajon()
 	
 	shaders->setUniform("etiquetaText", 0);
 	shaders->setUniform("tapaText", 1);
+
+}
+
+void ConjuntoDeBotellas::graficarBotellasEnCajon()
+{
+	//Para graficar el cajon se implementa de la misma forma que el graficar normal, pero solo temporalmente
+	
+	
 	
 	//glPushMatrix();
 	//glScalef(escalado,escalado,escalado);
-
 
 	for (int i=0; i < this->cantBotellasEnCajon ; i++){
 		glPushMatrix();
@@ -155,6 +158,11 @@ void ConjuntoDeBotellas::graficarCajon()
 	//glPopMatrix();
 	this->detenerShader();
 
+}
+
+void ConjuntoDeBotellas::detenerShaderParaBotellas()
+{
+	this->detenerShader();
 }
 
 
