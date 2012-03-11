@@ -11,7 +11,11 @@ public:
 
 	void graficar();
 
-	void graficarCajon();
+	void graficarBotellasEnCajon();
+
+	void aplicarShaderParaBotellas();
+
+	void detenerShaderParaBotellas();
 
 	Botella** devolverBotellasDeCajon();
 

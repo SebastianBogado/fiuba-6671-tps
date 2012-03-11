@@ -18,6 +18,14 @@ CajonesDeBotellas::CajonesDeBotellas(ConjuntoDeBotellas* conjBotellas)
 
 	this->inicializarPosicionesDeBotellas();
 
+	this->rutaTextura = ".\\Recursos\\cajaCoca.png";
+	//rutaTextura = "..\\ShadersTest\\etiquetaCoca.png";
+	texturaID = SOIL_load_OGL_texture(rutaTextura, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT | SOIL_FLAG_TEXTURE_REPEATS);
+	if (! texturaID)
+		cout << SOIL_last_result() << endl;
+	
+
 }
 
 void CajonesDeBotellas::actualizarAtributos()
@@ -54,6 +62,56 @@ void CajonesDeBotellas::graficar()
 	btTransform transformacion;
 
 
+	glDisable(GL_LIGHTING);
+	glEnable(GL_BLEND);
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texturaID);
+
+	this->aplicarPhongTexturado();
+
+	for( int i=0; i < this->cajones.size() ; i++)
+	{
+		glPushMatrix();
+
+		pos = this->cajones[i]->getCenterOfMassPosition();
+
+		glTranslatef(pos.m_floats[0],pos.m_floats[1],pos.m_floats[2]);// + 2.5);
+
+		transformacion = this->cajones[i]->getCenterOfMassTransform();		
+		rotacion = transformacion.getRotation();
+		
+		ejeRot = rotacion.getAxis();
+		anguloRot = rotacion.getAngle();
+
+		glRotatef(anguloRot * 180 / 3.14,ejeRot.m_floats[0],ejeRot.m_floats[1],ejeRot.m_floats[2] );
+		
+		glScalef(dimensionesFormaCajon.x() * 2.0,dimensionesFormaCajon.y() * 2.0, dimensionesFormaCajon.z() * 2.0);
+
+		/*
+		glBegin(GL_TRIANGLE_STRIP);
+		glTexCoord2f ( 0.,0.);
+		glVertex3f(0.0,0.0,0.0);
+
+		glTexCoord2f ( 0.,1.);
+		glVertex3f(0.0,5.0,0.0);
+
+		glTexCoord2f ( 1.,0.);
+		glVertex3f(5.0,0.0,5.0);
+
+		glEnd();*/
+
+
+		this->dibujarCajonDePlastico();
+
+		glPopMatrix();
+
+	}
+
+	this->detenerPhongTexturado();
+
+	this->botellas->aplicarShaderParaBotellas();
+
 	for( int i=0; i < this->cajones.size() ; i++)
 	{
 		glPushMatrix();
@@ -74,8 +132,8 @@ void CajonesDeBotellas::graficar()
 
 		glRotatef(anguloRot * 180 / 3.14,ejeRot.m_floats[0],ejeRot.m_floats[1],ejeRot.m_floats[2]);
 		
-		this->dibujarCajonDePlastico();
-		this->dibujarCuerpoRigido();
+		
+		//this->dibujarCuerpoRigido();
 
 		this->graficarCajon();
 
@@ -83,29 +141,46 @@ void CajonesDeBotellas::graficar()
 
 	}
 
+	this->botellas->detenerShaderParaBotellas();
 
 }
 
 
 void CajonesDeBotellas::dibujarCajonDePlastico()
 {	
-	float dist = this->distanciaEntreBotellas + 0.1;
-	float altura = 0.5;
+	//float dist = this->distanciaEntreBotellas + 0.1;
+	//float altura = 0.5;
 
-	glDisable(GL_LIGHTING);
-	glBegin(GL_LINE_STRIP);
 
-		glColor3f(1.0,0.0,0.0);
-		glVertex3f(dist / 2.0, dist / 2.0 , altura);
-		glVertex3f(-dist / 2.0, dist / 2.0 , altura);
-		
-		glVertex3f(-dist / 2.0, -dist / 2.0 , altura);
-		glVertex3f(dist / 2.0, -dist / 2.0 , altura);
+	glBegin(GL_TRIANGLE_STRIP);
 
-		glVertex3f(dist / 2.0, dist / 2.0 , altura);
+		glTexCoord2f(0.,1.);
+		glVertex3f(0.5,0.5,0.25);
+		glTexCoord2f(0.,0.);
+		glVertex3f(0.5,0.5,-0.5);
+
+		glTexCoord2f(1.,1.);
+		glVertex3f(-0.5,0.5,0.25);
+		glTexCoord2f(1.,0.);
+		glVertex3f(-0.5,0.5,-0.5);
+
+		glTexCoord2f(2.,1.);
+		glVertex3f(-0.5,-0.5,0.25);
+		glTexCoord2f(2.,0.);
+		glVertex3f(-0.5,-0.5,-0.5);
+
+		glTexCoord2f(3.,1.);
+		glVertex3f(0.5,-0.5,0.25);
+		glTexCoord2f(3.,0.);
+		glVertex3f(0.5,-0.5,-0.5);
+
+		glTexCoord2f(4.,1.);
+		glVertex3f(0.5,0.5,0.25);
+		glTexCoord2f(4.,0.);
+		glVertex3f(0.5,0.5,-0.5);
 
 	glEnd();
-	glEnable(GL_LIGHTING);
+	
 }
 
 void CajonesDeBotellas::dibujarCuerpoRigido()
@@ -123,7 +198,7 @@ void CajonesDeBotellas::dibujarCuerpoRigido()
 
 void CajonesDeBotellas::graficarCajon(){
 
-	this->botellas->graficarCajon();
+	this->botellas->graficarBotellasEnCajon();
 	
 	/*
 	glPushMatrix();

@@ -45,7 +45,7 @@ void Camara::controladorMovMouse(int x, int y){
         if( !modoEspectador)
                 return;
 
-        //cout<<"X :"<<x<<"       "<<"Y: "<<y<<endl;
+        cout<<"X :"<<x<<"       "<<"Y: "<<y<<endl;
 
         this->calculadorMovMouse->movimientoMouse(x,y);
 
