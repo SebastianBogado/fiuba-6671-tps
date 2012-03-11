@@ -58,13 +58,20 @@ void MaquinaDeLlenado::ini(){
 	//Curva borde
 	Circunferencia* borde = new Circunferencia(0.1, vec3(0.0, 0.0, 4.5));
 	//Curva camino
+	//vec3 caminoP1 = vec3( 0.0,  -0.25, 4.5);
 	vec3 caminoP1 = vec3( 0.0,  -0.25, 4.5);
 	vec3 caminoP2 = vec3( 0.0,   0.25, 4.5);
 	vec3 caminoP3 = vec3( 0.0,   1.0, 4.5);
-	vec3 caminoP4 = vec3( 0.0,   1.5, 4.5);
-	vec3 caminoP5 = vec3( 0.0,  1.75, 4.25);
-	vec3 caminoP6 = vec3( 0.0,  1.75, 4.0);
-	BSpline* caminoTuboDelTanqueDeCoca = new BSpline(6);
+	vec3 caminoP4 = vec3( 0.0,   1.6, 4.5);
+
+	//vec3 caminoP5 = vec3( 0.0,  1.75, 4.25) original
+	vec3 caminoP5 = vec3( 0.0,  2.0, 4.25);
+
+	//vec3 caminoP6 = vec3( 0.0,  1.75, 4.0); original
+	vec3 caminoP6 = vec3( 0.0,  2.0, 3.75);
+	BSpline* caminoTuboDelTanqueDeCoca = new BSpline(6);//6 original
+
+	//caminoTuboDelTanqueDeCoca->incluirPunto(caminoP0);//migue
 	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP1);
 	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP2);
 	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP3);
@@ -81,7 +88,8 @@ void MaquinaDeLlenado::ini(){
 	DL_TUBITO = dl_handle+3;
 
 	glNewList(DL_TANQUE, GL_COMPILE);
-		Emparchador::emparchar(superficieTanqueDeCoca->discretizar(30, 36));
+		//Emparchador::emparchar(superficieTanqueDeCoca->discretizar(30, 36)); original
+		Emparchador::emparchar(superficieTanqueDeCoca->discretizar(15, 18));
 	glEndList();
 	glNewList(DL_TUBITO, GL_COMPILE);
 		Emparchador::emparchar(	superficieTuboDelTanqueDeCoca->discretizar(10, 10));
