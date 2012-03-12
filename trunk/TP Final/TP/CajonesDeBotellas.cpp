@@ -63,6 +63,8 @@ void CajonesDeBotellas::graficar()
 	btTransform transformacion;
 
 
+
+	
 	glDisable(GL_LIGHTING);
 	glEnable(GL_BLEND);
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -108,8 +110,11 @@ void CajonesDeBotellas::graficar()
 		glPopMatrix();
 
 	}
-
+	
 	this->detenerPhongTexturado();
+
+
+
 
 	this->botellas->aplicarShaderParaBotellas();
 
@@ -143,6 +148,8 @@ void CajonesDeBotellas::graficar()
 	}
 
 	this->botellas->detenerShaderParaBotellas();
+
+
 
 }
 
@@ -179,6 +186,23 @@ void CajonesDeBotellas::dibujarCajonDePlastico()
 		glVertex3f(0.5,0.5,0.25);
 		glTexCoord2f(4.,0.);
 		glVertex3f(0.5,0.5,-0.5);
+
+	glEnd();
+
+	glBegin(GL_TRIANGLE_STRIP);
+
+		glTexCoord2f(1.0,0.8);
+		glVertex3f(0.5,0.5,-0.5);
+
+		glTexCoord2f(1.,1.);
+		glVertex3f(-0.5,0.5,-0.5);
+
+		glTexCoord2f(0.,0.8);
+		glVertex3f(0.5,-0.5,-0.5);
+
+		glTexCoord2f(0.,1.0);
+		glVertex3f(-0.5,-0.5,-0.5);
+		
 
 	glEnd();
 	
