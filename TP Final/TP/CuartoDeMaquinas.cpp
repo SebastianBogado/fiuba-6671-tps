@@ -79,7 +79,7 @@ void CuartoDeMaquinas::graficar(){
 
 
 	//Pared 0
-	normal = vec3(0.0, 1.0, 0.0);
+	normal = vec3(0.0, -1.0, 0.0);
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(2.0,0.0),vec2(0.0,1.0),vec2(2.0,1.0));
 	this->dibujarParedTexturada(&normal[0],0,1,4,5);
 
@@ -88,7 +88,7 @@ void CuartoDeMaquinas::graficar(){
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(2.5,0.0),vec2(0.0,1.0),vec2(2.5,1.0));
 	this->dibujarParedTexturada(&normal[0],1,2,5,6);
 
-	normal = vec3(0.0, -1.0, 0.0);
+	normal = vec3(0.0, 1.0, 0.0);
 	this->definirCoordTextura(vec2(0.0,0.0),vec2(2.0,0.0),vec2(0.0,1.0),vec2(2.0,1.0));
 	this->dibujarParedTexturada(&normal[0],2,3,6,7);
 	

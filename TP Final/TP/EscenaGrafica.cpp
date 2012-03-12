@@ -17,6 +17,8 @@ EscenaGrafica::EscenaGrafica(void)
 	this->objetos[3] = new LamparaDeTecho(cuarto);
 	*/
 	actualizarReflexion = false;
+	primeraLlamada = true;
+	tanque = NULL;
 }
 
 void EscenaGrafica::agregarObjetosGraficos(int cantObjetos,ObjetoGrafico** objetos)
@@ -26,6 +28,10 @@ void EscenaGrafica::agregarObjetosGraficos(int cantObjetos,ObjetoGrafico** objet
 		this->objetos = objetos;
 		this->cantidadObjetos = cantObjetos;
 
+	}
+	if ( (primeraLlamada) &&  (tanque) ){
+		tanque->actualizarReflexion(this);
+		primeraLlamada = false;
 	}
 }
 
