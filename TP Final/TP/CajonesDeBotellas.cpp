@@ -62,12 +62,6 @@ void CajonesDeBotellas::graficar()
 	btQuaternion rotacion;
 	btTransform transformacion;
 
-
-
-	
-	glDisable(GL_LIGHTING);
-	glEnable(GL_BLEND);
-	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texturaID);
 
@@ -90,7 +84,7 @@ void CajonesDeBotellas::graficar()
 		glRotatef(anguloRot * 180 / 3.14,ejeRot.m_floats[0],ejeRot.m_floats[1],ejeRot.m_floats[2] );
 		
 		glScalef(dimensionesFormaCajon.x() * 2.0,dimensionesFormaCajon.y() * 2.0, dimensionesFormaCajon.z() * 2.0);
-
+	
 		/*
 		glBegin(GL_TRIANGLE_STRIP);
 		glTexCoord2f ( 0.,0.);
@@ -107,13 +101,12 @@ void CajonesDeBotellas::graficar()
 
 		this->dibujarCajonDePlastico();
 
+
 		glPopMatrix();
 
 	}
 	
 	this->detenerPhongTexturado();
-
-
 
 
 	this->botellas->aplicarShaderParaBotellas();
@@ -150,7 +143,7 @@ void CajonesDeBotellas::graficar()
 	this->botellas->detenerShaderParaBotellas();
 
 
-
+	
 }
 
 

@@ -279,6 +279,9 @@ vec3 BlinnPhong(){
 }
 
 void main (void){
-	colorTextura = texture2D(textura, vTexCoord).xyz;
+	vec4 texturaRGBA = texture2D(textura, vTexCoord).xyz;
+	colorTextura = texturaRGBA.xyz;
+	if ( (texturado) && ( texturaRGBA.a == 0.0 )) 
+		discard;
 	gl_FragColor = vec4(BlinnPhong(), 1.0);
 }
