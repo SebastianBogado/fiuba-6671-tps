@@ -279,7 +279,7 @@ vec3 BlinnPhong(){
 }
 
 void main (void){
-	vec4 texturaRGBA = texture2D(textura, vTexCoord).xyz;
+	vec4 texturaRGBA = texture2D(textura, vTexCoord);
 	colorTextura = texturaRGBA.xyz;
 	if ( (texturado) && ( texturaRGBA.a == 0.0 )) 
 		discard;
