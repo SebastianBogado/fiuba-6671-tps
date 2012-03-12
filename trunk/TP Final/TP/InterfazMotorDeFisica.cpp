@@ -8,7 +8,7 @@ InterfazMotorDeFisica::InterfazMotorDeFisica(void)
 	this->ultimoPasoHecho = false;
 	this->simulacionIniciada = false;
 
-	ms = 16666.;
+	ms = 166666.;
 }
 
 
@@ -48,7 +48,7 @@ void InterfazMotorDeFisica::pasoDeSimulacion()
 
 	//if (!this->ultimoPasoHecho && this->simulacionIniciada)
 	//{
-		this->mundoDinamico->stepSimulation(ms / 1000.f);
+		this->mundoDinamico->stepSimulation(ms);// / 10.f);
 	//	this->ultimoPasoHecho = true;
 	//}
 	//else
