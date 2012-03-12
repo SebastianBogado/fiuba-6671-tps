@@ -156,7 +156,6 @@ void ConjuntoDeBotellas::graficarBotellasEnCajon()
 	}
 
 	//glPopMatrix();
-	this->detenerShader();
 
 }
 
