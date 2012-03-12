@@ -130,7 +130,7 @@ btRigidBody* CuartoDeMaquinas::cuerpoRigido()
 
 
 	//btCollisionShape* formaDelPiso = new btBoxShape(btVector3(50.,50.,1.));
-	btCollisionShape* formaDelPiso = new btStaticPlaneShape(btVector3(0,0,1),btScalar(0.));
+	btCollisionShape* formaDelPiso = new btStaticPlaneShape(btVector3(0,0,1),btScalar(0.05));
 
 	btCollisionShape* formaDePared1 = new btStaticPlaneShape(btVector3(-1,0,0),-btScalar(this->valorLargoEnX()+this->vectorPosicion()[0]));
 	btCollisionShape* formaDePared2 = new btStaticPlaneShape(btVector3(1,0,0),btScalar(this->vectorPosicion()[0]));
