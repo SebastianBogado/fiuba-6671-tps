@@ -36,7 +36,7 @@ private:
 	int cantidadObjetos;
 	static Iluminacion* iluminacion;
 
-	bool actualizarReflexion;
+	bool actualizarReflexion, primeraLlamada;
 	MaquinaDeLlenado* tanque;
 };
 
