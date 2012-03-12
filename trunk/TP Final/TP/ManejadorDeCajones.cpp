@@ -95,6 +95,7 @@ void ManejadorDeCajones::agregarNuevoCajon(btRigidBody *nuevoCajon)
 
 	this->motorFisica->agregarCuerpoRigido(nuevoCajon);
 	nuevoCajon->applyForce(this->impulsoInicialCajon,btVector3(0.,0.,0.));
+	nuevoCajon->applyForce(0.1*this->impulsoInicialCajon,btVector3(0.,-0.5,0.));
 
 }
 
