@@ -1,4 +1,5 @@
 #include "LamparaDeTecho.h"
+#include "Iluminacion.h"
 
 LamparaDeTecho::LamparaDeTecho(void)
 {
@@ -41,16 +42,17 @@ void LamparaDeTecho::graficar(){
 			glPushMatrix();
 
 			glTranslatef(i*ladoMayorCuarto / 4.0 , ladoMenorCuarto / 3.0,cuarto->valorAltura());	
-			this->graficarLamparaSimple();
+			this->graficarLamparaSimple(int(i+2));
 		
 			glTranslatef(0.0,ladoMenorCuarto / 3.0 ,0.0);	
-			this->graficarLamparaSimple();
+			this->graficarLamparaSimple(int(i-1));
 
 			glPopMatrix();
 		}
 
 	glPopMatrix();
 
+	detenerPhong();
 }
 
 
@@ -104,12 +106,11 @@ void LamparaDeTecho::definirHabitacion(ObjetoGraficoCubico *habitacion){
 
 }
 
-void LamparaDeTecho::graficarLamparaSimple(){
+void LamparaDeTecho::graficarLamparaSimple(int i){
 
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glDisable(GL_LIGHTING);
-		
 		glBegin(GL_QUADS);
 			
 			glColor3f(0.5,0.5,0.5);
@@ -174,8 +175,19 @@ void LamparaDeTecho::graficarLamparaSimple(){
 			glVertex3f(vertices[5][0]+ancho,vertices[5][1]-ancho,vertices[5][2]-alturaCampana);
 			glVertex3fv(vertices[5]);
 
-
 		glEnd();
+
+		//Como una lamparita :P	
+		glPushMatrix();
+			detenerPhong();
+			if ( Iluminacion::getInstancia()->luz(i).prendida )
+				glColor3f(0.95, 0.95, 0.95);
+			else
+				glColor3f(0.3, 0.3, 0.3);
+			glTranslatef(0.1, 0.1, -1.7);
+			glutSolidSphere(0.25, 10, 10);
+			aplicarPhong();
+		glPopMatrix();
 	glPopMatrix();
 }
 

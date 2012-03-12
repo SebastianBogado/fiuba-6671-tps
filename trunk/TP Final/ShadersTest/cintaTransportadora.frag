@@ -33,11 +33,11 @@ uniform propExternasLuz luzE5;
 uniform propExternasLuz luzE6;
 
 propInternasLuz luzI = propInternasLuz( 
-		45.0,
-		10.0,
-		vec3(0.1, 0.1, 0.1), 
-		vec3(0.8, 0.8, 0.8),
-		vec3(0.9, 0.9, 0.9)
+		70.0,
+		4.0,
+		vec3(0.01), 
+		vec3(0.8),
+		vec3(0.9)
 	);
 propMaterial material;
 

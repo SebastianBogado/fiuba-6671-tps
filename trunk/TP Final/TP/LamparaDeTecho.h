@@ -22,7 +22,7 @@ public:
 
 private:
 
-	void graficarLamparaSimple();
+	void graficarLamparaSimple(int i);
 
 	void inicializarVertices();
 	void actualizarVertices();
