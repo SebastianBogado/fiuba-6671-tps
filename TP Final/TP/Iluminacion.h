@@ -26,6 +26,8 @@ public:
 
 	//Devuelve las propiedades de la luz iésima, con la posición y dirección según la cámara
 	propLuz luz(int i);
+
+	void prenderApagarLuz(int i);
 private:
 	propLuz* luces;
 	static Camara* camara;

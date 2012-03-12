@@ -193,7 +193,7 @@ void MaquinaDeLlenado::ini(){
 void MaquinaDeLlenado::definirMateriales(){
 	material.colorAmb = vec3(0.44, 0.57, 0.75);
 	material.colorDif = vec3(0.44, 0.57, 0.75);
-	material.colorEspec = vec3(0.1, 0.15, 0.2);
+	material.colorEspec = vec3(0.2, 0.315, 0.42);
 	material.brillo = 32.0;
 			
 	materialTubito.colorAmb = vec3(0.9, 0.9, 0.28);

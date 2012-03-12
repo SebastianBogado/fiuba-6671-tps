@@ -29,6 +29,7 @@ Iluminacion::~Iluminacion(void){
 
 void Iluminacion::setPosicionDeLasLuces(int i, vec3 posicion){
 	this->luces[i].posicion = vec4(posicion, 1.0);
+	this->luces[i].posicion.z -= 1.8;
 }
 
 int Iluminacion::cantidadDeLuces(){ return cantDeLuces; }
@@ -44,4 +45,8 @@ Iluminacion::propLuz Iluminacion::luz(int i){
 	luzSolicitada.direccion = matrizDeLaCamara * luces[i].direccion;
 
 	return luzSolicitada;
+}
+
+void Iluminacion::prenderApagarLuz(int i){
+	luces[i].prendida = !luces[i].prendida;
 }

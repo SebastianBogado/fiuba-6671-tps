@@ -33,10 +33,10 @@ uniform propExternasLuz luzE6;
 
 propInternasLuz luzI = propInternasLuz( 
 		70.0,
-		10.0,
-		vec3(0.1, 0.1, 0.1), 
-		vec3(0.8, 0.8, 0.8),
-		vec3(0.9, 0.9, 0.9)
+		4.0,
+		vec3(0.01), 
+		vec3(0.8),
+		vec3(0.9)
 	);
 uniform propMaterial material;
 uniform sampler2D textura;

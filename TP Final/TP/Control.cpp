@@ -1,4 +1,5 @@
 #include "Control.h"
+#include "Iluminacion.h"
 
 Camara* Control::camara = Camara::getInstancia();
 
@@ -39,6 +40,7 @@ void Control::teclado(unsigned char tecla, int x, int y){
 	camara->controladorDeTeclado(tecla);
 	//Cualquier otro control inherente al teclado va acá, 
 	//junto con la discriminación entre release y debug mode
+	char telcasIluminacion[] = { '1', '2', '3', '4', '5', '6' };
 	switch (tecla){
 	case 'q':	//liberarMemoria();
 				exit(0); 
@@ -50,6 +52,13 @@ void Control::teclado(unsigned char tecla, int x, int y){
 	case 'n':
 		cintaTransportadora->disminuirDiscretizacionDeCinta();
 		break;
+	case '1': Iluminacion::getInstancia()->prenderApagarLuz(0); break;
+	case '2': Iluminacion::getInstancia()->prenderApagarLuz(1); break;
+	case '3': Iluminacion::getInstancia()->prenderApagarLuz(2); break;
+	case '4': Iluminacion::getInstancia()->prenderApagarLuz(3); break;
+	case '5': Iluminacion::getInstancia()->prenderApagarLuz(4); break;
+	case '6': Iluminacion::getInstancia()->prenderApagarLuz(5); break;
+
 
 //	case 'r':
 //		reiniciarAplicacion();
