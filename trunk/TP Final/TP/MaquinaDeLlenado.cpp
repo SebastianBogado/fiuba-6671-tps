@@ -193,12 +193,14 @@ void MaquinaDeLlenado::ini(){
 void MaquinaDeLlenado::definirMateriales(){
 	material.colorAmb = vec3(0.44, 0.57, 0.75);
 	material.colorDif = vec3(0.44, 0.57, 0.75);
-	material.colorEspec = vec3(0.2, 0.315, 0.42);
+	material.colorEspec = vec3(0.44, 0.57, 0.75);
+	//material.colorEspec = vec3(0.2, 0.315, 0.42);
 	material.brillo = 32.0;
 			
 	materialTubito.colorAmb = vec3(0.9, 0.9, 0.28);
 	materialTubito.colorDif = vec3(0.9, 0.9, 0.28);
-	materialTubito.colorEspec = vec3(0.3, 0.3, 0.1);
+	materialTubito.colorEspec = vec3(0.9, 0.9, 0.28);
+	//materialTubito.colorEspec = vec3(0.3, 0.3, 0.1);
 	materialTubito.brillo = 32.0;
 
 	materialBase.colorAmb = vec3(0.3, 0.3, 0.3);
@@ -210,7 +212,7 @@ void MaquinaDeLlenado::definirMateriales(){
 	materialLiquido.colorAmb = vec3(0.1719, 0.0, 0.0);
 	materialLiquido.colorDif = vec3 (0.1719, 0.0, 0.0);
 	materialLiquido.colorEspec = vec3(0.1719, 0.0, 0.0);
-	materialLiquido.brillo = 0.1;
+	materialLiquido.brillo = 4.0;
 }
 
 MaquinaDeLlenado::~MaquinaDeLlenado(void)

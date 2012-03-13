@@ -121,26 +121,33 @@ void MaquinaEtiquetadora::dibujarBrazoMovil(){
 	//glRotatef(90.0,0.0,0.0,1.0);
 
 	float largo = 1.4 ,ladoRectangulo=0.25;
-	
-	glBegin(GL_TRIANGLE_STRIP);
 
+	glBegin(GL_QUADS);
+		glNormal3f(1.0, 0.0, 0.0);
 		glVertex3f( -ladoRectangulo,0.0,-ladoRectangulo);
 		glVertex3f( -ladoRectangulo,largo,-ladoRectangulo);
-
+		glVertex3f(-ladoRectangulo,largo,ladoRectangulo);
+		glVertex3f(-ladoRectangulo,0.0,ladoRectangulo);
+		
+		glNormal3f(0.0, 0.0, -1.0);
 		glVertex3f(-ladoRectangulo,0.0,ladoRectangulo);
 		glVertex3f(-ladoRectangulo,largo,ladoRectangulo);
-
+		glVertex3f(ladoRectangulo,largo, ladoRectangulo);
+		glVertex3f(ladoRectangulo,0.0, ladoRectangulo);
+		
+		glNormal3f(-1.0, 0.0, 0.0);
 		glVertex3f(ladoRectangulo,0.0, ladoRectangulo);
 		glVertex3f(ladoRectangulo,largo, ladoRectangulo);
-
+		glVertex3f(ladoRectangulo,largo,-ladoRectangulo);
+		glVertex3f(ladoRectangulo,0.0,-ladoRectangulo);
+		
+		glNormal3f(0.0, 0.0, 1.0);
 		glVertex3f(ladoRectangulo,0.0,-ladoRectangulo);
 		glVertex3f(ladoRectangulo,largo,-ladoRectangulo);
-
-		glVertex3f(-ladoRectangulo,0.0,-ladoRectangulo);
 		glVertex3f(-ladoRectangulo,largo,-ladoRectangulo);
+		glVertex3f(-ladoRectangulo,0.0,-ladoRectangulo);
 
 	glEnd();
-
 	float largoCilindro = 0.9;
 
 	glTranslatef(0.0,largo,-largoCilindro /2.0);
@@ -156,16 +163,14 @@ void MaquinaEtiquetadora::dibujarBrazoMovil(){
 	//Se dibuja la tapa del cilindro
 	glBegin(GL_TRIANGLE_FAN);
 
+	normal = vec3(0.0, -1.0, 0.0);
+	glNormal3fv(&normal[0]);
 	this->glVerticeVec3(altura);
 
 	for (int i=0; i <= cantDiscret; i++)
 	{
 		vertice = this->curvaPiezaBrazoMovil->evaluar((float)(i * cantTramos) /(float) (cantDiscret));
-		normal = this->curvaPiezaBrazoMovil->tangente((float)(i * cantTramos) /(float) (cantDiscret));
-		normal = cross(normal, vec3(0.0, 0.0, -1.0));
-		glNormal3fv(&normal[0]);
-		this->glVerticeVec3(vertice);
-
+		this->glVerticeVec3(vertice+altura);		
 	}
 	glEnd();
 
@@ -178,8 +183,11 @@ void MaquinaEtiquetadora::dibujarBrazoMovil(){
 		for (int i=0; i <= cantDiscret; i++)
 		{
 			vertice = this->curvaPiezaBrazoMovil->evaluar((float)(i * cantTramos) /(float) (cantDiscret));
+			normal = this->curvaPiezaBrazoMovil->tangente((float)(i * cantTramos) /(float) (cantDiscret));
+			normal = cross(normal, vec3(0.0, -1.0, 0.0));
+			glNormal3fv(&normal[0]);
 			this->glVerticeVec3(vertice);
-			this->glVerticeVec3(vertice + altura); 
+			this->glVerticeVec3(vertice + altura); 			
 
 		}
 		glEnd();
