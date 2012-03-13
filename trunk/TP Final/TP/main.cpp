@@ -125,9 +125,6 @@ void escena(void)
 	
 	control->dibujarEscena();
 
-	glCallList(DL_AXIS);
-	//glCallList(DL_GRID);
-
 	glutSwapBuffers();
 }
 

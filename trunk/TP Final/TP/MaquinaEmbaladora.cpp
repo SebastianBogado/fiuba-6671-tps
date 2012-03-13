@@ -158,27 +158,26 @@ void MaquinaEmbaladora::dibujarRampa()
 
 	glTranslatef(this->valorLargoEnX(),this->valorLargoEnY() / 2.0, 0.0);
 
-	glBegin(GL_TRIANGLE_STRIP);
-		
+	glBegin(GL_QUADS);
+		glNormal3f(0.0, 1.0, 0.0);
 		glVerticeVec3(v0 + vInclinacionA);
 		glVerticeVec3(v1 + vInclinacionA);
+		glVerticeVec3(v1);
+		glVerticeVec3(v0);
 
+		glNormal3f(0.71, 0.0, 0.71);
 		glVerticeVec3(v0);
 		glVerticeVec3(v1);
+		glVerticeVec3(v3);
+		glVerticeVec3(v2);
+
+		glNormal3f(0.0, -1.0, 0.0);
 		glVerticeVec3(v2);
 		glVerticeVec3(v3);
-
-		glVerticeVec3(v2 + vInclinacionB);
 		glVerticeVec3(v3 + vInclinacionB);
+		glVerticeVec3(v2 + vInclinacionB);
 
 	glEnd();
-
-
-
-
-
-
-
 }
 
 btRigidBody* MaquinaEmbaladora::cuerpoRigidoRampa()
