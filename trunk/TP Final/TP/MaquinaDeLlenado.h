@@ -46,6 +46,7 @@ private:
 	void dibujarLiquido();
 	float nivSupLiquido,nivInfLiquido,pasoNivLiquido;
 	EstadoLiquido estLiquido;
+	propMaterial materialLiquido;
 
 	Botella* botellaActual;
 
