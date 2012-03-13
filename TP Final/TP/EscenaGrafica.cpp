@@ -47,19 +47,15 @@ void EscenaGrafica::graficar(){
 
 void EscenaGrafica::actualizarEscena()
 {
-	for (int i=0; i < this->cantidadObjetos ; i++)
-		this->objetos[i]->actualizarAtributos();
 	if (actualizarReflexion)
 		tanque->actualizarReflexion(this);
+	for (int i=0; i < this->cantidadObjetos ; i++)
+		this->objetos[i]->actualizarAtributos();
 }
 
 void EscenaGrafica::posicionarLucesEnIluminacion(LamparaDeTecho* lamparas){
-	vec3 aux;
-	for (int j = 0; j < iluminacion->cantidadDeLuces(); j++){
-		aux = lamparas->posicionDeLuz(j);
-		aux.z -= 0.5;
-		iluminacion->setPosicionDeLasLuces(j, aux);
-	}
+	for (int j = 0; j < iluminacion->cantidadDeLuces(); j++)
+		iluminacion->setPosicionDeLasLuces(j, lamparas->posicionDeLuz(j));
 }
 
 EscenaGrafica::~EscenaGrafica(void)
