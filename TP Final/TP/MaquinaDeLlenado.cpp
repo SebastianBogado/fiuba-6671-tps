@@ -205,6 +205,12 @@ void MaquinaDeLlenado::definirMateriales(){
 	materialBase.colorDif = vec3(0.3, 0.3, 0.3);
 	materialBase.colorEspec = vec3(0.1, 0.1, 0.1);
 	materialBase.brillo = 1.0; 
+
+
+	materialLiquido.colorAmb = vec3(0.1719, 0.0, 0.0);
+	materialLiquido.colorDif = vec3 (0.1719, 0.0, 0.0);
+	materialLiquido.colorEspec = vec3(0.1719, 0.0, 0.0);
+	materialLiquido.brillo = 0.1;
 }
 
 MaquinaDeLlenado::~MaquinaDeLlenado(void)
@@ -225,6 +231,18 @@ void MaquinaDeLlenado::graficar()
 	glRotatef(-90.0, 0.0, 0.0, 1.0);
 	//this->dibujarLiquido();
 
+		
+
+		aplicarShader();
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, texturaID);
+		shaders->setMaterial(materialTubito);
+		shaders->setUniform("skyBoxTex", 0);
+		glCallList(DL_TUBITO);
+
+
+		detenerShader();
+
 		aplicarPhong();
 		
 		phong->setMaterial(materialBase);
@@ -237,19 +255,12 @@ void MaquinaDeLlenado::graficar()
 		//this->dibujarLiquido();
 		
 		glCallList(DL_SOPORTE_DEL_TUBITO);
-		detenerPhong();
-
-		aplicarShader();
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, texturaID);
-		shaders->setMaterial(materialTubito);
-		shaders->setUniform("skyBoxTex", 0);
-		glCallList(DL_TUBITO);
-
-
-		detenerShader();
 
 		this->dibujarLiquido();
+
+		detenerPhong();
+
+		
 		//glCallList(DL_LIQUIDO);
 
 	glPopMatrix();
@@ -398,7 +409,7 @@ void MaquinaDeLlenado::dibujarLiquido()
 	if (!this->AnimacionIniciada)
 		return;
 	
-	float color[3] = {0.1719, 0.0, 0.0,};
+	float color[3] = {0.1719, 0.0, 0.0};
 
 	float alturaLiquido = 2.0;
 	float lado = 0.1;
@@ -422,16 +433,19 @@ void MaquinaDeLlenado::dibujarLiquido()
 		//glVertex3f(10.,0.,0.);
 		//glVertex3f(0.,10.,0.);
 
-		glColor3fv(color);
+		
 		glVerticeVec3(v1 + nSup);
 		glVerticeVec3(v1 + nInf);
+		
 		
 		glVerticeVec3(v2 + nSup);
 		glVerticeVec3(v2 + nInf);
 
+		
 		glVerticeVec3(v3 + nSup);
 		glVerticeVec3(v3 + nInf);
 
+		
 		glVerticeVec3(v1 + nSup);
 		glVerticeVec3(v1 + nInf);
 
