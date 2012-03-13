@@ -151,7 +151,7 @@ void MaquinaEtiquetadora::dibujarBrazoMovil(){
 
 	vec3 altura(0.0,largoCilindro,0.0);
 
-	vec3 vertice;
+	vec3 vertice, normal;
 
 	//Se dibuja la tapa del cilindro
 	glBegin(GL_TRIANGLE_FAN);
@@ -161,6 +161,9 @@ void MaquinaEtiquetadora::dibujarBrazoMovil(){
 	for (int i=0; i <= cantDiscret; i++)
 	{
 		vertice = this->curvaPiezaBrazoMovil->evaluar((float)(i * cantTramos) /(float) (cantDiscret));
+		normal = this->curvaPiezaBrazoMovil->tangente((float)(i * cantTramos) /(float) (cantDiscret));
+		normal = cross(normal, vec3(0.0, 0.0, -1.0));
+		glNormal3fv(&normal[0]);
 		this->glVerticeVec3(vertice);
 
 	}
