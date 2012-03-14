@@ -151,51 +151,59 @@ void CajonesDeBotellas::dibujarCajonDePlastico()
 {	
 	//float dist = this->distanciaEntreBotellas + 0.1;
 	//float altura = 0.5;
-
-
-	glBegin(GL_TRIANGLE_STRIP);
-
+	glBegin(GL_QUADS);
+		glNormal3f(0.0, 1.0, 0.0);
 		glTexCoord2f(0.,1.);
 		glVertex3f(0.5,0.5,0.25);
 		glTexCoord2f(0.,0.);
 		glVertex3f(0.5,0.5,-0.5);
-
+		glTexCoord2f(1.,0.);
+		glVertex3f(-0.5,0.5,-0.5);
+		glTexCoord2f(1.,1.);
+		glVertex3f(-0.5,0.5,0.25);
+		
+		glNormal3f(-1.0, 0.0, 0.0);
 		glTexCoord2f(1.,1.);
 		glVertex3f(-0.5,0.5,0.25);
 		glTexCoord2f(1.,0.);
 		glVertex3f(-0.5,0.5,-0.5);
+		glTexCoord2f(2.,0.);
+		glVertex3f(-0.5,-0.5,-0.5);
+		glTexCoord2f(2.,1.);
+		glVertex3f(-0.5,-0.5,0.25);
 
+		glNormal3f(0.0, -1.0, 0.0);		
 		glTexCoord2f(2.,1.);
 		glVertex3f(-0.5,-0.5,0.25);
 		glTexCoord2f(2.,0.);
 		glVertex3f(-0.5,-0.5,-0.5);
+		glTexCoord2f(3.,0.);
+		glVertex3f(0.5,-0.5,-0.5);
+		glTexCoord2f(3.,1.);
+		glVertex3f(0.5,-0.5,0.25);
 
+		glNormal3f(1.0, 0.0, 0.0);
 		glTexCoord2f(3.,1.);
 		glVertex3f(0.5,-0.5,0.25);
 		glTexCoord2f(3.,0.);
 		glVertex3f(0.5,-0.5,-0.5);
-
-		glTexCoord2f(4.,1.);
-		glVertex3f(0.5,0.5,0.25);
 		glTexCoord2f(4.,0.);
 		glVertex3f(0.5,0.5,-0.5);
+		glTexCoord2f(4.,1.);
+		glVertex3f(0.5,0.5,0.25);
 
 	glEnd();
 
-	glBegin(GL_TRIANGLE_STRIP);
-
+	glBegin(GL_QUADS);
+		glNormal3f(0.0, 0.0, -1.0);
 		glTexCoord2f(1.0,0.8);
 		glVertex3f(0.5,0.5,-0.5);
-
 		glTexCoord2f(1.,1.);
 		glVertex3f(-0.5,0.5,-0.5);
-
-		glTexCoord2f(0.,0.8);
-		glVertex3f(0.5,-0.5,-0.5);
-
 		glTexCoord2f(0.,1.0);
 		glVertex3f(-0.5,-0.5,-0.5);
-		
+		glTexCoord2f(0.,0.8);
+		glVertex3f(0.5,-0.5,-0.5);	
 
 	glEnd();
 	
