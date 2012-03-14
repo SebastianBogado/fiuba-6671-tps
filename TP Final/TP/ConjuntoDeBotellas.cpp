@@ -1,5 +1,21 @@
 #include "ConjuntoDeBotellas.h"
 
+vec3 ConjuntoDeBotellas::puntosPerfil[] = {
+	vec3(0.0, 0.0, 0.0),
+	vec3(0.9, 0.0, 0.0),
+	vec3(0.5, 0.0, 0.4),
+	vec3(0.5, 0.0, 1.0),
+	vec3(0.5, 0.0, 1.6), 
+	vec3(0.6, 0.0, 1.8),
+	vec3(0.4, 0.0, 2.2),
+	vec3(0.2, 0.0, 2.6),
+	vec3(0.2, 0.0, 2.8), 
+	vec3(0.2, 0.0, 3.0), 
+	vec3(0.2, 0.0, 3.2), 
+	vec3(0.2, 0.0, 3.2), 
+	vec3(0.0, 0.0, 3.2)
+};
+int ConjuntoDeBotellas::cantidadDePuntosPerfil = 13;
 
 ConjuntoDeBotellas::ConjuntoDeBotellas(void)
 {
@@ -52,33 +68,9 @@ void ConjuntoDeBotellas::inicializar()
 		cout << SOIL_last_result() << endl;
 	
 	//Superficie
-	vec3 bezierP1 = vec3(0.0, 0.0, 0.0); 
-	vec3 bezierP2 = vec3(0.9, 0.0, 0.0);
-	vec3 bezierP3 = vec3(0.5, 0.0, 0.4);
-	vec3 bezierP4 = vec3(0.5, 0.0, 1.0);
-	vec3 bezierP5 = vec3(0.5, 0.0, 1.6); 
-	vec3 bezierP6 = vec3(0.6, 0.0, 1.8);
-	vec3 bezierP7 = vec3(0.4, 0.0, 2.2);
-	vec3 bezierP8 = vec3(0.2, 0.0, 2.6);
-	vec3 bezierP9 = vec3(0.2, 0.0, 2.8); 
-	vec3 bezierP10 = vec3(0.2, 0.0, 3.0); 
-	vec3 bezierP11 = vec3(0.2, 0.0, 3.2); 
-	vec3 bezierP12 = vec3(0.2, 0.0, 3.2); 
-	vec3 bezierP13 = vec3(0.0, 0.0, 3.2);
-	Bezier* perfilBotella = new Bezier(4);
-	perfilBotella->incluirPunto(bezierP1);
-	perfilBotella->incluirPunto(bezierP2);
-	perfilBotella->incluirPunto(bezierP3);
-	perfilBotella->incluirPunto(bezierP4);
-	perfilBotella->incluirPunto(bezierP5);
-	perfilBotella->incluirPunto(bezierP6);
-	perfilBotella->incluirPunto(bezierP7);
-	perfilBotella->incluirPunto(bezierP8);
-	perfilBotella->incluirPunto(bezierP9);
-	perfilBotella->incluirPunto(bezierP10);
-	perfilBotella->incluirPunto(bezierP11);
-	perfilBotella->incluirPunto(bezierP12);
-	perfilBotella->incluirPunto(bezierP13);
+	Bezier* perfilBotella = new Bezier(( cantidadDePuntosPerfil - 1) / 3);
+	for (int i = 0; i < cantidadDePuntosPerfil; i++)
+		perfilBotella->incluirPunto(puntosPerfil[i]);
 	SuperficieDeRevolucion* superficieBotella = new SuperficieDeRevolucion(perfilBotella);
 	
 	//Display list

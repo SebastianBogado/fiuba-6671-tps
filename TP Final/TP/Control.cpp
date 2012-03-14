@@ -40,7 +40,6 @@ void Control::teclado(unsigned char tecla, int x, int y){
 	camara->controladorDeTeclado(tecla);
 	//Cualquier otro control inherente al teclado va acá, 
 	//junto con la discriminación entre release y debug mode
-	char telcasIluminacion[] = { '1', '2', '3', '4', '5', '6' };
 	switch (tecla){
 	case 'q':	//liberarMemoria();
 				exit(0); 
@@ -90,6 +89,16 @@ void Control::mouseMov(int x, int y){
 	glutPostRedisplay();
 }
 
+void Control::rueditaMouse(int button, int dir, int x, int y){
+	if (dir == 0) return;
+	
+	if (dir > 0)
+		camara->controladorDeTeclado('+');
+    else
+		camara->controladorDeTeclado('-');
+
+	glutPostRedisplay();
+}
 void Control::actualizarDatos(){
 
 	if(aplicacionCorriendo){

@@ -45,5 +45,7 @@ private:
 	string rutaTexturaTapa;
 	GLuint tapaCoca;
 
+	static vec3 puntosPerfil[];
+	static int cantidadDePuntosPerfil;
 };
 

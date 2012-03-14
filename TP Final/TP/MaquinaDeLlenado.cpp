@@ -2,6 +2,24 @@
 #include "EscenaGrafica.h"
 #include "Control.h"
 
+vec3 MaquinaDeLlenado::puntosPerfilTanque[] = {
+	vec3(-1.0, 0.0, 1.0), 
+	vec3(1.0, 0.0, 1.0),
+	vec3(1.0, 0.0, 2.5),
+	vec3(1.0, 0.0, 4.0), 
+	vec3(-1.0, 0.0, 4.0)
+};
+int MaquinaDeLlenado::cantidadDePuntosPerfilTanque = 5;
+
+vec3 MaquinaDeLlenado::puntosCaminoTubito[] = {
+	vec3( 0.0,  -0.25, 4.5),
+	vec3( 0.0,   0.25, 4.5),
+	vec3( 0.0,   1.0, 4.5),
+	vec3( 0.0,   1.6, 4.5),
+	vec3( 0.0,  2.0, 4.25),
+	vec3( 0.0,  2.0, 3.75)
+};
+int MaquinaDeLlenado::cantidadDePuntosCaminoTubito = 6;
 MaquinaDeLlenado::MaquinaDeLlenado(void)
 {
 
@@ -50,44 +68,19 @@ void MaquinaDeLlenado::ini(){
 
 	//Superficies
 	//Cuerpo del tanque
-	vec3 bsplineP1 = vec3(-1.0, 0.0, 1.0); 
-	vec3 bsplineP2 = vec3(1.0, 0.0, 1.0);
-	vec3 bsplineP3 = vec3(1.0, 0.0, 2.5);
-	vec3 bsplineP4 = vec3(1.0, 0.0, 4.0); 
-	vec3 bsplineP5 = vec3(-1.0, 0.0, 4.0);
-	alturaDelCentro = bsplineP5.z - bsplineP1.z;
-	BSpline* perfilTanqueDeCoca = new BSpline(5);
-	perfilTanqueDeCoca->incluirPunto(bsplineP1);
-	perfilTanqueDeCoca->incluirPunto(bsplineP2);
-	perfilTanqueDeCoca->incluirPunto(bsplineP3);
-	perfilTanqueDeCoca->incluirPunto(bsplineP4);
-	perfilTanqueDeCoca->incluirPunto(bsplineP5);
+	alturaDelCentro = puntosPerfilTanque[cantidadDePuntosPerfilTanque-1].z - puntosPerfilTanque[0].z;
+	BSpline* perfilTanqueDeCoca = new BSpline(cantidadDePuntosPerfilTanque);
+	for (int i = 0; i < cantidadDePuntosPerfilTanque; i++)
+		perfilTanqueDeCoca->incluirPunto(puntosPerfilTanque[i]);
 	SuperficieDeRevolucion* superficieTanqueDeCoca = new SuperficieDeRevolucion(perfilTanqueDeCoca);
 	
 	//Tubito que llena las botellas
 	//Curva borde
 	Circunferencia* borde = new Circunferencia(0.1, vec3(0.0, 0.0, 4.5));
 	//Curva camino
-	//vec3 caminoP1 = vec3( 0.0,  -0.25, 4.5);
-	vec3 caminoP1 = vec3( 0.0,  -0.25, 4.5);
-	vec3 caminoP2 = vec3( 0.0,   0.25, 4.5);
-	vec3 caminoP3 = vec3( 0.0,   1.0, 4.5);
-	vec3 caminoP4 = vec3( 0.0,   1.6, 4.5);
-
-	//vec3 caminoP5 = vec3( 0.0,  1.75, 4.25) original
-	vec3 caminoP5 = vec3( 0.0,  2.0, 4.25);
-
-	//vec3 caminoP6 = vec3( 0.0,  1.75, 4.0); original
-	vec3 caminoP6 = vec3( 0.0,  2.0, 3.75);
-	BSpline* caminoTuboDelTanqueDeCoca = new BSpline(6);//6 original
-
-	//caminoTuboDelTanqueDeCoca->incluirPunto(caminoP0);//migue
-	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP1);
-	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP2);
-	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP3);
-	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP4);
-	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP5);
-	caminoTuboDelTanqueDeCoca->incluirPunto(caminoP6);
+	BSpline* caminoTuboDelTanqueDeCoca = new BSpline(cantidadDePuntosCaminoTubito);
+	for (int i = 0; i < cantidadDePuntosCaminoTubito; i++)
+		caminoTuboDelTanqueDeCoca->incluirPunto(puntosCaminoTubito[i]);
 	SuperficieDeBarrido* superficieTuboDelTanqueDeCoca = new SuperficieDeBarrido(borde, caminoTuboDelTanqueDeCoca);
 
 	//DL

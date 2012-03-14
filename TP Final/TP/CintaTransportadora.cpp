@@ -1,5 +1,27 @@
 #include "CintaTransportadora.h"
 
+vec3 CintaTransportadora::puntosForma[] = {
+	vec3(6.5, 0.0, 2.5),
+	vec3(6.0, 0.0, 2.0),
+	vec3(6.0, 0.0, 2.0),
+	vec3(5.5, 0.0, 2.0),
+	vec3(5.0, 0.0, 2.0), 
+	vec3(5.0, 0.0, 2.0),
+	vec3(4.5, 0.0, 2.5)
+};
+vec3 CintaTransportadora::puntosCamino[] = {
+	vec3(5.5, -1.5, 2.0),
+	vec3(5.5, 1.5, 2.0),
+	vec3(5.5, 4.5, 2.0),
+	vec3(2.5, 4.5, 2.0),
+	vec3(-0.5, 4.5, 2.0),
+	vec3(-0.5, 7.5, 2.0),
+	vec3(-0.5, 10.5, 2.0),
+	vec3(-0.5, 13.5, 2.0),
+	vec3(-0.5, 15.5, 2.0)
+};
+int CintaTransportadora::cantidadDePuntosForma = 7;
+int CintaTransportadora::cantidadDePuntosCamino = 9;
 
 CintaTransportadora::CintaTransportadora(void)
 {	
@@ -157,47 +179,16 @@ void CintaTransportadora::graficarCinta()
 
 void CintaTransportadora::inicializarCurvas()
 {
-
 	//Curva borde
-	vec3 bordeP1 = vec3(6.5, 0.0, 2.5); 
-	vec3 bordeP2 = vec3(6.0, 0.0, 2.0);
-	vec3 bordeP3 = vec3(6.0, 0.0, 2.0);
-	vec3 bordeP4 = vec3(5.5, 0.0, 2.0);
-	vec3 bordeP5 = vec3(5.0, 0.0, 2.0); 
-	vec3 bordeP6 = vec3(5.0, 0.0, 2.0);
-	vec3 bordeP7 = vec3(4.5, 0.0, 2.5);
-	formaCintaTransportadora = new BSpline(7);
-	formaCintaTransportadora->incluirPunto(bordeP1);
-	formaCintaTransportadora->incluirPunto(bordeP2);
-	formaCintaTransportadora->incluirPunto(bordeP3);
-	formaCintaTransportadora->incluirPunto(bordeP4);
-	formaCintaTransportadora->incluirPunto(bordeP5);
-	formaCintaTransportadora->incluirPunto(bordeP6);
-	formaCintaTransportadora->incluirPunto(bordeP7);
-	//Curva camino
-	//vec3 caminoP0 = vec3(5.5, -4.5, 2.0);
-	vec3 caminoP1 = vec3(5.5, -1.5, 2.0);
-	vec3 caminoP2 = vec3(5.5, 1.5, 2.0);
-	vec3 caminoP3 = vec3(5.5, 4.5, 2.0);
-	vec3 caminoP4 = vec3(2.5, 4.5, 2.0);
-	vec3 caminoP5 = vec3(-0.5, 4.5, 2.0);
-	vec3 caminoP6 = vec3(-0.5, 7.5, 2.0);
-	vec3 caminoP7 = vec3(-0.5, 10.5, 2.0);
-	vec3 caminoP8 = vec3(-0.5, 13.5, 2.0);
-	vec3 caminoP9 = vec3(-0.5, 15.5, 2.0);
-	caminoCintaTransportadora = new BSpline(9);
-	//caminoCintaTransportadora->incluirPunto(caminoP0);
-	caminoCintaTransportadora->incluirPunto(caminoP1);
-	caminoCintaTransportadora->incluirPunto(caminoP2);
-	caminoCintaTransportadora->incluirPunto(caminoP3);
-	caminoCintaTransportadora->incluirPunto(caminoP4);
-	caminoCintaTransportadora->incluirPunto(caminoP5);
-	caminoCintaTransportadora->incluirPunto(caminoP6);
-	caminoCintaTransportadora->incluirPunto(caminoP7);
-	caminoCintaTransportadora->incluirPunto(caminoP8);
-	caminoCintaTransportadora->incluirPunto(caminoP9);
-	superficieCintaTransportadora = new SuperficieDeBarrido(formaCintaTransportadora, caminoCintaTransportadora);
+	formaCintaTransportadora = new BSpline(cantidadDePuntosForma);
+	for (int i = 0; i < cantidadDePuntosForma; i++)
+		formaCintaTransportadora->incluirPunto(puntosForma[i]);
 
+	//Curva camino
+	caminoCintaTransportadora = new BSpline(cantidadDePuntosCamino);
+	for (int i = 0; i < cantidadDePuntosCamino; i++)
+		caminoCintaTransportadora->incluirPunto(puntosCamino[i]);
+	superficieCintaTransportadora = new SuperficieDeBarrido(formaCintaTransportadora, caminoCintaTransportadora);
 }
 
 void CintaTransportadora::actualizarAtributos(){
