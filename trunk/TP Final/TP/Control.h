@@ -17,8 +17,9 @@ public:
 	Control(bool debug, vec2& tamañoVentana);
 	~Control();
 	static void teclado(unsigned char tecla, int x, int y);
-	static void mouse(int button, int state, int x, int y);
+	static void mouse(int button, int dir, int x, int y);
 	static void mouseMov(int x, int y);
+	static void rueditaMouse(int button, int state, int x, int y);
 
 	static void dibujarEscena();
 	

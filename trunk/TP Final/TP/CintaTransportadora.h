@@ -59,6 +59,10 @@ private:
 	BSpline* formaCintaTransportadora;
 	BSpline* caminoCintaTransportadora;
 	SuperficieDeBarrido* superficieCintaTransportadora;
+	static vec3 puntosForma[];
+	static vec3 puntosCamino[];
+	static int cantidadDePuntosForma;
+	static int cantidadDePuntosCamino;
 
 	int discretAvance,discretBorde;
 

@@ -55,5 +55,10 @@ private:
 
 	float alturaDelCentro; //Para tomar como centro de reflexión
 	GLuint ladoTextura; //Son cuadradas, ancho y alto son iguales
+	
+	static vec3 puntosPerfilTanque[];
+	static int cantidadDePuntosPerfilTanque;
+	static vec3 puntosCaminoTubito[];
+	static int cantidadDePuntosCaminoTubito;
 };
 
