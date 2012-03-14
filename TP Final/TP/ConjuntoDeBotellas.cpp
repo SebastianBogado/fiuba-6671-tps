@@ -66,7 +66,7 @@ void ConjuntoDeBotellas::inicializar()
 										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB );
 	if (! tapaCoca)
 		cout << SOIL_last_result() << endl;
-	
+
 	//Superficie
 	Bezier* perfilBotella = new Bezier(( cantidadDePuntosPerfil - 1) / 3);
 	for (int i = 0; i < cantidadDePuntosPerfil; i++)
