@@ -284,7 +284,8 @@ void inicializarCurvasBarridoBSplineBSpline(){
 	vec3 caminoP6 = vec3(-0.5, 7.5, 2.0);
 	vec3 caminoP7 = vec3(-0.5, 10.5, 2.0);
 	vec3 caminoP8 = vec3(-0.5, 13.5, 2.0);
-	bsplineBarridoCamino1 = new BSpline(8);
+	vec3 caminoP9 = vec3(-0.5, 15.5, 2.0);
+	bsplineBarridoCamino1 = new BSpline(9);
 	bsplineBarridoCamino1->incluirPunto(caminoP1);
 	bsplineBarridoCamino1->incluirPunto(caminoP2);
 	bsplineBarridoCamino1->incluirPunto(caminoP3);
@@ -293,6 +294,7 @@ void inicializarCurvasBarridoBSplineBSpline(){
 	bsplineBarridoCamino1->incluirPunto(caminoP6);
 	bsplineBarridoCamino1->incluirPunto(caminoP7);
 	bsplineBarridoCamino1->incluirPunto(caminoP8);
+	bsplineBarridoCamino1->incluirPunto(caminoP9);
 }
 void inicializarCurvasBarridoBSplineBezier(){
 	//Curva borde
@@ -658,7 +660,7 @@ int main(int argc, char** argv)
     ejecutarTests();
 	glutInit(&argc, argv);
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize (1024, 768); 
+	glutInitWindowSize (800, 640); 
 	glutInitWindowPosition (0, 0);
    
 	glutCreateWindow (argv[0]);

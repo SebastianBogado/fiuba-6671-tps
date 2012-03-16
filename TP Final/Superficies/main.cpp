@@ -269,7 +269,8 @@ void inicializarSupBarridoConBSplineBSpline(){
 	vec3 caminoP6 = vec3(-0.5, 7.5, 2.0);
 	vec3 caminoP7 = vec3(-0.5, 10.5, 2.0);
 	vec3 caminoP8 = vec3(-0.5, 13.5, 2.0);
-	BSpline* camino = new BSpline(8);
+	vec3 caminoP9 = vec3(-0.5, 15.5, 2.0);
+	BSpline* camino = new BSpline(9);
 	camino->incluirPunto(caminoP1);
 	camino->incluirPunto(caminoP2);
 	camino->incluirPunto(caminoP3);
@@ -278,6 +279,7 @@ void inicializarSupBarridoConBSplineBSpline(){
 	camino->incluirPunto(caminoP6);
 	camino->incluirPunto(caminoP7);
 	camino->incluirPunto(caminoP8);
+	camino->incluirPunto(caminoP9);
 	pruebaBarridoConBSplineBSpline = new SuperficieDeBarrido(borde, camino);
 }
 void inicializarSupBarridoConBSplineBezier(){
@@ -619,7 +621,7 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize (1024, 768); 
+	glutInitWindowSize (800, 640); 
 	glutInitWindowPosition (0, 0);
    
 	glutCreateWindow (argv[0]);
