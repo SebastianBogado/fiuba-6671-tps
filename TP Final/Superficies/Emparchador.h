@@ -11,10 +11,8 @@ class Emparchador{
 		/* Utilícese el siguiente sólo para debuggear
 		 * Nota: las normales están escaladas al 30% porque en esta aplicación todas las figuras
 		 * son de medidas pequeñas, y se veían muy grandes las normales unitarias
-		 */
+		 */	 
 		static void verNormales(SuperficieDiscretizada* superficie);
-    protected:
-        void emparcharTapas(SuperficieDiscretizada* superficie);
 };
 
 #endif // __EMPARCHADOR_H__

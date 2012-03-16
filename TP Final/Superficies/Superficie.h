@@ -22,12 +22,7 @@ class Superficie{
         vec3 getPunto(int Xn, int Yn);		
         vec3 getNormal(int Xn, int Yn);
 		
-		/*//Además de devolver si algún punto es o no una arista, devuelve también true
-        //para aquellos puntos que merecen trato especial como el primer y último puntos de la esfera
-        virtual bool esArista(int Xn, int Yn);
 
-        virtual int getPaso();
-        bool tieneTapas();*/
         int cantidadDePuntosBorde();
         int cantidadDePuntosEnAlto();
 
@@ -37,15 +32,6 @@ class Superficie{
 		bool discretizada;
 		int discretizacionBordeActual;
 		int discretizacionAvanceActual;
-
-        /*bool tengoTapas;
-        virtual void construir() = 0;
-        virtual float Xn(int n);
-        virtual float Yn(int n);
-        virtual float Zn(int n);
-		
-        float* calcularNormal(float* p, float* q, float* r);
-        virtual float* getNormalArista(int Xn, int Yn, int Zn);*/
 };
 		
 

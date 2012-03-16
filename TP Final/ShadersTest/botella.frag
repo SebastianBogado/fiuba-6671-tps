@@ -44,10 +44,11 @@ propInternasLuz luzI = propInternasLuz(
 		vec3(0.8),
 		vec3(0.9)
 	);
+vec3 iluminacionBase = vec3(0.05);
 propMaterial material;
 
 vec3 Phong(){
-	vec3 color = vec3(0.0);
+	vec3 color = iluminacionBase * material.colorAmb;
 	vec3 luzAmb = luzI.amb * material.colorAmb;
 	vec3 luzDif = luzI.dif * material.colorDif;
 	vec3 luzEspec = luzI.espec * material.colorEspec;
@@ -62,102 +63,110 @@ vec3 Phong(){
 	l = normalize(posicion - luzE1.posicion);
 	LdotDirLuz = dot(l, normalize( luzE1.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE1.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		r = reflect(l, n);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(r,v),0.0), material.brillo ))));
+	if (luzE1.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			r = reflect(l, n);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(r,v),0.0), material.brillo )));
+		}
 	}
 
 	// Segunda luz
 	l = normalize(posicion - luzE2.posicion);
 	LdotDirLuz = dot(l, normalize( luzE2.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE2.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		r = reflect(l, n);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(r,v),0.0), material.brillo ))));
+	if (luzE2.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			r = reflect(l, n);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(r,v),0.0), material.brillo )));
+		}
 	}
 
 	// Tercera luz
 	l = normalize(posicion - luzE3.posicion);
 	LdotDirLuz = dot(l, normalize( luzE3.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE3.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		r = reflect(l, n);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(r,v),0.0), material.brillo ))));
+	if (luzE3.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			r = reflect(l, n);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(r,v),0.0), material.brillo )));
+		}
 	}
 
 	// Cuarta luz
 	l = normalize(posicion - luzE4.posicion);
 	LdotDirLuz = dot(l, normalize( luzE4.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE4.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		r = reflect(l, n);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(r,v),0.0), material.brillo ))));
+	if (luzE4.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			r = reflect(l, n);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(r,v),0.0), material.brillo )));
+		}
 	}
 
 	// Quinta luz
 	l = normalize(posicion - luzE5.posicion);
 	LdotDirLuz = dot(l, normalize( luzE5.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE5.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		r = reflect(l, n);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(r,v),0.0), material.brillo ))));
+	if (luzE5.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			r = reflect(l, n);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(r,v),0.0), material.brillo )));
+		}
 	}
 
 	// Sexta luz
 	l = normalize(posicion - luzE6.posicion);
 	LdotDirLuz = dot(l, normalize( luzE6.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE6.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		r = reflect(l, n);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(r,v),0.0), material.brillo ))));
+	if (luzE6.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			r = reflect(l, n);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(r,v),0.0), material.brillo )));
+		}
 	}
 
 	return color;
 }
 
 vec3 BlinnPhong(){
-	vec3 color = vec3(0.0);
+	vec3 color = iluminacionBase * material.colorAmb;
 	vec3 luzAmb = luzI.amb * material.colorAmb;
 	vec3 luzDif = luzI.dif * material.colorDif;
 	vec3 luzEspec = luzI.espec * material.colorEspec;
 	float k, LdotDirLuz, angulo; 
 	vec3 n = normalize(normal);
+	if (! gl_FrontFacing)
+		n = -n;
 	vec3 v = normalize(-posicion);
 	vec3 h, l;
 
@@ -165,86 +174,96 @@ vec3 BlinnPhong(){
 	l = normalize(posicion - luzE1.posicion);
 	LdotDirLuz = dot(l, normalize( luzE1.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE1.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		h = normalize(v - l);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(h,n),0.0), material.brillo ))));
+	if (luzE1.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			h = normalize(v - l);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(h,n),0.0), material.brillo )));
+		}
 	}
 
 	//Segunda luz
 	l = normalize(posicion - luzE2.posicion);
 	LdotDirLuz = dot(l, normalize( luzE2.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE2.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		h = normalize(v - l);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(h,n),0.0), material.brillo ))));
+	if (luzE2.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			h = normalize(v - l);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(h,n),0.0), material.brillo )));
+		}
 	}
+
 	//Tercera luz
 	l = normalize(posicion - luzE3.posicion);
 	LdotDirLuz = dot(l, normalize( luzE3.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE3.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		h = normalize(v - l);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(h,n),0.0), material.brillo ))));
+	if (luzE3.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			h = normalize(v - l);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(h,n),0.0), material.brillo )));
+		}
 	}
+
 	//Cuarta luz
 	l = normalize(posicion - luzE4.posicion);
 	LdotDirLuz = dot(l, normalize( luzE4.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE4.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		h = normalize(v - l);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(h,n),0.0), material.brillo ))));
+	if (luzE4.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			h = normalize(v - l);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(h,n),0.0), material.brillo )));
+		}
 	}
+
 	//Quinta luz
 	l = normalize(posicion - luzE5.posicion);
 	LdotDirLuz = dot(l, normalize( luzE5.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE5.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		h = normalize(v - l);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(h,n),0.0), material.brillo ))));
+	if (luzE5.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			h = normalize(v - l);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(h,n),0.0), material.brillo )));
+		}
 	}
+
 	//Sexta luz
 	l = normalize(posicion - luzE6.posicion);
 	LdotDirLuz = dot(l, normalize( luzE6.direccion));
 	angulo = degrees(acos(LdotDirLuz));
-	if ((angulo > luzI.angulo) || (! luzE6.prendida) )
-		color += luzAmb;
-	else{
-		//Factor de decrecimiento
-		k = pow(LdotDirLuz, luzI.k); 
-		h = normalize(v - l);
-		color += (luzAmb +
-				k * ((luzDif * max( dot(-l, n), 0.0 )) +
-					(luzEspec * pow(max(dot(h,n),0.0), material.brillo ))));
+	if (luzE6.prendida){
+		if (angulo > luzI.angulo)
+			color += luzAmb;
+		else{
+			//Factor de decrecimiento
+			k = pow(LdotDirLuz, luzI.k); 
+			h = normalize(v - l);
+			color += k * ((luzDif * max( dot(-l, n), 0.0 )) +
+					      (luzEspec * pow(max(dot(h,n),0.0), material.brillo )));
+		}
 	}
 
 	return color;
