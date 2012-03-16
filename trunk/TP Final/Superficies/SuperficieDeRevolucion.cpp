@@ -30,7 +30,7 @@ SuperficieDiscretizada* SuperficieDeRevolucion::discretizar(int discretizacionBo
 			mat4 rotadora = rotate(mat4(1.0f), k*pasoAngulo, ejeDeRotacion);
 			vec4 p = rotadora * vec4(puntoBase, 1.0); //Punto rotado
 			miDiscretizacion->agregarPunto(vec3(p.x, p.y, p.z), i, k);
-			//cout << "( " << p[0] << ", " << p[1] << ", " << p[2] << " ). i = " << i << "; u = " << u <<"; k = " << k << endl;
+
 			//Para conseguir la normal, roto 90° respecto del eje formado por el
 			//producto vectorial entre la tangente y el eje de rotación de la superficie
 			vec3 tg = curvaBorde->tangente(u);

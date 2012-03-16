@@ -30,8 +30,8 @@ SuperficieDiscretizada* SuperficieDeBarrido::discretizar(int discretizacionBorde
 	vec3 primerPuntoCamino = curvaCamino->evaluar(0);
 	for (int k = 0; k < puntosEnAlto; k++){
 		t = k*pasoCamino;
-		vec3 puntoCamino = curvaCamino->evaluar(t); //vec3 a = puntoCamino - curvaCamino->evaluar(0);
-		vec3 tgCamino = curvaCamino->tangente(t); //cout << "Translacion: (" <<a.x<<", "<<a.y<<", "<<a.z<<"); t = " << t << endl;
+		vec3 puntoCamino = curvaCamino->evaluar(t);
+		vec3 tgCamino = curvaCamino->tangente(t);
 		transladora = translate(mat4(1.0f), puntoCamino - primerPuntoCamino); 
 		rotadora = calcularRealineacion(t);
 		for (int i = 0; i < puntosBorde; i++){
@@ -42,7 +42,6 @@ SuperficieDiscretizada* SuperficieDeBarrido::discretizar(int discretizacionBorde
 			p += vec4(primerPuntoCamino, 0.0); //Devuelvo al punto a su posición original, y queda rotado como debe
 			p = transladora * p; //Punto transladado
 			miDiscretizacion->agregarPunto(vec3(p.x, p.y, p.z), i, k);
-			//cout << "( " << p[0] << ", " << p[1] << ", " << p[2] << " ). i = " << i << "; u = " << u <<"; k = " << k << endl;
 			
 			//Para conseguir la normal, roto la tangente de la curva borde según la mat4 rotadora
 			//y hago el producto vectorial con la tangente del camino
@@ -63,12 +62,32 @@ mat4 SuperficieDeBarrido::calcularRealineacion(float t){
 	vec3 tgPrimera = curvaCamino->tangente(0);
 	vec3 ejeDeRotacion = cross(tgPrimera, tgActual);
 	mat4 I = mat4(1.0f);
+	/* Por alguna razón no funciona esto
+	if ((ejeDeRotacion.x == 0) && (ejeDeRotacion.y == 0) && (ejeDeRotacion.z == 0)){
+		if ( coincidenLosPrimerosCuatroDecimales(tgPrimera, tgActual) )
+			return I;
+		else{
+			ejeDeRotacion = curvaCamino->evaluar(t) - curvaCamino->evaluar(0);
+			ejeDeRotacion = normalize(ejeDeRotacion);
+			return rotate(I, float(180), ejeDeRotacion);
+		}
+	}*/
 	if ((ejeDeRotacion.x == 0) && (ejeDeRotacion.y == 0) && (ejeDeRotacion.z == 0))
 		return I;
+	
 	tgActual = normalize(tgActual);
 	tgPrimera = normalize(tgPrimera);
+	ejeDeRotacion = normalize(ejeDeRotacion);
 
 	float angulo = acos(dot(tgPrimera, tgActual));
 
 	return rotate(I, degrees(angulo), ejeDeRotacion);
+}
+
+bool SuperficieDeBarrido::coincidenLosPrimerosCuatroDecimales(vec3 x, vec3 y){
+	vec3 r = abs(x-y);
+	bool coinciden = r.x < 0.0001;
+	coinciden &= r.y < 0.0001;
+	coinciden &= r.z < 0.0001;
+	return coinciden;
 }
