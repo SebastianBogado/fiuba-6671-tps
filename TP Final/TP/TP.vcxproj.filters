@@ -40,6 +40,9 @@
     <Filter Include="Archivos de encabezado\Manejadores">
       <UniqueIdentifier>{d9f2e829-1440-4be3-af8b-1b751bcbe22a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{cad1f48d-114a-44a1-a73a-7a618a303a67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\freeglut.lib">
@@ -236,6 +239,39 @@
     </None>
     <None Include="Recursos\Techo.jpg">
       <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Recursos\cintaTransportadora.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Recursos\etiquetaCoca.bmp">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Recursos\tapaCoca.png">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="shaders\botella.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\botella.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\cintaTransportadora.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\cintaTransportadora.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\PhongSpot.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\PhongSpot.vert">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\tanqueDeCoca.frag">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\tanqueDeCoca.vert">
+      <Filter>shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

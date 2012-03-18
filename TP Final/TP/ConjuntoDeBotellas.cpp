@@ -58,13 +58,13 @@ void ConjuntoDeBotellas::inicializar()
 	
 	//Mover los archivos de texturas al TP raíz, y que los demás proyectos referencien sus direcciones a él
 	//Rutas de archivos
-	rutaTextura = "..\\ShadersTest\\etiquetaCoca.png";
-	rutaTexturaTapa = "..\\ShadersTest\\tapaCoca.png";
-	rutaShaderDeVertices = "..\\ShadersTest\\botella.vert";
-	rutaShaderDeFragmentos = "..\\ShadersTest\\botella.frag";
+	rutaTextura = ".\\Recursos\\etiquetaCoca.png";
+	rutaTexturaTapa = ".\\Recursos\\tapaCoca.png";
+	rutaShaderDeVertices = ".\\shaders\\botella.vert";
+	rutaShaderDeFragmentos = ".\\shaders\\botella.frag";
 	ini();
 	texLoader->SetMipMapping(true);
-	texLoader->LoadTextureFromDisk("..\\ShadersTest\\etiquetaCoca.bmp", &etiquetaCoca);
+	texLoader->LoadTextureFromDisk(".\\Recursos\\etiquetaCoca.bmp", &etiquetaCoca);
 	tapaCoca = SOIL_load_OGL_texture(rutaTexturaTapa.c_str(), SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
 										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB );
 	if (! tapaCoca)

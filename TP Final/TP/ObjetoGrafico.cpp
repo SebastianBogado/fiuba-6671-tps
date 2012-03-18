@@ -5,7 +5,7 @@ GLSLProgram* ObjetoGrafico::phong = NULL;
 
 ObjetoGrafico::ObjetoGrafico(void){
 	if (! phong)
-		phong = new GLSLProgram( "..\\ShadersTest\\PhongSpot.vert", "..\\ShadersTest\\PhongSpot.frag");
+		phong = new GLSLProgram( ".\\shaders\\PhongSpot.vert", ".\\shaders\\PhongSpot.frag");
 }
 
 void ObjetoGrafico::ini(){

@@ -241,7 +241,7 @@ ObjetoGrafico** Control::inicializarObjetosGraficos()
 ObjetoGrafico** Control::inicializarBotellas()
 {
 	this->cantObjetosTotales += 2;
-	this->cantBotellas = 7;
+	this->cantBotellas = 16;
 
 	ObjetoGrafico** botellas = new ObjetoGrafico*[2];
 

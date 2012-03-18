@@ -139,10 +139,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Recursos\cajaCoca.png" />
+    <None Include="Recursos\cintaTransportadora.bmp" />
+    <None Include="Recursos\etiquetaCoca.bmp" />
     <None Include="Recursos\Pared.jpg" />
     <None Include="Recursos\Piso normalmap.jpg" />
     <None Include="Recursos\Piso.jpg" />
+    <None Include="Recursos\tapaCoca.png" />
     <None Include="Recursos\Techo.jpg" />
+    <None Include="shaders\botella.frag" />
+    <None Include="shaders\botella.vert" />
+    <None Include="shaders\cintaTransportadora.frag" />
+    <None Include="shaders\cintaTransportadora.vert" />
+    <None Include="shaders\PhongSpot.frag" />
+    <None Include="shaders\PhongSpot.vert" />
+    <None Include="shaders\tanqueDeCoca.frag" />
+    <None Include="shaders\tanqueDeCoca.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

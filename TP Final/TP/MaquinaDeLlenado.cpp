@@ -43,8 +43,8 @@ MaquinaDeLlenado::MaquinaDeLlenado(void)
 	this->inicializarVector(posDeObjetoAnimado,23.0,6.5,0.0);
 	
 	this->AnimacionIniciada = false;
-	rutaShaderDeVertices = "..\\ShadersTest\\tanqueDeCoca.vert";
-	rutaShaderDeFragmentos = "..\\ShadersTest\\tanqueDeCoca.frag";
+	rutaShaderDeVertices = ".\\shaders\\tanqueDeCoca.vert";
+	rutaShaderDeFragmentos = ".\\shaders\\tanqueDeCoca.frag";
 	ladoTextura = 256;
 	ini();
 }
