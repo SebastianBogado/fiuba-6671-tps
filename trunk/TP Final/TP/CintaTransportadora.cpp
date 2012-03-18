@@ -25,9 +25,9 @@ int CintaTransportadora::cantidadDePuntosCamino = 9;
 
 CintaTransportadora::CintaTransportadora(void)
 {	
-	this->rutaShaderDeFragmentos = "..\\ShadersTest\\cintaTransportadora.frag";
-	this->rutaShaderDeVertices = "..\\ShadersTest\\cintaTransportadora.vert";
-	this->rutaTextura = "..\\ShadersTest\\cintaTransportadora.bmp";
+	this->rutaShaderDeFragmentos = ".\\shaders\\cintaTransportadora.frag";
+	this->rutaShaderDeVertices = ".\\shaders\\cintaTransportadora.vert";
+	this->rutaTextura = ".\\Recursos\\cintaTransportadora.bmp";
 	ini();
 
 	this->discretBorde = 5;
