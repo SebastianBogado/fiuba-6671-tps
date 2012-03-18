@@ -10,12 +10,15 @@ ObjetoGrafico::ObjetoGrafico(void){
 
 void ObjetoGrafico::ini(){
 	//GLSL
-	shaders = new GLSLProgram(rutaShaderDeVertices, rutaShaderDeFragmentos);
+	if ( (rutaShaderDeVertices != "") && (rutaShaderDeFragmentos != "") )
+		shaders = new GLSLProgram(rutaShaderDeVertices, rutaShaderDeFragmentos);
 	//Textura
-	texturaID = SOIL_load_OGL_texture(rutaTextura, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
+	if (rutaTextura != "") {
+		texturaID = SOIL_load_OGL_texture(rutaTextura, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
 										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT | SOIL_FLAG_TEXTURE_REPEATS);
-	if (! texturaID)
-		cout << SOIL_last_result() << endl;
+		if (! texturaID)
+			cout << SOIL_last_result() << endl;
+	}
 	//DL
 	dl_handle = glGenLists(1);
 	//Material

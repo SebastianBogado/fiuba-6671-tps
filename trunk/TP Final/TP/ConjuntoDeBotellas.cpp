@@ -40,7 +40,8 @@ Botella** ConjuntoDeBotellas::devolverBotellasDeCajon()
 	return this->botellasDeCajon;
 }
 void ConjuntoDeBotellas::inicializar()
-{
+{	
+	texLoader = new TextureLoader();
 	this->botellas = new Botella*[cantBotellas];
 	
 	for (int i=0 ; i < cantBotellas ; i++)
@@ -62,6 +63,8 @@ void ConjuntoDeBotellas::inicializar()
 	rutaShaderDeVertices = "..\\ShadersTest\\botella.vert";
 	rutaShaderDeFragmentos = "..\\ShadersTest\\botella.frag";
 	ini();
+	texLoader->SetMipMapping(true);
+	texLoader->LoadTextureFromDisk("..\\ShadersTest\\etiquetaCoca.bmp", &etiquetaCoca);
 	tapaCoca = SOIL_load_OGL_texture(rutaTexturaTapa.c_str(), SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID,
 										SOIL_FLAG_INVERT_Y | SOIL_FLAG_MIPMAPS | SOIL_FLAG_NTSC_SAFE_RGB );
 	if (! tapaCoca)
@@ -93,7 +96,7 @@ void ConjuntoDeBotellas::graficar()
 	glEnable(GL_BLEND);
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texturaID);
+	glBindTexture(GL_TEXTURE_2D,  etiquetaCoca.TextureID);
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, tapaCoca);
 	
@@ -122,7 +125,7 @@ void ConjuntoDeBotellas::aplicarShaderParaBotellas()
 	glEnable(GL_BLEND);
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texturaID);
+	glBindTexture(GL_TEXTURE_2D, etiquetaCoca.TextureID);
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, tapaCoca);
 	

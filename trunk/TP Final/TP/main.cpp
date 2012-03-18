@@ -4,8 +4,9 @@
  */
 
 
+#pragma comment(linker,"/subsystem:\"windows\" /entry:\"mainCRTStartup\"") //evitar consola
+
 #ifndef _DEBUG
-#pragma comment(linker,"/subsystem:\"windows\" /entry:\"mainCRTStartup\"") //evitar consola en modo Release
 	bool debug = false;
 #else
 	bool debug = true;

@@ -137,6 +137,9 @@
     <ClCompile Include="MaquinaTapadora.cpp">
       <Filter>Archivos de código fuente\Objetos\Maquinas</Filter>
     </ClCompile>
+    <ClCompile Include="..\ShadersTest\TextureLoader.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control.h">
@@ -213,6 +216,9 @@
     </ClInclude>
     <ClInclude Include="MaquinaTapadora.h">
       <Filter>Archivos de encabezado\Objetos\Maquinas</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShadersTest\TextureLoader.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
