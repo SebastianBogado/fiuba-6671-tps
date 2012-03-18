@@ -1,5 +1,6 @@
 #pragma once
 #include "Botella.h"
+#include "TextureLoader.h"
 
 class ConjuntoDeBotellas :
 	public ObjetoGrafico
@@ -44,8 +45,10 @@ private:
 
 	string rutaTexturaTapa;
 	GLuint tapaCoca;
+	glTexture etiquetaCoca;
 
 	static vec3 puntosPerfil[];
 	static int cantidadDePuntosPerfil;
+	TextureLoader* texLoader; //Agregado porque levanta la etiqueta de Coca mejor y no sé por qué, ja
 };
 

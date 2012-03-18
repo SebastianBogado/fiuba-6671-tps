@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\ShadersTest\GLSLProgram.cpp" />
+    <ClCompile Include="..\ShadersTest\TextureLoader.cpp" />
     <ClCompile Include="Botella.cpp" />
     <ClCompile Include="CajonesDeBotellas.cpp" />
     <ClCompile Include="CintaTransportadora.cpp" />
@@ -100,6 +101,7 @@
   <ItemGroup>
     <ClInclude Include="..\ShadersTest\GLSLProgram.h" />
     <ClInclude Include="..\ShadersTest\SOIL\SOIL.h" />
+    <ClInclude Include="..\ShadersTest\TextureLoader.h" />
     <ClInclude Include="Botella.h" />
     <ClInclude Include="CajonesDeBotellas.h" />
     <ClInclude Include="CintaTransportadora.h" />
